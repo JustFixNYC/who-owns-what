@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans, Plural } from "@lingui/macro";
-import { Button } from "@justfixnyc/component-library";
+import { Button, Alert as JFCLAlert } from "@justfixnyc/component-library";
+import { CSSTransition } from "react-transition-group";
 
 import "styles/AccountSettingsPage.css";
 import "styles/UserSetting.css";
@@ -82,13 +83,20 @@ export const DistrictSubscriptionField = withI18n()(DistrictSubscriptionFieldWit
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
-  const { pathname } = useLocation();
+  const { pathname, state: locationState } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
   const user = userContext.user as JustfixUser;
   const { email, buildingSubscriptions, districtSubscriptions } = user;
   const buildingSubscriptionsNumber = buildingSubscriptions?.length || 0;
   const districtSubscriptionsNumber = districtSubscriptions?.length || 0;
+
+  const [justSubscribed, setJustSubscribed] = React.useState(false);
+  // switch to regular state and clear location state since it otherwise persists after reloads
+  useEffect(() => {
+    setJustSubscribed(!!locationState?.justSubscribed);
+    window.history.replaceState({ state: undefined }, "");
+  }, [locationState]);
 
   const unsubscribeBuilding = (bbl: string) => {
     userContext.unsubscribeBuilding(bbl);
@@ -111,8 +119,33 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Account`)}>
       <div className="AccountSettingsPage Page">
         <div className="page-container">
+          <div className="login-subscribe-alert-container">
+            <CSSTransition
+              in={justSubscribed}
+              timeout={5000}
+              classNames="login-subscribe-alert"
+              onEntered={() => setJustSubscribed(false)}
+            >
+              <JFCLAlert
+                variant="primary"
+                type="success"
+                className="login-subscribe-alert"
+                text={i18n._(t`We’ve added your area to your weekly email updates`)}
+                actionLabel={i18n._(t`Manage`)}
+                actionHref="#area-alerts-section"
+              />
+            </CSSTransition>
+          </div>
           <Trans render="h1">Email settings</Trans>
           <div className="settings-section">
+            <JFCLAlert
+              variant="primary"
+              type="success"
+              className="login-subscribe-alert"
+              text={i18n._(t`We’ve added your area to your weekly email updates`)}
+              actionLabel={i18n._(t`Manage`)}
+              actionHref="#area-alerts-section"
+            />
             <div className="log-in-out">
               <Trans render="h2">You are logged in</Trans>
               <Button
@@ -176,7 +209,10 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                 <>You have not added area alerts to your weekly emails.</>
               )}
             </Trans>
-            <div className="subscriptions-container district-subscriptions-container">
+            <div
+              id="area-alerts-section"
+              className="subscriptions-container district-subscriptions-container"
+            >
               {districtSubscriptions?.length ? (
                 <>
                   {districtSubscriptions.map((s) => (

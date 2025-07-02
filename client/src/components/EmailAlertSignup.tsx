@@ -38,7 +38,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
 
   const { state: locationState } = useLocation();
   const [justSubscribed, setJustSubscribed] = React.useState(false);
-  // switch to regular state and clear location state since it othrwise persists after reloads
+  // switch to regular state and clear location state since it otherwise persists after reloads
   useEffect(() => {
     setJustSubscribed(!!locationState?.justSubscribed);
     window.history.replaceState({ state: undefined }, "");
