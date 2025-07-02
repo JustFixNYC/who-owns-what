@@ -1,3 +1,21 @@
+-- All indicator values used in weekly Building Alerts and Area Alerts emails. 
+
+-- NOTE: Building Alerts "month" values are different than Area Alerts. For
+-- Building it's either the current month-to-date or if the week prior to the
+-- email send spans the start of a new month then the "month" indicators are for
+-- the entire previous calendar month. For Area alerts all indicators are just a
+-- standard period relative to the end of the time range. For example, if the
+-- emails are being sent on the morning of Monday June 4, then the building
+-- alerts "month" is May 1-31 and the area alerts month is May 4 - June 4. If
+-- the emails are sent on Monday July 14, then. building alerts "month" is July
+-- 1 - July 13
+
+-- Indicator time period naming convention:
+-- "__6mo" - 6 months ending the day before the email send (eg. Dec 4 - June 4, if sent on June 5)
+-- "__1mo" - 1 month ending the day before the email send (eg. May 4 - June 4, if sent on June 5)
+-- "__week" - 7 days ending the day before the email send (eg. May 28 - June 4, if sent on June 5)
+-- "__bldg_month" - "month" range for building alerts, see note above.
+
 CREATE TABLE wow_indicators AS 
 
 	WITH email_dates AS (
