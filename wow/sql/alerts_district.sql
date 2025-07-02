@@ -149,10 +149,10 @@ INSERT INTO x_indicators_normalized
             coalesce(hpd_comp__1mo , 0) as hpd_comp__1mo,
             coalesce(hpd_comp__6mo , 0) as hpd_comp__6mo,
             
-            hpd_viol_per_unit__week,
-            coalesce(hpd_viol__week , 0) as hpd_viol__week,
-            coalesce(hpd_viol__1mo , 0) as hpd_viol__1mo,
-            coalesce(hpd_viol__6mo , 0) as hpd_viol__6mo,
+            hpd_viol_per_unit_bc__week as hpd_viol_per_unit__week,
+            coalesce(hpd_viol_bc__week , 0) as hpd_viol__week,
+            coalesce(hpd_viol_bc__1mo , 0) as hpd_viol__1mo,
+            coalesce(hpd_viol_bc__6mo , 0) as hpd_viol__6mo,
 
 
             coalesce(evictions_filed__week, 0) as evictions_filed__week,
@@ -172,7 +172,7 @@ INSERT INTO x_indicators_normalized
 
         FROM x_indicators_filtered
         where hpd_comp_per_unit__week is not null
-        and hpd_viol_per_unit__week is not null 
+        and hpd_viol_per_unit_bc__week is not null 
     ), 
     min_max as (
         select

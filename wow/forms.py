@@ -1,6 +1,22 @@
+import re
 from django import forms
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+
+
+class CommaSeparatedField(forms.CharField):
+    def to_python(self, value):
+        if value in self.empty_values:
+            return self.empty_value
+        value = str(value).split(",")
+        if self.strip:
+            value = [s.strip() for s in value]
+        return value
+
+    def prepare_value(self, value):
+        if value is None:
+            return None
+        return ", ".join([str(s) for s in value])
 
 
 class PaddedBBLForm(forms.Form):
@@ -38,32 +54,20 @@ class SeparatedBBLForm(forms.Form):
     )
 
 
-class EmailAlertBuilding(PaddedBBLForm):
-    start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
-    end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
-    prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
-    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+class PaddedBBLListForm(forms.Form):
+    bbls = CommaSeparatedField(
+        label="10-digit padded BBL (comma-separated list)", required=True
+    )
 
     def clean(self):
         data = self.cleaned_data
-
-        if not data.get("start_date", None):
-            raise forms.ValidationError(
-                "start_date is required for violations, complaints, and eviction_filings"
-            )
-        if not data.get("end_date", None):
-            raise forms.ValidationError(
-                "end_date is required for violations, complaints, and eviction_filings"
-            )
-        if not data.get("prev_date", None):
-            raise forms.ValidationError(
-                "prev_date is required for lagged_eviction_filings"
-            )
-        if not data.get("oldest_filed_date", None):
-            raise forms.ValidationError(
-                "oldest_filed_date is required for lagged_eviction_filings"
-            )
-
+        if "bbls" not in data:
+            return data
+        for bbl in data["bbls"]:
+            if not re.match(r"^[1-5]\d\d\d\d\d\d\d\d\d$", bbl):
+                raise ValidationError(
+                    f"Invalid BBL: '{bbl}'. All BBLs but be in 10-digit zer-padded format."
+                )
         return data
 
 

@@ -17,9 +17,9 @@ from .apiutil import (
 from .forms import (
     DatasetLastUpdatedForm,
     DistrictTypeForm,
-    EmailAlertBuilding,
     EmailAlertDistrict,
     PaddedBBLForm,
+    PaddedBBLListForm,
     SeparatedBBLForm,
     SignatureCollectionForm,
 )
@@ -199,30 +199,32 @@ def address_latestdeed(request):
 @api
 def email_alerts_building(request):
     """
-    This API endpoint provides all the data required to produce a building table
-    for a WOW email alert. It receives a request with a 10-digit BBL, start_date
-    and end_date (yyyy-mm-dd), the prev_date that the last email was sent, and
-    the oldest_filing_date to look back for lagged eviction filings. It responds
-    with:
-        bbl,
-        complaints (0 or greater)
-        violations (0 or greater)
-        eviction_filings (null if can't report, otherwise 0 or greater)
-        lagged_eviction_filings (null if can't report, otherwise 0 or greater)
-        lagged_eviction_date (most recent filing date of any lagged fillings)
-        hpd_link (to building page or BBL results page)
+    This API endpoint provides all the data required to produce a Building Alert
+    email for one or more buildings. It receives a request with a list of one or
+    more 10-digit BBLs. It responds with a list of results for each BBL and
+    includes data for both the last week and the "month" column used in the
+    emails. The database table is automatically updated for the necessary time
+    periods used in the email, so the last week is always relative to Monday
+    when the emails are sent, and the month values will either be for the entire
+    current month, or when the last week spans the start of a new month it
+    covers the complete prior month. For each BBL the following indicator are included:
+     - bbl
+     - hpd_viol__week, hpd_viol__month - HPD complaints (0 or greater)
+     - hpd_comp__week, hpd_comp__month - HPD violations (0 or greater)
+     - dob_comp__week, dob_comp__month - DOB complaints (0 or greater)
+     - dob_ecb_viol__week, dob_ecb_viol__month - DOB violations (0 or greater)
+     - evictions_filed__week, evictions_filed__month - Eviction filings
+       (null if can't report, otherwise 0 or greater)
+     - lagged_eviction_filings (null if can't report, otherwise 0 or greater)
+     - lagged_eviction_date - Most recent filing date of any lagged fillings
+       (null if no lagged filings or can't report)
+     - hpd_link - URL for HPD Online (direct to building page if single-building BBL,
+       otherwise to BBL results page)
     """
     authorize_for_alerts(request)
-    args = get_validated_form_data(EmailAlertBuilding, request.GET)
-    query_params = {
-        "bbl": args["bbl"],
-        "start_date": args["start_date"],
-        "end_date": args["end_date"],
-        "prev_date": args["prev_date"],
-        "oldest_filed_date": args["oldest_filed_date"],
-    }
+    bbls = get_validated_form_data(PaddedBBLListForm, request.GET)
     query_sql = SQL_DIR / "alerts_building.sql"
-    result = exec_db_query(query_sql, query_params)
+    result = exec_db_query(query_sql, bbls)
     return JsonResponse({"result": list(result)})
 
 

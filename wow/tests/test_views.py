@@ -142,45 +142,31 @@ class TestAddressLatestDeed(ApiTest):
 
 class TestEmailAlertsBuilding(ApiTest):
     url_base = "/api/alerts/building"
-    bbl_good = "bbl=3012380016"
-    bbl_bad = "bbl=3111111111"
-    start_date = "start_date=2024-04-01"
-    end_date = "end_date=2024-04-07"
-    prev_date = "prev_date=2024-04-01"
-    oldest_filed_date = "oldest_filed_date=2024-01-01"
+    bbl1 = "1002980020"
+    bbl2 = "1004520011"
 
     HTTP_400_URLS = [
         url_base,
-        f"{url_base}?bbl=bop",
-        f"{url_base}?{bbl_good}",
-        f"{url_base}?{bbl_good}&{start_date}&{end_date}",
-        f"{url_base}?{bbl_good}&{start_date}&{end_date}&{prev_date}",
-        f"{url_base}?{bbl_good}&{start_date}&{end_date}&{oldest_filed_date}",
+        f"{url_base}?bbls=bop",
+        f"{url_base}?bbls={bbl1},123",
     ]
 
-    url_good = (
-        f"{url_base}?{bbl_good}&{start_date}&{end_date}&{prev_date}&{oldest_filed_date}"
-    )
-    url_bad = (
-        f"{url_base}?{bbl_bad}&{start_date}&{end_date}&{prev_date}&{oldest_filed_date}"
-    )
+    url_good = f"{url_base}?bbls={bbl1},{bbl2}"
+    url_bad = f"{url_base}?bbls={bbl1},123"
 
     def test_it_works(self, db, client):
-        print(self.url_good)
         res = client.get(self.url_good, **ALERTS_AUTH_ARG)
         assert res.status_code == 200
         assert res.json()["result"] is not None
-        assert res.json()["result"][0]["bbl"] == "3012380016"
-        assert res.json()["result"][0]["violations"] is not None
+        assert res.json()["result"][0]["bbl"] == self.bbl1
+        assert res.json()["result"][0]["hpd_viol__week"] is not None
 
+    def test_bbl_validation_works(self, db, client):
         res = client.get(self.url_bad, **ALERTS_AUTH_ARG)
-        assert res.status_code == 200
-        assert res.json()["result"] is not None
-        assert res.json()["result"][0]["bbl"] == "3111111111"
-        # even if bbl not found in any datasets, should still get row with non-nulls
-        assert res.json()["result"][0]["violations"] is not None
+        assert res.status_code == 400
+        assert "Invalid BBL" in res.json()["validationErrors"]["__all__"][0]["message"]
 
-    def test_auth_works(self, db, client):
+    def test_no_auth_401(self, db, client):
         res = client.get(self.url_good)
         assert res.status_code == 401
 
