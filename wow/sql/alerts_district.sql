@@ -462,14 +462,7 @@ LEFT JOIN area_bbls_shared_portfolio a ON r.portfolio_id = a.portfolio_id
 ORDER BY r.rank_final;
 
 
-WITH first_shared_portfolio AS (
-    SELECT portfolio_id
-    FROM x_indicators_final
-    WHERE area_bbls_shared_portfolio > 1
-    ORDER BY rank_final
-    LIMIT 1
-),
-top_5 AS (
+WITH top_5 AS (
     SELECT *
     FROM x_indicators_final
     WHERE rank_final BETWEEN 1 AND 5
@@ -481,6 +474,13 @@ top_5 AS (
         OR evictions_filed__6mo > 0
     )
     LIMIT 5
+),
+first_shared_portfolio AS (
+    SELECT portfolio_id
+    FROM top_5
+    WHERE area_bbls_shared_portfolio > 1
+    ORDER BY rank_final
+    LIMIT 1
 ),
 shared_portfolio_top_3 AS (
     SELECT *
