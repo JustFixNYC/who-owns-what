@@ -120,9 +120,10 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
       <div className="AccountSettingsPage Page">
         <div className="page-container">
           <ToastAlert
-            active={justSubscribed}
+            showToast={justSubscribed}
+            setShowToast={setJustSubscribed}
             i18n={i18n}
-            timeout={500}
+            timeout={5000}
             variant="primary"
             type="success"
             className="subscribe-success-alert"
@@ -130,23 +131,6 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             actionLabel={i18n._(t`Manage`)}
             actionHref="#area-alerts-section"
           />
-          {/* <div className="login-subscribe-alert-container">
-            <CSSTransition
-              in={justSubscribed}
-              timeout={5000}
-              classNames="login-subscribe-alert"
-              onEntered={() => setJustSubscribed(false)}
-            >
-              <JFCLAlert
-                variant="primary"
-                type="success"
-                className="login-subscribe-alert"
-                text={i18n._(t`We’ve added your area to your weekly email updates`)}
-                actionLabel={i18n._(t`Manage`)}
-                actionHref="#area-alerts-section"
-              />
-            </CSSTransition>
-          </div> */}
           <Trans render="h1">Email settings</Trans>
           <div className="settings-section">
             <div className="log-in-out">
