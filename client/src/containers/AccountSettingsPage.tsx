@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { useLocation } from "react-router-dom";
 import { t, Trans, Plural } from "@lingui/macro";
@@ -102,6 +102,8 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
+  const alertSectionRef = useRef<HTMLDivElement>(null);
+
   const unsubscribeBuilding = (bbl: string) => {
     userContext.unsubscribeBuilding(bbl);
     window.gtag("event", "unsubscribe-building", {
@@ -133,7 +135,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             className="subscribe-success-alert"
             text={i18n._(t`We’ve added your area to your weekly email updates`)}
             actionLabel={i18n._(t`Manage`)}
-            actionHref="#area-alerts-section"
+            action={() => alertSectionRef.current?.scrollIntoView({ behavior: "smooth" })}
           />
           <Trans render="h1">Email settings</Trans>
           <div className="settings-section">
@@ -201,7 +203,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               )}
             </Trans>
             <div
-              id="area-alerts-section"
+              ref={alertSectionRef}
               className="subscriptions-container district-subscriptions-container"
             >
               {districtSubscriptions?.length ? (
