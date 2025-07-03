@@ -78,7 +78,7 @@ msgstr "<0/><1>Success</1>"
 #~ msgid "<0> {delaySeconds}</0> seconds"
 #~ msgstr "<0> {delaySeconds}</0> seconds"
 
-#: src/containers/AccountSettingsPage.tsx:107
+#: src/containers/AccountSettingsPage.tsx:124
 msgid "<0>Add another area alert</0>"
 msgstr "<0>Add another area alert</0>"
 
@@ -90,7 +90,7 @@ msgstr "<0>Add another area alert</0>"
 #~ msgid "<0>Create a district</0> to add to your weekly emails"
 #~ msgstr "<0>Create a district</0> to add to your weekly emails"
 
-#: src/containers/AccountSettingsPage.tsx:112
+#: src/containers/AccountSettingsPage.tsx:129
 msgid "<0>Get a weekly email that identifies buildings and portfolios that exhibit urgent displacement indicators within a single area or multiple areas of the city.</0><1>Add area alerts</1> to add to your weekly emails"
 msgstr "<0>Get a weekly email that identifies buildings and portfolios that exhibit urgent displacement indicators within a single area or multiple areas of the city.</0><1>Add area alerts</1> to add to your weekly emails"
 
@@ -106,7 +106,7 @@ msgstr "<0>If the landlord doesn't reside here, this property should be register
 msgid "<0>Rent stabilization</0> protects tenants by limiting rent increases and providing the right to lease renewals. Landlords register rent-stabilized units each year with NYS Homes and Community Renewal (HCR). Though the agency does not directly make this data available, the number of registered rent-stabilized units appears on public city property tax bills. JustFix and open-source community projects have extracted these numbers to compile a <1>dataset of building-level counts of rent-stabilized units</1> from 2007 to 2023.<2/><3/>A significant limitation of the data is that <4>landlords will sometimes fail to register the units</4> or do so late, and in the tax bills, it appears there are no rent-stabilized units. For this reason, you may see a sudden drop of registered units to zero, but this doesn’t necessarily reflect an actual loss of stabilized units. If you see a gradual decline in the number of stabilized units that is more likely to represent a true destabilization of units, especially if before 2019 when the passage of the Housing Stability and Tenant Protection Act of 2019 (HSTPA) greatly limited the ways units could be legally destabilized. Even when units are actually destabilized by landlords it does not mean that this was done legally. The only way to know for sure whether your apartment is rent stabilized, was illegally destabilized, or if you are being overcharged is to <5>request your rent history</5> from HCR. Once you receive it, you can use <6>this Learning Center article</6> to guide you in reading your rent history document."
 msgstr "<0>Rent stabilization</0> protects tenants by limiting rent increases and providing the right to lease renewals. Landlords register rent-stabilized units each year with NYS Homes and Community Renewal (HCR). Though the agency does not directly make this data available, the number of registered rent-stabilized units appears on public city property tax bills. JustFix and open-source community projects have extracted these numbers to compile a <1>dataset of building-level counts of rent-stabilized units</1> from 2007 to 2023.<2/><3/>A significant limitation of the data is that <4>landlords will sometimes fail to register the units</4> or do so late, and in the tax bills, it appears there are no rent-stabilized units. For this reason, you may see a sudden drop of registered units to zero, but this doesn’t necessarily reflect an actual loss of stabilized units. If you see a gradual decline in the number of stabilized units that is more likely to represent a true destabilization of units, especially if before 2019 when the passage of the Housing Stability and Tenant Protection Act of 2019 (HSTPA) greatly limited the ways units could be legally destabilized. Even when units are actually destabilized by landlords it does not mean that this was done legally. The only way to know for sure whether your apartment is rent stabilized, was illegally destabilized, or if you are being overcharged is to <5>request your rent history</5> from HCR. Once you receive it, you can use <6>this Learning Center article</6> to guide you in reading your rent history document."
 
-#: src/containers/AccountSettingsPage.tsx:90
+#: src/containers/AccountSettingsPage.tsx:107
 msgid "<0>Search an address</0> to add to your Building Alerts"
 msgstr "<0>Search an address</0> to add to your Building Alerts"
 
@@ -205,7 +205,7 @@ msgstr "About"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 
-#: src/containers/AccountSettingsPage.tsx:67
+#: src/containers/AccountSettingsPage.tsx:81
 msgid "Account"
 msgstr "Account"
 
@@ -305,8 +305,8 @@ msgstr "Are you having issues in this development?"
 #~ msgid "Area"
 #~ msgstr "Area"
 
-#: src/containers/AccountSettingsPage.tsx:97
-#: src/containers/DistrictAlertsPage.tsx:148
+#: src/containers/AccountSettingsPage.tsx:114
+#: src/containers/DistrictAlertsPage.tsx:152
 msgid "Area Alerts"
 msgstr "Area Alerts"
 
@@ -318,11 +318,11 @@ msgstr "Area Alerts"
 #~ msgid "Area maps"
 #~ msgstr "Area maps"
 
-#: src/containers/DistrictAlertsPage.tsx:116
+#: src/containers/DistrictAlertsPage.tsx:120
 msgid "Area selection"
 msgstr "Area selection"
 
-#: src/containers/DistrictAlertsPage.tsx:111
+#: src/containers/DistrictAlertsPage.tsx:115
 msgid "Area type selection"
 msgstr "Area type selection"
 
@@ -334,7 +334,7 @@ msgstr "Associated names/entities: {0}"
 #~ msgid "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 #~ msgstr "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
-#: src/components/EmailAlertSignup.tsx:119
+#: src/components/EmailAlertSignup.tsx:115
 msgid "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 msgstr "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
@@ -364,8 +364,8 @@ msgstr "Borough"
 msgid "Borough Management Office:"
 msgstr "Borough Management Office:"
 
-#: src/components/EmailAlertSignup.tsx:139
-#: src/containers/AccountSettingsPage.tsx:80
+#: src/components/EmailAlertSignup.tsx:135
+#: src/containers/AccountSettingsPage.tsx:97
 msgid "Building Alerts"
 msgstr "Building Alerts"
 
@@ -580,7 +580,7 @@ msgstr "Complaints to 311"
 #~ msgid "Congressional District"
 #~ msgstr "Congressional District"
 
-#: src/containers/AccountSettingsPage.tsx:124
+#: src/containers/AccountSettingsPage.tsx:141
 msgid "Contact support@justfix.org to delete your account or get help"
 msgstr "Contact support@justfix.org to delete your account or get help"
 
@@ -740,12 +740,12 @@ msgstr "Email address"
 msgid "Email address verified"
 msgstr "Email address verified"
 
-#: src/containers/AccountSettingsPage.tsx:70
+#: src/containers/AccountSettingsPage.tsx:87
 #: src/containers/App.tsx:124
 msgid "Email settings"
 msgstr "Email settings"
 
-#: src/containers/DistrictAlertsPage.tsx:105
+#: src/containers/DistrictAlertsPage.tsx:109
 msgid "Emails will include data on HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
 msgstr "Emails will include data on HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
 
@@ -935,7 +935,7 @@ msgstr "Get a weekly email alert on complaints, violations, and eviction filings
 #~ msgid "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
 #~ msgstr "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
 
-#: src/containers/DistrictAlertsPage.tsx:101
+#: src/containers/DistrictAlertsPage.tsx:105
 msgid "Get a weekly email that identifies buildings and portfolios where tenants are at an elevated risk of displacement."
 msgstr "Get a weekly email that identifies buildings and portfolios where tenants are at an elevated risk of displacement."
 
@@ -1266,7 +1266,7 @@ msgstr "Log in to subscribe to Area Alerts"
 #~ msgid "Login details"
 #~ msgstr "Login details"
 
-#: src/containers/AccountSettingsPage.tsx:74
+#: src/containers/AccountSettingsPage.tsx:91
 msgid "Logout"
 msgstr "Logout"
 
@@ -1317,6 +1317,10 @@ msgstr "Make a selection from the list or clear search text"
 #: src/components/Multiselect.tsx:450
 #~ msgid "Make a selection."
 #~ msgstr "Make a selection."
+
+#: src/containers/AccountSettingsPage.tsx:86
+msgid "Manage"
+msgstr "Manage"
 
 #: src/containers/UnsubscribePage.tsx:77
 msgid "Manage Subscriptions"
@@ -1403,7 +1407,7 @@ msgstr "MyNYCHA App"
 msgid "NON-CONSTRUCTION"
 msgstr "NON-CONSTRUCTION"
 
-#: src/containers/DistrictAlertsPage.tsx:100
+#: src/containers/DistrictAlertsPage.tsx:104
 msgid "NYC Area Alerts"
 msgstr "NYC Area Alerts"
 
@@ -1702,8 +1706,8 @@ msgstr "Read more in our Methodology section"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/containers/AccountSettingsPage.tsx:26
-#: src/containers/AccountSettingsPage.tsx:36
+#: src/containers/AccountSettingsPage.tsx:27
+#: src/containers/AccountSettingsPage.tsx:37
 msgid "Remove"
 msgstr "Remove"
 
@@ -1807,11 +1811,11 @@ msgstr "STAIRS"
 msgid "Save"
 msgstr "Save"
 
-#: src/containers/DistrictAlertsPage.tsx:122
+#: src/containers/DistrictAlertsPage.tsx:126
 msgid "Save or add more areas"
 msgstr "Save or add more areas"
 
-#: src/containers/DistrictAlertsPage.tsx:130
+#: src/containers/DistrictAlertsPage.tsx:134
 msgid "Save selections"
 msgstr "Save selections"
 
@@ -1845,11 +1849,11 @@ msgstr "See Building Profile"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 
-#: src/containers/DistrictAlertsPage.tsx:128
+#: src/containers/DistrictAlertsPage.tsx:132
 msgid "Select an area"
 msgstr "Select an area"
 
-#: src/containers/DistrictAlertsPage.tsx:109
+#: src/containers/DistrictAlertsPage.tsx:113
 msgid "Select an area to get started:"
 msgstr "Select an area to get started:"
 
@@ -1857,7 +1861,7 @@ msgstr "Select an area to get started:"
 msgid "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 msgstr "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 
-#: src/containers/DistrictAlertsPage.tsx:116
+#: src/containers/DistrictAlertsPage.tsx:120
 msgid "Select or type a"
 msgstr "Select or type a"
 
@@ -2214,7 +2218,7 @@ msgstr "The {0, plural, one {} other {average}} age of {1, plural, one {this bui
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 
-#: src/containers/AccountSettingsPage.tsx:81
+#: src/containers/AccountSettingsPage.tsx:98
 msgid "There {buildingSubscriptionsNumber, plural, one {is} other {are}} {buildingSubscriptionsNumber} {buildingSubscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
 msgstr "There {buildingSubscriptionsNumber, plural, one {is} other {are}} {buildingSubscriptionsNumber} {buildingSubscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
 
@@ -2573,6 +2577,10 @@ msgstr "We sent a reset link to {email}. Please check your inbox and spam."
 msgid "We’re having trouble verifying your email at this time."
 msgstr "We’re having trouble verifying your email at this time."
 
+#: src/containers/AccountSettingsPage.tsx:86
+msgid "We’ve added your area to your weekly email updates"
+msgstr "We’ve added your area to your weekly email updates"
+
 #: src/components/BigPortfolioWarning.tsx:61
 #~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
 #~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
@@ -2675,7 +2683,7 @@ msgid "Yes"
 msgstr "Yes"
 
 #: src/components/Login.tsx:192
-#: src/containers/AccountSettingsPage.tsx:73
+#: src/containers/AccountSettingsPage.tsx:90
 msgid "You are logged in"
 msgstr "You are logged in"
 
@@ -2687,9 +2695,13 @@ msgstr "You are not subscribed to any Building or Area Alerts"
 #~ msgid "You are not subscribed to any buildings"
 #~ msgstr "You are not subscribed to any buildings"
 
-#: src/components/EmailAlertSignup.tsx:114
+#: src/components/EmailAlertSignup.tsx:112
 msgid "You are now logged in and we’ve added this building to your updates"
 msgstr "You are now logged in and we’ve added this building to your updates"
+
+#: src/containers/AccountSettingsPage.tsx:85
+msgid "You are now logged in and we’ve added your area to your weekly email updates"
+msgstr "You are now logged in and we’ve added your area to your weekly email updates"
 
 #: src/containers/VerifyEmailPage.tsx:86
 #~ msgid "You are now signed up for weekly Data Updates."
@@ -2768,7 +2780,7 @@ msgstr "You can now close this window, <0>search for another building</0> to fol
 #~ msgid "You can now start receiving Building Updates"
 #~ msgstr "You can now start receiving Building Updates"
 
-#: src/components/EmailAlertSignup.tsx:118
+#: src/components/EmailAlertSignup.tsx:114
 msgid "You have reached the maximum number of Building Alerts"
 msgstr "You have reached the maximum number of Building Alerts"
 
@@ -2962,7 +2974,7 @@ msgstr "{0, plural, one {unit} other {units}}"
 
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
-#: src/containers/AccountSettingsPage.tsx:98
+#: src/containers/AccountSettingsPage.tsx:115
 #: src/containers/VerifyEmailPage.tsx:92
 msgid "{0}"
 msgstr "{0}"
@@ -2979,7 +2991,7 @@ msgstr "{0} of {numberOfEntries}"
 #~ msgid "{areaTypeLabel}: {areaLabel}"
 #~ msgstr "{areaTypeLabel}: {areaLabel}"
 
-#: src/containers/AccountSettingsPage.tsx:101
+#: src/containers/AccountSettingsPage.tsx:118
 msgid "{districtSubscriptionsNumber, plural, one {a weekly email for 1 area} other {weekly emails for {districtSubscriptionsNumber} areas}}"
 msgstr "{districtSubscriptionsNumber, plural, one {a weekly email for 1 area} other {weekly emails for {districtSubscriptionsNumber} areas}}"
 
