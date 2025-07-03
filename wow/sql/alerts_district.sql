@@ -129,11 +129,11 @@ INSERT INTO x_indicators_normalized
             coalesce(hpd_comp_per_unit__week, 0) * ln(unitsres) as priority_comp_per_unit__week,
             coalesce(hpd_comp_per_unit__1mo, 0) * ln(unitsres) as priority_comp_per_unit__1mo,
             
-            coalesce(hpd_viol__week , 0) * ln(unitsres) as priority_viol__week,
-            coalesce(hpd_viol__1mo, 0) * ln(unitsres) as priority_viol__1mo,
-            coalesce(hpd_viol__6mo, 0) * ln(unitsres) as priority_viol__6mo,
-            coalesce(hpd_viol_per_unit__week, 0) * ln(unitsres) as priority_viol_per_unit__week,
-            coalesce(hpd_viol_per_unit__1mo, 0) * ln(unitsres) as priority_viol_per_unit__1mo,
+            coalesce(hpd_viol_bc__week , 0) * ln(unitsres) as priority_viol__week,
+            coalesce(hpd_viol_bc__1mo, 0) * ln(unitsres) as priority_viol__1mo,
+            coalesce(hpd_viol_bc__6mo, 0) * ln(unitsres) as priority_viol__6mo,
+            coalesce(hpd_viol_per_unit_bc__week, 0) * ln(unitsres) as priority_viol_per_unit__week,
+            coalesce(hpd_viol_per_unit_bc__1mo, 0) * ln(unitsres) as priority_viol_per_unit__1mo,
             
             coalesce(dob_ecb_viol__week, 0) * ln(unitsres) as priority_dob_ecb_viol__week,
             coalesce(dob_ecb_viol__1mo, 0) * ln(unitsres) as priority_dob_ecb_viol__1mo,
