@@ -92,6 +92,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const districtSubscriptionsNumber = districtSubscriptions?.length || 0;
 
   const [justSubscribed, setJustSubscribed] = React.useState(false);
+  const [justLoggedIn, setJustLoggedIn] = React.useState(false);
   // NOTE: when using location state you must navigate directly to the
   // language-prefixed route (/en/account/settings), otherwise the state is lost
   // during the redirect
@@ -99,6 +100,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     // switch to regular state and clear location state since it otherwise
     // persists after reloads
     setJustSubscribed(!!locationState?.justSubscribed);
+    setJustLoggedIn(!!locationState?.justLoggedIn);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
@@ -133,7 +135,13 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             variant="primary"
             type="success"
             className="subscribe-success-alert"
-            text={i18n._(t`We’ve added your area to your weekly email updates`)}
+            text={
+              justLoggedIn
+                ? i18n._(
+                    t`You are now logged in and we’ve added your area to your weekly email updates`
+                  )
+                : i18n._(t`We’ve added your area to your weekly email updates`)
+            }
             actionLabel={i18n._(t`Manage`)}
             action={() => alertSectionRef.current?.scrollIntoView({ behavior: "smooth" })}
           />

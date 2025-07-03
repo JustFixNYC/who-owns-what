@@ -368,7 +368,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     if (!!addr || !!district) {
       const redirectTo = {
         pathname: !!addr ? getAddrPageRoute(addr) : `/${i18n.language}${account.settings}`,
-        state: { justSubscribed: true },
+        state: { justSubscribed: true, justLoggedIn: true },
       };
       history.push(redirectTo);
       return;
