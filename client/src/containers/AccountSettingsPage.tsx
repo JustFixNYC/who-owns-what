@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { useLocation } from "react-router-dom";
 import { t, Trans, Plural } from "@lingui/macro";
-import { Button, Alert as JFCLAlert } from "@justfixnyc/component-library";
-import { CSSTransition } from "react-transition-group";
+import { Button } from "@justfixnyc/component-library";
 
 import "styles/AccountSettingsPage.css";
 import "styles/UserSetting.css";
@@ -13,8 +13,8 @@ import { DistrictSubscription, JustfixUser } from "state-machine";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
-import { useLocation } from "react-router-dom";
 import helpers from "util/helpers";
+import { ToastAlert } from "components/ToastAlert";
 
 type BuildingSubscriptionFieldProps = withI18nProps & {
   bbl: string;
@@ -119,7 +119,18 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Account`)}>
       <div className="AccountSettingsPage Page">
         <div className="page-container">
-          <div className="login-subscribe-alert-container">
+          <ToastAlert
+            active={justSubscribed}
+            i18n={i18n}
+            timeout={500}
+            variant="primary"
+            type="success"
+            className="subscribe-success-alert"
+            text={i18n._(t`We’ve added your area to your weekly email updates`)}
+            actionLabel={i18n._(t`Manage`)}
+            actionHref="#area-alerts-section"
+          />
+          {/* <div className="login-subscribe-alert-container">
             <CSSTransition
               in={justSubscribed}
               timeout={5000}
@@ -135,17 +146,9 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                 actionHref="#area-alerts-section"
               />
             </CSSTransition>
-          </div>
+          </div> */}
           <Trans render="h1">Email settings</Trans>
           <div className="settings-section">
-            <JFCLAlert
-              variant="primary"
-              type="success"
-              className="login-subscribe-alert"
-              text={i18n._(t`We’ve added your area to your weekly email updates`)}
-              actionLabel={i18n._(t`Manage`)}
-              actionHref="#area-alerts-section"
-            />
             <div className="log-in-out">
               <Trans render="h2">You are logged in</Trans>
               <Button
