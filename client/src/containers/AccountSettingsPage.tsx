@@ -92,8 +92,12 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const districtSubscriptionsNumber = districtSubscriptions?.length || 0;
 
   const [justSubscribed, setJustSubscribed] = React.useState(false);
-  // switch to regular state and clear location state since it otherwise persists after reloads
+  // NOTE: when using location state you must navigate directly to the
+  // language-prefixed route (/en/account/settings), otherwise the state is lost
+  // during the redirect 
   useEffect(() => {
+    // switch to regular state and clear location state since it otherwise
+    // persists after reloads
     setJustSubscribed(!!locationState?.justSubscribed);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);

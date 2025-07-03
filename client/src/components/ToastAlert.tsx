@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import { I18n } from "@lingui/core";
 import classNames from "classnames";
 
-import "styles/_toastalert.css";
+import "styles/_toastalert.scss";
 
 interface ToastAlertProps extends AlertProps {
   showToast: boolean;
