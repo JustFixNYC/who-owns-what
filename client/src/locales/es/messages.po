@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-06-24 18:19\n"
+"PO-Revision-Date: 2025-07-08 17:49\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -73,7 +73,7 @@ msgstr "Datos de quejas al 311"
 
 #: src/containers/VerifyEmailPage.tsx:87
 msgid "<0/><1>Success</1>"
-msgstr ""
+msgstr "<0/><1>Éxito</1>"
 
 #: src/containers/VerifyEmailPage.tsx:87
 #~ msgid "<0/>Success"
