@@ -41,6 +41,7 @@ CREATE TABLE gce_eligibility AS (
 
             co.co_bin,
             co.co_issued,
+            co.co_type,
             
             (   co.co_issued IS NULL 
                 OR co.co_issued <= '2009-01-01'
@@ -104,6 +105,7 @@ CREATE TABLE gce_eligibility AS (
         bldgclass,
         co_bin,
         co_issued,
+        co_type,
         subsidy_name,
         active_421a,
         active_j51,
