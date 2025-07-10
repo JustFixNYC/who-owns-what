@@ -28,21 +28,27 @@ CREATE OR REPLACE AGGREGATE array_concat_agg(anyarray) (
 
 CREATE TEMPORARY TABLE x_all_cofos_orig AS (
 	SELECT
-	  bbl,
-	  bin,
-	  coissuedate AS issue_date
+        bbl,
+        bin,
+        coissuedate AS issue_date,
+        jobtype
 	FROM dob_certificate_occupancy
 	UNION
 	SELECT
-    bbl,
-    bin,
-    issuedate AS issue_date
+        bbl,
+        bin,
+        issuedate AS issue_date,
+        jobtype
 	FROM dob_foil_certificate_occupancy
 	UNION
 	SELECT
-    bbl,
-    bin,
-    cofoissuancedate::date AS issue_date
+        bbl,
+        bin,
+        cofoissuancedate::date AS issue_date,
+        CASE 
+            WHEN jobtype ~* 'ALTERATION' THEN 'A1'
+            WHEN jobtype ~* 'NEW BUILDING' THEN 'NB'
+	    END AS jobtype
 	FROM dob_now_certificate_occupancy
 );
 
@@ -77,7 +83,8 @@ CREATE TEMPORARY TABLE x_all_cofos AS (
 	SELECT
 		c.bin,
 		COALESCE(pluto_dob.bbl, pluto_pad.bbl, c.bbl) AS bbl,
-		c.issue_date
+		c.issue_date,
+		jobtype
 	FROM x_all_cofos_orig AS c
 	LEFT JOIN x_pad_bin_bbl AS p USING(bin)
 	LEFT JOIN x_pluto_latest_w_units AS pluto_dob ON c.bbl = pluto_dob.bbl
@@ -88,9 +95,10 @@ CREATE INDEX ON x_all_cofos (bbl, issue_date);
 
 CREATE TEMPORARY TABLE x_latest_cofos AS (
   SELECT DISTINCT ON (bbl)
-    bbl,
-    bin AS co_bin,
-    issue_date AS co_issued
+	bbl,
+	bin AS co_bin,
+	issue_date AS co_issued,
+	jobtype AS co_type
   FROM x_all_cofos
   WHERE issue_date IS NOT NULL
   ORDER BY bbl, issue_date desc
