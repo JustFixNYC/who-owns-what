@@ -75,7 +75,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const isLoggedIn = !!userContext?.user?.email;
 
   const history = useHistory();
-  const { account } = createWhoOwnsWhatRoutePaths();
+  const { account } = createWhoOwnsWhatRoutePaths(i18n.language);
 
   const defaultAreaType = areaTypeOptions.filter((area) => area.value === "zipcode")[0];
   const [areaType, setAreaType] = useState<AreaTypeOption>(defaultAreaType);
@@ -155,7 +155,11 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     }
 
     await userContext.subscribeDistrict(district);
-    history.push(account.settings);
+    const redirectTo = {
+      pathname: `/${account.settings}`,
+      state: { justSubscribed: true },
+    };
+    history.push(redirectTo);
   };
 
   areaTypeOptions = areaTypeOptions.sort((a, b) => collator.compare(a.label, b.label));

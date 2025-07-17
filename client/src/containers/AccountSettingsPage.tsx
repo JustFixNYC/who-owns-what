@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { useLocation } from "react-router-dom";
 import { t, Trans, Plural } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
@@ -12,8 +13,8 @@ import { DistrictSubscription, JustfixUser } from "state-machine";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
-import { useLocation } from "react-router-dom";
 import helpers from "util/helpers";
+import { ToastAlert } from "components/ToastAlert";
 
 type BuildingSubscriptionFieldProps = withI18nProps & {
   bbl: string;
@@ -82,13 +83,28 @@ export const DistrictSubscriptionField = withI18n()(DistrictSubscriptionFieldWit
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
-  const { pathname } = useLocation();
+  const { pathname, state: locationState } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
   const user = userContext.user as JustfixUser;
   const { email, buildingSubscriptions, districtSubscriptions } = user;
   const buildingSubscriptionsNumber = buildingSubscriptions?.length || 0;
   const districtSubscriptionsNumber = districtSubscriptions?.length || 0;
+
+  const [justSubscribed, setJustSubscribed] = React.useState(false);
+  const [justLoggedIn, setJustLoggedIn] = React.useState(false);
+  // NOTE: when using location state you must navigate directly to the
+  // language-prefixed route (/en/account/settings), otherwise the state is lost
+  // during the redirect
+  useEffect(() => {
+    // switch to regular state and clear location state since it otherwise
+    // persists after reloads
+    setJustSubscribed(!!locationState?.justSubscribed);
+    setJustLoggedIn(!!locationState?.justLoggedIn);
+    window.history.replaceState({ state: undefined }, "");
+  }, [locationState]);
+
+  const alertSectionRef = useRef<HTMLDivElement>(null);
 
   const unsubscribeBuilding = (bbl: string) => {
     userContext.unsubscribeBuilding(bbl);
@@ -111,6 +127,24 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Account`)}>
       <div className="AccountSettingsPage Page">
         <div className="page-container">
+          <ToastAlert
+            showToast={justSubscribed}
+            setShowToast={setJustSubscribed}
+            i18n={i18n}
+            timeout={5000}
+            variant="primary"
+            type="success"
+            className="subscribe-success-alert"
+            text={
+              justLoggedIn
+                ? i18n._(
+                    t`You are now logged in and we’ve added your area to your weekly email updates`
+                  )
+                : i18n._(t`We’ve added your area to your weekly email updates`)
+            }
+            actionLabel={i18n._(t`Manage`)}
+            action={() => alertSectionRef.current?.scrollIntoView({ behavior: "smooth" })}
+          />
           <Trans render="h1">Email settings</Trans>
           <div className="settings-section">
             <div className="log-in-out">
@@ -176,7 +210,10 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                 <>You have not added area alerts to your weekly emails.</>
               )}
             </Trans>
-            <div className="subscriptions-container district-subscriptions-container">
+            <div
+              ref={alertSectionRef}
+              className="subscriptions-container district-subscriptions-container"
+            >
               {districtSubscriptions?.length ? (
                 <>
                   {districtSubscriptions.map((s) => (
