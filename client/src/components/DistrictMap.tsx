@@ -143,7 +143,50 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       });
 
       map.addLayer({
-        id: "outline",
+        id: "outline-base",
+        type: "line",
+        source: "districts",
+        paint: {
+          "line-color": [
+            "case",
+            [
+              "any",
+              ["boolean", ["feature-state", "selected"], false],
+              ["boolean", ["feature-state", "pressed"], false],
+              ["boolean", ["feature-state", "hovered"], false],
+            ],
+            "rgba(0,0,0,0)", // hide base outline if any other state is active
+            "#000000",
+          ],
+          "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            1, // start zoom level 8, line width 1
+            15,
+            1, // end zoom level 15, line width 1
+          ],
+        },
+      });
+
+      map.addLayer({
+        id: "outline-selected",
+        type: "line",
+        source: "districts",
+        paint: {
+          "line-color": [
+            "case",
+            ["boolean", ["feature-state", "selected"], false],
+            "#A96BFF", // justfix-purple
+            "rgba(0,0,0,0)",
+          ],
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1, 15, 4],
+        },
+      });
+
+      map.addLayer({
+        id: "outline-pressed",
         type: "line",
         source: "districts",
         paint: {
@@ -151,28 +194,24 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
             "case",
             ["boolean", ["feature-state", "pressed"], false],
             "#A96BFF", // justfix-purple
+            "rgba(0,0,0,0)",
+          ],
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1, 15, 6],
+        },
+      });
+
+      map.addLayer({
+        id: "outline-hovered",
+        type: "line",
+        source: "districts",
+        paint: {
+          "line-color": [
+            "case",
             ["boolean", ["feature-state", "hovered"], false],
             "#242323", // justfix-black
-            ["boolean", ["feature-state", "selected"], false],
-            "#A96BFF", // justfix-purple
-            "#000",
+            "rgba(0,0,0,0)",
           ],
-          "line-width": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            8, // start zoom
-            1, // start size
-            15, // end zoom
-            [
-              "case", // end size
-              ["boolean", ["feature-state", "hovered"], false],
-              6,
-              ["boolean", ["feature-state", "selected"], false],
-              2,
-              1,
-            ],
-          ],
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1, 15, 6],
         },
       });
 
