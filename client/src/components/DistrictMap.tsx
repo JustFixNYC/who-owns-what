@@ -114,17 +114,30 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         paint: {
           "fill-color": [
             "case",
+            ["boolean", ["feature-state", "pressed"], false],
+            "#BC9AFF", // justfix-purple-200
+            ["boolean", ["feature-state", "hovered"], false],
+            "#BC9AFF", // justfix-purple-200
             ["boolean", ["feature-state", "selected"], false],
             "#BC9AFF", // justfix-purple-200
             "#ffffff",
           ],
+
           "fill-opacity": [
             "case",
-            ["!", ["boolean", ["feature-state", "selected"], false]],
-            0,
+            ["boolean", ["feature-state", "pressed"], false],
+            1.0,
+            [
+              "all",
+              ["boolean", ["feature-state", "hovered"], false],
+              ["boolean", ["feature-state", "selected"], false],
+            ],
+            1.0,
             ["boolean", ["feature-state", "hovered"], false],
-            1,
-            0.6,
+            0.25,
+            ["boolean", ["feature-state", "selected"], false],
+            0.4,
+            0,
           ],
         },
       });
@@ -136,6 +149,10 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         paint: {
           "line-color": [
             "case",
+            ["boolean", ["feature-state", "pressed"], false],
+            "#A96BFF", // justfix-purple
+            ["boolean", ["feature-state", "hovered"], false],
+            "#242323", // justfix-black
             ["boolean", ["feature-state", "selected"], false],
             "#A96BFF", // justfix-purple
             "#000",
@@ -209,6 +226,23 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       if (!feature.id) return;
       hoveredFeatureId = feature.id;
       map.setFeatureState({ source: "districts", id: hoveredFeatureId }, { hovered: true });
+    });
+
+    let pressedFeatureId: string | number | null = null;
+    map.on("mousedown", "districts", (e) => {
+      if (!e.features?.length) return;
+      const feature = e.features[0];
+      if (!feature.id) return;
+
+      pressedFeatureId = feature.id;
+      map.setFeatureState({ source: "districts", id: pressedFeatureId }, { pressed: true });
+    });
+
+    map.on("mouseup", () => {
+      if (pressedFeatureId !== null) {
+        map.setFeatureState({ source: "districts", id: pressedFeatureId }, { pressed: false });
+        pressedFeatureId = null;
+      }
     });
 
     map.on("mouseleave", "districts", () => {
