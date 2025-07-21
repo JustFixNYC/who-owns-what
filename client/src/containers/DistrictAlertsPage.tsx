@@ -71,8 +71,6 @@ let areaTypeOptions: AreaTypeOption[] = districtTypes.options;
 
 const DistrictCreation = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const userContext = useContext(UserContext);
-  const isLoggedIn = !!userContext?.user?.email;
 
   const history = useHistory();
   const { account } = createWhoOwnsWhatRoutePaths();
@@ -146,16 +144,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       return;
     }
 
-    const district = areaSelections.map((x) => x.properties);
-
-    if (!isLoggedIn) {
-      const loginRoute = `/${i18n.language}${account.login}`;
-      history.push({ pathname: loginRoute, state: { district } });
-      return;
-    }
-
-    await userContext.subscribeDistrict(district);
-    history.push(account.settings);
+    history.push(account.areaAlertsConfirmation);
   };
 
   areaTypeOptions = areaTypeOptions.sort((a, b) => collator.compare(a.label, b.label));

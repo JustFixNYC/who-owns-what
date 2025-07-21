@@ -77,6 +77,7 @@ export const createAccountRoutePaths = (prefix?: string) => {
     forgotPassword: `${prefix}/forgot-password`,
     resetPassword: `${prefix}/reset-password`,
     unsubscribe: `${prefix}/unsubscribe`,
+    areaAlertsConfirmation: `${prefix}/area-alerts-confirmation`,
   };
 };
 

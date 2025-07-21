@@ -55,6 +55,7 @@ import { JFLogoDivider } from "components/JFLogoDivider";
 import { LoadingPage } from "components/Loader";
 import BBLSeparatedPage from "./BBLSeparatedPage";
 import DistrictAlertsPage from "./DistrictAlertsPage";
+import DistrictAlertsConfirmationPage from "./DistrictAlertsConfirmationPage";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -62,7 +63,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const title = i18n._(t`Who owns what`);
 
-  const { home, legacy } = createWhoOwnsWhatRoutePaths();
+  const { areaAlerts } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
 
   return (
@@ -71,7 +72,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       onClick={() => {
         window.gtag("event", "site-title");
       }}
-      to={isLegacyPath(pathname) ? legacy.home : home}
+      to={areaAlerts}
     >
       <JFLogo className={classnames("jf-logo", isLegacyPath(pathname) && "legacy-styling")} />
       <JFLogoDivider
@@ -217,6 +218,10 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route path={paths.dev} component={DevPage} />
       <Route path={paths.oldWowzaPath} component={WowzaRedirectPage} />
       <Route path={paths.areaAlerts} component={DistrictAlertsPage} />
+      <Route
+        path={paths.account.areaAlertsConfirmation}
+        component={DistrictAlertsConfirmationPage}
+      />
       <Route component={NotFoundPage} />
     </Switch>
   );
