@@ -19,6 +19,7 @@ export const STANDALONE_PAGES = [
   "forgot-password",
   "reset-password",
   "unsubscribe",
+  "area-alerts-confirmation",
 ];
 
 export const JustFixLogoLink = (props: { eventParams: any }) => {

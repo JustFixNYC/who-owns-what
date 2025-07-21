@@ -3,6 +3,12 @@
 
 $zoom-size: 40px;
 
+.App__header {
+  nav {
+    display: none !important;
+  }
+}
+
 div.DistrictAlertsPage {
   .page-container {
     width: unset;
