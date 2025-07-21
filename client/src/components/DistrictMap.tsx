@@ -114,23 +114,64 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         paint: {
           "fill-color": [
             "case",
+            ["boolean", ["feature-state", "pressed"], false],
+            "#BC9AFF", // justfix-purple-200
+            ["boolean", ["feature-state", "hovered"], false],
+            "#BC9AFF", // justfix-purple-200
             ["boolean", ["feature-state", "selected"], false],
             "#BC9AFF", // justfix-purple-200
             "#ffffff",
           ],
+
           "fill-opacity": [
             "case",
-            ["!", ["boolean", ["feature-state", "selected"], false]],
-            0,
+            ["boolean", ["feature-state", "pressed"], false],
+            1.0,
+            [
+              "all",
+              ["boolean", ["feature-state", "hovered"], false],
+              ["boolean", ["feature-state", "selected"], false],
+            ],
+            1.0,
             ["boolean", ["feature-state", "hovered"], false],
-            1,
-            0.6,
+            0.25,
+            ["boolean", ["feature-state", "selected"], false],
+            0.4,
+            0,
           ],
         },
       });
 
       map.addLayer({
-        id: "outline",
+        id: "outline-base",
+        type: "line",
+        source: "districts",
+        paint: {
+          "line-color": [
+            "case",
+            [
+              "any",
+              ["boolean", ["feature-state", "selected"], false],
+              ["boolean", ["feature-state", "pressed"], false],
+              ["boolean", ["feature-state", "hovered"], false],
+            ],
+            "rgba(0,0,0,0)", // hide base outline if any other state is active
+            "#000000",
+          ],
+          "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            1, // start zoom level 8, line width 1
+            15,
+            1, // end zoom level 15, line width 1
+          ],
+        },
+      });
+
+      map.addLayer({
+        id: "outline-selected",
         type: "line",
         source: "districts",
         paint: {
@@ -138,24 +179,39 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
             "case",
             ["boolean", ["feature-state", "selected"], false],
             "#A96BFF", // justfix-purple
-            "#000",
+            "rgba(0,0,0,0)",
           ],
-          "line-width": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            8, // start zoom
-            1, // start size
-            15, // end zoom
-            [
-              "case", // end size
-              ["boolean", ["feature-state", "hovered"], false],
-              6,
-              ["boolean", ["feature-state", "selected"], false],
-              2,
-              1,
-            ],
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1, 15, 4],
+        },
+      });
+
+      map.addLayer({
+        id: "outline-pressed",
+        type: "line",
+        source: "districts",
+        paint: {
+          "line-color": [
+            "case",
+            ["boolean", ["feature-state", "pressed"], false],
+            "#A96BFF", // justfix-purple
+            "rgba(0,0,0,0)",
           ],
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1, 15, 6],
+        },
+      });
+
+      map.addLayer({
+        id: "outline-hovered",
+        type: "line",
+        source: "districts",
+        paint: {
+          "line-color": [
+            "case",
+            ["boolean", ["feature-state", "hovered"], false],
+            "#242323", // justfix-black
+            "rgba(0,0,0,0)",
+          ],
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 1, 15, 6],
         },
       });
 
@@ -209,6 +265,23 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       if (!feature.id) return;
       hoveredFeatureId = feature.id;
       map.setFeatureState({ source: "districts", id: hoveredFeatureId }, { hovered: true });
+    });
+
+    let pressedFeatureId: string | number | null = null;
+    map.on("mousedown", "districts", (e) => {
+      if (!e.features?.length) return;
+      const feature = e.features[0];
+      if (!feature.id) return;
+
+      pressedFeatureId = feature.id;
+      map.setFeatureState({ source: "districts", id: pressedFeatureId }, { pressed: true });
+    });
+
+    map.on("mouseup", () => {
+      if (pressedFeatureId !== null) {
+        map.setFeatureState({ source: "districts", id: pressedFeatureId }, { pressed: false });
+        pressedFeatureId = null;
+      }
     });
 
     map.on("mouseleave", "districts", () => {
