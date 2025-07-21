@@ -1,6 +1,5 @@
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
-import { useLocation } from "react-router-dom";
 
 import StandalonePage from "components/StandalonePage";
 import { JFCLLocaleLink } from "i18n";
@@ -11,7 +10,7 @@ import "styles/DistrictAlertsPage.css";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
+  const { areaAlerts } = createWhoOwnsWhatRoutePaths();
 
   const successPage = () => (
     <>
