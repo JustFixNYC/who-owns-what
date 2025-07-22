@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import { useHistory, useLocation } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import { Button, Alert as JFCLAlert } from "@justfixnyc/component-library";
+import { Button } from "@justfixnyc/component-library";
 
 import "styles/EmailAlertSignup.css";
 import "styles/Card.css";
@@ -18,6 +17,7 @@ import Modal from "./Modal";
 import helpers from "util/helpers";
 import { AddressRecord } from "./APIDataTypes";
 import SendNewLink from "./SendNewLink";
+import { ToastAlert } from "./ToastAlert";
 
 const DEFAULT_SUBSCRIPTION_LIMIT = 15;
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
@@ -38,7 +38,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
 
   const { state: locationState } = useLocation();
   const [justSubscribed, setJustSubscribed] = React.useState(false);
-  // switch to regular state and clear location state since it othrwise persists after reloads
+  // switch to regular state and clear location state since it otherwise persists after reloads
   useEffect(() => {
     setJustSubscribed(!!locationState?.justSubscribed);
     window.history.replaceState({ state: undefined }, "");
@@ -162,21 +162,16 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           ? renderSubscribed()
           : renderAddBuilding()}
       </div>
-      <div className="login-subscribe-alert-container">
-        <CSSTransition
-          in={justSubscribed}
-          timeout={5000}
-          classNames="login-subscribe-alert"
-          onEntered={() => setJustSubscribed(false)}
-        >
-          <JFCLAlert
-            variant="primary"
-            type="success"
-            className="login-subscribe-alert"
-            text={i18n._(t`You are now logged in and we’ve added this building to your updates`)}
-          />
-        </CSSTransition>
-      </div>
+      <ToastAlert
+        showToast={justSubscribed}
+        setShowToast={setJustSubscribed}
+        i18n={i18n}
+        timeout={5000}
+        variant="primary"
+        type="success"
+        className="login-subscribe-alert"
+        text={i18n._(t`You are now logged in and we’ve added this building to your updates`)}
+      />
       <Modal
         key={1}
         showModal={showSubscriptionLimitModal}
