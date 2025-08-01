@@ -4,7 +4,6 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Button, Icon, Link as JFCLLink } from "@justfixnyc/component-library";
 
-import "styles/UserTypeInput.css";
 import "styles/_input.scss";
 import AuthClient from "./AuthClient";
 import { JustfixUser } from "state-machine";
@@ -28,8 +27,8 @@ enum Step {
   CheckEmail,
   Login,
   RegisterAccount,
-  RegisterUserType,
   RegisterPhoneNumber,
+  RegisterUserType,
   VerifyEmail,
   LoginSuccess,
 }
@@ -411,7 +410,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    setStep(Step.RegisterUserType);
+    setStep(Step.RegisterPhoneNumber);
   };
 
   const onUserTypeSubmit = async () => {
@@ -420,24 +419,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     if (!userType || userTypeError) {
       setUserTypeError(true);
       setShowUserTypeError(true);
-      return;
-    }
-
-    setLoginOrRegister("register");
-    setStep(Step.RegisterPhoneNumber);
-  };
-
-  const onChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = helpers.formatPhoneNumber(e.target.value);
-    setPhoneNumber(formatted);
-    setShowPhoneNumberError(false);
-  };
-
-  const onPhoneNumberSubmit = async () => {
-    window.gtag("event", "register-phone-number", eventParams());
-
-    if (phoneNumberError) {
-      setShowPhoneNumberError(true);
       return;
     }
 
@@ -468,6 +449,25 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     setStep(Step.VerifyEmail);
   };
 
+  const onChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = helpers.formatPhoneNumber(e.target.value);
+    setPhoneNumber(formatted);
+    setShowPhoneNumberError(false);
+  };
+
+  const onPhoneNumberSubmit = async () => {
+    window.gtag("event", "register-phone-number", eventParams());
+
+    if (phoneNumberError) {
+      setShowPhoneNumberError(true);
+      return;
+    }
+
+    setLoginOrRegister("register");
+    setStep(Step.RegisterUserType);
+  };
+
+  let stepProgress = "";
   let headerText: any;
   let subHeaderText: any;
   let onSubmit = async () => {};
@@ -501,22 +501,25 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       submitButtonText = i18n._(t`Log in`);
       break;
     case Step.RegisterAccount:
+      stepProgress = i18n._(t`Step 1 of 3`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       onSubmit = onAccountSubmit;
       submitButtonText = i18n._(t`Next`);
       break;
-    case Step.RegisterUserType:
-      headerText = i18n._(t`Sign up for Email Alerts`);
-      subHeaderText = i18n._(t`Which best describes you?`);
-      onSubmit = onUserTypeSubmit;
-      submitButtonText = i18n._(t`Next`);
-      break;
     case Step.RegisterPhoneNumber:
+      stepProgress = i18n._(t`Step 2 of 3`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(
         t`We’ll text you in a few months to ask how we can improve this free service`
       );
       onSubmit = onPhoneNumberSubmit;
+      submitButtonText = i18n._(t`Next`);
+      break;
+    case Step.RegisterUserType:
+      stepProgress = i18n._(t`Step 3 of 3`);
+      headerText = i18n._(t`Sign up for Email Alerts`);
+      subHeaderText = i18n._(t`Which best describes you?`);
+      onSubmit = onUserTypeSubmit;
       submitButtonText = i18n._(t`Sign up`);
       break;
     case Step.VerifyEmail:
@@ -533,6 +536,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   return (
     <div className="Login">
+      {stepProgress && <span className="step-progress">{stepProgress}</span>}
       {renderAlert()}
       {!!headerText && <h1>{headerText}</h1>}
       {!!subHeaderText && <h2>{subHeaderText}</h2>}
