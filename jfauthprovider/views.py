@@ -81,6 +81,7 @@ def register(request):
         "username": request.POST.get("username"),
         "password": request.POST.get("password"),
         "user_type": request.POST.get("user_type"),
+        "phone_number": request.POST.get("phone_number"),
         "origin": request.headers["Origin"],
     }
 

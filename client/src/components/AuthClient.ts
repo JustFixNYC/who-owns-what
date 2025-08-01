@@ -67,11 +67,17 @@ const clearUser = () => (_user = undefined);
  * Authenticates a user with the given email and password.
  * Creates an account for this user if one does not already exist.
  */
-const register = async (username: string, password: string, userType: string) => {
+const register = async (
+  username: string,
+  password: string,
+  userType: string,
+  phoneNumber?: string
+) => {
   const json = await postAuthRequest(`${BASE_URL}auth/register`, {
     username: username.toLowerCase(),
     password,
     user_type: userType,
+    ...(phoneNumber ? { phone_number: phoneNumber } : undefined),
   });
   fetchUser();
   return json;

@@ -3,6 +3,7 @@ import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 
+import "styles/UserTypeInput.scss";
 import { Icon, RadioButton, TextInput } from "@justfixnyc/component-library";
 
 type UserTypeInputProps = {
