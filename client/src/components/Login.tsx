@@ -510,7 +510,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       stepProgress = i18n._(t`Step 2 of 3`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(
-        t`We’ll text you in a few months to ask how we can improve this free service`
+        t`We’ll text you in a few months to ask how we can improve this free service.`
       );
       onSubmit = onPhoneNumberSubmit;
       submitButtonText = i18n._(t`Next`);
