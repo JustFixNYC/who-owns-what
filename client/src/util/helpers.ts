@@ -293,6 +293,29 @@ const helpers = {
     return this.capitalize(date.toLocaleDateString(locale || defaultLocale, options));
   },
 
+  // Copied from gce-screener
+  formatPhoneNumber(value: string): string {
+    // remove all non-digit characters
+    const cleaned = value.replace(/\D/g, "");
+    // limit to 10 characters
+    const limited = cleaned.slice(0, 10);
+
+    // format with parentheses and dashes e.g. (555) 666-7777
+    const match = limited.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
+    if (match) {
+      const [, part1, part2, part3] = match;
+      const formatted = [
+        part1 ? `(${part1}` : "",
+        part2 ? `) ${part2}` : "",
+        part3 ? `-${part3}` : "",
+      ]
+        .join("")
+        .trim();
+      return formatted;
+    }
+    return value;
+  },
+
   /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */
   getMonthRangeFromQuarter(quarter: "1" | "2" | "3" | "4", locale?: SupportedLocale): string {
     const monthRange = {
