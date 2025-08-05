@@ -131,7 +131,7 @@ msgstr ""
 #~ msgid "<0>Search for an address</0> to add to your Building Alerts"
 #~ msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 
-#: src/components/Login.tsx:197
+#: src/components/Login.tsx:200
 #: src/containers/UnsubscribePage.tsx:109
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 msgstr ""
@@ -2341,7 +2341,11 @@ msgid "Timeline"
 msgstr "Cronología"
 
 #: src/containers/UnsubscribePage.tsx:93
-msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+#~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+#~ msgstr ""
+
+#: src/containers/UnsubscribePage.tsx:93
+msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
 msgstr ""
 
 #: src/components/PortfolioTable.tsx:242

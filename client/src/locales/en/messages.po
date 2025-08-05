@@ -126,7 +126,7 @@ msgstr "<0>Search an address</0> to add to your Building Alerts"
 #~ msgid "<0>Search for an address</0> to add to your Building Alerts"
 #~ msgstr "<0>Search for an address</0> to add to your Building Alerts"
 
-#: src/components/Login.tsx:197
+#: src/components/Login.tsx:200
 #: src/containers/UnsubscribePage.tsx:109
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 msgstr "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
@@ -2336,8 +2336,12 @@ msgid "Timeline"
 msgstr "Timeline"
 
 #: src/containers/UnsubscribePage.tsx:93
-msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
-msgstr "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+#~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+#~ msgstr "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+
+#: src/containers/UnsubscribePage.tsx:93
+msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
+msgstr "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
 
 #: src/components/PortfolioTable.tsx:242
 msgid "Top Complaint"
