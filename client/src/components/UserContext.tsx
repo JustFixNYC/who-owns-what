@@ -15,6 +15,7 @@ export type UserContextProps = {
     username: string,
     password: string,
     userType: string,
+    phoneNumber?: string,
     onSuccess?: (user: JustfixUser) => void
   ) => Promise<UserOrError | void>;
   login: (
@@ -45,6 +46,7 @@ const initialState: UserContextProps = {
     username: string,
     password: string,
     userType: string,
+    phoneNumber?: string,
     onSuccess?: (user: JustfixUser) => void
   ) => {},
   login: async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {},
@@ -101,9 +103,10 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       username: string,
       password: string,
       userType: string,
+      phoneNumber?: string,
       onSuccess?: (user: JustfixUser) => void
     ) => {
-      const response = await AuthClient.register(username, password, userType);
+      const response = await AuthClient.register(username, password, userType, phoneNumber);
       if (response.error || !response.user) {
         return { error: response.error_description };
       }
