@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
-import { Button, Icon } from "@justfixnyc/component-library";
+import { Button, Icon, Link as JFCLLink } from "@justfixnyc/component-library";
 import Select, { GroupBase, SelectInstance, SingleValue } from "react-select";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
@@ -13,6 +13,7 @@ import { UserContext } from "components/UserContext";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { DistrictMap } from "../components/DistrictMap";
 import helpers from "util/helpers";
+import Modal from "components/Modal";
 
 import districtTypes from "../data/district-types.json";
 
@@ -92,6 +93,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     .sort((a, b) => collator.compare(a.label, b.label));
 
   const [showSaveAreaError, setShowSaveAreaError] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
 
   const [areaSelections, setAreaSelections] = useState<GeoJsonFeatureDistrict[]>([]);
   const selectedAreaIds = areaSelections.map((x) => x.id);
@@ -177,7 +179,10 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         <Trans render="h2">NYC Area Alerts</Trans>
         <Trans render="p">
           Get a weekly email that identifies buildings and portfolios where tenants are at an
-          elevated risk of displacement.
+          elevated risk of displacement.{" "}
+          <JFCLLink onClick={() => setShowEmailModal(true)} className="link-button">
+            <Trans>See example email</Trans>
+          </JFCLLink>
         </Trans>
         <Trans render="p">
           Emails will include data on HPD & DOB complaints and violations, eviction filings,
@@ -240,6 +245,27 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           onClick={saveSelections}
         />
       </div>
+      <Modal
+        showModal={showEmailModal}
+        width={40}
+        onClose={() => setShowEmailModal(false)}
+        className="area-alerts-modal"
+        newStyle={true}
+      >
+        <div className="modal__content">
+          <h3>
+            <Trans>Sample Area Alert Email</Trans>
+          </h3>
+
+          <figure>
+            <img
+              src="/area-alert-example-email.png"
+              alt="Sample image of area alert email showing building data and risk indicators"
+              className="email-sample-image"
+            />
+          </figure>
+        </div>
+      </Modal>
     </div>
   );
 });
