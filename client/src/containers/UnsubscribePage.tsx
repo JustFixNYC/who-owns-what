@@ -102,7 +102,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
       <h3 className="settings-section-description">
         <Trans>
           To remove a zip code, neighborhood, district, or census tract from your Area Alert emails,
-          you must “remove” the Area Alert and
+          you must “remove” the Area Alert and{" "}
           <JFCLLocaleLink to={areaAlerts}>create a new Area Alert.</JFCLLocaleLink>
         </Trans>
       </h3>
