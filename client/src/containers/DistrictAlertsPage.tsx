@@ -260,7 +260,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           <figure>
             <img
               src="/area-alert-example-email.png"
-              alt="Sample image of area alert email showing building data and risk indicators"
+              alt="Sample of area alert email showing building data and risk indicators"
               className="email-sample-image"
             />
           </figure>
