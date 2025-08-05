@@ -132,7 +132,7 @@ msgstr ""
 #~ msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 
 #: src/components/Login.tsx:200
-#: src/containers/UnsubscribePage.tsx:101
+#: src/containers/UnsubscribePage.tsx:109
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 msgstr ""
 
@@ -1331,7 +1331,7 @@ msgstr ""
 msgid "Manage Subscriptions"
 msgstr "Administrar suscripciones"
 
-#: src/containers/UnsubscribePage.tsx:108
+#: src/containers/UnsubscribePage.tsx:116
 msgid "Manage subscriptions"
 msgstr "Administrar suscripciones"
 
@@ -2340,6 +2340,14 @@ msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>
 msgid "Timeline"
 msgstr "Cronología"
 
+#: src/containers/UnsubscribePage.tsx:93
+#~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+#~ msgstr ""
+
+#: src/containers/UnsubscribePage.tsx:93
+msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
+msgstr ""
+
 #: src/components/PortfolioTable.tsx:242
 msgid "Top Complaint"
 msgstr "Queja principal"
@@ -2387,7 +2395,7 @@ msgstr "Unidades"
 #~ msgid "Unsubscribe from all"
 #~ msgstr "Desuscribirse de todos"
 
-#: src/containers/UnsubscribePage.tsx:95
+#: src/containers/UnsubscribePage.tsx:103
 msgid "Unsubscribe from all areas"
 msgstr ""
 
@@ -2719,7 +2727,7 @@ msgstr "Sí"
 msgid "You are logged in"
 msgstr "Ha iniciado sesión"
 
-#: src/containers/UnsubscribePage.tsx:100
+#: src/containers/UnsubscribePage.tsx:108
 msgid "You are not subscribed to any Building or Area Alerts"
 msgstr ""
 

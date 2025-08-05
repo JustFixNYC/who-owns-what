@@ -127,7 +127,7 @@ msgstr "<0>Search an address</0> to add to your Building Alerts"
 #~ msgstr "<0>Search for an address</0> to add to your Building Alerts"
 
 #: src/components/Login.tsx:200
-#: src/containers/UnsubscribePage.tsx:101
+#: src/containers/UnsubscribePage.tsx:109
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 msgstr "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 
@@ -1326,7 +1326,7 @@ msgstr "Manage"
 msgid "Manage Subscriptions"
 msgstr "Manage Subscriptions"
 
-#: src/containers/UnsubscribePage.tsx:108
+#: src/containers/UnsubscribePage.tsx:116
 msgid "Manage subscriptions"
 msgstr "Manage subscriptions"
 
@@ -2335,6 +2335,14 @@ msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1
 msgid "Timeline"
 msgstr "Timeline"
 
+#: src/containers/UnsubscribePage.tsx:93
+#~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+#~ msgstr "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+
+#: src/containers/UnsubscribePage.tsx:93
+msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
+msgstr "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
+
 #: src/components/PortfolioTable.tsx:242
 msgid "Top Complaint"
 msgstr "Top Complaint"
@@ -2382,7 +2390,7 @@ msgstr "Units"
 #~ msgid "Unsubscribe from all"
 #~ msgstr "Unsubscribe from all"
 
-#: src/containers/UnsubscribePage.tsx:95
+#: src/containers/UnsubscribePage.tsx:103
 msgid "Unsubscribe from all areas"
 msgstr "Unsubscribe from all areas"
 
@@ -2714,7 +2722,7 @@ msgstr "Yes"
 msgid "You are logged in"
 msgstr "You are logged in"
 
-#: src/containers/UnsubscribePage.tsx:100
+#: src/containers/UnsubscribePage.tsx:108
 msgid "You are not subscribed to any Building or Area Alerts"
 msgstr "You are not subscribed to any Building or Area Alerts"
 

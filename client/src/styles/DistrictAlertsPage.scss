@@ -91,10 +91,16 @@ div.DistrictAlertsPage {
           margin-bottom: 1.5rem;
         }
         .dropdown-select__control {
-          border-color: $justfix-grey-700;
+          border-color: $justfix-black;
         }
         .dropdown-select__menu {
           position: unset;
+        }
+        .dropdown-select__indicator-separator {
+          background-color: $justfix-black;
+        }
+        .dropdown-select__indicator {
+          color: $justfix-black;
         }
         @include for-tablet-portrait-up {
           .dropdown-select__value-container {
