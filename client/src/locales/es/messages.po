@@ -131,7 +131,7 @@ msgstr ""
 #~ msgid "<0>Search for an address</0> to add to your Building Alerts"
 #~ msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 
-#: src/components/Login.tsx:200
+#: src/components/Login.tsx:201
 #: src/containers/UnsubscribePage.tsx:109
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 msgstr ""
@@ -453,7 +453,7 @@ msgstr ""
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
-#: src/components/Login.tsx:359
+#: src/components/Login.tsx:360
 msgid "Check your email"
 msgstr "Revise su correo electrónico"
 
@@ -531,7 +531,7 @@ msgstr "Información de contacto del dueño más clara"
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
-#: src/components/Login.tsx:360
+#: src/components/Login.tsx:361
 msgid "Click the link we sent to <0>{email}</0> to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from <1>no-reply@justfix.org</1>."
 msgstr "Haga clic en el enlace que le enviamos a <0>{email}</0> para verificar su correo electrónico. Puede tardar unos minutos en llegar. Si no lo encuentras, busque en sus carpetas de spam y promociones un correo electrónico de <1>no-reply@justfix.org</1>."
 
@@ -617,7 +617,7 @@ msgstr "Crear una contraseña"
 #~ msgid "Create a password to start receiving Data Updates"
 #~ msgstr "Create a password to start receiving Data Updates"
 
-#: src/components/Login.tsx:381
+#: src/components/Login.tsx:382
 msgid "Create password"
 msgstr "Crear contraseña"
 
@@ -666,7 +666,7 @@ msgid "Demo Site"
 msgstr "Sitio Demo"
 
 #: src/components/EmailAlertSignup.tsx:70
-#: src/components/Login.tsx:172
+#: src/components/Login.tsx:173
 #: src/components/UserSettingField.tsx:104
 msgid "Didn’t get the link?"
 msgstr "¿No recibió el enlace?"
@@ -693,7 +693,7 @@ msgstr "Mostrar:"
 #~ msgid "District Alerts"
 #~ msgstr ""
 
-#: src/components/Login.tsx:159
+#: src/components/Login.tsx:160
 msgid "Don't have an account?"
 msgstr "¿No tiene una cuenta?"
 
@@ -730,7 +730,7 @@ msgstr "Editar"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/Login.tsx:380
+#: src/components/Login.tsx:381
 #: src/components/UserSettingField.tsx:111
 #: src/components/UserSettingField.tsx:116
 #: src/containers/ForgotPasswordPage.tsx:54
@@ -796,7 +796,7 @@ msgstr "Ingrese un nuevo correo electrónico"
 #~ msgid "Enter your old password"
 #~ msgstr "Enter your old password"
 
-#: src/components/Login.tsx:381
+#: src/components/Login.tsx:382
 msgid "Enter your password"
 msgstr "Ingrese su contraseña"
 
@@ -1229,13 +1229,13 @@ msgstr "Ubicación"
 
 #: src/components/Login.tsx:115
 #: src/components/Login.tsx:156
-#: src/components/Login.tsx:333
-#: src/components/Login.tsx:336
+#: src/components/Login.tsx:334
+#: src/components/Login.tsx:337
 #: src/containers/App.tsx:132
 msgid "Log in"
 msgstr "Iniciar sesión"
 
-#: src/components/Login.tsx:324
+#: src/components/Login.tsx:325
 msgid "Log in / Sign up"
 msgstr ""
 
@@ -1243,7 +1243,7 @@ msgstr ""
 msgid "Log in / sign up"
 msgstr "Iniciar sesión / Registrarse"
 
-#: src/components/Login.tsx:334
+#: src/components/Login.tsx:335
 msgid "Log in to add {0} to your Building Alerts"
 msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
 
@@ -1259,7 +1259,7 @@ msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
 #~ msgid "Log in to start getting updates for this building."
 #~ msgstr "Log in to start getting updates for this building."
 
-#: src/components/Login.tsx:334
+#: src/components/Login.tsx:335
 msgid "Log in to subscribe to Area Alerts"
 msgstr ""
 
@@ -1461,8 +1461,8 @@ msgid "New password"
 msgstr "Contraseña nueva"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/Login.tsx:342
-#: src/components/Login.tsx:349
+#: src/components/Login.tsx:343
+#: src/components/Login.tsx:350
 msgid "Next"
 msgstr "Siguiente"
 
@@ -1641,7 +1641,7 @@ msgstr "Personas"
 msgid "Person/Entity"
 msgstr "Persona/Entidad"
 
-#: src/components/Login.tsx:383
+#: src/components/Login.tsx:384
 msgid "Phone number (optional)"
 msgstr ""
 
@@ -1962,8 +1962,8 @@ msgstr "Mostrar {0} {1, plural, one {resultado} other {resultados}}"
 #~ msgid "Sign out"
 #~ msgstr "Sign out"
 
-#: src/components/Login.tsx:164
-#: src/components/Login.tsx:356
+#: src/components/Login.tsx:165
+#: src/components/Login.tsx:357
 #: src/components/Subscribe.tsx:81
 msgid "Sign up"
 msgstr "Regístrate"
@@ -1982,9 +1982,9 @@ msgstr "Regístrate"
 #~ msgid "Sign up for Data Updates on the buildings you choose:"
 #~ msgstr "Sign up for Data Updates on the buildings you choose:"
 
-#: src/components/Login.tsx:340
-#: src/components/Login.tsx:346
-#: src/components/Login.tsx:353
+#: src/components/Login.tsx:341
+#: src/components/Login.tsx:347
+#: src/components/Login.tsx:354
 msgid "Sign up for Email Alerts"
 msgstr ""
 
@@ -2069,19 +2069,19 @@ msgstr ""
 msgid "State Senate District"
 msgstr ""
 
-#: src/components/Login.tsx:339
+#: src/components/Login.tsx:340
 msgid "Step 1 of 3"
 msgstr ""
 
-#: src/components/Login.tsx:345
+#: src/components/Login.tsx:346
 msgid "Step 2 of 3"
 msgstr ""
 
-#: src/components/Login.tsx:352
+#: src/components/Login.tsx:353
 msgid "Step 3 of 3"
 msgstr ""
 
-#: src/components/Login.tsx:330
+#: src/components/Login.tsx:331
 msgid "Submit"
 msgstr "Enviar"
 
@@ -2341,12 +2341,12 @@ msgid "Timeline"
 msgstr "Cronología"
 
 #: src/containers/UnsubscribePage.tsx:93
-#~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
-#~ msgstr ""
+msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
+msgstr ""
 
 #: src/containers/UnsubscribePage.tsx:93
-msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
-msgstr ""
+#~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
+#~ msgstr ""
 
 #: src/components/PortfolioTable.tsx:242
 msgid "Top Complaint"
@@ -2423,7 +2423,7 @@ msgstr "Utilice la tecla de pestaña para navegar. Pulse la tecla Intro para sel
 msgid "Use this free tool from JustFix to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
 
-#: src/components/Login.tsx:325
+#: src/components/Login.tsx:326
 msgid "Use your account to get weekly email alerts on {0}"
 msgstr ""
 
@@ -2577,7 +2577,7 @@ msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
-#: src/components/Login.tsx:196
+#: src/components/Login.tsx:197
 msgid "We have added Area Alerts to your weekly emails. Visit your <0>email settings</0> to manage Area Alerts."
 msgstr ""
 
@@ -2609,7 +2609,7 @@ msgstr "Enviamos Alertas de Edificios a este correo electrónico."
 msgid "We sent a reset link to {email}. Please check your inbox and spam."
 msgstr "Hemos enviado un enlace de reinicio a {email}. Por favor, comprueba su buzón de correo y spam."
 
-#: src/components/Login.tsx:347
+#: src/components/Login.tsx:348
 msgid "We’ll text you in a few months to ask how we can improve this free service."
 msgstr ""
 
@@ -2658,7 +2658,7 @@ msgstr "¿Cuál es la diferencia entre un dueño, un propietario y oficial princ
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
-#: src/components/Login.tsx:354
+#: src/components/Login.tsx:355
 msgid "Which best describes you?"
 msgstr "¿Cuál le describe mejor a usted?"
 
@@ -2722,7 +2722,7 @@ msgstr "Año de construcción"
 msgid "Yes"
 msgstr "Sí"
 
-#: src/components/Login.tsx:195
+#: src/components/Login.tsx:196
 #: src/containers/AccountSettingsPage.tsx:90
 msgid "You are logged in"
 msgstr "Ha iniciado sesión"

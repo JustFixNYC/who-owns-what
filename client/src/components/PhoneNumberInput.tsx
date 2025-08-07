@@ -57,6 +57,7 @@ const PhoneNumberInputWithoutI18n = forwardRef<HTMLInputElement, PhoneNumberInpu
             className={classNames("input", { invalid: showError && error })}
             onChange={handleChange}
             value={phone}
+            placeholder="(123) 456-7890"
             {...props}
           />
         </div>
