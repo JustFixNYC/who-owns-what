@@ -3,12 +3,15 @@ import ReactModal from "react-modal";
 
 import "styles/Modal.css";
 import { CloseButton } from "./CloseButton";
+import { Button } from "@justfixnyc/component-library";
 
 type ModalProps = {
   showModal: boolean;
   onClose: () => void;
   children: any;
   width?: number;
+  className?: string;
+  newStyle?: boolean;
 };
 
 const Modal = (props: ModalProps) => {
@@ -48,8 +51,21 @@ const Modal = (props: ModalProps) => {
       onRequestClose={props.onClose}
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
+      className={props.className}
     >
-      <CloseButton onClick={props.onClose} className="ReactModal__Close" />
+      {props.newStyle ? (
+        <Button
+          variant="tertiary"
+          labelIcon="xmark"
+          labelText=""
+          iconOnly={true}
+          className="modal__close"
+          onClick={props.onClose}
+          aria-label="Close modal"
+        />
+      ) : (
+        <CloseButton onClick={props.onClose} className="ReactModal__Close" />
+      )}
       {props.children}
     </ReactModal>
   );
