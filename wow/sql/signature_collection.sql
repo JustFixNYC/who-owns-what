@@ -26,5 +26,5 @@ SELECT
     debt_total_agg,
     debt_per_unit_agg,
     bldg_data
-FROM signature_collections
+FROM signature_collections2
 WHERE collection_slug = %(collection)s
