@@ -197,7 +197,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const renderFooter = () => {
     return (
       <div className="login-footer">
-        {isRegisterAccountStep && (
+        {(isRegisterAccountStep || isRegisterPhoneNumberStep) && (
           <span className="privacy-links">
             <Trans>
               Your privacy is important to us. Read our{" "}
@@ -221,7 +221,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           </JFCLLocaleLink>
         )}
         <div className="login-type-toggle">
-          {isRegisterAccountStep ? (
+          {isRegisterAccountStep && (
             <>
               <Trans>Already have an account?</Trans>
               <button
@@ -234,7 +234,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
                 <Trans>Log in</Trans>
               </button>
             </>
-          ) : (
+          )}
+          {isLoginStep && (
             <>
               <Trans>Don't have an account?</Trans>
               <button
@@ -610,7 +611,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       )}
       {isVerifyEmailStep && renderResendVerifyEmail()}
       {isLoginSuccessStep && renderLoginSuccess()}
-      {(isLoginStep || isRegisterAccountStep) && renderFooter()}
+      {(isLoginStep || isRegisterAccountStep || isRegisterPhoneNumberStep) && renderFooter()}
     </div>
   );
 };
