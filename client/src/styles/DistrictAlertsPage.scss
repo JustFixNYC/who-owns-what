@@ -188,6 +188,7 @@ div.DistrictAlertsPage {
 
   h3 {
     color: $justfix-black;
+    margin-bottom: 2rem;
     @include jfcl-h3-desktop;
     @include for-phone-only {
       @include jfcl-h3-mobile;
@@ -195,9 +196,11 @@ div.DistrictAlertsPage {
   }
   .modal__content {
     padding: 0 1.5rem 1.5rem 1.5rem !important;
+    margin-top: -1.5rem;
   }
   figure {
     margin: unset !important;
+    box-shadow: 0 1.25rem 3.125rem 0 rgba(36, 35, 35, 0.25); // 0 20px 50px 0
     img {
       width: 100% !important;
     }

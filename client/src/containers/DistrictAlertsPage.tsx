@@ -178,17 +178,17 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       <div className="district-selection__sidebar">
         <Trans render="h2">NYC Area Alerts</Trans>
         <Trans render="p">
-          Get a weekly email that identifies buildings and portfolios where tenants are at an
+          Get a weekly email that lists the top buildings in your area where tenants are at an
           elevated risk of displacement.{" "}
           <JFCLLink onClick={() => setShowEmailModal(true)} className="link-button">
-            <Trans>See example email</Trans>
+            <Trans>See example</Trans>
           </JFCLLink>
         </Trans>
         <Trans render="p">
-          Emails will include data on HPD & DOB complaints and violations, eviction filings,
+          Emails will include new HPD & DOB complaints and violations, eviction filings,
           litigations, vacate orders, and building sales.
         </Trans>
-        <Trans render="p">Select an area to get started:</Trans>
+        <Trans render="p">To start: select an area here or on the map.</Trans>
         <div className="district-type-dropdown" ref={geoTypeDropdownRef}>
           <Select
             className="dropdown-select select-area-type"
@@ -259,7 +259,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
 
           <figure>
             <img
-              src="/area-alert-example-email.png"
+              src="/area-alert-example-email.jpg"
               alt="Sample of area alert email showing building data and risk indicators"
               className="email-sample-image"
             />
