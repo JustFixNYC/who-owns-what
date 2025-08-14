@@ -77,9 +77,13 @@ div.DistrictAlertsPage {
           @include jfcl-h3-mobile;
         }
       }
-      p {
+      p,
+      a {
         @include jfcl-body-standard-desktop;
         margin: 0 0 0.875rem;
+      }
+      a:hover {
+        cursor: pointer;
       }
       .dropdown-select {
         @include jfcl-body-standard-desktop;
@@ -181,5 +185,59 @@ div.DistrictAlertsPage {
         margin-top: auto;
       }
     }
+  }
+}
+
+// New Modal Styles
+.area-alerts-modal {
+  background-color: $justfix-white-100 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 720px !important;
+
+  h3 {
+    color: $justfix-black;
+    margin-bottom: 2rem;
+    @include jfcl-h3-desktop;
+    @include for-phone-only {
+      @include jfcl-h3-mobile;
+    }
+  }
+  .modal__content {
+    padding: 0 1.5rem 1.5rem 1.5rem !important;
+    margin-top: -1.5rem;
+  }
+  figure {
+    margin: unset !important;
+    box-shadow: 0 1.25rem 3.125rem 0 rgba(36, 35, 35, 0.25); // 0 20px 50px 0
+    img {
+      width: 100% !important;
+    }
+  }
+
+  button.modal__close.jfcl-button {
+    margin: 1.5rem 1.5rem 0 auto !important;
+    color: $justfix-black;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    .jfcl-button__icon,
+    svg {
+      height: 2rem;
+      width: 2rem;
+      @include for-phone-only {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+  }
+}
+
+// Override the default modal padding on mobile
+@include for-phone-only {
+  .ReactModal__Overlay--after-open .ReactModal__Content {
+    padding: unset !important;
+    width: 100% !important;
   }
 }
