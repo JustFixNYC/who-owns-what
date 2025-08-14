@@ -82,6 +82,9 @@ div.DistrictAlertsPage {
         @include jfcl-body-standard-desktop;
         margin: 0 0 0.875rem;
       }
+      a:hover {
+        cursor: pointer;
+      }
       .dropdown-select {
         @include jfcl-body-standard-desktop;
         z-index: 3; // so that dropdown menu covers map zoom controls
