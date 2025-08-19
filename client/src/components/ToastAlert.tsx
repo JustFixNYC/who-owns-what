@@ -17,7 +17,7 @@ export const ToastAlert: React.FC<ToastAlertProps> = (props) => {
   const { showToast, setShowToast, i18n, timeout, className, ...alertProps } = props;
 
   return (
-    <div className="toast-alert-container">
+    <div className={classNames("toast-alert-container", !showToast && "is-inactive")}>
       <CSSTransition
         in={showToast}
         timeout={timeout}

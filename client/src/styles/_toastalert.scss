@@ -8,6 +8,10 @@
   left: 0;
   width: 100%;
 
+  &.is-inactive {
+    pointer-events: none;
+  }
+
   .toast-alert {
     position: relative;
 
