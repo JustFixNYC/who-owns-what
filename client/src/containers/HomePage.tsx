@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 import EngagementPanel from "../components/EngagementPanel";
 import LegalFooter from "../components/LegalFooter";
@@ -13,60 +13,9 @@ import { createRouteForAddressPage } from "../routes";
 import { withMachineProps } from "state-machine";
 import { parseLocaleFromPath } from "i18n";
 import { useHistory, useLocation } from "react-router-dom";
-import { withI18n, withI18nProps } from "@lingui/react";
-import { INLINES } from "@contentful/rich-text-types";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
-import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { logAmplitudeEvent } from "components/Amplitude";
 import JFCLLinkInternal from "components/JFCLLinkInternal";
-
-const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
-
-type BannerState = {
-  isHidden: boolean;
-};
-
-class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> {
-  constructor(Props: withI18nProps) {
-    super(Props);
-
-    this.state = {
-      isHidden: false,
-    };
-  }
-
-  closeBanner = () => this.setState({ isHidden: true });
-
-  render() {
-    const locale = this.props.i18n.language;
-    const content = commonStrings.get("covidMoratoriumBanner", locale);
-
-    return (
-      content && (
-        <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
-          <div className="close-button float-right" onClick={this.closeBanner}>
-            ✕
-          </div>
-          <div className="content">
-            {documentToReactComponents(content, {
-              renderNode: {
-                [INLINES.HYPERLINK]: (node, children) => (
-                  <a rel="noreferrer noopener" target="_blank" href={node.data.uri}>
-                    {children}
-                  </a>
-                ),
-              },
-            })}
-          </div>
-        </div>
-      )
-    );
-  }
-}
-
-const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
 type HomePageProps = {
   useNewPortfolioMethod?: boolean;
@@ -138,7 +87,6 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   return (
     <Page>
       <div className="HomePage Page">
-        <MoratoriumBanner />
         <div className="HomePage__content">
           {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
             <div className="HomePage__search wowza-styling">
