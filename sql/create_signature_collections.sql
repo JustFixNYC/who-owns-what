@@ -1,6 +1,6 @@
 CREATE TABLE signature_collections2 AS (
 	WITH collections_bldg_data AS (
-		-- include building of all statuses for table
+		-- include all buildings regardless of loan actions/status for tables
 		SELECT
 			landlord AS collection_name,
 			'landlord' AS collection_type,
@@ -65,7 +65,7 @@ CREATE TABLE signature_collections2 AS (
 			-- end of copied section --
 		FROM signature_buildings2 AS bldgs
 		WHERE landlord IS NOT NULL
-			AND status_current NOT IN ('left_program')
+			AND latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		GROUP BY landlord
 		UNION
 		SELECT
@@ -108,7 +108,7 @@ CREATE TABLE signature_collections2 AS (
 			-- end of copied section --
 		FROM signature_buildings2 AS bldgs
 		WHERE loan_pool IS NOT NULL
-			AND status_current NOT IN ('left_program')
+			AND latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		GROUP BY loan_pool
 		UNION
 		SELECT
@@ -150,7 +150,7 @@ CREATE TABLE signature_collections2 AS (
 			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg
 			-- end of copied section --
 		FROM signature_buildings2 AS bldgs
-		WHERE status_current NOT IN ('left_program')
+		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 	)
 	SELECT 
 		collection_type,

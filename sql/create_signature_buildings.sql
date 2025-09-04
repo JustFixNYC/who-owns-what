@@ -1,14 +1,14 @@
 CREATE TEMP TABLE signature_loan_status AS (
-	WITH status_json_rows AS (
+	WITH loan_json_rows AS (
 		SELECT
 			bbl,
 			CASE
-				WHEN nullif(status, '') IS NULL THEN NULL
+				WHEN nullif(action, '') IS NULL THEN NULL
 				ELSE json_build_object(
-					'status', nullif(status, ''), 
+					'action', nullif(action, ''), 
 					'date', nullif(date, '')
 				)
-			END AS status_obj,
+			END AS actions_obj,
 			CASE
 				WHEN nullif(url, '') IS NULL THEN NULL
 				ELSE json_build_object(
@@ -19,21 +19,21 @@ CREATE TEMP TABLE signature_loan_status AS (
 		FROM signature_unhp_loan_status
 		ORDER BY bbl, nullif(date, '')::date
 	),
-	status_json_agg AS (
+	loan_json_agg AS (
 		SELECT
 			bbl,
-			json_agg(status_obj) AS statuses,
+			json_agg(actions_obj) AS actions,
 			json_agg(link_obj) FILTER (WHERE link_obj IS NOT NULL) AS links
-		FROM status_json_rows
+		FROM loan_json_rows
 		GROUP BY bbl
 	)
 	SELECT 
 		bbl,
 		json_build_object(
-			'statuses', statuses,
+			'actions', actions,
 			'links', links
-		) AS status_info
-	FROM status_json_agg
+		) AS loan_info
+	FROM loan_json_agg
 );
 
 CREATE INDEX ON signature_loan_status (bbl);
@@ -52,8 +52,8 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		nullif(b.origination_date, '')::date AS origination_date,
 		nullif(b.debt_total, '')::float AS debt_total,
 		-- temporarily adding these here, later they'll be included in the data from UNHP
-		s.status_info,
-		coalesce((s.status_info->'statuses'->>-1)::json->>'status', 'pending') AS status_current,
+		s.loan_info,
+		coalesce((s.loan_info->'actions'->>-1)::json->>'action', 'no_action') AS latest_action,
 		p.borocode,
 		p.block,
 		p.lot,
@@ -486,9 +486,9 @@ CREATE TABLE signature_buildings2 AS (
 		sp.loan_pool,
 		sp.loan_pool_slug,
 
-		-- LOAN STATUS
-		status_info,
- 		status_current,
+		-- LOAN INFO
+		loan_info,
+ 		latest_action,
 		
 		-- FINANCIAL
 		acris_deed.last_sale_date,
@@ -520,4 +520,4 @@ CREATE TABLE signature_buildings2 AS (
 CREATE INDEX ON signature_buildings2 (bbl);
 CREATE INDEX ON signature_buildings2 (landlord);
 CREATE INDEX ON signature_buildings2 (loan_pool);
-CREATE INDEX ON signature_buildings2 (status_current);
+CREATE INDEX ON signature_buildings2 (latest_action);

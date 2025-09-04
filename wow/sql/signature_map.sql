@@ -9,4 +9,4 @@ SELECT
     lat,
     lng
 FROM signature_buildings2
-WHERE status_current NOT IN ('left_program')
+WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')

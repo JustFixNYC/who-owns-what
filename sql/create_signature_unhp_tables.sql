@@ -26,11 +26,10 @@ CREATE INDEX ON signature_unhp_buildings (bbl);
 
 CREATE TABLE signature_unhp_loan_status (
     bbl char(10),
-    status text,
+    action text,
     date text,
     url text,
     label text
-
 );
 
 CREATE INDEX ON signature_unhp_loan_status (bbl, date);
