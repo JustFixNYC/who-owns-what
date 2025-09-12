@@ -1,29 +1,31 @@
-DROP TABLE IF EXISTS signature_collection_charts CASCADE;
-CREATE TABLE IF NOT EXISTS signature_collection_charts AS (
+CREATE TABLE signature_collection_charts2 AS (
 	WITH stacked_data AS (
 		SELECT
 			s.landlord AS collection_name,
 			s.landlord_slug AS collection_slug,
 			'landlord' AS collection_type,
 			c.*
-		FROM signature_buildings AS s
-		LEFT JOIN signature_building_charts AS c USING(bbl)
+		FROM signature_buildings2 AS s
+		LEFT JOIN signature_building_charts2 AS c USING(bbl)
+		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		UNION
 		SELECT
 			s.loan_pool AS collection_name,
 			s.loan_pool_slug AS collection_slug,
 			'loan_pool' AS collection_type,
 			c.*
-		FROM signature_buildings AS s
-		LEFT JOIN signature_building_charts AS c USING(bbl)
+		FROM signature_buildings2 AS s
+		LEFT JOIN signature_building_charts2 AS c USING(bbl)
+		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		UNION
 		select
 			'all' AS collection_name,
 			'all' AS collection_slug,
 			'all' AS collection_type,
 			c.*
-		FROM signature_buildings AS s
-		LEFT JOIN signature_building_charts AS c USING(bbl)
+		FROM signature_buildings2 AS s
+		LEFT JOIN signature_building_charts2 AS c USING(bbl)
+		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 	)
 	SELECT
 		collection_name,
@@ -51,4 +53,4 @@ CREATE TABLE IF NOT EXISTS signature_collection_charts AS (
 	ORDER BY collection_name, collection_slug, collection_type, month
 );
 
-CREATE INDEX ON signature_collection_charts (collection_slug);
+CREATE INDEX ON signature_collection_charts2 (collection_slug);
