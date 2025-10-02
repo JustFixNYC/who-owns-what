@@ -41,33 +41,27 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   };
 
   /**
-   * Returns the set of links to the 3 sample portfolios we show on the HomePage.
+   * Returns the set of links to the 2 sample portfolios we show on the HomePage.
    * Note: since these urls will be referenced inside `<Link>` components,
    * we do not need to include the locale parameter as the url path should be relative
    * to the current path, which on the HomePage already has a locale parameter.
    */
   const getSampleUrls = () => [
+    // A&E
     createRouteForAddressPage(
       {
         boro: "BROOKLYN",
-        housenumber: "89",
-        streetname: "HICKS STREET",
+        housenumber: "2750",
+        streetname: "HOMECREST AVENUE",
       },
       !useNewPortfolioMethod
     ),
+    // Stellar
     createRouteForAddressPage(
       {
-        boro: "QUEENS",
-        housenumber: "4125",
-        streetname: "CASE STREET",
-      },
-      !useNewPortfolioMethod
-    ),
-    createRouteForAddressPage(
-      {
-        boro: "BRONX",
-        housenumber: "801",
-        streetname: "NEILL AVENUE",
+        boro: "MANHATTAN",
+        housenumber: "310",
+        streetname: "GREENWICH STREET",
       },
       !useNewPortfolioMethod
     ),
@@ -146,7 +140,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                   <div className="HomePage__sample">
                     <h6>
                       <Link
-                        to={getSampleUrls()[1]}
+                        to={getSampleUrls()[0]}
                         onClick={() => {
                           window.gtag("event", "example-portfolio-2-homepage");
                         }}
@@ -192,7 +186,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                     </Trans>
                     <Link
                       className="flex-centered portfolio-link"
-                      to={getSampleUrls()[1]}
+                      to={getSampleUrls()[0]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-2-homepage");
                       }}
@@ -206,7 +200,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                   <div className="HomePage__sample">
                     <h6>
                       <Link
-                        to={getSampleUrls()[2]}
+                        to={getSampleUrls()[1]}
                         onClick={() => {
                           window.gtag("event", "example-portfolio-3-homepage");
                         }}
@@ -237,7 +231,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                     </Trans>
                     <Link
                       className="flex-centered portfolio-link"
-                      to={getSampleUrls()[2]}
+                      to={getSampleUrls()[1]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-3-homepage");
                       }}
