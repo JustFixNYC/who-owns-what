@@ -119,7 +119,7 @@
     "react-error-overlay": "6.0.9"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.0.0"
   },
   "@comment browserslist": "Note that when changing browserslist, you need to delete `node_modules/.cache` for the changes to propagate! For more details, see https://github.com/JustFixNYC/who-owns-what/pull/335.",
   "browserslist": [
