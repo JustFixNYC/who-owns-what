@@ -58,7 +58,7 @@ msgstr "(this may take a while)"
 #~ msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 #~ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
-#: src/containers/HomePage.tsx:118
+#: src/containers/HomePage.tsx:83
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
@@ -232,7 +232,7 @@ msgid "Additional links"
 msgstr "Additional links"
 
 #: src/components/PortfolioTable.tsx:67
-#: src/containers/HomePage.tsx:102
+#: src/containers/HomePage.tsx:67
 msgid "Address"
 msgstr "Address"
 
@@ -306,7 +306,7 @@ msgstr "Are you having issues in this development?"
 #~ msgstr "Area"
 
 #: src/containers/AccountSettingsPage.tsx:114
-#: src/containers/DistrictAlertsPage.tsx:152
+#: src/containers/DistrictAlertsPage.tsx:168
 msgid "Area Alerts"
 msgstr "Area Alerts"
 
@@ -318,11 +318,11 @@ msgstr "Area Alerts"
 #~ msgid "Area maps"
 #~ msgstr "Area maps"
 
-#: src/containers/DistrictAlertsPage.tsx:120
+#: src/containers/DistrictAlertsPage.tsx:125
 msgid "Area selection"
 msgstr "Area selection"
 
-#: src/containers/DistrictAlertsPage.tsx:115
+#: src/containers/DistrictAlertsPage.tsx:120
 msgid "Area type selection"
 msgstr "Area type selection"
 
@@ -746,8 +746,12 @@ msgid "Email settings"
 msgstr "Email settings"
 
 #: src/containers/DistrictAlertsPage.tsx:109
-msgid "Emails will include data on HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
-msgstr "Emails will include data on HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
+#~ msgid "Emails will include data on HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
+#~ msgstr "Emails will include data on HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
+
+#: src/containers/DistrictAlertsPage.tsx:114
+msgid "Emails will include new HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
+msgstr "Emails will include new HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
 
 #: src/components/IndicatorsViz.tsx:170
 msgid "Emergency"
@@ -761,7 +765,7 @@ msgstr "Emergency"
 #~ msgid "Enter an NYC address and find other buildings your landlord might own:"
 #~ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 
-#: src/containers/HomePage.tsx:87
+#: src/containers/HomePage.tsx:53
 msgid "Enter an address and find other buildings your landlord might own in NYC:"
 msgstr "Enter an address and find other buildings your landlord might own in NYC:"
 
@@ -895,7 +899,7 @@ msgstr "Filters"
 #~ msgid "Filter <0/>for"
 #~ msgstr "Filter <0/>for"
 
-#: src/containers/HomePage.tsx:88
+#: src/containers/HomePage.tsx:54
 msgid "Find other buildings your landlord might own in NYC:"
 msgstr "Find other buildings your landlord might own in NYC:"
 
@@ -936,8 +940,12 @@ msgstr "Get a weekly email alert on complaints, violations, and eviction filings
 #~ msgstr "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
 
 #: src/containers/DistrictAlertsPage.tsx:105
-msgid "Get a weekly email that identifies buildings and portfolios where tenants are at an elevated risk of displacement."
-msgstr "Get a weekly email that identifies buildings and portfolios where tenants are at an elevated risk of displacement."
+#~ msgid "Get a weekly email that identifies buildings and portfolios where tenants are at an elevated risk of displacement."
+#~ msgstr "Get a weekly email that identifies buildings and portfolios where tenants are at an elevated risk of displacement."
+
+#: src/containers/DistrictAlertsPage.tsx:107
+msgid "Get a weekly email that lists the top buildings in your area where tenants are at an elevated risk of displacement. <0>See example</0>"
+msgstr "Get a weekly email that lists the top buildings in your area where tenants are at an elevated risk of displacement. <0>See example</0>"
 
 #: src/components/EmailAlertSignup.tsx:86
 #~ msgid "Get a weekly email update on complaints, violations, and eviction filings for this building."
@@ -1113,7 +1121,7 @@ msgstr "Joint Owner"
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 
-#: src/containers/HomePage.tsx:167
+#: src/containers/HomePage.tsx:132
 msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 
@@ -1142,7 +1150,7 @@ msgstr "Landlord"
 msgid "Landlord filter"
 msgstr "Landlord filter"
 
-#: src/containers/HomePage.tsx:106
+#: src/containers/HomePage.tsx:71
 msgid "Landlord name"
 msgstr "Landlord name"
 
@@ -1407,7 +1415,7 @@ msgstr "MyNYCHA App"
 msgid "NON-CONSTRUCTION"
 msgstr "NON-CONSTRUCTION"
 
-#: src/containers/DistrictAlertsPage.tsx:104
+#: src/containers/DistrictAlertsPage.tsx:106
 msgid "NYC Area Alerts"
 msgstr "NYC Area Alerts"
 
@@ -1816,15 +1824,19 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
+#: src/containers/DistrictAlertsPage.tsx:144
+msgid "Sample Area Alert Email"
+msgstr "Sample Area Alert Email"
+
 #: src/components/UserSettingField.tsx:136
 msgid "Save"
 msgstr "Save"
 
-#: src/containers/DistrictAlertsPage.tsx:126
+#: src/containers/DistrictAlertsPage.tsx:131
 msgid "Save or add more areas"
 msgstr "Save or add more areas"
 
-#: src/containers/DistrictAlertsPage.tsx:134
+#: src/containers/DistrictAlertsPage.tsx:139
 msgid "Save selections"
 msgstr "Save selections"
 
@@ -1837,7 +1849,7 @@ msgstr "Search"
 msgid "Search by your landlord's name"
 msgstr "Search by your landlord's name"
 
-#: src/containers/HomePage.tsx:98
+#: src/containers/HomePage.tsx:63
 msgid "Search by:"
 msgstr "Search by:"
 
@@ -1858,19 +1870,19 @@ msgstr "See Building Profile"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 
-#: src/containers/DistrictAlertsPage.tsx:132
+#: src/containers/DistrictAlertsPage.tsx:137
 msgid "Select an area"
 msgstr "Select an area"
 
 #: src/containers/DistrictAlertsPage.tsx:113
-msgid "Select an area to get started:"
-msgstr "Select an area to get started:"
+#~ msgid "Select an area to get started:"
+#~ msgstr "Select an area to get started:"
 
 #: src/components/MinMaxSelect.tsx:108
 msgid "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 msgstr "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 
-#: src/containers/DistrictAlertsPage.tsx:120
+#: src/containers/DistrictAlertsPage.tsx:125
 msgid "Select or type a"
 msgstr "Select or type a"
 
@@ -2158,7 +2170,7 @@ msgstr "The building with the most executed evictions is <0>{0} {1}, {2}</0> wit
 msgid "The city borough where your search address is located"
 msgstr "The city borough where your search address is located"
 
-#: src/containers/HomePage.tsx:131
+#: src/containers/HomePage.tsx:96
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Aside from lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Aside from lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
@@ -2343,6 +2355,10 @@ msgstr "To remove a zip code, neighborhood, district, or census tract from your 
 #~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
 #~ msgstr "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
 
+#: src/containers/DistrictAlertsPage.tsx:118
+msgid "To start: select an area here or on the map."
+msgstr "To start: select an area here or on the map."
+
 #: src/components/PortfolioTable.tsx:242
 msgid "Top Complaint"
 msgstr "Top Complaint"
@@ -2526,8 +2542,8 @@ msgstr "View documents on ACRIS"
 msgid "View on Google Maps"
 msgstr "View on Google Maps"
 
-#: src/containers/HomePage.tsx:154
-#: src/containers/HomePage.tsx:183
+#: src/containers/HomePage.tsx:119
+#: src/containers/HomePage.tsx:148
 msgid "View portfolio"
 msgstr "View portfolio"
 
