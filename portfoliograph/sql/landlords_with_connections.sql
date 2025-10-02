@@ -28,6 +28,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS landlords_grouped AS (
 		bizzip,
 		array_agg(bbl) AS bbls
 	FROM wow_landlords
+	WHERE bbl IS NOT NULL
 	GROUP BY name, bizaddr, bizhousestreet, bizapt, bizaptnum, bizzip
 );
 

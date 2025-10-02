@@ -10,9 +10,9 @@ from algoliasearch.search_client import SearchClient
 
 def split_sort_join(x: str, sep: str = ", ") -> str:
     """
-    Takes a delimited string, splits it by a given seperator,
+    Takes a delimited string, splits it by a given separator,
     sorts the parts, and concatenates it back together using
-    the same seperator, returning a single delimited string
+    the same separator, returning a single delimited string
     """
     return sep.join(sorted(x.split(sep)))
 
@@ -33,7 +33,7 @@ def get_landlord_data_for_algolia(
     Query the "wow_portfolios" table to get landlord names we want to search by in Algolia.
     We then sort bbls and landlord names to ensure consistent results despite inconsistent
     order in the db table. Then we split portfolios with large number of landlord names so
-    that we don't exceed Algolia's charater limit. We also hash the contents of the record
+    that we don't exceed Algolia's character limit. We also hash the contents of the record
     to create the unique objectID that Algolia requires. (later we can use this hash objectID
     to determine if we need to update the record or not to save some operations/credits)
     """
@@ -117,7 +117,7 @@ def get_corpname_data_for_algolia(conn) -> List[Dict]:
 
         for row in cursor.fetchall():
             # We want to take a single bbl associated with each corporation, but their order is
-            # not concsistent in the aggregation, so we sort and take out
+            # not consistent in the aggregation, so we sort and take out
             # the first one to ensure it's consistent between runs
             portfolio = {
                 "portfolio_bbl": sorted(row["bbls"])[0],

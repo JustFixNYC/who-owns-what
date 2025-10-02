@@ -153,7 +153,8 @@ left join (
 left join rentstab on (registrations.bbl = rentstab.ucbbl)
 left join complaints on (registrations.bbl = complaints.bbl)
 left join firstdeeds on (registrations.bbl = firstdeeds.bbl)
-left join oca_evictions_bldgs as oca on (registrations.bbl = oca.bbl);
+left join oca_evictions_bldgs as oca on (registrations.bbl = oca.bbl)
+where registrations.bbl is not null;
 
 drop table if exists wow_bldgs cascade;
 alter table wow_bldgs_temporary rename to wow_bldgs;
