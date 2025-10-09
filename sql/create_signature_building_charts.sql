@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS signature_building_charts AS
+CREATE TABLE IF NOT EXISTS signature_building_charts2 AS
 
     WITH time_series AS (
         SELECT 
@@ -230,4 +230,4 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
     LEFT JOIN hpd_erp USING(bbl, month)
     ORDER BY bbl, month ASC;
 
-CREATE INDEX ON signature_building_charts(bbl);
+CREATE INDEX ON signature_building_charts2 (bbl);
