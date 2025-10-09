@@ -80,7 +80,7 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 CREATE INDEX ON signature_pluto_geos (bbl);
 CREATE INDEX ON signature_pluto_geos using gist (geom_point);
 
-CREATE TABLE signature_buildings2 AS (
+CREATE TABLE signature_buildings AS (
 	WITH evic_marshal AS (
 	    SELECT
 	        bbl,
@@ -517,7 +517,7 @@ CREATE TABLE signature_buildings2 AS (
 	WHERE bbl IS NOT NULL
 );
 
-CREATE INDEX ON signature_buildings2 (bbl);
-CREATE INDEX ON signature_buildings2 (landlord);
-CREATE INDEX ON signature_buildings2 (loan_pool);
-CREATE INDEX ON signature_buildings2 (latest_action);
+CREATE INDEX ON signature_buildings (bbl);
+CREATE INDEX ON signature_buildings (landlord);
+CREATE INDEX ON signature_buildings (loan_pool);
+CREATE INDEX ON signature_buildings (latest_action);
