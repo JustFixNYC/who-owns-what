@@ -1,11 +1,11 @@
-CREATE TABLE signature_collections2 AS (
+CREATE TABLE signature_collections AS (
 	WITH collections_bldg_data AS (
 		-- include all buildings regardless of loan actions/status for tables
 		SELECT
 			landlord AS collection_name,
 			'landlord' AS collection_type,
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature_buildings2 AS bldgs
+		FROM signature_buildings AS bldgs
 		WHERE landlord IS NOT NULL
 		GROUP BY landlord
 		UNION
@@ -13,7 +13,7 @@ CREATE TABLE signature_collections2 AS (
 			loan_pool AS collection_name,
 			'loan_pool' AS collection_type,
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature_buildings2 AS bldgs
+		FROM signature_buildings AS bldgs
 		WHERE loan_pool IS NOT NULL
 		GROUP BY loan_pool
 		UNION
@@ -21,7 +21,7 @@ CREATE TABLE signature_collections2 AS (
 			'all' AS collection_name,
 			'all' AS collection_type,
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature_buildings2 AS bldgs
+		FROM signature_buildings AS bldgs
 	),
 	collections_agg_stats AS (
 		-- exclude buildings that have left the program from aggregate stats
@@ -63,7 +63,7 @@ CREATE TABLE signature_collections2 AS (
 			sum(debt_total)::float AS debt_total_agg,
 			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg		
 			-- end of copied section --
-		FROM signature_buildings2 AS bldgs
+		FROM signature_buildings AS bldgs
 		WHERE landlord IS NOT NULL
 			AND latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		GROUP BY landlord
@@ -106,7 +106,7 @@ CREATE TABLE signature_collections2 AS (
 			sum(debt_total)::float AS debt_total_agg,
 			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg
 			-- end of copied section --
-		FROM signature_buildings2 AS bldgs
+		FROM signature_buildings AS bldgs
 		WHERE loan_pool IS NOT NULL
 			AND latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		GROUP BY loan_pool
@@ -149,7 +149,7 @@ CREATE TABLE signature_collections2 AS (
 			sum(debt_total)::float AS debt_total_agg,
 			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg
 			-- end of copied section --
-		FROM signature_buildings2 AS bldgs
+		FROM signature_buildings AS bldgs
 		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 	)
 	SELECT 
@@ -185,6 +185,6 @@ CREATE TABLE signature_collections2 AS (
 	LEFT JOIN collections_bldg_data USING (collection_type, collection_name)
 );
 
-CREATE INDEX ON signature_collections2 (collection_slug);
-CREATE INDEX ON signature_collections2 (collection_type);
+CREATE INDEX ON signature_collections (collection_slug);
+CREATE INDEX ON signature_collections (collection_type);
 

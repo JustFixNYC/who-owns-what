@@ -1,12 +1,12 @@
-CREATE TABLE signature_collection_charts2 AS (
+CREATE TABLE signature_collection_charts AS (
 	WITH stacked_data AS (
 		SELECT
 			s.landlord AS collection_name,
 			s.landlord_slug AS collection_slug,
 			'landlord' AS collection_type,
 			c.*
-		FROM signature_buildings2 AS s
-		LEFT JOIN signature_building_charts2 AS c USING(bbl)
+		FROM signature_buildings AS s
+		LEFT JOIN signature_building_charts AS c USING(bbl)
 		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		UNION
 		SELECT
@@ -14,8 +14,8 @@ CREATE TABLE signature_collection_charts2 AS (
 			s.loan_pool_slug AS collection_slug,
 			'loan_pool' AS collection_type,
 			c.*
-		FROM signature_buildings2 AS s
-		LEFT JOIN signature_building_charts2 AS c USING(bbl)
+		FROM signature_buildings AS s
+		LEFT JOIN signature_building_charts AS c USING(bbl)
 		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		UNION
 		select
@@ -23,8 +23,8 @@ CREATE TABLE signature_collection_charts2 AS (
 			'all' AS collection_slug,
 			'all' AS collection_type,
 			c.*
-		FROM signature_buildings2 AS s
-		LEFT JOIN signature_building_charts2 AS c USING(bbl)
+		FROM signature_buildings AS s
+		LEFT JOIN signature_building_charts AS c USING(bbl)
 		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 	)
 	SELECT
@@ -53,4 +53,4 @@ CREATE TABLE signature_collection_charts2 AS (
 	ORDER BY collection_name, collection_slug, collection_type, month
 );
 
-CREATE INDEX ON signature_collection_charts2 (collection_slug);
+CREATE INDEX ON signature_collection_charts (collection_slug);
