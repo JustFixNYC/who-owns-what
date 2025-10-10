@@ -65,5 +65,5 @@ SELECT
     link_political,
     lat,
     lng
-FROM signature_buildings2
+FROM signature_buildings
 WHERE bbl = %(bbl)s

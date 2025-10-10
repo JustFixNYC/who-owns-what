@@ -8,5 +8,5 @@ SELECT
     loan_pool_slug,
     lat,
     lng
-FROM signature_buildings2
+FROM signature_buildings
 WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')

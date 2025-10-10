@@ -8,5 +8,5 @@ SELECT
     hpd_viol_bc_open_per_unit_agg,
     debt_per_unit_agg,
     bip_500_pct_agg
-FROM signature_collections2
+FROM signature_collections
 WHERE collection_type = 'landlord'
