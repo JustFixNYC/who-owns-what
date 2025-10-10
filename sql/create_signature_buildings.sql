@@ -1,62 +1,94 @@
-DROP TABLE IF EXISTS signature_pluto_geos;
+CREATE TEMP TABLE signature_loan_status AS (
+	WITH loan_json_rows AS (
+		SELECT
+			bbl,
+			CASE
+				WHEN nullif(action, '') IS NULL THEN NULL
+				ELSE json_build_object(
+					'action', nullif(action, ''), 
+					'date', nullif(date, '')
+				)
+			END AS actions_obj,
+			CASE
+				WHEN nullif(url, '') IS NULL THEN NULL
+				ELSE json_build_object(
+					'url', nullif(url, ''), 
+					'label', nullif(label, '')
+				)
+			END AS link_obj
+		FROM signature_unhp_loan_status
+		ORDER BY bbl, nullif(date, '')::date
+	),
+	loan_json_agg AS (
+		SELECT
+			bbl,
+			json_agg(actions_obj) AS actions,
+			json_agg(link_obj) FILTER (WHERE link_obj IS NOT NULL) AS links
+		FROM loan_json_rows
+		GROUP BY bbl
+	)
+	SELECT 
+		bbl,
+		json_build_object(
+			'actions', actions,
+			'links', links
+		) AS loan_info
+	FROM loan_json_agg
+);
+
+CREATE INDEX ON signature_loan_status (bbl);
+
+
 CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 	SELECT
 		bbl,
-		nullif(s.landlord, '') AS landlord,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.landlord, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
-		nullif(s.loan_pool, '') AS loan_pool,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.loan_pool, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS loan_pool_slug,
+		nullif(b.landlord, '') AS landlord,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(b.landlord, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
+		nullif(b.loan_pool, '') AS loan_pool,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(b.loan_pool, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS loan_pool_slug,
 		-- having issues with the csv nulls, so all imported as strings
-		nullif(s.bip, '')::integer AS bip,
-		nullif(s.water_charges, '')::float AS water_charges,
-		nullif(s.origination_date, '')::date AS origination_date,
-		nullif(s.debt_total, '')::float AS debt_total,
+		nullif(b.bip, '')::integer AS bip,
+		nullif(b.water_charges, '')::float AS water_charges,
+		nullif(b.origination_date, '')::date AS origination_date,
+		nullif(b.debt_total, '')::float AS debt_total,
 		-- temporarily adding these here, later they'll be included in the data from UNHP
-		'active' AS loan_status,
-		NULL AS loan_action,
+		s.loan_info,
+		coalesce((s.loan_info->'actions'->>-1)::json->>'action', 'no_action') AS latest_action,
 		p.borocode,
 		p.block,
 		p.lot,
 		p.address,
 		p.zipcode,
 		p.borough,
-		p.council,
+		d.coun_dist,
+		d.assem_dist,
+		d.stsen_dist,
+		d.cong_dist,
 		p.latitude,
 		p.longitude,
 		p.unitsres,
 		p.unitstotal,
 		p.yearbuilt,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
-	FROM signature_unhp_data AS s
+	FROM signature_unhp_buildings AS b
+	LEFT JOIN signature_loan_status AS s USING(bbl)
 	LEFT JOIN pluto_latest AS p USING(bbl)
+	LEFT JOIN pluto_latest_districts AS d USING(bbl)
+	WHERE b.bbl IS NOT NULL
 );
 
+CREATE INDEX ON signature_pluto_geos (bbl);
 CREATE INDEX ON signature_pluto_geos using gist (geom_point);
 
-DROP TABLE IF EXISTS signature_pluto_poli;
-CREATE TEMP TABLE IF NOT EXISTS signature_pluto_poli AS (
-	SELECT
-		p.*,
-		council::text AS coun_dist,
-		ad.assemdist::text AS assem_dist,
-		ss.stsendist::text AS stsen_dist,
-		cg.congdist::text AS cong_dist
-	FROM signature_pluto_geos AS p
-	LEFT JOIN nyad AS ad ON ST_Within(p.geom_point, ad.geom)
-	LEFT JOIN nyss AS ss ON ST_Within(p.geom_point, ss.geom)
-	LEFT JOIN nycg AS cg ON ST_Within(p.geom_point, cg.geom)
-);
-
-CREATE INDEX ON signature_pluto_poli (bbl);
-
-DROP TABLE IF EXISTS signature_buildings CASCADE;
-CREATE TABLE IF NOT EXISTS signature_buildings AS (
+CREATE TABLE signature_buildings2 AS (
 	WITH evic_marshal AS (
 	    SELECT
 	        bbl,
 	        count(*) AS evictions_executed
 	    FROM marshal_evictions_all
-	    WHERE residentialcommercialind = 'RESIDENTIAL'
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND residentialcommercialind = 'RESIDENTIAL'
 	    GROUP BY bbl
 	), 
 
@@ -66,7 +98,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			count(distinct indexnumberid) AS evictions_filed
 		FROM oca_index AS i
 		LEFT JOIN oca_addresses_with_bbl AS a USING(indexnumberid)
-		WHERE i.fileddate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND i.fileddate >= (CURRENT_DATE - interval '1' year)
 			AND i.classification = any('{Holdover,Non-Payment}') 
 			AND i.propertytype = 'Residential'
 			AND nullif(a.bbl, '') IS NOT NULL
@@ -82,6 +116,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			count(*) FILTER (WHERE findingofharassment IN ('After Trial', 'After Inquest')) AS hp_find_harassment,
 			count(*) FILTER (WHERE casestatus IN ('APPLICATION PENDING', 'PENDING')) AS hp_active
 		FROM hpd_litigations
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	),
 
@@ -89,7 +125,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		SELECT
 			ucbbl AS bbl,
 			coalesce(nullif(uc2023, 0), nullif(uc2022, 0), nullif(uc2021, 0), nullif(uc2020, 0), nullif(uc2019, 0), 0) as rs_units
-		FROM rentstab_v2
+		FROM rentstab_v2 AS rs
+		LEFT JOIN signature_unhp_buildings AS sb ON rs.ucbbl = sb.bbl
+	    WHERE sb.bbl IS NOT NULL
 	),
 	
 	hpd_erp_charges_all AS (
@@ -99,6 +137,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			sum(i.chargeamount) AS charge_amount
 		FROM hpd_omo_charges AS c
 		LEFT JOIN hpd_omo_invoices AS i USING(omonumber)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl, omonumber, c.omocreatedate
 		UNION
 		SELECT 
@@ -106,6 +146,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			hwocreatedate AS order_date, 
 			chargeamount AS charge_amount
 		FROM hpd_hwo_charges
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 	), 
 	
 	hpd_erp AS (
@@ -114,7 +156,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			count(*) AS hpd_erp_orders,
 			sum(charge_amount)::float AS hpd_erp_charges
 		FROM hpd_erp_charges_all
-		WHERE order_date >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND order_date >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	), 
 	
@@ -123,7 +167,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	    	bbl,
 	        count(*) AS hpd_viol_bc_open
 	    FROM hpd_violations
-	    WHERE class = any('{B,C}') 
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND class = any('{B,C}') 
 			AND violationstatus = 'Open' 
 			AND inspectiondate >= (CURRENT_DATE - interval '5' year)
 	    GROUP BY bbl
@@ -141,7 +187,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			-- mold=550 according to guide, but also shows up often under other numbers
 			count(*) FILTER (WHERE novdescription ~* 'mold' OR ordernumber = any('{583,507,878,879,550}')) AS hpd_viol_water
 	    FROM hpd_violations
-	    WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND inspectiondate >= (CURRENT_DATE - interval '1' year)
 	    GROUP BY bbl
 	), 
 	
@@ -159,8 +207,10 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			COUNT(*) FILTER (
 				WHERE majorcategory = 'PESTS' OR minorcategory = 'PESTS'
 			) as hpd_comp_pests
-		FROM HPD_COMPLAINTS_AND_PROBLEMS
-		WHERE RECEIVEDDATE >= (CURRENT_DATE - interval '1' year)
+		FROM hpd_complaints_and_problems
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND receiveddate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	), 
 
@@ -169,7 +219,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			bbl,
 			concat(initcap(vacatetype), ' (', to_char(vacateeffectivedate, 'Mon d, YYYY'), ')') AS hpd_active_vacate
 		FROM hpd_vacateorders
-		WHERE vacateeffectivedate <= CURRENT_DATE
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND vacateeffectivedate <= CURRENT_DATE
 			AND rescinddate IS NULL
 			AND coalesce(bbl, '') != ''
 		-- keep 'entire building' orders over 'partial' ones if both
@@ -181,7 +233,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			bbl,
 			true as in_aep
 		FROM hpd_aep
-		WHERE currentstatus = 'AEP Active'
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND currentstatus = 'AEP Active'
 	), 
 	
 	conh AS (
@@ -190,6 +244,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			bbl,
 			true as in_conh
 		FROM hpd_conh
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 	), 
 	
 	ucp AS (
@@ -197,7 +253,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			bbl,
 			true as in_ucp
 		FROM hpd_underlying_conditions
-		WHERE currentstatus = 'Active'
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND currentstatus = 'Active'
 	), 
 	
 	hpd_reg AS (
@@ -205,6 +263,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			bbl,
 			CASE WHEN count(*) = 1 THEN max(buildingid) ELSE NULL END AS buildingid
 		FROM hpd_registrations
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	), 
 	
@@ -214,7 +274,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			coalesce(m.docdate, m.recordedfiled) AS last_sale_date
 		FROM real_property_master AS m
 		LEFT JOIN real_property_legals AS l USING(documentid)
-		WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND docamount > 1 AND doctype = any('{DEED,DEEDO}')
 		ORDER BY bbl, docdate DESC
 	), 
 	
@@ -227,7 +289,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 				ELSE 'Passed'
 			END AS last_rodent_result
 		FROM dohmh_rodent_inspections
-		WHERE inspectiontype IN ('Initial', 'Compliance') 
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND inspectiontype IN ('Initial', 'Compliance') 
 			AND result IS NOT NULL
 			AND coalesce(approveddate, inspectiondate) IS NOT NULL
 		ORDER BY bbl, coalesce(approveddate, inspectiondate) DESC
@@ -238,14 +302,18 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			bbl,
 			count(DISTINCT jobfilingnumber) AS dob_jobs
 		FROM dob_now_jobs
-		WHERE filingdate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND filingdate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 		UNION 
 		SELECT 
 			bbl,
 			count(DISTINCT job) AS dob_jobs
 		FROM dobjobs
-		WHERE prefilingdate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND prefilingdate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	),
 
@@ -254,6 +322,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			bbl,
 			sum(dob_jobs)::int as dob_jobs
 		FROM dob_jobs_all
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	),
 
@@ -263,7 +333,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			issuedate,
 			(violationcategory ~* 'ACTIVE') AS is_active
 		FROM dob_violations 
-		WHERE issuedate >= (CURRENT_DATE - interval '5' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND issuedate >= (CURRENT_DATE - interval '5' year)
 			AND violationtypecode IS NOT NULL
 		UNION
 		SELECT
@@ -274,7 +346,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 					'CERTIFICATE PENDING', 'CERTIFICATE DISAPPROVED', 'NO COMPLIANCE RECORDED')
 			) AS is_active
 		FROM ecb_violations 
-		WHERE issuedate >= (CURRENT_DATE - interval '5' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND issuedate >= (CURRENT_DATE - interval '5' year)
 			AND severity IS NOT NULL
 	),
 
@@ -284,6 +358,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			count(*) FILTER (WHERE issuedate >= (CURRENT_DATE - interval '1' year)) AS dob_ecb_viol_total,
 			count(*) FILTER (WHERE is_active) AS dob_ecb_viol_open
 		FROM dob_ecb_stacked
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	)
 
@@ -410,9 +486,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.loan_pool,
 		sp.loan_pool_slug,
 
-		-- LOAN
-		loan_status,
- 		loan_action,
+		-- LOAN INFO
+		loan_info,
+ 		latest_action,
 		
 		-- FINANCIAL
 		acris_deed.last_sale_date,
@@ -420,7 +496,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.debt_total,
 		sp.debt_total / nullif(sp.unitsres, 0)::float AS debt_per_unit
 
-	FROM signature_pluto_poli AS sp
+	FROM signature_pluto_geos AS sp
 	LEFT JOIN evic_marshal USING(bbl)
 	LEFT JOIN evic_oca USING(bbl)
 	LEFT JOIN hp_cases USING(bbl)
@@ -441,6 +517,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	WHERE bbl IS NOT NULL
 );
 
-CREATE INDEX ON signature_buildings (bbl);
-CREATE INDEX ON signature_buildings (landlord);
-CREATE INDEX ON signature_buildings (loan_pool);
+CREATE INDEX ON signature_buildings2 (bbl);
+CREATE INDEX ON signature_buildings2 (landlord);
+CREATE INDEX ON signature_buildings2 (loan_pool);
+CREATE INDEX ON signature_buildings2 (latest_action);

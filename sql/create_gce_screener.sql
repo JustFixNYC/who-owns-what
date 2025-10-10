@@ -27,6 +27,7 @@ CREATE TEMPORARY TABLE x_latest_deeds AS (
 	WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
 	ORDER BY bbl, coalesce(m.docdate, m.recordedfiled) DESC
 );
+-- 2min
 
 CREATE INDEX ON x_latest_deeds (bbl);
 
@@ -54,11 +55,12 @@ CREATE TEMPORARY TABLE x_docs_since_latest_deed AS (
 		AND p.unitsres > 0
   ORDER BY bbl, doc_order
 );
+-- 2min
 
 CREATE INDEX ON x_docs_since_latest_deed (bbl);
 CREATE INDEX ON x_docs_since_latest_deed (documentid);
 CREATE INDEX ON x_docs_since_latest_deed (doc_order);
-
+-- 1min
 
 -- Get all party names on the document for the owners to later compare between
 -- search and related properties for matches so we can use paty name match to
@@ -82,6 +84,7 @@ CREATE TEMPORARY TABLE x_acris_party_names AS (
 		AND pl.unitsres > 0
 	GROUP BY documentid
 );
+-- 6min
 
 CREATE INDEX ON x_acris_party_names (documentid);
 
@@ -97,9 +100,11 @@ CREATE TEMPORARY TABLE x_bbl_acris_docs AS (
   WHERE doc_order <= 5
   GROUP BY bbl 
 );
+-- 2min
 
 CREATE INDEX ON x_bbl_acris_docs (bbl);
 CREATE INDEX ON x_bbl_acris_docs USING GIN (party_names);
+-- 1min
 
 
 --- BBLs with Common Ownername (PLUTO) 
@@ -127,6 +132,7 @@ CREATE TEMPORARY TABLE x_ownername_related_bbls AS (
   LEFT JOIN pluto_latest AS y USING(ownername)
   WHERE x.bbl != y.bbl
 );
+-- 1min
 
 CREATE INDEX ON x_ownername_related_bbls (ref_bbl);
 CREATE INDEX ON x_ownername_related_bbls (bbl);
@@ -148,6 +154,7 @@ CREATE TEMPORARY TABLE x_multi_bbl_docs AS (
 	GROUP BY documentid
 	HAVING count(*) > 1
 );
+-- 0.5min
 
 CREATE INDEX ON x_multi_bbl_docs (documentid);
 
@@ -163,6 +170,7 @@ CREATE TEMPORARY TABLE x_multi_doc_related_bbls AS (
 	WHERE x.bbl != y.bbl
 	ORDER BY x.bbl, y.bbl, x.doc_date DESC
 );
+-- 2min
 
 CREATE INDEX ON x_multi_doc_related_bbls (bbl);
 CREATE INDEX ON x_multi_doc_related_bbls (ref_bbl);
@@ -194,6 +202,7 @@ CREATE TEMPORARY TABLE x_portfolio_bbls_pluto AS (
 	LEFT JOIN pluto_latest AS p USING(bbl)
 	LEFT JOIN wow_landlords AS l USING(bbl)
 );
+-- 0.5min
 
 -- Create match quality fields
 CREATE TEMPORARY TABLE x_wow_related_bbls AS (
@@ -212,10 +221,12 @@ CREATE TEMPORARY TABLE x_wow_related_bbls AS (
 			OR (x.bizhousestreet = y.bizhousestreet AND x.bizzip = y.bizzip)
 		)
 );
+-- 0.5min
 
 CREATE INDEX ON x_wow_related_bbls (ref_bbl);
 CREATE INDEX ON x_wow_related_bbls (bbl);
 CREATE INDEX ON x_wow_related_bbls (ref_bbl, bbl);
+-- 2min
 
 
 --- Related Properties
@@ -256,6 +267,7 @@ CREATE TEMPORARY TABLE x_all_related_bbls AS (
 	AND w.ref_bbl IS NOT NULL
 	AND w.bbl IS NOT NULL
 );
+-- 4min
 
 CREATE INDEX ON x_all_related_bbls (ref_bbl);
 
@@ -267,6 +279,7 @@ CREATE TEMPORARY TABLE x_related_bbl_acris_docs AS (
   FROM x_all_related_bbls AS x
   GROUP BY ref_bbl
 );
+-- 8min
 
 CREATE INDEX ON x_related_bbl_acris_docs (bbl);
 

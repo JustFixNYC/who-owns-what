@@ -1,13 +1,37 @@
-DROP TABLE IF EXISTS signature_collections CASCADE;
-CREATE TABLE IF NOT EXISTS signature_collections AS (
-	WITH collections_stacked AS (
+CREATE TABLE signature_collections2 AS (
+	WITH collections_bldg_data AS (
+		-- include all buildings regardless of loan actions/status for tables
+		SELECT
+			landlord AS collection_name,
+			'landlord' AS collection_type,
+			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
+		FROM signature_buildings2 AS bldgs
+		WHERE landlord IS NOT NULL
+		GROUP BY landlord
+		UNION
+		SELECT
+			loan_pool AS collection_name,
+			'loan_pool' AS collection_type,
+			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
+		FROM signature_buildings2 AS bldgs
+		WHERE loan_pool IS NOT NULL
+		GROUP BY loan_pool
+		UNION
+		SELECT
+			'all' AS collection_name,
+			'all' AS collection_type,
+			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
+		FROM signature_buildings2 AS bldgs
+	),
+	collections_agg_stats AS (
+		-- exclude buildings that have left the program from aggregate stats
 		SELECT
 			landlord AS collection_name,
 			'landlord' AS collection_type,
 
 			max(loan_pool) AS loan_pool_name,
 			
-			-- This all copied to next two sections
+			-- This all copied to next two sections --
 			count(*)::int AS buildings_agg,
 			sum(units_res)::int AS units_res_agg,
 			sum(rs_units)::int AS rs_units_agg,
@@ -37,12 +61,11 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(water_charges)::float AS water_charges_agg,
 
 			sum(debt_total)::float AS debt_total_agg,
-			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg,
-			
-			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-			----
-		FROM signature_buildings AS bldgs
+			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg		
+			-- end of copied section --
+		FROM signature_buildings2 AS bldgs
 		WHERE landlord IS NOT NULL
+			AND latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		GROUP BY landlord
 		UNION
 		SELECT
@@ -51,7 +74,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 
 			max(loan_pool) AS loan_pool_name,
 
-			-- All copied from above
+			-- All copied from above --
 			count(*)::int AS buildings_agg,
 			sum(units_res)::int AS units_res_agg,
 			sum(rs_units)::int AS rs_units_agg,
@@ -81,12 +104,11 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(water_charges)::float AS water_charges_agg,
 
 			sum(debt_total)::float AS debt_total_agg,
-			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg,
-			
-			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-			----
-		FROM signature_buildings AS bldgs
+			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg
+			-- end of copied section --
+		FROM signature_buildings2 AS bldgs
 		WHERE loan_pool IS NOT NULL
+			AND latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 		GROUP BY loan_pool
 		UNION
 		SELECT
@@ -95,7 +117,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 
 			NULL::text AS loan_pool_name,
 
-			-- All copied from above
+			-- All copied from above --
 			count(*)::int AS buildings_agg,
 			sum(units_res)::int AS units_res_agg,
 			sum(rs_units)::int AS rs_units_agg,
@@ -125,11 +147,10 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(water_charges)::float AS water_charges_agg,
 
 			sum(debt_total)::float AS debt_total_agg,
-			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg,
-
-			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-			----
-		FROM signature_buildings AS bldgs
+			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg
+			-- end of copied section --
+		FROM signature_buildings2 AS bldgs
+		WHERE latest_action NOT IN ('satisfied', 'sold_market', 'sold_preservation', 'sold_foreclosure')
 	)
 	SELECT 
 		collection_type,
@@ -160,9 +181,10 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		debt_total_agg,
 		debt_per_unit_agg,
 		bldg_data::json AS bldg_data -- cant union json columns, but jsonb works
-	FROM collections_stacked
+	FROM collections_agg_stats
+	LEFT JOIN collections_bldg_data USING (collection_type, collection_name)
 );
 
-CREATE INDEX ON signature_collections (collection_slug);
-CREATE INDEX ON signature_collections (collection_type);
+CREATE INDEX ON signature_collections2 (collection_slug);
+CREATE INDEX ON signature_collections2 (collection_type);
 

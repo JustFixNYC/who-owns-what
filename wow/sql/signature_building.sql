@@ -7,8 +7,8 @@ SELECT
     landlord_slug,
     loan_pool,
     loan_pool_slug,
-    loan_status,
-    loan_action,
+    loan_info,
+    latest_action,
     units_res,
     units_nonres,
     rs_units,
@@ -65,5 +65,5 @@ SELECT
     link_political,
     lat,
     lng
-FROM signature_buildings
+FROM signature_buildings2
 WHERE bbl = %(bbl)s
