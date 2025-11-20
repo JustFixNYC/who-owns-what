@@ -437,6 +437,7 @@ const friendlyFetch: typeof fetch = async (input, init) => {
     console.log(response);
   } catch (e) {
     if (e instanceof Error) {
+      window.Rollbar.error(e.message, { input, init });
       throw new NetworkError(e.message);
     } else {
       throw new Error("Unexpected error");
