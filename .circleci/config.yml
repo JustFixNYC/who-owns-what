@@ -7,7 +7,7 @@ jobs:
       - image: justfixnyc/wow-ci:latest
         environment:
           DATABASE_URL: postgres://wow:wow@localhost/wow
-      - image: cimg/postgres:13.20-postgis
+      - image: cimg/postgres:14.19-postgis
         environment:
           POSTGRES_USER: wow
           POSTGRES_DB: wow
