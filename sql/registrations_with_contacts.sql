@@ -1,4 +1,5 @@
 -- https://github.com/aepyornis/hpd/blob/master/sql/anyarray_remove_null.sql
+DROP FUNCTION IF EXISTS anyarray_remove_null(anyarray);
 DROP FUNCTION IF EXISTS anyarray_remove_null(anycompatiblearray);
 CREATE OR REPLACE FUNCTION anyarray_remove_null(from_array anycompatiblearray)
         RETURNS anycompatiblearray AS
