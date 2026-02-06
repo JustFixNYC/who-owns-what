@@ -56,12 +56,12 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
       },
       !useNewPortfolioMethod
     ),
-    // Stellar
+    // Ved Parkash
     createRouteForAddressPage(
       {
-        boro: "MANHATTAN",
-        housenumber: "310",
-        streetname: "GREENWICH STREET",
+        boro: "BRONX",
+        housenumber: "750",
+        streetname: "GRAND CONCOURSE",
       },
       !useNewPortfolioMethod
     ),
@@ -205,29 +205,37 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                           window.gtag("event", "example-portfolio-3-homepage");
                         }}
                       >
-                        Stellar Management
+                        Ved Parkash
                       </Link>
                     </h6>
                     <Trans render="p">
-                      Known for{" "}
+                      Named by the NYC Public Advocate as the{" "}
                       <a
-                        href="https://gothamist.com/news/dozens-of-tenants-sue-big-time-landlord-over-alleged-systematic-illegal-rent-increases"
+                        href="https://www.cbsnews.com/newyork/news/worst-nyc-landlords-2015/"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        deregulating rent stabilized apartments
+                        Worst Landlord in 2015
                       </a>
-                      , Stellar Management is also one of the city’s{" "}
+                      , and as one of the{" "}
                       <a
-                        href="https://www.worstevictorsnyc.org/"
+                        href="https://www.worstevictorsnyc.org/list#7"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Worst Evictors
+                        Pandemic's worst evictors
                       </a>
-                      . Stellar is a gentrifying force, particularly in upper Manhattan, where they
-                      have a reputation for displacing long-term tenants, renovating their units
-                      while vacant, and skyrocketing rents to market rate.
+                      , Ved Parkash has used housing court as a vehicle to collect rent and evict
+                      tenants. In response to Parkash’s predatory behavior, residents have
+                      organizing together to form the Parkash Tenant Coalition, but{" "}
+                      <a
+                        href="https://pix11.com/news/local-news/nyc-tenants-battle-former-worst-landlord-for-repairs-years-after-suing/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        life threatening building conditions remain
+                      </a>
+                      .
                     </Trans>
                     <Link
                       className="flex-centered portfolio-link"

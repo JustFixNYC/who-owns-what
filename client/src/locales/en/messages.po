@@ -58,7 +58,7 @@ msgstr "(this may take a while)"
 #~ msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 #~ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
-#: src/containers/HomePage.tsx:83
+#: src/containers/HomePage.tsx:80
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
@@ -232,7 +232,7 @@ msgid "Additional links"
 msgstr "Additional links"
 
 #: src/components/PortfolioTable.tsx:67
-#: src/containers/HomePage.tsx:67
+#: src/containers/HomePage.tsx:64
 msgid "Address"
 msgstr "Address"
 
@@ -765,7 +765,7 @@ msgstr "Emergency"
 #~ msgid "Enter an NYC address and find other buildings your landlord might own:"
 #~ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 
-#: src/containers/HomePage.tsx:53
+#: src/containers/HomePage.tsx:50
 msgid "Enter an address and find other buildings your landlord might own in NYC:"
 msgstr "Enter an address and find other buildings your landlord might own in NYC:"
 
@@ -899,7 +899,7 @@ msgstr "Filters"
 #~ msgid "Filter <0/>for"
 #~ msgstr "Filter <0/>for"
 
-#: src/containers/HomePage.tsx:54
+#: src/containers/HomePage.tsx:51
 msgid "Find other buildings your landlord might own in NYC:"
 msgstr "Find other buildings your landlord might own in NYC:"
 
@@ -1122,8 +1122,8 @@ msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 
 #: src/containers/HomePage.tsx:132
-msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
-msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+#~ msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+#~ msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 
 #: src/containers/HomePage.tsx:166
 #~ msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
@@ -1150,7 +1150,7 @@ msgstr "Landlord"
 msgid "Landlord filter"
 msgstr "Landlord filter"
 
-#: src/containers/HomePage.tsx:71
+#: src/containers/HomePage.tsx:68
 msgid "Landlord name"
 msgstr "Landlord name"
 
@@ -1422,6 +1422,14 @@ msgstr "NYC Area Alerts"
 #: src/containers/NychaPage.tsx:166
 msgid "NYCHA Directory"
 msgstr "NYCHA Directory"
+
+#: src/containers/HomePage.tsx:129
+#~ msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+#~ msgstr "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+
+#: src/containers/HomePage.tsx:129
+msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together to form the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+msgstr "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together to form the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
 
 #: src/components/PortfolioAlerts.tsx:78
 #~ msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
@@ -1849,7 +1857,7 @@ msgstr "Search"
 msgid "Search by your landlord's name"
 msgstr "Search by your landlord's name"
 
-#: src/containers/HomePage.tsx:63
+#: src/containers/HomePage.tsx:60
 msgid "Search by:"
 msgstr "Search by:"
 
@@ -2170,7 +2178,7 @@ msgstr "The building with the most executed evictions is <0>{0} {1}, {2}</0> wit
 msgid "The city borough where your search address is located"
 msgstr "The city borough where your search address is located"
 
-#: src/containers/HomePage.tsx:96
+#: src/containers/HomePage.tsx:93
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Aside from lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Aside from lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
@@ -2542,8 +2550,8 @@ msgstr "View documents on ACRIS"
 msgid "View on Google Maps"
 msgstr "View on Google Maps"
 
-#: src/containers/HomePage.tsx:119
-#: src/containers/HomePage.tsx:148
+#: src/containers/HomePage.tsx:116
+#: src/containers/HomePage.tsx:149
 msgid "View portfolio"
 msgstr "View portfolio"
 
