@@ -7,9 +7,10 @@
 --- ------------------------------------
 -- This is used when preparing ACRIS party names to look for matches
 -- for use in prioritization of related properties on GCE portfolio size guide page
-CREATE OR REPLACE AGGREGATE array_concat_agg(anyarray) (
+DROP AGGREGATE IF EXISTS array_concat_agg(anycompatiblearray);
+CREATE OR REPLACE AGGREGATE array_concat_agg(anycompatiblearray) (
    SFUNC = array_cat,
-   STYPE = anyarray
+   STYPE = anycompatiblearray
 );
 
 
