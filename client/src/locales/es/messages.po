@@ -1429,7 +1429,11 @@ msgid "NYCHA Directory"
 msgstr "Directorio de NYCHA"
 
 #: src/containers/HomePage.tsx:129
-msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+#~ msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+#~ msgstr ""
+
+#: src/containers/HomePage.tsx:129
+msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together to form the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
 msgstr ""
 
 #: src/components/PortfolioAlerts.tsx:78
@@ -2552,7 +2556,7 @@ msgid "View on Google Maps"
 msgstr "Ver en Google Maps"
 
 #: src/containers/HomePage.tsx:116
-#: src/containers/HomePage.tsx:150
+#: src/containers/HomePage.tsx:149
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 

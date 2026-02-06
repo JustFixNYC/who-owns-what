@@ -1424,8 +1424,12 @@ msgid "NYCHA Directory"
 msgstr "NYCHA Directory"
 
 #: src/containers/HomePage.tsx:129
-msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
-msgstr "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+#~ msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+#~ msgstr "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together and started several Tenant Associations which led to the formation of the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+
+#: src/containers/HomePage.tsx:129
+msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together to form the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
+msgstr "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together to form the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
 
 #: src/components/PortfolioAlerts.tsx:78
 #~ msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
@@ -2547,7 +2551,7 @@ msgid "View on Google Maps"
 msgstr "View on Google Maps"
 
 #: src/containers/HomePage.tsx:116
-#: src/containers/HomePage.tsx:150
+#: src/containers/HomePage.tsx:149
 msgid "View portfolio"
 msgstr "View portfolio"
 

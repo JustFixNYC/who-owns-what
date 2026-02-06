@@ -227,8 +227,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       </a>
                       , Ved Parkash has used housing court as a vehicle to collect rent and evict
                       tenants. In response to Parkash’s predatory behavior, residents have
-                      organizing together and started several Tenant Associations which led to the
-                      formation of the Parkash Tenant Coalition, but{" "}
+                      organizing together to form the Parkash Tenant Coalition, but{" "}
                       <a
                         href="https://pix11.com/news/local-news/nyc-tenants-battle-former-worst-landlord-for-repairs-years-after-suing/"
                         target="_blank"
