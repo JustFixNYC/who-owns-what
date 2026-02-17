@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-06 16:03\n"
+"PO-Revision-Date: 2026-02-17 16:06\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/components/PropertiesSummary.tsx:95
 msgid "#WhoOwnsWhat via @JustFixOrg"
-msgstr "#WhoOwnsWhat por @JustFixOrg"
+msgstr "#QuiénEsElDueño por @JustFixOrg"
 
 #: src/util/helpers.ts:295
 msgid "(\"{textInEnglish}\" in English)"
