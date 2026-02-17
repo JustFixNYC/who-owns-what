@@ -22,7 +22,7 @@ import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
 import EmailAlertSignup from "./EmailAlertSignup";
-import GetRepairs from "./GetRepairs";
+import AreaAlertsPromo from "./AreaAlertsPromo";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -343,7 +343,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                   </div>
                   <div className="column col-lg-12 col-5 detail-column-right">
                     <EmailAlertSignup addr={detailAddr} />
-                    <GetRepairs />
+                    <AreaAlertsPromo />
                     <div className="card-body-links column-right">
                       <UsefulLinks
                         addrForLinks={detailAddr}
