@@ -65,11 +65,16 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
     super(props);
     const indicator =
       validateIndicatorParam(props.match.params.indicator) || indicatorsInitialState.defaultVis;
+    const { detailAddr } = this.props.state.context.portfolioData;
     this.state = {
       ...indicatorsInitialState,
       activeVis: indicator,
       defaultVis: indicator,
       activeTimeSpan: indicator === "rentstabilizedunits" ? "year" : "quarter",
+      xAxisViewableColumns:
+        indicator === "rentstabilizedunits"
+          ? detailAddr.rsunitslatestyear - 2007 + 1
+          : indicatorsInitialState.xAxisViewableColumns,
     };
     this.handleVisChange = this.handleVisChange.bind(this);
     this.handleTimeSpanChange = this.handleTimeSpanChange.bind(this);
