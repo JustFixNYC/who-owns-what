@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-18 16:07\n"
+"PO-Revision-Date: 2026-02-19 18:38\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -318,6 +318,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 #~ msgid "Area"
 #~ msgstr "Area"
 
+#: src/components/AreaAlertsPromo.tsx:14
 #: src/containers/AccountSettingsPage.tsx:114
 #: src/containers/DistrictAlertsPage.tsx:168
 msgid "Area Alerts"
@@ -941,12 +942,16 @@ msgstr "ALMACENAMIENTO DE BASURA/RECICLAJE"
 #~ msgstr "Get Data Updates for this building"
 
 #: src/components/GetRepairs.tsx:23
-msgid "Get Repairs"
-msgstr "Obtener reparaciones"
+#~ msgid "Get Repairs"
+#~ msgstr "Get Repairs"
 
 #: src/components/EmailAlertSignup.tsx:89
 msgid "Get a weekly email alert on complaints, violations, and eviction filings for this building."
 msgstr "Reciba por correo electrónico una alerta semanal de las quejas, infracciones y expedientes de desalojo de este edificio."
+
+#: src/components/AreaAlertsPromo.tsx:17
+msgid "Get a weekly email highlighting emerging housing issues in buildings and landlord portfolios in your area."
+msgstr ""
 
 #: src/containers/DistrictAlertsPage.tsx:105
 #~ msgid "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
@@ -1453,8 +1458,8 @@ msgstr "Nombrado por el Defensor Público de Nueva York como el <0>peor arrendad
 #~ msgstr "Need help finding an area? <0>See all area maps</0>"
 
 #: src/components/GetRepairs.tsx:15
-msgid "Need repairs in this building?"
-msgstr "¿Necesita reparaciones en este edificio?"
+#~ msgid "Need repairs in this building?"
+#~ msgstr "Need repairs in this building?"
 
 #: src/util/helpers.ts:61
 msgid "Neighborhood"
@@ -1891,6 +1896,10 @@ msgstr "Ver perfil del edificio"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en las pestañas General y Portafolio."
 
+#: src/components/AreaAlertsPromo.tsx:23
+msgid "Select a neighborhood"
+msgstr ""
+
 #: src/containers/DistrictAlertsPage.tsx:137
 msgid "Select an area"
 msgstr "Selecciona un área"
@@ -1912,8 +1921,8 @@ msgstr "Selecciona o escribe un"
 #~ msgstr "Send a free, legally vetted letter to notify your landlord of repair issues"
 
 #: src/components/GetRepairs.tsx:18
-msgid "Send a free, legally vetted letter to notify your landlord of repair issues."
-msgstr "Envíe una carta gratuita para notificar a su dueño de los problemas de reparación."
+#~ msgid "Send a free, legally vetted letter to notify your landlord of repair issues."
+#~ msgstr "Send a free, legally vetted letter to notify your landlord of repair issues."
 
 #: src/components/Login.tsx:122
 #~ msgid "Send again"
