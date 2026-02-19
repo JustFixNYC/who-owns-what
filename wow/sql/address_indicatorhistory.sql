@@ -116,6 +116,8 @@ WITH TIME_SERIES AS (
       select '2022-01' as month, uc2022 as RENTSTABILIZEDUNITS_TOTAL from RENTSTAB_DATA
       union
       select '2023-01' as month, uc2023 as RENTSTABILIZEDUNITS_TOTAL from RENTSTAB_DATA
+      union
+      select '2024-01' as month, uc2024 as RENTSTABILIZEDUNITS_TOTAL from RENTSTAB_DATA
     )
 
   SELECT 

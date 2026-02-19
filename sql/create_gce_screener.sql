@@ -306,11 +306,12 @@ CREATE TABLE gce_screener AS (
       coalesce(r.uc2021, 0) AS rs_units_2021, 
       coalesce(r.uc2022, 0) AS rs_units_2022,
       coalesce(r.uc2023, 0) AS rs_units_2023,
+      coalesce(r.uc2024, 0) AS rs_units_2024,
 
       case 
-          when coalesce(nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) > p.unitsres
+          when coalesce(nullif(r.uc2024, 0), nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) > p.unitsres
           then p.unitsres
-          else coalesce(nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0)
+          else coalesce(nullif(r.uc2024, 0), nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0)
       end AS post_hstpa_rs_units,
 
       coalesce(s.is_nycha, false) AS is_nycha,
