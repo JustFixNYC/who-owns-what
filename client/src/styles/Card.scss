@@ -41,8 +41,8 @@
   .table-content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1rem;
+    padding: 1rem;
     // overrides the margin-bottom: 3px introduced in DetailView.
     // important so the cursor doesn't flicker to the tooltip/question mark icon
     margin: 0px !important;

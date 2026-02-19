@@ -313,6 +313,7 @@ msgstr "Are you having issues in this development?"
 #~ msgid "Area"
 #~ msgstr "Area"
 
+#: src/components/AreaAlertsPromo.tsx:14
 #: src/containers/AccountSettingsPage.tsx:114
 #: src/containers/DistrictAlertsPage.tsx:168
 msgid "Area Alerts"
@@ -936,12 +937,16 @@ msgstr "GARBAGE/RECYCLING STORAGE"
 #~ msgstr "Get Data Updates for this building"
 
 #: src/components/GetRepairs.tsx:23
-msgid "Get Repairs"
-msgstr "Get Repairs"
+#~ msgid "Get Repairs"
+#~ msgstr "Get Repairs"
 
 #: src/components/EmailAlertSignup.tsx:89
 msgid "Get a weekly email alert on complaints, violations, and eviction filings for this building."
 msgstr "Get a weekly email alert on complaints, violations, and eviction filings for this building."
+
+#: src/components/AreaAlertsPromo.tsx:17
+msgid "Get a weekly email highlighting emerging housing issues in buildings and landlord portfolios in your area."
+msgstr "Get a weekly email highlighting emerging housing issues in buildings and landlord portfolios in your area."
 
 #: src/containers/DistrictAlertsPage.tsx:105
 #~ msgid "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
@@ -1448,8 +1453,8 @@ msgstr "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, a
 #~ msgstr "Need help finding an area? <0>See all area maps</0>"
 
 #: src/components/GetRepairs.tsx:15
-msgid "Need repairs in this building?"
-msgstr "Need repairs in this building?"
+#~ msgid "Need repairs in this building?"
+#~ msgstr "Need repairs in this building?"
 
 #: src/util/helpers.ts:61
 msgid "Neighborhood"
@@ -1886,6 +1891,10 @@ msgstr "See Building Profile"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 
+#: src/components/AreaAlertsPromo.tsx:23
+msgid "Select a neighborhood"
+msgstr "Select a neighborhood"
+
 #: src/containers/DistrictAlertsPage.tsx:137
 msgid "Select an area"
 msgstr "Select an area"
@@ -1907,8 +1916,8 @@ msgstr "Select or type a"
 #~ msgstr "Send a free, legally vetted letter to notify your landlord of repair issues"
 
 #: src/components/GetRepairs.tsx:18
-msgid "Send a free, legally vetted letter to notify your landlord of repair issues."
-msgstr "Send a free, legally vetted letter to notify your landlord of repair issues."
+#~ msgid "Send a free, legally vetted letter to notify your landlord of repair issues."
+#~ msgstr "Send a free, legally vetted letter to notify your landlord of repair issues."
 
 #: src/components/Login.tsx:122
 #~ msgid "Send again"
