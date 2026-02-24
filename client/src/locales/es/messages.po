@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-23 20:38\n"
+"PO-Revision-Date: 2026-02-24 21:19\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -142,7 +142,7 @@ msgstr "<0>Busque una dirección</0> para añadirla a sus alertas de edificio"
 #: src/components/Login.tsx:201
 #: src/containers/UnsubscribePage.tsx:109
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
-msgstr "<0>Busque una dirección para</0> añadirla a sus alertas de edificios,  <1>suscríbase a las alertas de zonas</1> o visite la página <2>de configuración</2> de su <2>correo electrónico</2> para gestionar las suscripciones."
+msgstr "<0>Busque una dirección para</0> añadirla a sus alertas de edificios,  <1>suscríbase a las alertas de zonas</1> o visite la página <2>de configuración</2> de su correo electrónico para gestionar las suscripciones."
 
 #: src/components/Login.tsx:196
 #~ msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to District Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
@@ -322,7 +322,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 #: src/containers/AccountSettingsPage.tsx:114
 #: src/containers/DistrictAlertsPage.tsx:168
 msgid "Area Alerts"
-msgstr "Alertas de área"
+msgstr "Alertas por zonas"
 
 #: src/containers/DistrictAlertsPage.tsx:42
 #~ msgid "Area alerts"
@@ -334,11 +334,11 @@ msgstr "Alertas de área"
 
 #: src/containers/DistrictAlertsPage.tsx:125
 msgid "Area selection"
-msgstr "Selección de área"
+msgstr "Selección de zona"
 
 #: src/containers/DistrictAlertsPage.tsx:120
 msgid "Area type selection"
-msgstr "Selección del tipo de área"
+msgstr "Selección del tipo de zona"
 
 #: src/components/PropertiesMap.tsx:342
 msgid "Associated names/entities: {0}"
@@ -640,7 +640,7 @@ msgstr "Contraseña actual"
 
 #: src/components/MinMaxSelect.tsx:118
 msgid "Custom range"
-msgstr "Rango personalizadas"
+msgstr "Rango personalizado"
 
 #: src/components/UsefulLinks.tsx:35
 msgid "DOB Building Profile"
@@ -765,7 +765,7 @@ msgstr "Configuración del correo electrónico"
 
 #: src/containers/DistrictAlertsPage.tsx:114
 msgid "Emails will include new HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
-msgstr "Los correos electrónicos incluirán nuevas quejas y infracciones del Departamento de Vivienda y Desarrollo Urbano (HPD) y del Departamento de Edificación (DOB), solicitudes de desahucio, litigios, órdenes de desalojo y ventas de edificios."
+msgstr "Los correos electrónicos incluirán nuevas quejas e infracciones del Departamento de Preservación y Desarrollo de Vivienda de la Ciudad de Nueva York (HPD) y del Departamento de Edificios (DOB), demandas de desalojo, litigios, órdenes de desocupación y ventas de edificios."
 
 #: src/components/IndicatorsViz.tsx:170
 msgid "Emergency"
@@ -781,7 +781,7 @@ msgstr "Emergencia"
 
 #: src/containers/HomePage.tsx:50
 msgid "Enter an address and find other buildings your landlord might own in NYC:"
-msgstr "Introduzca una dirección y encuentre otros edificios que su dueño pueda tener en NYC:"
+msgstr "Introduzca una dirección y encuentre otros edificios que pueda tener su arrendador en NYC:"
 
 #: src/components/Subscribe.tsx:80
 #: src/containers/ForgotPasswordPage.tsx:54
@@ -915,7 +915,7 @@ msgstr "Filtros"
 
 #: src/containers/HomePage.tsx:51
 msgid "Find other buildings your landlord might own in NYC:"
-msgstr "Encuentre otros edificios que su dueño pueda tener en NYC:"
+msgstr "Encuentre otros edificios que pueda tener su arrendador en NYC:"
 
 #: src/containers/HomePage.tsx:88
 #~ msgid "Find other buildings your landlord might own:"
@@ -951,7 +951,7 @@ msgstr "Reciba por correo electrónico una alerta semanal de las quejas, infracc
 
 #: src/components/AreaAlertsPromo.tsx:17
 msgid "Get a weekly email highlighting emerging housing issues in buildings and landlord portfolios in your area."
-msgstr "Recibe un correo electrónico semanal con información destacada sobre cuestiones emergentes relacionadas con la vivienda en edificios y carteras de propietarios de tu zona."
+msgstr "Reciba un correo electrónico semanal con alertas sobre problemas relacionados con la vivienda en edificios y propiedades de arrendadores en su zona."
 
 #: src/containers/DistrictAlertsPage.tsx:105
 #~ msgid "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
@@ -963,7 +963,7 @@ msgstr "Recibe un correo electrónico semanal con información destacada sobre c
 
 #: src/containers/DistrictAlertsPage.tsx:107
 msgid "Get a weekly email that lists the top buildings in your area where tenants are at an elevated risk of displacement. <0>See example</0>"
-msgstr "Recibe un correo electrónico semanal con una lista de los principales edificios de tu zona cuyos inquilinos corren un riesgo elevado de desalojo. <0>Ver ejemplo</0>"
+msgstr "Reciba un correo electrónico semanal con una lista de los principales edificios de su zona cuyos inquilinos corren un riesgo elevado de desalojo. <0>Ver ejemplo</0>"
 
 #: src/components/EmailAlertSignup.tsx:86
 #~ msgid "Get a weekly email update on complaints, violations, and eviction filings for this building."
@@ -1266,7 +1266,7 @@ msgstr "Iniciar sesión / Registrarse"
 
 #: src/components/Login.tsx:335
 msgid "Log in to add {0} to your Building Alerts"
-msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
+msgstr "Inicie sesión para añadir {0} a sus Alertas de Edificios"
 
 #: src/components/Login.tsx:299
 #~ msgid "Log in to add {0} to your Building Updates"
@@ -1282,7 +1282,7 @@ msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
 
 #: src/components/Login.tsx:335
 msgid "Log in to subscribe to Area Alerts"
-msgstr "Inicia sesión para suscribirte a las alertas de zona."
+msgstr "Inicie sesión para suscribirse a las alertas por zonas"
 
 #: src/containers/App.tsx:124
 #~ msgid "Log out"
@@ -1435,7 +1435,7 @@ msgstr "NO CONSTRUCCIÓN"
 
 #: src/containers/DistrictAlertsPage.tsx:106
 msgid "NYC Area Alerts"
-msgstr "Alertas en el área de Nueva York"
+msgstr "Alertas en la zona de Nueva York"
 
 #: src/containers/NychaPage.tsx:166
 msgid "NYCHA Directory"
@@ -1447,7 +1447,7 @@ msgstr "Directorio de NYCHA"
 
 #: src/containers/HomePage.tsx:129
 msgid "Named by the NYC Public Advocate as the <0>Worst Landlord in 2015</0>, and as one of the <1>Pandemic's worst evictors</1>, Ved Parkash has used housing court as a vehicle to collect rent and evict tenants. In response to Parkash’s predatory behavior, residents have organizing together to form the Parkash Tenant Coalition, but <2>life threatening building conditions remain</2>."
-msgstr "Nombrado por el Defensor Público de Nueva York como el <0>peor arrendador de 2015</0> y uno de los <1>peores desalojadores de la pandemia</1>, Ved Parkash ha utilizado los tribunales de vivienda como vehículo para cobrar el alquiler y desalojar a los inquilinos. En respuesta al comportamiento depredador de Parkash, los residentes se han organizado para formar la Coalición de Inquilinos de Parkash, pero <2>las condiciones del edificio siguen siendo peligrosas para la vida</2>."
+msgstr "Nombrado por el Defensor Público de Nueva York como el <0>peor arrendador de 2015</0> y uno de los <1>peores desalojadores de la pandemia</1>, Ved Parkash ha utilizado los tribunales de vivienda como vehículo para cobrar la renta y desalojar a los inquilinos. En respuesta al comportamiento depredador de Parkash, los residentes se han organizado para formar la Coalición de Inquilinos de Parkash, pero <2>las condiciones del edificio siguen siendo peligrosas para vivir allí</2>."
 
 #: src/components/PortfolioAlerts.tsx:78
 #~ msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
@@ -1898,11 +1898,11 @@ msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en l
 
 #: src/components/AreaAlertsPromo.tsx:23
 msgid "Select a neighborhood"
-msgstr "Selecciona un barrio"
+msgstr "Seleccione un barrio"
 
 #: src/containers/DistrictAlertsPage.tsx:137
 msgid "Select an area"
-msgstr "Selecciona un área"
+msgstr "Seleccione un área"
 
 #: src/containers/DistrictAlertsPage.tsx:113
 #~ msgid "Select an area to get started:"
@@ -2023,7 +2023,7 @@ msgstr "Regístrate"
 #: src/components/Login.tsx:347
 #: src/components/Login.tsx:354
 msgid "Sign up for Email Alerts"
-msgstr "Suscríbete a las alertas por correo electrónico"
+msgstr "Suscríbase a las alertas por correo electrónico"
 
 #: src/components/EngagementPanel.tsx:12
 #~ msgid "Sign up for email updates"
@@ -2285,7 +2285,7 @@ msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edif
 
 #: src/containers/AccountSettingsPage.tsx:98
 msgid "There {buildingSubscriptionsNumber, plural, one {is} other {are}} {buildingSubscriptionsNumber} {buildingSubscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
-msgstr "Hay {buildingSubscriptionsNumber, plural, one {} other {}} {buildingSubscriptionsNumber} {buildingSubscriptionsNumber, plural, one {edificio} other {edificios}} en tus correos electrónicos semanales"
+msgstr "Hay {buildingSubscriptionsNumber, plural, one {} other {}} {buildingSubscriptionsNumber} {buildingSubscriptionsNumber, plural, one {edificio} other {edificios}} en sus correos electrónicos semanales"
 
 #: src/containers/AccountSettingsPage.tsx:61
 #~ msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
@@ -2379,7 +2379,7 @@ msgstr "Cronología"
 
 #: src/containers/UnsubscribePage.tsx:93
 msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and <0>create a new Area Alert.</0>"
-msgstr "Para eliminar un código postal, barrio, distrito o sector censal de tus correos electrónicos de alertas de zona, debes «eliminar» la alerta de <0>zona</0> y <0>crear una nueva.</0>"
+msgstr "Para eliminar un código postal, barrio, distrito o sector censal de sus correos electrónicos de alertas por zona, debe \"eliminar\" la alerta por zona y <0>crear una nueva.</0>"
 
 #: src/containers/UnsubscribePage.tsx:93
 #~ msgid "To remove a zip code, neighborhood, district, or census tract from your Area Alert emails, you must “remove” the Area Alert and<0>create a new Area Alert.</0>"
@@ -2387,7 +2387,7 @@ msgstr "Para eliminar un código postal, barrio, distrito o sector censal de tus
 
 #: src/containers/DistrictAlertsPage.tsx:118
 msgid "To start: select an area here or on the map."
-msgstr "Para empezar: selecciona una zona aquí o en el mapa."
+msgstr "Para empezar: seleccione una zona aquí o en el mapa."
 
 #: src/components/PortfolioTable.tsx:242
 msgid "Top Complaint"
@@ -2620,7 +2620,7 @@ msgstr "Comparamos la dirección que buscaste con una base de datos de más de 2
 
 #: src/components/Login.tsx:197
 msgid "We have added Area Alerts to your weekly emails. Visit your <0>email settings</0> to manage Area Alerts."
-msgstr "Hemos añadido alertas de zona a tus correos electrónicos semanales. Visita <0>la configuración de</0> tu <0>correo electrónico</0> para gestionar las alertas de zona."
+msgstr "Hemos añadido alertas de zona a tus correos electrónicos semanales. Visite la  <0>configuración de su correo electrónico</0> para gestionar las alertas de zona."
 
 #: src/components/FeatureCalloutContent.ts:24
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
@@ -2652,7 +2652,7 @@ msgstr "Hemos enviado un enlace de reinicio a {email}. Por favor, comprueba su b
 
 #: src/components/Login.tsx:348
 msgid "We’ll text you in a few months to ask how we can improve this free service."
-msgstr "Te enviaremos un mensaje de texto en unos meses para preguntarte cómo podemos mejorar este servicio gratuito."
+msgstr "Le enviaremos un mensaje de texto en unos meses para preguntarle cómo podemos mejorar este servicio gratuito."
 
 #: src/containers/VerifyEmailPage.tsx:81
 msgid "We’re having trouble verifying your email at this time."
@@ -2770,7 +2770,7 @@ msgstr "Ha iniciado sesión"
 
 #: src/containers/UnsubscribePage.tsx:108
 msgid "You are not subscribed to any Building or Area Alerts"
-msgstr "No estás suscrito a ninguna alerta de edificio o zona."
+msgstr "No está suscrito a ninguna alerta de edificio o zona."
 
 #: src/containers/UnsubscribePage.tsx:118
 #~ msgid "You are not subscribed to any buildings"
@@ -2782,7 +2782,7 @@ msgstr "Ha iniciado sesión y hemos añadido este edificio a sus actualizaciones
 
 #: src/containers/AccountSettingsPage.tsx:85
 msgid "You are now logged in and we’ve added your area to your weekly email updates"
-msgstr "Ya has iniciado sesión y hemos añadido tu zona a tus actualizaciones semanales por correo electrónico."
+msgstr "Ya ha iniciado sesión y hemos añadido su zona a sus actualizaciones semanales por correo electrónico"
 
 #: src/containers/VerifyEmailPage.tsx:86
 #~ msgid "You are now signed up for weekly Data Updates."
@@ -2790,7 +2790,7 @@ msgstr "Ya has iniciado sesión y hemos añadido tu zona a tus actualizaciones s
 
 #: src/containers/UnsubscribePage.tsx:89
 msgid "You are signed up for Area Alerts for"
-msgstr "Estás suscrito a las alertas de área para"
+msgstr "Está suscrito a las alertas por área para"
 
 #: src/containers/UnsubscribePage.tsx:79
 msgid "You are signed up for Building Alerts for"
@@ -2855,7 +2855,7 @@ msgstr "Está viendo la versión anterior de Quién es el Dueño"
 
 #: src/containers/VerifyEmailPage.tsx:95
 msgid "You can now close this window, <0>search for another building</0> to follow, or <1>select an area</1> to follow for alerts."
-msgstr "Ahora puedes cerrar esta ventana, <0>buscar otro edificio para</0> seguir o <1>seleccionar una zona</1> para recibir alertas."
+msgstr "Ahora puede cerrar esta ventana, <0>buscar otro edificio para</0> seguir o <1>seleccionar una zona</1> para recibir alertas."
 
 #: src/containers/VerifyEmailPage.tsx:65
 #~ msgid "You can now start receiving Building Updates"
@@ -2887,7 +2887,7 @@ msgstr "Ha alcanzado el número máximo de Alertas de Edificios"
 
 #: src/components/UserSettingField.tsx:100
 msgid "Your email address is not yet verified. Click the link we sent to {email} start receiving email alerts."
-msgstr "Tu dirección de correo electrónico aún no está verificada. Haz clic en el enlace que te hemos enviado a {email} para empezar a recibir alertas por correo electrónico."
+msgstr "Su dirección de correo electrónico aún no está verificada. Haga clic en el enlace que le hemos enviado a {email} para empezar a recibir alertas por correo electrónico."
 
 #: src/containers/VerifyEmailPage.tsx:101
 msgid "Your email is already verified"
