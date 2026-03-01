@@ -389,7 +389,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
             },
             scaleLabel: {
               display: true,
-              fontFamily: "Inconsolata, monospace",
+              fontFamily: "Degular, Arial, Helvetica, sans-serif",
               fontColor: "rgb(69, 77, 93)",
               fontSize: 14,
               padding: 8,
@@ -462,7 +462,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       legend: {
         position: "bottom",
         labels: {
-          fontFamily: "Inconsolata, monospace",
+          fontFamily: "Degular, Arial, Helvetica, sans-serif",
           fontColor: "rgb(69, 77, 93)",
         },
         onHover(event, legendItem) {
