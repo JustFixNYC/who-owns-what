@@ -217,6 +217,35 @@ Note also that the
 project may be useful for keeping the WoW database up-to-date on a day-to-day
 basis.
 
+## Worst Evictors 2025 data flow
+
+`who-owns-what` is the source of truth for the 2025 Worst Evictors analysis
+used by the Signature Dashboard map/list views.
+
+### Source of truth
+
+- SQL build logic lives in `sql/create_worst_evictors_2025.sql`.
+- That script creates and refreshes:
+  - `worst_evictors_2025_portfolios` (ranked list + aggregate metrics),
+  - `worst_evictors_2025_map_points` (one row per mapped BBL point).
+- The script is included in `who-owns-what.yml` under `signature_post_sql`,
+  so it runs as part of the normal Signature post-processing flow.
+
+### API endpoints
+
+- `GET /signature/worst-evictors/2025/list`
+  - Returns ranked portfolios and summary metrics.
+- `GET /signature/worst-evictors/2025/map`
+  - Returns mapped BBL points.
+  - Optional query param: `ll_slug` to filter to one portfolio.
+
+### Operational note
+
+To refresh the 2025 data, run the normal WoW data build path (for example
+`python dbtool.py builddb`) and ensure Signature post-SQL scripts complete.
+No separate `worst-evictors-data` runtime pipeline is required for dashboard
+delivery once this flow is in place.
+
 [nycdb]: https://github.com/nycdb/nycdb
 [`requirements-dev.txt`]: requirements-dev.txt
 [`who-owns-what.yml`]: who-owns-what.yml

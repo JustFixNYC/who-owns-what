@@ -70,6 +70,16 @@ urlpatterns = [
     ),
     path("signature/map", views.signature_map, name="signature_map"),
     path(
+        "signature/worst-evictors/2025/list",
+        views.worst_evictors_2025_list,
+        name="worst_evictors_2025_list",
+    ),
+    path(
+        "signature/worst-evictors/2025/map",
+        views.worst_evictors_2025_map,
+        name="worst_evictors_2025_map",
+    ),
+    path(
         "dataset/last_updated", views.dataset_last_updated, name="dataset_last_updated"
     ),
     path("dataset/tracker", views.dataset_tracker, name="dataset_tracker"),

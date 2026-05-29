@@ -55,6 +55,7 @@ import { JFLogoDivider } from "components/JFLogoDivider";
 import { LoadingPage } from "components/Loader";
 import BBLSeparatedPage from "./BBLSeparatedPage";
 import DistrictAlertsPage from "./DistrictAlertsPage";
+import WorstEvictorsMapPage from "./WorstEvictorsMapPage";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -208,6 +209,8 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
       <Route path={paths.legacy.howToUse} component={HowToUsePage} />
+      <Route path={paths.worstEvictorsMap} component={WorstEvictorsMapPage} />
+      <Route path={paths.legacy.worstEvictorsMap} component={WorstEvictorsMapPage} />
       <Route path={paths.methodology} component={MethodologyPage} />
       <Route path={paths.legacy.methodology} component={MethodologyPage} />
       <Route path={paths.termsOfUse} component={TermsOfUsePage} />

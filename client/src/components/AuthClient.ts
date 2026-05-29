@@ -34,7 +34,13 @@ type PasswordResetResponse = Omit<VerifyEmailResponse, "statusCode"> & {
 let _user: JustfixUser | undefined;
 const user = () => _user;
 const fetchUser = async () => {
-  const authCheck = await userAuthenticated();
+  let authCheck;
+  try {
+    authCheck = await userAuthenticated();
+  } catch {
+    clearUser();
+    return;
+  }
 
   if (!authCheck) {
     clearUser();
@@ -434,10 +440,9 @@ const friendlyFetch: typeof fetch = async (input, init) => {
   let response: Response;
   try {
     response = await fetch(input, init);
-    console.log(response);
   } catch (e) {
     if (e instanceof Error) {
-      window.Rollbar.error(e.message, { input, init });
+      window.Rollbar?.error(e.message, { input, init });
       throw new NetworkError(e.message);
     } else {
       throw new Error("Unexpected error");
