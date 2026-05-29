@@ -22,6 +22,7 @@ from .forms import (
     PaddedBBLListForm,
     SeparatedBBLForm,
     SignatureCollectionForm,
+    WorstEvictorSlugForm,
 )
 
 
@@ -318,6 +319,33 @@ def signature_map(request):
     """
     authorize_for_signature(request)
     result = exec_db_query(SQL_DIR / "signature_map.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def worst_evictors_2025_list(request):
+    """
+    Return ranked 2025 worst evictor portfolios.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "worst_evictors_2025_list.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def worst_evictors_2025_map(request):
+    """
+    Return map points for 2025 worst evictor portfolios.
+    Optional ll_slug query arg filters to one portfolio.
+    """
+    authorize_for_signature(request)
+    args = get_validated_form_data(WorstEvictorSlugForm, request.GET)
+    # Always pass ll_slug to keep SQL parameterization stable for both
+    # filtered and unfiltered requests.
+    result = exec_db_query(
+        SQL_DIR / "worst_evictors_2025_map.sql",
+        {"ll_slug": args["ll_slug"] or None},
+    )
     return JsonResponse({"result": list(result)})
 
 

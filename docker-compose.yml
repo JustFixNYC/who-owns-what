@@ -24,7 +24,7 @@ services:
 
     command: yarn start
   db:
-    image: postgis/postgis:9.6-3.2
+    image: postgis/postgis:14-3.4
     environment:
       - POSTGRES_USER=wow
       - POSTGRES_DB=wow

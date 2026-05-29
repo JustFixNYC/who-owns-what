@@ -55,6 +55,7 @@ signature_post_sql:
   - create_signature_collections.sql
   - create_signature_building_charts.sql
   - create_signature_collection_charts.sql
+  - create_worst_evictors_2025.sql
 good_cause_sql:
   - create_gce_common.sql
   - create_gce_screener.sql

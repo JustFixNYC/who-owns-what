@@ -75,6 +75,10 @@ class SignatureCollectionForm(forms.Form):
     collection = forms.CharField()
 
 
+class WorstEvictorSlugForm(forms.Form):
+    ll_slug = forms.CharField(required=False)
+
+
 class DatasetLastUpdatedForm(forms.Form):
     dataset = forms.CharField(required=False)
 

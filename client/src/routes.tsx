@@ -104,6 +104,7 @@ export const createCoreRoutePaths = (prefix?: string) => {
     bbl: createAddressPageRoutes(`${pathPrefix}/bbl/:bbl(\\d{10})`),
     about: `${pathPrefix}/about`,
     howToUse: `${pathPrefix}/how-to-use`,
+    worstEvictorsMap: `${pathPrefix}/worst-evictors-map`,
     methodology: `${pathPrefix}/how-it-works`,
     termsOfUse: `${pathPrefix}/terms-of-use`,
     privacyPolicy: `${pathPrefix}/privacy-policy`,

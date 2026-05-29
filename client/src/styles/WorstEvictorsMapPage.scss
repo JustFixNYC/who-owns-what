@@ -1,0 +1,146 @@
+@import "./vars";
+@import "./typography";
+
+div.WorstEvictorsMapPage {
+  .worst-evictors-map-page__header {
+    padding: 1.5rem 2rem 1rem;
+    border-bottom: 1px solid $justfix-grey-50;
+
+    h2 {
+      margin: 0 0 0.5rem;
+      text-decoration: none;
+    }
+
+    p {
+      margin: 0;
+      max-width: 70rem;
+    }
+  }
+
+  .worst-evictors-map-page__filters {
+    margin-top: 0.9rem;
+    max-width: 30rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+  }
+
+  .worst-evictors-map-page__select {
+    font-size: 0.95rem;
+  }
+
+  .worst-evictors-map-page__content {
+    display: grid;
+    grid-template-columns: 1fr 23rem;
+    min-height: calc(100vh - 12rem);
+  }
+
+  .worst-evictors-map-page__map-wrapper {
+    position: relative;
+    background-color: $justfix-grey-50;
+  }
+
+  .worst-evictors-map-page__map-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $justfix-grey-700;
+    z-index: 1;
+  }
+
+  .worst-evictors-map-page__map {
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 12rem);
+    border: 0;
+  }
+
+  .worst-evictors-map-page__error {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid $justfix-red;
+    color: $justfix-red;
+    border-radius: 6px;
+    padding: 0.625rem 0.75rem;
+    font-weight: 600;
+  }
+
+  .worst-evictors-map-page__sidebar {
+    border-left: 1px solid $justfix-grey-50;
+    padding: 1rem;
+    overflow: auto;
+    background-color: $justfix-white-100;
+
+    h3 {
+      text-decoration: none;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .worst-evictors-map-page__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .worst-evictors-map-page__list-item {
+    border: 1px solid $justfix-grey-50;
+    border-radius: 4px;
+    padding: 0.625rem 0.75rem;
+    background-color: $justfix-white-100;
+
+    &.is-selected {
+      border-color: $justfix-purple;
+      box-shadow: inset 0 0 0 1px $justfix-purple;
+    }
+  }
+
+  .worst-evictors-map-page__list-title {
+    font-weight: 700;
+    margin-bottom: 0.125rem;
+  }
+
+  .worst-evictors-map-page__list-stats {
+    color: $justfix-grey-700;
+    font-size: 0.9375rem;
+  }
+
+  .worst-evictors-map-page__empty {
+    margin-top: 0.9rem;
+    color: $justfix-grey-700;
+  }
+
+  @include for-tablet-landscape-down {
+    .worst-evictors-map-page__header {
+      padding: 1rem 1.25rem;
+    }
+
+    .worst-evictors-map-page__content {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .worst-evictors-map-page__map {
+      min-height: 60vh;
+    }
+
+    .worst-evictors-map-page__sidebar {
+      border-left: 0;
+      border-top: 1px solid $justfix-grey-50;
+      max-height: 40vh;
+    }
+  }
+}
