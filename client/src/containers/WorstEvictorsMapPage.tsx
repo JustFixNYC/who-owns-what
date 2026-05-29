@@ -9,6 +9,8 @@ import "styles/WorstEvictorsMapPage.css";
 import hardcodedRows from "data/worst-evictors-2025-hardcoded.json";
 import hardcodedMapPoints from "data/worst-evictors-2025-map-points-hardcoded.json";
 
+/* eslint-disable react/style-prop-object */
+
 const DEFAULT_FIT_BOUNDS: [[number, number], [number, number]] = [
   [-74.259087, 40.477398],
   [-73.700172, 40.917576],
@@ -202,6 +204,23 @@ const WorstEvictorsMapPage = withI18n()((props: withI18nProps) => {
                   className={`worst-evictors-map-page__list-item${
                     selectedSlug === row.ll_slug ? " is-selected" : ""
                   }`}
+                  onClick={() =>
+                    setSelectedEvictor({
+                      value: row.ll_slug,
+                      label: `${row.citywide_rank}. ${row.ll_name}`,
+                    })
+                  }
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setSelectedEvictor({
+                        value: row.ll_slug,
+                        label: `${row.citywide_rank}. ${row.ll_name}`,
+                      });
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
                 >
                   <div className="worst-evictors-map-page__list-title">
                     {row.citywide_rank}. {row.ll_name}
