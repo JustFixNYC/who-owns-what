@@ -322,6 +322,17 @@ def signature_map(request):
 
 
 @api
+def rent_stabilized_map(request):
+    """
+    This API endpoint returns map points for all residential buildings with
+    rent-stabilized units, for the rent-history rent-stabilized map page.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "rent_stabilized_map.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
 def dataset_last_updated(request):
     """
     This API endpoint returns data on all properties in the signature portfolio

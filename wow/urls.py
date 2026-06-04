@@ -70,6 +70,11 @@ urlpatterns = [
     ),
     path("signature/map", views.signature_map, name="signature_map"),
     path(
+        "rent-stabilized/map",
+        views.rent_stabilized_map,
+        name="rent_stabilized_map",
+    ),
+    path(
         "dataset/last_updated", views.dataset_last_updated, name="dataset_last_updated"
     ),
     path("dataset/tracker", views.dataset_tracker, name="dataset_tracker"),

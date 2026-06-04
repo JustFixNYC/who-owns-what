@@ -28,7 +28,9 @@ urlpatterns = [
 
 ALERTS_AUTH_ARG = {"HTTP_AUTHORIZATION": f"Token {settings.ALERTS_API_TOKEN}"}
 
-SIGNATURE_AUTH_ARG = {"HTTP_AUTHORIZATION": f"Token {settings.SIGNATURE_API_TOKEN}"}
+SIGNATURE_AUTH_ARG = {
+    "HTTP_AUTHORIZATION": f"Bearer {settings.SIGNATURE_API_TOKEN}"
+}
 
 
 class ApiTest:
@@ -191,6 +193,26 @@ class TestAddressExport(ApiTest):
         res = client.get("/api/address/export?bbl=1234567890")
         assert res.status_code == 404
         assert "Access-Control-Allow-Origin" in res
+
+
+class TestRentStabilizedMap:
+    def test_it_requires_auth(self, db, client):
+        res = client.get("/api/rent-stabilized/map")
+        assert res.status_code == 401
+
+    def test_it_works(self, db, client):
+        res = client.get("/api/rent-stabilized/map", **SIGNATURE_AUTH_ARG)
+        assert res.status_code == 200
+        json = res.json()
+        assert "result" in json
+        assert isinstance(json["result"], list)
+        assert "Access-Control-Allow-Origin" in res
+        if len(json["result"]) > 0:
+            row = json["result"][0]
+            assert "bbl" in row
+            assert "lat" in row
+            assert "lng" in row
+            assert "rs_units" in row
 
 
 class TestFixupAddrForCsv:
