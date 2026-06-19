@@ -429,15 +429,12 @@ const postLoginCredentials = async (
   return await result.json();
 };
 
-// TODO shakao Move shared APIClient functions to util
 const friendlyFetch: typeof fetch = async (input, init) => {
   let response: Response;
   try {
     response = await fetch(input, init);
-    console.log(response);
   } catch (e) {
     if (e instanceof Error) {
-      window.Rollbar.error(e.message, { input, init });
       throw new NetworkError(e.message);
     } else {
       throw new Error("Unexpected error");
