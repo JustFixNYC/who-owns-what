@@ -43,6 +43,8 @@ export interface AddressSearchProps {
   onFormSubmit: (searchAddress: SearchAddress, error: any) => void;
   labelText: string | JSX.Element;
   labelClass: string;
+  placeholder?: string;
+  onInputChange?: (value: string) => void;
 }
 
 type State = {
@@ -111,6 +113,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
   }
 
   handleInputValueChange(value: string) {
+    this.props.onInputChange?.(value);
     if (this.requester.changeSearchRequest(value)) {
       this.setState({ isLoading: true });
     } else {
@@ -195,6 +198,9 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
         }}
         onChange={(sa) => {
           if (sa) {
+            // Clear the suggestion list so the dropdown hides after a
+            // selection (visibility also depends on results.length > 0).
+            this.setState({ results: [] });
             this.props.onFormSubmit(sa, null);
           }
           // TODO: I am very unclear on what it means for `sa` to be null,
@@ -226,7 +232,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
                     </label>
                     <input
                       autoFocus
-                      placeholder="Search places"
+                      placeholder={this.props.placeholder ?? "Search places"}
                       className="geosuggest__input form-input"
                       {...downshift.getInputProps(inputOptions)}
                     />

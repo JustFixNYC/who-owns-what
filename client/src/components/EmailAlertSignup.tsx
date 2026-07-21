@@ -22,6 +22,41 @@ import { ToastAlert } from "./ToastAlert";
 const DEFAULT_SUBSCRIPTION_LIMIT = 15;
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
+type EmailVerificationPromptProps = {
+  email?: string;
+  analyticsFrom: string;
+  eventUserParams?: { user_id?: number | string; user_type?: string };
+};
+
+export const EmailVerificationPrompt = (props: EmailVerificationPromptProps) => {
+  const { email, analyticsFrom, eventUserParams } = props;
+  const [isEmailResent, setIsEmailResent] = useState(false);
+
+  return (
+    <div className="email-verification-prompt">
+      <Alert type="info">
+        <Trans>Verify your email to receive updates and to add new buildings.</Trans>
+      </Alert>
+      <Trans render="div" className="card-description">
+        Click the link we sent to {email}. It may take a few minutes to arrive.
+      </Trans>
+      {!isEmailResent && <Trans render="div">Didn’t get the link?</Trans>}
+      <SendNewLink
+        setParentState={setIsEmailResent}
+        className="is-full-width"
+        onClick={() => {
+          AuthClient.resendVerifyEmail();
+          window.gtag("event", "email-verify-resend", {
+            ...eventUserParams,
+            from: analyticsFrom,
+            branch: BRANCH_NAME,
+          });
+        }}
+      />
+    </div>
+  );
+};
+
 /**
  * edge case: adding building as a result of successful login shows a flicker
  * between states, likely from a lag in subscription obj iteration.
@@ -57,7 +92,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
 
   const eventUserParams = { user_id: user?.id, user_type: user?.type };
 
-  const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const navigateToLogin = () => {
@@ -85,27 +119,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           setJustSubscribed(false);
           const params = { ...eventUserParams, from: "building page", branch: BRANCH_NAME };
           window.gtag("event", "unsubscribe-building", { ...params });
-        }}
-      />
-    </>
-  );
-
-  const renderEmailVerification = () => (
-    <>
-      <Alert type="info">
-        <Trans>Verify your email to receive updates and to add new buildings.</Trans>
-      </Alert>
-      <Trans render="div" className="card-description">
-        Click the link we sent to {user?.email}. It may take a few minutes to arrive.
-      </Trans>
-      {!isEmailResent && <Trans render="div">Didn’t get the link?</Trans>}
-      <SendNewLink
-        setParentState={setIsEmailResent}
-        className="is-full-width"
-        onClick={() => {
-          AuthClient.resendVerifyEmail();
-          const params = { ...eventUserParams, from: "building page", branch: BRANCH_NAME };
-          window.gtag("event", "email-verify-resend", { ...params });
         }}
       />
     </>
@@ -156,11 +169,17 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   return (
     <>
       <div className="building-subscribe">
-        {isLoggedIn && !user.verified
-          ? renderEmailVerification()
-          : showSubscribed
-          ? renderSubscribed()
-          : renderAddBuilding()}
+        {isLoggedIn && !user.verified ? (
+          <EmailVerificationPrompt
+            email={user?.email}
+            analyticsFrom="building page"
+            eventUserParams={eventUserParams}
+          />
+        ) : showSubscribed ? (
+          renderSubscribed()
+        ) : (
+          renderAddBuilding()
+        )}
       </div>
       <ToastAlert
         showToast={justSubscribed}

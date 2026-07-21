@@ -38,15 +38,26 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const { home, account, termsOfUse, privacyPolicy, areaAlerts } = createWhoOwnsWhatRoutePaths();
+  const {
+    home,
+    account,
+    termsOfUse,
+    privacyPolicy,
+    areaAlerts,
+    buildingAlerts,
+  } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
   const { pathname, state: locationState } = useLocation();
   const [addr, setAddr] = React.useState<AddressRecord>();
   const [district, setDistrict] = React.useState<District>();
+  const [returnRoute, setReturnRoute] = React.useState<string>();
+  const [fromBuildingAlerts, setFromBuildingAlerts] = React.useState(false);
   // switch to regular state and clear location state since it otherwise persists after reloads
   useEffect(() => {
     setAddr(locationState?.addr);
     setDistrict(locationState?.district);
+    setReturnRoute(locationState?.returnRoute);
+    setFromBuildingAlerts(!!locationState?.fromBuildingAlerts);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
@@ -119,6 +130,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     const isLegacy = isLegacyPath(pathname);
     return createRouteForAddressPage({ ...addr, locale: i18n.language }, isLegacy);
   };
+
+  const getAddrReturnRoute = (addr: AddressRecord) => returnRoute ?? getAddrPageRoute(addr);
 
   const formatAddr = (addr: AddressRecord, withBoro = true) => {
     if (!addr) return;
@@ -275,14 +288,23 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       {!!addr && (
         <div className="address-page-link">
           <Link
-            to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
+            to={{
+              pathname: fromBuildingAlerts
+                ? `/${i18n.language}${buildingAlerts}`
+                : getAddrReturnRoute(addr),
+              state: { justSubscribed: true, subscribedTo: "building" },
+            }}
             component={JFCLLink}
             onClick={() =>
               window.gtag("event", "register-return-address", { ...eventParams(user) })
             }
           >
             <Icon icon="arrowRight" />
-            Back to {formatAddr(addr)}
+            {fromBuildingAlerts ? (
+              <Trans>Back to Building Alerts</Trans>
+            ) : (
+              <>Back to {formatAddr(addr)}</>
+            )}
           </Link>
         </div>
       )}
@@ -378,8 +400,12 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     if (!!addr || !!district) {
       const redirectTo = {
-        pathname: !!addr ? getAddrPageRoute(addr) : `/${i18n.language}${account.settings}`,
-        state: { justSubscribed: true, justLoggedIn: true },
+        pathname: !!addr ? getAddrReturnRoute(addr) : `/${i18n.language}${account.settings}`,
+        state: {
+          justSubscribed: true,
+          justLoggedIn: true,
+          subscribedTo: !!addr ? "building" : "district",
+        },
       };
       history.push(redirectTo);
       return;
