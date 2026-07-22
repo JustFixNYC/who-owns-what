@@ -50,6 +50,8 @@ export interface AddressSearchProps {
 type State = {
   isLoading: boolean;
   results: SearchAddress[];
+  /** After a dropdown selection, the next focus/click clears the input. */
+  clearOnNextFocus: boolean;
 };
 
 /**
@@ -94,6 +96,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
     this.state = {
       isLoading: false,
       results: [],
+      clearOnNextFocus: false,
     };
     this.requester = new GeoSearchRequester({
       onError: (e) => {
@@ -113,6 +116,9 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
   }
 
   handleInputValueChange(value: string) {
+    if (this.state.clearOnNextFocus) {
+      this.setState({ clearOnNextFocus: false });
+    }
     this.props.onInputChange?.(value);
     if (this.requester.changeSearchRequest(value)) {
       this.setState({ isLoading: true });
@@ -202,6 +208,11 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
             // selection (visibility also depends on results.length > 0).
             this.setState({ results: [] });
             this.props.onFormSubmit(sa, null);
+            // Defer so Downshift's post-select focus doesn't clear the
+            // selected address immediately; the next user focus will.
+            setTimeout(() => {
+              this.setState({ clearOnNextFocus: true });
+            }, 0);
           }
           // TODO: I am very unclear on what it means for `sa` to be null,
           // and the docs don't seem to provide any guidance on the matter.
@@ -216,6 +227,13 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
           const inputOptions: GetInputPropsOptions = {
             onKeyDown: (e) => this.handleAutocompleteKeyDown(downshift, e),
             onChange: (e) => this.handleInputValueChange(e.currentTarget.value),
+            onFocus: () => {
+              if (this.state.clearOnNextFocus) {
+                downshift.clearSelection();
+                this.setState({ clearOnNextFocus: false, results: [] });
+                this.handleInputValueChange("");
+              }
+            },
           };
           const suggestsClasses = ["geosuggest__suggests"];
           if (!(downshift.isOpen && this.state.results.length > 0)) {

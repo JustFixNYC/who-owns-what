@@ -18,7 +18,6 @@ import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import helpers from "util/helpers";
 import { AddressRecord } from "components/APIDataTypes";
-import { logAmplitudeEvent } from "components/Amplitude";
 
 const DEFAULT_SUBSCRIPTION_LIMIT = 15;
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
@@ -35,7 +34,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
   const atSubscriptionLimit =
     isLoggedIn && (user?.buildingSubscriptions?.length ?? 0) >= subscriptionLimit;
 
-  const [addressRecord, setAddressRecord] = useState<AddressRecord>();
+  const [selectedAddress, setSelectedAddress] = useState<SearchAddress>();
   const [isLoadingRecord, setIsLoadingRecord] = useState(false);
   const [loadError, setLoadError] = useState(false);
   const [noAddressError, setNoAddressError] = useState(false);
@@ -43,39 +42,22 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
   const [showVerifyEmail, setShowVerifyEmail] = useState(false);
 
-  const handleAddressSelected = async (searchAddress: SearchAddress, error: any) => {
-    logAmplitudeEvent("searchByAddress");
-    window.gtag("event", "search", { bbl: searchAddress.bbl });
+  const handleAddressSelected = (searchAddress: SearchAddress, error: any) => {
+    window.gtag("event", "building-alert-address-search", { bbl: searchAddress.bbl });
 
     // reset any prior selection so a stale success state doesn't linger
-    setAddressRecord(undefined);
+    setSelectedAddress(undefined);
     setLoadError(false);
     setNoAddressError(false);
     setShowVerifyEmail(false);
 
     if (error || !searchAddress.bbl) {
-      window.gtag("event", "search-error");
+      window.gtag("event", "building-alert-search-error");
       setLoadError(true);
       return;
     }
 
-    setIsLoadingRecord(true);
-    try {
-      const { boro, block, lot } = helpers.splitBBL(searchAddress.bbl);
-      const results = await APIClient.searchForBBL({ boro, block, lot });
-      const record = results.addrs.find((a) => a.bbl === searchAddress.bbl);
-      if (!record) {
-        setNoAddressError(false);
-        setLoadError(true);
-      } else {
-        setAddressRecord(record);
-      }
-    } catch (e) {
-      setNoAddressError(false);
-      setLoadError(true);
-    } finally {
-      setIsLoadingRecord(false);
-    }
+    setSelectedAddress(searchAddress);
   };
 
   const clearErrors = () => {
@@ -83,8 +65,15 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
     setNoAddressError(false);
   };
 
+  const handleInputChange = (value: string) => {
+    clearErrors();
+    if (!value) {
+      setSelectedAddress(undefined);
+    }
+  };
+
   const navigateToLogin = (addr: AddressRecord) => {
-    window.gtag("event", "register-login-via-building", { branch: BRANCH_NAME });
+    window.gtag("event", "register-login-via-building-alert");
     const loginRoute = `/${i18n.language}${account.login}`;
     const settingsRoute = `/${i18n.language}${account.settings}`;
     history.push({
@@ -100,8 +89,8 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
     });
   };
 
-  const handleGetStarted = () => {
-    if (!addressRecord) {
+  const handleGetStarted = async () => {
+    if (!selectedAddress?.bbl) {
       setLoadError(false);
       setNoAddressError(true);
       return;
@@ -110,6 +99,23 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
     setNoAddressError(false);
     setLoadError(false);
     setShowVerifyEmail(false);
+
+    setIsLoadingRecord(true);
+    let addressRecord: AddressRecord | undefined;
+    try {
+      const { boro, block, lot } = helpers.splitBBL(selectedAddress.bbl);
+      const results = await APIClient.searchForBBL({ boro, block, lot });
+      addressRecord = results.addrs.find((a) => a.bbl === selectedAddress.bbl);
+      if (!addressRecord) {
+        setLoadError(true);
+        return;
+      }
+    } catch (e) {
+      setLoadError(true);
+      return;
+    } finally {
+      setIsLoadingRecord(false);
+    }
 
     if (!isLoggedIn) {
       navigateToLogin(addressRecord);
@@ -123,16 +129,11 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
 
     if (atSubscriptionLimit) {
       const params = { user_id: user?.id, user_type: user?.type, limit: subscriptionLimit };
-      window.gtag("event", "subscription-limit-exceed-attempt", { ...params });
+      window.gtag("event", "building-alert-subscription-limit-exceed-attempt", { ...params });
       setShowSubscriptionLimitModal(true);
       return;
     }
 
-    window.gtag("event", "subscribe-building-page", {
-      user_id: user?.id,
-      user_type: user?.type,
-      branch: BRANCH_NAME,
-    });
     subscribeBuilding(
       addressRecord.bbl,
       addressRecord.housenumber,
@@ -173,7 +174,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
                     labelClass="text-assistive"
                     placeholder={i18n._(t`Enter your address`)}
                     onFormSubmit={handleAddressSelected}
-                    onInputChange={clearErrors}
+                    onInputChange={handleInputChange}
                   />
                 </div>
                 <Button
