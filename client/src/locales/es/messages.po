@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-25 21:42\n"
+"PO-Revision-Date: 2026-08-04 15:10\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -572,7 +572,7 @@ msgstr "Haga clic en el enlace que le enviamos a su correo electrónico para emp
 
 #: src/components/EmailAlertSignup.tsx:67
 #~ msgid "Click the link we sent to {0}. It may take a few minutes to arrive."
-#~ msgstr "Haga clic en el enlace que le enviamos a {0}. Puede tardar unos minutos en llegar."
+#~ msgstr "Click the link we sent to {0}. It may take a few minutes to arrive."
 
 #: src/components/Login.tsx:278
 #~ msgid "Click the link we sent to {email} to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from no-reply@justfix.org."
@@ -580,7 +580,7 @@ msgstr "Haga clic en el enlace que le enviamos a su correo electrónico para emp
 
 #: src/components/EmailAlertSignup.tsx:27
 msgid "Click the link we sent to {email}. It may take a few minutes to arrive."
-msgstr "Click the link we sent to {email}. It may take a few minutes to arrive."
+msgstr ""
 
 #: src/components/CloseButton.tsx:10
 #: src/components/DetailView.tsx:58
@@ -3200,3 +3200,4 @@ msgstr "{value, plural, one {Una queja del HPD emitida desde el 2012} other {# q
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una infracción del HPD emitida desde el 2012} other {# infracciones del HPD emitidas desde el 2012}}"
+
