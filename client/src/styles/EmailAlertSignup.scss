@@ -26,5 +26,11 @@
         margin-right: 0.63rem;
       }
     }
+
+    .email-verification-prompt {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 }

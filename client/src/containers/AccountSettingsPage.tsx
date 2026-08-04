@@ -93,6 +93,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
 
   const [justSubscribed, setJustSubscribed] = React.useState(false);
   const [justLoggedIn, setJustLoggedIn] = React.useState(false);
+  const [subscribedTo, setSubscribedTo] = React.useState<"building" | "district">("district");
   // NOTE: when using location state you must navigate directly to the
   // language-prefixed route (/en/account/settings), otherwise the state is lost
   // during the redirect
@@ -101,9 +102,11 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     // persists after reloads
     setJustSubscribed(!!locationState?.justSubscribed);
     setJustLoggedIn(!!locationState?.justLoggedIn);
+    setSubscribedTo(locationState?.subscribedTo === "building" ? "building" : "district");
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
+  const buildingSectionRef = useRef<HTMLDivElement>(null);
   const alertSectionRef = useRef<HTMLDivElement>(null);
 
   const unsubscribeBuilding = (bbl: string) => {
@@ -136,14 +139,23 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             type="success"
             className="subscribe-success-alert"
             text={
-              justLoggedIn
+              subscribedTo === "building"
+                ? justLoggedIn
+                  ? i18n._(t`You are now logged in and we’ve added this building to your updates`)
+                  : i18n._(t`We’ve added this building to your weekly email updates`)
+                : justLoggedIn
                 ? i18n._(
                     t`You are now logged in and we’ve added your area to your weekly email updates`
                   )
                 : i18n._(t`We’ve added your area to your weekly email updates`)
             }
             actionLabel={i18n._(t`Manage`)}
-            action={() => alertSectionRef.current?.scrollIntoView({ behavior: "smooth" })}
+            action={() =>
+              (subscribedTo === "building"
+                ? buildingSectionRef
+                : alertSectionRef
+              ).current?.scrollIntoView({ behavior: "smooth" })
+            }
           />
           <Trans render="h1">Email settings</Trans>
           <div className="settings-section">
@@ -175,7 +187,10 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               <Plural value={buildingSubscriptionsNumber} one="building" other="buildings" /> in
               your weekly emails
             </Trans>
-            <div className="subscriptions-container building-subscriptions-container">
+            <div
+              ref={buildingSectionRef}
+              className="subscriptions-container building-subscriptions-container"
+            >
               {buildingSubscriptions?.length ? (
                 <>
                   {buildingSubscriptions.map((s) => (

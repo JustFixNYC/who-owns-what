@@ -1,0 +1,261 @@
+@import "./vars";
+@import "./typography";
+
+// Layout values adapted from gce-screener's content-page.scss
+$content-box-width: 51.375rem; // 822px
+
+// Many styles are unique to this page, so not using mixins
+.BuildingAlertsPage {
+  color: $justfix-black;
+  font-family: $body-font;
+
+  h1,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  .BuildingAlertsPage__hero,
+  .BuildingAlertsPage__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem;
+
+    @include for-phone-only {
+      padding: unset;
+      padding: 1.5rem 1.5rem 2rem;
+    }
+  }
+
+  .BuildingAlertsPage__hero-content,
+  .BuildingAlertsPage__section-content {
+    width: 100%;
+    max-width: $content-box-width;
+  }
+
+  .BuildingAlertsPage__hero {
+    background-color: $justfix-blue-100;
+
+    h1 {
+      font-family: $title-font;
+      font-size: 4rem; // 64px
+      line-height: 100%;
+      letter-spacing: 0.12rem;
+      max-width: 38rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+
+      @include for-phone-only {
+        font-size: 2.25rem; // 36px
+        letter-spacing: 0.0675rem;
+      }
+    }
+
+    p {
+      font-size: 1.5rem; // 24px
+      font-weight: 500;
+      line-height: 135%;
+      margin-bottom: 0;
+
+      .jfcl-link {
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        letter-spacing: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .BuildingAlertsPage__search {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
+    align-items: center;
+    margin-top: 2rem;
+
+    @include for-phone-only {
+      grid-template-columns: 1fr;
+      row-gap: 1rem;
+    }
+
+    button.jfcl-button {
+      flex-shrink: 0;
+
+      @include for-phone-only {
+        width: 100%;
+      }
+    }
+  }
+
+  .BuildingAlertsPage__search-input-container {
+    display: contents;
+  }
+
+  .BuildingAlertsPage__search-input {
+    position: relative;
+    min-width: 0;
+
+    .BuildingAlertsPage__search-icon {
+      position: absolute;
+      left: 1.125rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+
+      svg {
+        height: 1.25rem;
+        color: $justfix-black;
+      }
+    }
+
+    .AddressSearch {
+      form {
+        margin: 0;
+        padding: 0;
+        justify-content: stretch;
+      }
+
+      .form-group {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      .geosuggest {
+        position: relative;
+        margin-bottom: 0;
+
+        input.form-input {
+          width: 100%;
+          // Match default JFCL button height (1.375rem vertical padding, 1.125rem / 120% type, 0.0625rem border)
+          height: auto;
+          box-sizing: border-box;
+          background-color: $light;
+          border: 0.0625rem solid $justfix-black;
+          border-radius: 0.25rem;
+          padding: 1.375rem 1rem 1.375rem 3rem;
+          font-family: $body-font;
+          font-size: 1.5rem;
+          font-weight: 500;
+          line-height: 120%;
+          letter-spacing: 0.03375rem;
+          color: $justfix-black;
+
+          &::placeholder {
+            color: $justfix-grey-600;
+          }
+
+          &:focus {
+            border: 0.125rem solid $justfix-black;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        // overlay the results on the page instead of pushing content down
+        .geosuggest__suggests-wrapper {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          z-index: 5;
+
+          .geosuggest__item {
+            font-family: $body-font;
+            font-size: 1.125rem;
+          }
+        }
+      }
+    }
+  }
+
+  .BuildingAlertsPage__feedback {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    @include for-phone-only {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .email-verification-prompt {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+    background-color: $light;
+    padding: 1rem;
+
+    .jf-alert {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .card-description,
+    > div:not(.jf-alert):not(.send-new-link-container) {
+      @include wow-body-standard;
+    }
+
+    .send-new-link-container {
+      width: 100%;
+
+      .send-new-link,
+      .jfcl-button.is-full-width {
+        width: 100%;
+      }
+    }
+  }
+
+  .BuildingAlertsPage__error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $justfix-red;
+
+    svg {
+      height: 1.125rem;
+      color: $justfix-orange;
+    }
+  }
+
+  .BuildingAlertsPage__section {
+    background-color: $justfix-white-100;
+
+    &.BuildingAlertsPage__section--bordered {
+      border-bottom: 0.0625rem solid $justfix-black;
+    }
+
+    h3 {
+      @include jfcl-h3-desktop;
+      margin-bottom: 1rem;
+
+      @include for-phone-only {
+        @include jfcl-h3-mobile;
+      }
+
+      &:not(:first-child) {
+        margin-top: 2.5rem;
+      }
+    }
+
+    p {
+      // both body-large-mobile and body-large-desktop
+      font-size: 1.5rem; // 24px
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 1.8rem */
+      letter-spacing: 0.045rem;
+    }
+  }
+}
