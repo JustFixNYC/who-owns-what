@@ -264,12 +264,14 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
               or city agencies to push for repairs and accountability.
             </Trans>
             <Trans render="p">
-              Remember, you have a right to a habitable home. <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your
-              right to a habitable home.
+              Remember, you have a right to a habitable home.{" "}
+              <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your right to
+              a habitable home.
             </Trans>
             <Trans render="p">
               You also have a right to organize with your neighbors to assert your rights.{" "}
-              <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your right to organize.
+              <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your right to
+              organize.
             </Trans>
           </div>
         </div>
