@@ -20,12 +20,17 @@ $content-box-width: 51.375rem; // 822px
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
 
     @include for-phone-only {
       padding: unset;
       padding: 1.5rem 1.5rem 2rem;
     }
+  }
+
+  .BuildingAlertsPage__section {
+    padding: 3rem;
   }
 
   .BuildingAlertsPage__hero-content,
@@ -84,6 +89,7 @@ $content-box-width: 51.375rem; // 822px
 
     button.jfcl-button {
       flex-shrink: 0;
+      font-family: $body-font;
 
       @include for-phone-only {
         width: 100%;
@@ -256,6 +262,109 @@ $content-box-width: 51.375rem; // 822px
       font-weight: 500;
       line-height: 120%; /* 1.8rem */
       letter-spacing: 0.045rem;
+
+      & + p {
+        margin-top: 1.5rem;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+
+        &:hover,
+        &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .BuildingAlertsPage__list {
+    margin: 1.5rem 0 0;
+    padding-left: 1.5rem;
+    list-style-position: outside;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: 0.045rem;
+
+    li {
+      &::marker {
+        font-weight: 600;
+      }
+
+      & + li {
+        margin-top: 1.5rem;
+      }
+    }
+
+    .BuildingAlertsPage__list-title {
+      font-weight: 600;
+    }
+
+    p {
+      display: block;
+      margin: 0.25rem 0 0;
+      font-weight: 500;
+    }
+  }
+
+  .BuildingAlertsPage__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4rem;
+    background-color: $justfix-white-200;
+    border-top: 0.0625rem solid $justfix-black;
+
+    @include for-phone-only {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .BuildingAlertsPage__footer-content {
+    width: 100%;
+    max-width: $content-box-width;
+    font-size: 1.125rem;
+
+    .LegalFooter.container {
+      max-width: none;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .LegalFooter {
+      font-family: $body-font;
+      color: $justfix-black;
+      background-color: $justfix-white-200;
+
+      .Links,
+      .Disclaimer {
+        padding: 2rem 0 1.5rem 0;
+        border-top: none;
+        background-color: $justfix-white-200;
+        color: $justfix-black;
+
+        a {
+          color: $justfix-black;
+        }
+      }
+
+      .Disclaimer {
+        @include for-tablet-landscape-up {
+          padding-right: 1rem;
+        }
+      }
+
+      .Links {
+        border-top: 0.0625rem solid $justfix-black;
+
+        @include for-tablet-landscape-up {
+          border-top: none;
+        }
+      }
     }
   }
 }

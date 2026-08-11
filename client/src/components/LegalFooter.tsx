@@ -18,8 +18,7 @@ const LegalFooter = () => {
             <Trans>
               Disclaimer: The information in JustFix does not constitute legal advice and must not
               be used as a substitute for the advice of a lawyer qualified to give advice on legal
-              issues pertaining to housing. We can help direct you to free legal services if
-              necessary.
+              issues pertaining to housing.
             </Trans>
           </p>
           <p>

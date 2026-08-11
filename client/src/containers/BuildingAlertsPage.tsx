@@ -152,15 +152,14 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__hero">
           <div className="BuildingAlertsPage__hero-content">
             <h1>
-              <Trans>
-                Track new complaints, violations, and eviction filings in your building.
-              </Trans>
+              <Trans>Track complaints, violations, and eviction filings in your building.</Trans>
             </h1>
 
             <Trans render="p">
-              This service is free and confidential.{" "}
+              This service is free and confidential. <br />
+              Updates are sent weekly to your inbox.{" "}
               <JFCLLink onClick={() => setShowPreviewModal(true)} className="link-button">
-                Preview an alert
+                See example
               </JFCLLink>
             </Trans>
             <div className="BuildingAlertsPage__search">
@@ -178,7 +177,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
                   />
                 </div>
                 <Button
-                  labelText={i18n._(t`Get started`)}
+                  labelText={i18n._(t`Track Building`)}
                   loading={isLoadingRecord}
                   onClick={handleGetStarted}
                 />
@@ -218,16 +217,59 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
             <h3>
               <Trans>What you’ll get</Trans>
             </h3>
-            <Trans render="p">
-              You’ll get weekly updates about new HPD complaints, HPD violations, DOB
-              complaints/violations, and eviction filings in your building.
-            </Trans>
+            <Trans render="p">In your weekly email we’ll include the number of new:</Trans>
+            <ol className="BuildingAlertsPage__list">
+              <li>
+                <strong className="BuildingAlertsPage__list-title">
+                  <Trans>Complaints</Trans>
+                </strong>
+                <Trans render="p">
+                  Complaints are made by tenants to the city about problems like leaks, lack of
+                  heat, elevator outages, and unsafe construction.
+                </Trans>
+              </li>
+              <li>
+                <strong className="BuildingAlertsPage__list-title">
+                  <Trans>Violations</Trans>
+                </strong>
+                <Trans render="p">
+                  Violations are documented by city inspectors when they find that a building or
+                  landlord has not complied with the law.
+                </Trans>
+              </li>
+              <li>
+                <strong className="BuildingAlertsPage__list-title">
+                  <Trans>Eviction filings</Trans>
+                </strong>
+                <Trans render="p">
+                  Eviction filings show when a landlord has started an eviction case in Housing
+                  Court against a tenant in your building.
+                </Trans>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="BuildingAlertsPage__section BuildingAlertsPage__section--bordered">
+          <div className="BuildingAlertsPage__section-content">
             <h3>
-              <Trans>Why it matters</Trans>
+              <Trans>What you can do</Trans>
             </h3>
             <Trans render="p">
-              You’ll be able to see whether issues that you’re dealing alone are also being reported
-              by your neighbors.
+              This service can help you learn if the housing problems you’re facing on your own are
+              widespread in your building.
+            </Trans>
+            <Trans render="p">
+              You can use this information to connect with your neighbors and approach your landlord
+              or city agencies to push for repairs and accountability.
+            </Trans>
+            <Trans render="p">
+              Remember, you have a right to a habitable home. <a href="#">Learn more</a> about your
+              right to a habitable home.
+            </Trans>
+            <Trans render="p">
+              You also have a right to organize with your neighbors to assert your rights.{" "}
+              <a href="#">Learn more</a> about your right to organize.
             </Trans>
           </div>
         </div>
@@ -235,16 +277,24 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__section">
           <div className="BuildingAlertsPage__section-content">
             <h3>
-              <Trans>About this site</Trans>
+              <Trans>About JustFix</Trans>
             </h3>
             <Trans render="p">
-              A nonprofit organization that builds online tools to help New Yorkers achieve
-              affordable, healthy, eviction-free housing.
+              Building Alerts is a free service created and maintained by JustFix, a nonprofit that
+              builds free digital tools to help New Yorkers exercise their rights to healthy,
+              affordable, and eviction-free housing.
+            </Trans>
+            <Trans render="p">
+              Contact us at <a href="mailto:support@justfix.org">support@justfix.org</a>
             </Trans>
           </div>
         </div>
 
-        <LegalFooter />
+        <div className="BuildingAlertsPage__footer">
+          <div className="BuildingAlertsPage__footer-content">
+            <LegalFooter />
+          </div>
+        </div>
 
         <Modal
           showModal={showPreviewModal}

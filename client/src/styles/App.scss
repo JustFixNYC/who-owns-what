@@ -224,6 +224,17 @@
       }
     }
   }
+
+  &.App__header--building-alerts {
+    font-family: $body-font;
+
+    .App__header-brand,
+    .page-title,
+    nav a,
+    nav button {
+      font-family: $body-font;
+    }
+  }
 }
 
 .App__body {

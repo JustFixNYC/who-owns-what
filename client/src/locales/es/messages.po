@@ -200,9 +200,8 @@ msgstr "Una infracción del DOB es una notificación de que una propiedad no cum
 msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
 msgstr "Un nuevo conjunto de menús desplegables y ajustes de diseño hacen que sea más cómodo usar Who Owns What a donde vaya."
 
-#: src/containers/BuildingAlertsPage.tsx:201
-msgid "A nonprofit organization that builds online tools to help New Yorkers achieve affordable, healthy, eviction-free housing."
-msgstr "Una organización sin ánimo de lucro que crea herramientas en línea para ayudar a los neoyorquinos a conseguir una vivienda asequible, saludable y sin riesgo de desahucio."
+#~ msgid "A nonprofit organization that builds online tools to help New Yorkers achieve affordable, healthy, eviction-free housing."
+#~ msgstr "Una organización sin ánimo de lucro que crea herramientas en línea para ayudar a los neoyorquinos a conseguir una vivienda asequible, saludable y sin riesgo de desahucio."
 
 #: src/components/UsefulLinks.tsx:51
 #: src/containers/NychaPage.tsx:176
@@ -218,9 +217,8 @@ msgstr "MEDIO DOMÉSTICO"
 msgid "About"
 msgstr "Acerca de"
 
-#: src/containers/BuildingAlertsPage.tsx:199
-msgid "About this site"
-msgstr "Acerca de este sitio"
+#~ msgid "About this site"
+#~ msgstr "Acerca de este sitio"
 
 #: src/components/ViolationsSummary.tsx:28
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
@@ -997,9 +995,8 @@ msgstr "Reciba un correo electrónico semanal que enumera los principales edific
 #~ msgid "Get email updates for this building"
 #~ msgstr "Get email updates for this building"
 
-#: src/containers/BuildingAlertsPage.tsx:157
-msgid "Get started"
-msgstr "Iniciar"
+#~ msgid "Get started"
+#~ msgstr "Iniciar"
 
 #: src/components/Login.tsx:254
 #: src/components/Login.tsx:294
@@ -2399,9 +2396,8 @@ msgstr "Esto representa el <0>{0}%</0> del tamaño total de esta cartera."
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "Esto representa el número total de infracciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
-#: src/containers/BuildingAlertsPage.tsx:143
-msgid "This service is free and confidential. <0>Preview an alert</0>"
-msgstr "Este servicio es gratuito y confidencial. <0>Ver un avance de una alerta</0>"
+#~ msgid "This service is free and confidential. <0>Preview an alert</0>"
+#~ msgstr "Este servicio es gratuito y confidencial. <0>Ver un avance de una alerta</0>"
 
 #: src/components/BuildingStatsTable.tsx:92
 #~ msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills."
@@ -2451,9 +2447,8 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Infracciones totales"
 
-#: src/containers/BuildingAlertsPage.tsx:138
-msgid "Track new complaints, violations, and eviction filings in your building."
-msgstr "Lleva un control de las nuevas quejas, infracciones y solicitudes de desahucio que haya en tu edificio."
+#~ msgid "Track new complaints, violations, and eviction filings in your building."
+#~ msgstr "Lleva un control de las nuevas quejas, infracciones y solicitudes de desahucio que haya en tu edificio."
 
 #: src/components/PortfolioFilters.tsx:227
 msgid "Try adjusting or clearing the filters to show more than 0 results."
@@ -2813,9 +2808,8 @@ msgstr "¿Quién es el arrendador de este edificio?"
 msgid "Why am I seeing such a big portfolio?"
 msgstr "¿Por qué estoy viendo una cartera tan grande?"
 
-#: src/containers/BuildingAlertsPage.tsx:187
-msgid "Why it matters"
-msgstr "Por qué importa"
+#~ msgid "Why it matters"
+#~ msgstr "Por qué importa"
 
 #: src/components/BuildingStatsTable.tsx:54
 #: src/components/BuildingStatsTable.tsx:57
@@ -2982,13 +2976,11 @@ msgstr "Este correo electrónico ya está verificado"
 msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
 msgstr "Su privacidad es importante a nosotros. Lea nuestra <0>Política de privacidad</0> y <1>Términos de uso</1>."
 
-#: src/containers/BuildingAlertsPage.tsx:189
-msgid "You’ll be able to see whether issues that you’re dealing alone are also being reported by your neighbors."
-msgstr "Podrás ver si los problemas con los que estás lidiando tú solo también los están denunciando tus vecinos."
+#~ msgid "You’ll be able to see whether issues that you’re dealing alone are also being reported by your neighbors."
+#~ msgstr "Podrás ver si los problemas con los que estás lidiando tú solo también los están denunciando tus vecinos."
 
-#: src/containers/BuildingAlertsPage.tsx:182
-msgid "You’ll get weekly updates about new HPD complaints, HPD violations, DOB complaints/violations, and eviction filings in your building."
-msgstr "Recibirás actualizaciones semanales sobre nuevas denuncias ante el HPD, infracciones del HPD, denuncias e infracciones ante el DOB y solicitudes de desahucio en tu edificio."
+#~ msgid "You’ll get weekly updates about new HPD complaints, HPD violations, DOB complaints/violations, and eviction filings in your building."
+#~ msgstr "Recibirás actualizaciones semanales sobre nuevas denuncias ante el HPD, infracciones del HPD, denuncias e infracciones ante el DOB y solicitudes de desahucio en tu edificio."
 
 #: src/components/EmailAlertSignup.tsx:67
 msgid "You’re signed up for Building Alerts for {0} {1}, {2}."
@@ -3205,3 +3197,84 @@ msgstr "{value, plural, one {Una queja del HPD emitida desde el 2012} other {# q
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una infracción del HPD emitida desde el 2012} other {# infracciones del HPD emitidas desde el 2012}}"
 
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Track complaints, violations, and eviction filings in your building."
+msgstr "Lleva un control de las quejas, infracciones y solicitudes de desahucio que haya en tu edificio."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "This service is free and confidential. Updates are sent weekly to your inbox. <0>See example</0>"
+msgstr "Este servicio es gratuito y confidencial. Las actualizaciones se envían semanalmente a tu bandeja de entrada. <0>Ver ejemplo</0>"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Track Building"
+msgstr "Seguir edificio"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "In your weekly email we’ll include the number of new:"
+msgstr "En tu correo semanal incluiremos el número de nuevos:"
+
+#~ msgid "<0>Complaints:</0> Complaints are made by tenants to the city about problems like leaks, lack of heat, elevator outages, and unsafe construction."
+#~ msgstr "<0>Quejas:</0> Las quejas las presentan los inquilinos a la ciudad por problemas como filtraciones, falta de calefacción, fallos del ascensor y construcción insegura."
+
+#~ msgid "<0>Violations:</0> Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
+#~ msgstr "<0>Infracciones:</0> Las infracciones las documentan los inspectores de la ciudad cuando encuentran que un edificio o un arrendador no ha cumplido con la ley."
+
+#~ msgid "<0>Eviction filings:</0> Eviction filings show when a landlord has started an eviction case in Housing Court against a tenant in your building."
+#~ msgstr "<0>Solicitudes de desahucio:</0> Las solicitudes de desahucio muestran cuándo un arrendador ha iniciado un caso de desahucio en el Tribunal de Vivienda contra un inquilino de tu edificio."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "What you can do"
+msgstr "Qué puedes hacer"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "This service can help you learn if the housing problems you’re facing on your own are widespread in your building."
+msgstr "Este servicio puede ayudarte a saber si los problemas de vivienda que enfrentas por tu cuenta son generalizados en tu edificio."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "You can use this information to connect with your neighbors and approach your landlord or city agencies to push for repairs and accountability."
+msgstr "Puedes usar esta información para conectar con tus vecinos y acercarte a tu arrendador o a las agencias de la ciudad para exigir reparaciones y responsabilidad."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Remember, you have a right to a habitable home. <0>Learn more</0> about your right to a habitable home."
+msgstr "Recuerda que tienes derecho a una vivienda habitable. <0>Más información</0> sobre tu derecho a una vivienda habitable."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
+msgstr "También tienes derecho a organizarte con tus vecinos para hacer valer tus derechos. <0>Más información</0> sobre tu derecho a organizarte."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "About JustFix"
+msgstr "Acerca de JustFix"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Building Alerts is a free service created and maintained by JustFix, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to healthy, affordable, and eviction-free housing."
+msgstr "Building Alerts es un servicio gratuito creado y mantenido por JustFix, una organización sin ánimo de lucro que construye herramientas digitales gratuitas para ayudar a los neoyorquinos a ejercer sus derechos a una vivienda saludable, asequible y sin riesgo de desahucio."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Contact us at <0>support@justfix.org</0>"
+msgstr "Contáctanos en <0>support@justfix.org</0>"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Complaints"
+msgstr "Quejas"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Violations"
+msgstr "Infracciones"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Eviction filings"
+msgstr "Solicitudes de desahucio"
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Complaints are made by tenants to the city about problems like leaks, lack of heat, elevator outages, and unsafe construction."
+msgstr "Las quejas las presentan los inquilinos a la ciudad por problemas como filtraciones, falta de calefacción, fallos del ascensor y construcción insegura."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
+msgstr "Las infracciones las documentan los inspectores de la ciudad cuando encuentran que un edificio o un arrendador no ha cumplido con la ley."
+
+#: src/containers/BuildingAlertsPage.tsx
+msgid "Eviction filings show when a landlord has started an eviction case in Housing Court against a tenant in your building."
+msgstr "Las solicitudes de desahucio muestran cuándo un arrendador ha iniciado un caso de desahucio en el Tribunal de Vivienda contra un inquilino de tu edificio."

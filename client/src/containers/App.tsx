@@ -330,7 +330,8 @@ const Navbar = () => {
       className={classnames(
         "App__header",
         "navbar",
-        allowChangingPortfolioMethod && !isLegacy ? "wowza-styling" : "legacy-styling"
+        allowChangingPortfolioMethod && !isLegacy ? "wowza-styling" : "legacy-styling",
+        isBuildingAlerts && "App__header--building-alerts"
       )}
     >
       <HomeLink />
