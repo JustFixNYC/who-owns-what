@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-08-11 14:02\n"
+"PO-Revision-Date: 2026-08-11 14:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -382,7 +382,7 @@ msgstr "EDIFICIO:"
 
 #: src/components/Login.tsx:195
 msgid "Back to Building Alerts"
-msgstr "Volver a las alertas de edificios"
+msgstr "Volver a Alertas por edificio"
 
 #: src/containers/ForgotPasswordPage.tsx:59
 #: src/containers/ResetPasswordPage.tsx:94
@@ -410,7 +410,7 @@ msgstr "Alertas por edificio"
 
 #: src/containers/BuildingAlertsPage.tsx:240
 msgid "Building Alerts is a free service created and maintained by JustFix, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to healthy, affordable, and eviction-free housing."
-msgstr "Building Alerts es un servicio gratuito creado y mantenido por JustFix, una organización sin ánimo de lucro que construye herramientas digitales gratuitas para ayudar a los neoyorquinos a ejercer sus derechos a una vivienda saludable, asequible y sin riesgo de desahucio."
+msgstr "Alertas por edificio es un servicio gratuito creado y gestionado por JustFix, una organización sin ánimo de lucro que desarrolla herramientas digitales gratuitas para ayudar a los neoyorquinos a ejercer su derecho a una vivienda saludable, asequible y sin riesgo de desahucio."
 
 #: src/components/IndicatorsDatasets.tsx:68
 msgid "Building Permit Applications"
@@ -625,7 +625,7 @@ msgstr "Quejas emitidas"
 
 #: src/containers/BuildingAlertsPage.tsx:184
 msgid "Complaints are made by tenants to the city about problems like leaks, lack of heat, elevator outages, and unsafe construction."
-msgstr "Las quejas las presentan los inquilinos a la ciudad por problemas como filtraciones, falta de calefacción, fallos del ascensor y construcción insegura."
+msgstr "Los inquilinos presentan quejas al ayuntamiento por problemas como goteras, falta de calefacción, averías en los ascensores y deficiencias en la construcción."
 
 #: src/components/ComplaintsSummary.tsx:9
 msgid "Complaints to 311"
@@ -735,7 +735,7 @@ msgstr "¿No recibió un correo electrónico?"
 
 #: src/components/LegalFooter.tsx:15
 msgid "Disclaimer: The information in JustFix does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing."
-msgstr ""
+msgstr "Descargo de responsabilidad: La información contenida en JustFix no constituye asesoramiento jurídico y no debe utilizarse como sustituto del asesoramiento de un abogado calificado para brindar orientación sobre cuestiones legales relacionadas con la vivienda."
 
 #: src/components/LegalFooter.tsx:15
 #~ msgid "Disclaimer: The information in JustFix does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
@@ -887,11 +887,11 @@ msgstr "Casos de desalojo presentados ante el Tribunal de Vivienda desde 2017. E
 
 #: src/containers/BuildingAlertsPage.tsx:200
 msgid "Eviction filings"
-msgstr "Solicitudes de desahucio"
+msgstr "Demandas de desalojo presentadas"
 
 #: src/containers/BuildingAlertsPage.tsx:202
 msgid "Eviction filings show when a landlord has started an eviction case in Housing Court against a tenant in your building."
-msgstr "Las solicitudes de desahucio muestran cuándo un arrendador ha iniciado un caso de desahucio en el Tribunal de Vivienda contra un inquilino de tu edificio."
+msgstr "Las demandas de desahucio indican cuándo un propietario ha iniciado un procedimiento de desahucio en el Juzgado de Vivienda contra un inquilino de tu edificio."
 
 #: src/components/PropertiesSummary.tsx:71
 #: src/containers/NychaPage.tsx:91
@@ -1174,7 +1174,7 @@ msgstr "En marzo de 2023 esta versión dejará de funcionar. Cambie a la nueva v
 
 #: src/containers/BuildingAlertsPage.tsx:178
 msgid "In your weekly email we’ll include the number of new:"
-msgstr "En tu correo semanal incluiremos el número de nuevos:"
+msgstr "En tu correo semanal te diremos cuántos nuevos:"
 
 #: src/containers/NotRegisteredPage.tsx:64
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -1824,7 +1824,7 @@ msgstr "El registro ha caducado:"
 
 #: src/containers/BuildingAlertsPage.tsx:224
 msgid "Remember, you have a right to a habitable home. <0>Learn more</0> about your right to a habitable home."
-msgstr "Recuerda que tienes derecho a una vivienda habitable. <0>Más información</0> sobre tu derecho a una vivienda habitable."
+msgstr "Recuerda que tienes derecho a una vivienda habitable. <0>Infórmate mejor en</0> sobre tu derecho a una vivienda habitable."
 
 #: src/containers/AccountSettingsPage.tsx:27
 #: src/containers/AccountSettingsPage.tsx:37
@@ -1933,7 +1933,7 @@ msgstr "Ejemplo de correo electrónico de una Alerta por zona"
 
 #: src/containers/BuildingAlertsPage.tsx:260
 msgid "Sample Building Alert Email"
-msgstr "Ejemplo de correo electrónico de una Alerta por zona"
+msgstr "Ejemplo de correo electrónico de una Alerta por edificio"
 
 #: src/containers/BuildingAlertsPage.tsx:263
 msgid "Sample of building alert email showing complaints, violations, and eviction filings"
@@ -2165,7 +2165,7 @@ msgstr "Lo sentimos, algo salió mal con el restablecimiento de la contraseña."
 
 #: src/containers/BuildingAlertsPage.tsx:162
 msgid "Sorry, that address is not available for Building Alerts. Please try another address."
-msgstr "Lo siento, esa dirección no está disponible para las alertas de edificios. Intenta con otra dirección."
+msgstr "Lo siento, esa dirección no está disponible para las Alertas por edificio. Intenta con otra dirección."
 
 #: src/containers/NotFoundPage.tsx:25
 msgid "Sorry, the page you are looking for doesn't seem to exist."
@@ -2447,11 +2447,11 @@ msgstr "Esto representa el número total de infracciones del HPD (tanto actuales
 
 #: src/containers/BuildingAlertsPage.tsx:216
 msgid "This service can help you learn if the housing problems you’re facing on your own are widespread in your building."
-msgstr "Este servicio puede ayudarte a saber si los problemas de vivienda que enfrentas por tu cuenta son generalizados en tu edificio."
+msgstr "Este servicio puede ayudarte a averiguar si los problemas de vivienda a los que te enfrentas por tu cuenta son algo habitual en tu edificio."
 
 #: src/containers/BuildingAlertsPage.tsx:139
 msgid "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1>See example</1>"
-msgstr ""
+msgstr "Este servicio es gratuito y confidencial. <0/>Las actualizaciones se envían cada semana a tu bandeja de entrada. <1>Mira un ejemplo</1>"
 
 #~ msgid "This service is free and confidential. <0>Preview an alert</0>"
 #~ msgstr "This service is free and confidential. <0>Preview an alert</0>"
@@ -2514,7 +2514,7 @@ msgstr "Seguir edificio"
 
 #: src/containers/BuildingAlertsPage.tsx:136
 msgid "Track complaints, violations, and eviction filings in your building."
-msgstr "Lleva un control de las quejas, infracciones y solicitudes de desahucio que haya en tu edificio."
+msgstr "Lleva un control de las quejas, las infracciones y las demandas de desahucio en tu edificio."
 
 #~ msgid "Track new complaints, violations, and eviction filings in your building."
 #~ msgstr "Track new complaints, violations, and eviction filings in your building."
@@ -2702,7 +2702,7 @@ msgstr "Ver datos a lo largo del tiempo"
 
 #: src/containers/BuildingAlertsPage.tsx:191
 msgid "Violations"
-msgstr "Infracciones"
+msgstr "Violaciones"
 
 #: src/components/IndicatorsDatasets.tsx:42
 #: src/components/IndicatorsDatasets.tsx:99
@@ -2711,7 +2711,7 @@ msgstr "Violaciones emitidas"
 
 #: src/containers/BuildingAlertsPage.tsx:193
 msgid "Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
-msgstr "Las infracciones las documentan los inspectores de la ciudad cuando encuentran que un edificio o un arrendador no ha cumplido con la ley."
+msgstr "Los inspectores municipales registran las violaciones cuando detectan que un edificio o un propietario no ha cumplido con la ley."
 
 #: src/components/EngagementPanel.tsx:17
 msgid "Visit our website"
@@ -2783,7 +2783,7 @@ msgstr "Estamos teniendo problemas para verificar su correo electrónico en este
 
 #: src/containers/AccountSettingsPage.tsx:90
 msgid "We’ve added this building to your weekly email updates"
-msgstr "Hemos añadido este edificio a tus actualizaciones semanales por correo electrónico"
+msgstr "Hemos añadido este edificio a sus actualizaciones semanales por correo electrónico"
 
 #: src/containers/AccountSettingsPage.tsx:93
 msgid "We’ve added your area to your weekly email updates"
@@ -2811,7 +2811,7 @@ msgstr "¿Qué pasa si el arrendador no ha registrado el edificio?"
 
 #: src/containers/BuildingAlertsPage.tsx:214
 msgid "What you can do"
-msgstr "Qué puedes hacer"
+msgstr "Lo que puedes hacer"
 
 #: src/containers/BuildingAlertsPage.tsx:176
 msgid "What you’ll get"
@@ -2904,7 +2904,7 @@ msgstr "Sí"
 
 #: src/containers/BuildingAlertsPage.tsx:228
 msgid "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
-msgstr "También tienes derecho a organizarte con tus vecinos para hacer valer tus derechos. <0>Más información</0> sobre tu derecho a organizarte."
+msgstr "También tienes derecho a organizarte con tus vecinos para hacer valer tus derechos. <0>Infórmate mejor en</0> sobre tu derecho a organizarte."
 
 #: src/components/Login.tsx:206
 #: src/containers/AccountSettingsPage.tsx:102
@@ -3007,7 +3007,7 @@ msgstr "Ahora puede cerrar esta ventana, <0>buscar otro edificio</0> para seguir
 
 #: src/containers/BuildingAlertsPage.tsx:220
 msgid "You can use this information to connect with your neighbors and approach your landlord or city agencies to push for repairs and accountability."
-msgstr "Puedes usar esta información para conectar con tus vecinos y acercarte a tu arrendador o a las agencias de la ciudad para exigir reparaciones y responsabilidad."
+msgstr "Puedes usar esta información para ponerte en contacto con tus vecinos y hablar con el propietario o con los organismos municipales para presionar para que se hagan las reparaciones y se asuman las responsabilidades."
 
 #: src/components/EmailAlertSignup.tsx:112
 #: src/containers/BuildingAlertsPage.tsx:269
