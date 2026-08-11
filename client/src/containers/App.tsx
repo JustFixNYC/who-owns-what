@@ -20,7 +20,7 @@ import {
   LocaleRedirect,
 } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { createWhoOwnsWhatRoutePaths } from "../routes";
+import { createWhoOwnsWhatRoutePaths, isBuildingAlertsPath } from "../routes";
 import { VersionUpgrader } from "./VersionUpgrader";
 import { useMachine } from "@xstate/react";
 
@@ -61,26 +61,47 @@ const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const title = i18n._(t`Who owns what`);
-
   const { home, legacy } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
+  const isBuildingAlerts = isBuildingAlertsPath(pathname);
+  const isLegacy = isLegacyPath(pathname);
+  const homePath = isLegacy ? legacy.home : home;
+  const title = isBuildingAlerts ? i18n._(t`Building alerts`) : i18n._(t`Who owns what`);
+  const legacyClass = isLegacy && "legacy-styling";
+  const logo = <JFLogo className={classnames("jf-logo", legacyClass)} />;
+  const divider = <JFLogoDivider className={classnames("jf-logo-divider", legacyClass)} />;
+  const pageTitle = <h1 className={classnames("page-title", legacyClass)}>{widont(title)}</h1>;
+
+  if (isBuildingAlerts) {
+    return (
+      <div className="App__header-brand">
+        <JFCLLocaleLink
+          aria-label={i18n._(t`Who owns what`)}
+          onClick={() => {
+            window.gtag("event", "site-title");
+          }}
+          to={homePath}
+        >
+          {logo}
+        </JFCLLocaleLink>
+        {divider}
+        {pageTitle}
+      </div>
+    );
+  }
 
   return (
     <JFCLLocaleLink
+      className="App__header-brand"
       aria-label={i18n._(t`Who owns what`)}
       onClick={() => {
         window.gtag("event", "site-title");
       }}
-      to={isLegacyPath(pathname) ? legacy.home : home}
+      to={homePath}
     >
-      <JFLogo className={classnames("jf-logo", isLegacyPath(pathname) && "legacy-styling")} />
-      <JFLogoDivider
-        className={classnames("jf-logo-divider", isLegacyPath(pathname) && "legacy-styling")}
-      />
-      <h1 className={classnames("page-title", isLegacyPath(pathname) && "legacy-styling")}>
-        {widont(title)}
-      </h1>
+      {logo}
+      {divider}
+      {pageTitle}
     </JFCLLocaleLink>
   );
 });
@@ -262,27 +283,32 @@ const getAccountNavLinks = (fromPath: string, isSignedIn?: boolean) => {
       ];
 };
 
-const getMainNavLinks = (isLegacyPath?: boolean) => {
+const getMainNavLinks = (isLegacyPath?: boolean, isBuildingAlerts?: boolean) => {
   const { about, howToUse, legacy } = createWhoOwnsWhatRoutePaths();
-  return [
+  const links = [
     <SearchLink key={1} />,
-    <LocaleNavLink to={isLegacyPath ? legacy.about : about} key={2}>
-      <Trans>About</Trans>
-    </LocaleNavLink>,
-    <LocaleNavLink
-      to={isLegacyPath ? legacy.howToUse : howToUse}
-      key={3}
-      onClick={() => {
-        logAmplitudeEvent("navbarHowToUse");
-        window.gtag("event", "navbar-how-to-use");
-      }}
-    >
-      <Trans>How to use</Trans>
-    </LocaleNavLink>,
+    ...(!isBuildingAlerts
+      ? [
+          <LocaleNavLink to={isLegacyPath ? legacy.about : about} key={2}>
+            <Trans>About</Trans>
+          </LocaleNavLink>,
+          <LocaleNavLink
+            to={isLegacyPath ? legacy.howToUse : howToUse}
+            key={3}
+            onClick={() => {
+              logAmplitudeEvent("navbarHowToUse");
+              window.gtag("event", "navbar-how-to-use");
+            }}
+          >
+            <Trans>How to use</Trans>
+          </LocaleNavLink>,
+        ]
+      : []),
     <a href="https://donorbox.org/donate-to-justfix-nyc" key={4}>
       <Trans>Donate</Trans>
     </a>,
   ];
+  return links;
 };
 
 const Navbar = () => {
@@ -291,6 +317,9 @@ const Navbar = () => {
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  const isLegacy = isLegacyPath(pathname);
+  const isBuildingAlerts = isBuildingAlertsPath(pathname);
+  const mainNavLinks = getMainNavLinks(isLegacy, isBuildingAlerts);
 
   const userContext = useContext(UserContext);
 
@@ -301,7 +330,8 @@ const Navbar = () => {
       className={classnames(
         "App__header",
         "navbar",
-        allowChangingPortfolioMethod && !isLegacyPath(pathname) ? "wowza-styling" : "legacy-styling"
+        allowChangingPortfolioMethod && !isLegacy ? "wowza-styling" : "legacy-styling",
+        isBuildingAlerts && "App__header--building-alerts"
       )}
     >
       <HomeLink />
@@ -313,12 +343,12 @@ const Navbar = () => {
       <nav className="inline">
         {addFeatureCalloutWidget && <FeatureCalloutWidget />}
         <span className="hide-lg">
-          {getMainNavLinks(isLegacyPath(pathname))}
+          {mainNavLinks}
           <LocaleSwitcher />
-          {!isLegacyPath(pathname) && getAccountNavLinks(pathname, !!userContext?.user?.email)}
+          {!isLegacy && getAccountNavLinks(pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
-          {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
+          {mainNavLinks.map((link, i) => (
             <li className="menu-item" key={i}>
               {link}
             </li>
@@ -326,7 +356,7 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
-          {!isLegacyPath(pathname) &&
+          {!isLegacy &&
             getAccountNavLinks(pathname, !!userContext?.user?.email).map((link, i) => (
               <li className="menu-item" key={`account-${i}`}>
                 {link}

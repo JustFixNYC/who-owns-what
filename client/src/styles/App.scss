@@ -151,13 +151,14 @@
     }
   }
 
-  & > a,
-  a:hover,
-  a:focus {
+  .App__header-brand,
+  .App__header-brand a,
+  .App__header-brand a:hover,
+  .App__header-brand a:focus {
     text-decoration: none !important;
   }
 
-  & > a {
+  .App__header-brand {
     width: fit-content;
     max-width: 75%;
     text-align: center;
@@ -221,6 +222,17 @@
       &:last-child {
         margin: 0;
       }
+    }
+  }
+
+  &.App__header--building-alerts {
+    font-family: $body-font;
+
+    .App__header-brand,
+    .page-title,
+    nav a,
+    nav button {
+      font-family: $body-font;
     }
   }
 }
