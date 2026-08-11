@@ -391,6 +391,10 @@ msgstr "Municipio"
 msgid "Borough Management Office:"
 msgstr "Oficina de Gestión Municipal:"
 
+#: src/containers/App.tsx:69
+msgid "Building alerts"
+msgstr "Alertas por edificio"
+
 #: src/components/EmailAlertSignup.tsx:133
 #: src/containers/AccountSettingsPage.tsx:109
 #: src/containers/BuildingAlertsPage.tsx:133

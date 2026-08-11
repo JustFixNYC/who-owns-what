@@ -18,6 +18,12 @@ export const isAddressPageRoute = (pathname: string) => {
   return path.startsWith("/address");
 };
 
+/**
+ * Determines whether a url corresponds to the Building Alerts landing page.
+ */
+export const isBuildingAlertsPath = (pathname: string) =>
+  removeLocalePrefix(pathname).startsWith("/building-alerts");
+
 export const removeIndicatorSuffix = (pathname: string) => pathname.replace(/\/:indicator.*/, "");
 
 export const createRouteForAddressPage = (

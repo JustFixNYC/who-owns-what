@@ -151,13 +151,14 @@
     }
   }
 
-  & > a,
-  a:hover,
-  a:focus {
+  .App__header-brand,
+  .App__header-brand a,
+  .App__header-brand a:hover,
+  .App__header-brand a:focus {
     text-decoration: none !important;
   }
 
-  & > a {
+  .App__header-brand {
     width: fit-content;
     max-width: 75%;
     text-align: center;
