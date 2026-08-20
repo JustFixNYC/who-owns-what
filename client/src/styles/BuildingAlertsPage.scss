@@ -243,6 +243,21 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    @include body_standard_desktop_degtext;
+
+    p,
+    div,
+    span,
+    a,
+    button,
+    .jf-alert,
+    .jf-alert__content,
+    .card-description,
+    .jfcl-button,
+    .jfcl-button__label,
+    .link-sent {
+      @include body_standard_desktop_degtext;
+    }
 
     @include for-phone-only {
       grid-column: 1 / -1;
@@ -260,11 +275,6 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     .jf-alert {
       width: 100%;
       box-sizing: border-box;
-    }
-
-    .card-description,
-    > div:not(.jf-alert):not(.send-new-link-container) {
-      @include wow-body-standard;
     }
 
     .send-new-link-container {
