@@ -221,7 +221,7 @@ msgstr "APPLIANCE"
 msgid "About"
 msgstr "About"
 
-#: src/containers/BuildingAlertsPage.tsx:238
+#: src/containers/BuildingAlertsPage.tsx:236
 msgid "About JustFix"
 msgstr "About JustFix"
 
@@ -363,7 +363,7 @@ msgstr "Associated names/entities: {0}"
 #~ msgstr "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
 #: src/components/EmailAlertSignup.tsx:113
-#: src/containers/BuildingAlertsPage.tsx:270
+#: src/containers/BuildingAlertsPage.tsx:291
 msgid "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 msgstr "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
@@ -403,7 +403,11 @@ msgstr "Borough Management Office:"
 msgid "Building Alerts"
 msgstr "Building Alerts"
 
-#: src/containers/BuildingAlertsPage.tsx:240
+#: src/containers/BuildingAlertsPage.tsx:258
+msgid "Building Alerts are not currently available for this address"
+msgstr "Building Alerts are not currently available for this address"
+
+#: src/containers/BuildingAlertsPage.tsx:238
 msgid "Building Alerts is a free service created and maintained by JustFix, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to healthy, affordable, and eviction-free housing."
 msgstr "Building Alerts is a free service created and maintained by JustFix, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to healthy, affordable, and eviction-free housing."
 
@@ -610,7 +614,7 @@ msgstr "Close"
 msgid "Community District"
 msgstr "Community District"
 
-#: src/containers/BuildingAlertsPage.tsx:182
+#: src/containers/BuildingAlertsPage.tsx:178
 msgid "Complaints"
 msgstr "Complaints"
 
@@ -618,7 +622,7 @@ msgstr "Complaints"
 msgid "Complaints Issued"
 msgstr "Complaints Issued"
 
-#: src/containers/BuildingAlertsPage.tsx:184
+#: src/containers/BuildingAlertsPage.tsx:180
 msgid "Complaints are made by tenants to the city about problems like leaks, lack of heat, elevator outages, and unsafe construction."
 msgstr "Complaints are made by tenants to the city about problems like leaks, lack of heat, elevator outages, and unsafe construction."
 
@@ -634,7 +638,7 @@ msgstr "Complaints to 311"
 msgid "Contact support@justfix.org to delete your account or get help"
 msgstr "Contact support@justfix.org to delete your account or get help"
 
-#: src/containers/BuildingAlertsPage.tsx:245
+#: src/containers/BuildingAlertsPage.tsx:243
 msgid "Contact us at <0>support@justfix.org</0>"
 msgstr "Contact us at <0>support@justfix.org</0>"
 
@@ -841,7 +845,7 @@ msgid "Enter new email address"
 msgstr "Enter new email address"
 
 #: src/containers/BuildingAlertsPage.tsx:130
-#: src/containers/BuildingAlertsPage.tsx:151
+#: src/containers/BuildingAlertsPage.tsx:153
 msgid "Enter your address"
 msgstr "Enter your address"
 
@@ -880,11 +884,11 @@ msgstr "Eviction cases filed in Housing Court since 2017. This data comes from t
 msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the OCA Data Collective in collaboration with the Right to Counsel Coalition."
 msgstr "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the OCA Data Collective in collaboration with the Right to Counsel Coalition."
 
-#: src/containers/BuildingAlertsPage.tsx:200
+#: src/containers/BuildingAlertsPage.tsx:196
 msgid "Eviction filings"
 msgstr "Eviction filings"
 
-#: src/containers/BuildingAlertsPage.tsx:202
+#: src/containers/BuildingAlertsPage.tsx:198
 msgid "Eviction filings show when a landlord has started an eviction case in Housing Court against a tenant in your building."
 msgstr "Eviction filings show when a landlord has started an eviction case in Housing Court against a tenant in your building."
 
@@ -1167,7 +1171,7 @@ msgstr "I was checking out this building on Who Owns What, a free landlord resea
 msgid "In March 2023 this version will be discontinued. Switch to the new version or learn more."
 msgstr "In March 2023 this version will be discontinued. Switch to the new version or learn more."
 
-#: src/containers/BuildingAlertsPage.tsx:178
+#: src/containers/BuildingAlertsPage.tsx:174
 msgid "In your weekly email we’ll include the number of new:"
 msgstr "In your weekly email we’ll include the number of new:"
 
@@ -1750,7 +1754,7 @@ msgstr "Please enter a valid email address."
 msgid "Please enter a valid phone number."
 msgstr "Please enter a valid phone number."
 
-#: src/containers/BuildingAlertsPage.tsx:168
+#: src/containers/BuildingAlertsPage.tsx:164
 msgid "Please enter an address"
 msgstr "Please enter an address"
 
@@ -1817,7 +1821,7 @@ msgstr "Read more in our Methodology section"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/containers/BuildingAlertsPage.tsx:224
+#: src/containers/BuildingAlertsPage.tsx:220
 msgid "Remember, you have a right to a habitable home. <0>Learn more</0> about your right to a habitable home."
 msgstr "Remember, you have a right to a habitable home. <0>Learn more</0> about your right to a habitable home."
 
@@ -1926,11 +1930,11 @@ msgstr "STAIRS"
 msgid "Sample Area Alert Email"
 msgstr "Sample Area Alert Email"
 
-#: src/containers/BuildingAlertsPage.tsx:260
+#: src/containers/BuildingAlertsPage.tsx:278
 msgid "Sample Building Alert Email"
 msgstr "Sample Building Alert Email"
 
-#: src/containers/BuildingAlertsPage.tsx:263
+#: src/containers/BuildingAlertsPage.tsx:283
 msgid "Sample of building alert email showing complaints, violations, and eviction filings"
 msgstr "Sample of building alert email showing complaints, violations, and eviction filings"
 
@@ -2159,8 +2163,8 @@ msgid "Sorry, something went wrong with the password reset."
 msgstr "Sorry, something went wrong with the password reset."
 
 #: src/containers/BuildingAlertsPage.tsx:162
-msgid "Sorry, that address is not available for Building Alerts. Please try another address."
-msgstr "Sorry, that address is not available for Building Alerts. Please try another address."
+#~ msgid "Sorry, that address is not available for Building Alerts. Please try another address."
+#~ msgstr "Sorry, that address is not available for Building Alerts. Please try another address."
 
 #: src/containers/NotFoundPage.tsx:25
 msgid "Sorry, the page you are looking for doesn't seem to exist."
@@ -2263,6 +2267,10 @@ msgstr "That email is already used."
 #: src/containers/NychaPage.tsx:98
 msgid "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
 msgstr "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
+
+#: src/containers/BuildingAlertsPage.tsx:261
+msgid "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
+msgstr "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
 
 #: src/components/RentstabSummary.tsx:26
 msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
@@ -2440,13 +2448,17 @@ msgstr "This represents <0>{0}%</0> of the total size of this portfolio."
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 
-#: src/containers/BuildingAlertsPage.tsx:216
+#: src/containers/BuildingAlertsPage.tsx:212
 msgid "This service can help you learn if the housing problems you’re facing on your own are widespread in your building."
 msgstr "This service can help you learn if the housing problems you’re facing on your own are widespread in your building."
 
 #: src/containers/BuildingAlertsPage.tsx:139
-msgid "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1>See example</1>"
-msgstr "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1>See example</1>"
+msgid "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1/><2>See example</2>"
+msgstr "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1/><2>See example</2>"
+
+#: src/containers/BuildingAlertsPage.tsx:139
+#~ msgid "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1>See example</1>"
+#~ msgstr "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1>See example</1>"
 
 #~ msgid "This service is free and confidential. <0>Preview an alert</0>"
 #~ msgstr "This service is free and confidential. <0>Preview an alert</0>"
@@ -2503,7 +2515,7 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Total Violations"
 
-#: src/containers/BuildingAlertsPage.tsx:153
+#: src/containers/BuildingAlertsPage.tsx:155
 msgid "Track Building"
 msgstr "Track Building"
 
@@ -2529,6 +2541,10 @@ msgstr "Unable to initiate a court action for nonpayment of rent."
 #: src/containers/NotRegisteredPage.tsx:170
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
+
+#: src/containers/BuildingAlertsPage.tsx:266
+msgid "Unfortunately, we cannot provide alerts for these buildings because the city collects and publishes information about them differently from other privately owned buildings with three or more units."
+msgstr "Unfortunately, we cannot provide alerts for these buildings because the city collects and publishes information about them differently from other privately owned buildings with three or more units."
 
 #: src/components/BuildingStatsTable.tsx:72
 #: src/components/BuildingStatsTable.tsx:75
@@ -2695,7 +2711,7 @@ msgstr "View portfolio map"
 msgid "View trends over time"
 msgstr "View trends over time"
 
-#: src/containers/BuildingAlertsPage.tsx:191
+#: src/containers/BuildingAlertsPage.tsx:187
 msgid "Violations"
 msgstr "Violations"
 
@@ -2704,7 +2720,7 @@ msgstr "Violations"
 msgid "Violations Issued"
 msgstr "Violations Issued"
 
-#: src/containers/BuildingAlertsPage.tsx:193
+#: src/containers/BuildingAlertsPage.tsx:189
 msgid "Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 msgstr "Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 
@@ -2731,6 +2747,10 @@ msgstr "WINDOWS"
 #: src/components/DetailView.tsx:188
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
+
+#: src/containers/BuildingAlertsPage.tsx:271
+msgid "We apologize for the inconvenience."
+msgstr "We apologize for the inconvenience."
 
 #: src/components/DetailView.tsx:91
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
@@ -2804,11 +2824,11 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
-#: src/containers/BuildingAlertsPage.tsx:214
+#: src/containers/BuildingAlertsPage.tsx:210
 msgid "What you can do"
 msgstr "What you can do"
 
-#: src/containers/BuildingAlertsPage.tsx:176
+#: src/containers/BuildingAlertsPage.tsx:172
 msgid "What you’ll get"
 msgstr "What you’ll get"
 
@@ -2897,7 +2917,7 @@ msgstr "Year Built"
 msgid "Yes"
 msgstr "Yes"
 
-#: src/containers/BuildingAlertsPage.tsx:228
+#: src/containers/BuildingAlertsPage.tsx:225
 msgid "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
 msgstr "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
 
@@ -3000,12 +3020,12 @@ msgstr "You can now close this window, <0>search for another building</0> to fol
 #~ msgid "You can now start receiving Building Updates"
 #~ msgstr "You can now start receiving Building Updates"
 
-#: src/containers/BuildingAlertsPage.tsx:220
+#: src/containers/BuildingAlertsPage.tsx:216
 msgid "You can use this information to connect with your neighbors and approach your landlord or city agencies to push for repairs and accountability."
 msgstr "You can use this information to connect with your neighbors and approach your landlord or city agencies to push for repairs and accountability."
 
 #: src/components/EmailAlertSignup.tsx:112
-#: src/containers/BuildingAlertsPage.tsx:269
+#: src/containers/BuildingAlertsPage.tsx:290
 msgid "You have reached the maximum number of Building Alerts"
 msgstr "You have reached the maximum number of Building Alerts"
 
