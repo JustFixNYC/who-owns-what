@@ -229,10 +229,48 @@
     font-family: $body-font;
 
     .App__header-brand,
-    .page-title,
-    nav a,
-    nav button {
+    .page-title {
       font-family: $body-font;
+    }
+
+    h1.page-title {
+      font-size: 1.125rem;
+    }
+
+    nav a,
+    nav button,
+    button.btn.btn-link.dropdown-toggle {
+      @include body_standard_desktop_degtext;
+      text-underline-position: from-font;
+
+      &:hover,
+      &:focus {
+        color: $justfix-grey-600;
+      }
+    }
+
+    &.wowza-styling {
+      nav a,
+      nav button,
+      button.btn.btn-link.dropdown-toggle {
+        &:hover,
+        &:focus {
+          color: $justfix-grey-600;
+          text-decoration: underline;
+        }
+      }
+
+      @include for-tablet-landscape-up {
+        nav a,
+        nav button,
+        button.btn.btn-link.dropdown-toggle {
+          &:hover,
+          &:focus {
+            color: $justfix-grey-600;
+            text-decoration: underline;
+          }
+        }
+      }
     }
   }
 }

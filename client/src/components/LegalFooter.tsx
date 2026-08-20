@@ -7,7 +7,11 @@ import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { useLocation } from "react-router-dom";
 import { isLegacyPath } from "./WowzaToggle";
 
-const LegalFooter = () => {
+type LegalFooterProps = {
+  hideMethodology?: boolean;
+};
+
+const LegalFooter = ({ hideMethodology = false }: LegalFooterProps) => {
   const { termsOfUse, privacyPolicy, methodology, legacy } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
   return (
@@ -47,9 +51,11 @@ const LegalFooter = () => {
                 <Trans>Privacy policy</Trans>
               </NavLink>
               <br className="hide-md" />
-              <NavLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
-                <Trans>Methodology</Trans>
-              </NavLink>
+              {!hideMethodology && (
+                <NavLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
+                  <Trans>Methodology</Trans>
+                </NavLink>
+              )}
               <a
                 href="https://github.com/JustFixNYC/who-owns-what"
                 target="_blank"

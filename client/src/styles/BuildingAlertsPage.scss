@@ -3,6 +3,8 @@
 
 // Layout values adapted from gce-screener's content-page.scss
 $content-box-width: 51.375rem; // 822px
+// Address field: vertical padding + 1.5rem type at 120% line-height + 1px borders
+$search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
 
 // Many styles are unique to this page, so not using mixins
 .BuildingAlertsPage {
@@ -15,6 +17,23 @@ $content-box-width: 51.375rem; // 822px
     margin: 0;
   }
 
+  p {
+    @include body_large_desktop_degtext;
+
+    @include for-phone-only {
+      @include body_standard_desktop_degtext;
+    }
+  }
+
+  a,
+  .jfcl-link {
+    &:hover,
+    &:focus {
+      color: $justfix-grey-600;
+      text-decoration: underline;
+    }
+  }
+
   .BuildingAlertsPage__hero,
   .BuildingAlertsPage__section {
     display: flex;
@@ -22,15 +41,19 @@ $content-box-width: 51.375rem; // 822px
     align-items: center;
     padding-top: 2.5rem;
     padding-bottom: 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
 
     @include for-phone-only {
-      padding: unset;
       padding: 1.5rem 1.5rem 2rem;
     }
   }
 
   .BuildingAlertsPage__section {
     padding: 3rem;
+    @include for-phone-only {
+      padding: 2rem 1.5rem;
+    }
   }
 
   .BuildingAlertsPage__hero-content,
@@ -53,15 +76,19 @@ $content-box-width: 51.375rem; // 822px
 
       @include for-phone-only {
         font-size: 2.25rem; // 36px
+        line-height: 104%;
         letter-spacing: 0.0675rem;
       }
     }
 
     p {
-      font-size: 1.5rem; // 24px
-      font-weight: 500;
-      line-height: 135%;
-      margin-bottom: 0;
+      .BuildingAlertsPage__mobile-break {
+        display: none;
+
+        @include for-phone-only {
+          display: block;
+        }
+      }
 
       .jfcl-link {
         font-family: inherit;
@@ -70,6 +97,12 @@ $content-box-width: 51.375rem; // 822px
         letter-spacing: inherit;
         color: inherit;
         cursor: pointer;
+        white-space: nowrap;
+
+        &:hover,
+        &:focus {
+          color: $justfix-grey-600;
+        }
       }
     }
   }
@@ -89,7 +122,31 @@ $content-box-width: 51.375rem; // 822px
 
     button.jfcl-button {
       flex-shrink: 0;
+      box-sizing: border-box;
+      height: $search-control-height;
+      padding-top: 0;
+      padding-bottom: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-family: $body-font;
+      font-size: 1.125rem;
+      letter-spacing: 0.02rem;
+
+      // Match gce-screener Get Started hover/pressed (overrides JFCL offset shadow)
+      &:hover:not(:disabled),
+      &:active:not(:disabled) {
+        box-shadow: none;
+      }
+
+      &.jfcl-variant-primary {
+        &:hover:not(:disabled) {
+          background-color: $justfix-grey-700;
+        }
+        &:active:not(:disabled) {
+          background-color: $justfix-grey-600;
+        }
+      }
 
       @include for-phone-only {
         width: 100%;
@@ -116,7 +173,8 @@ $content-box-width: 51.375rem; // 822px
       pointer-events: none;
 
       svg {
-        height: 1.25rem;
+        height: calc(1.25rem + 6px);
+        width: auto;
         color: $justfix-black;
       }
     }
@@ -140,13 +198,12 @@ $content-box-width: 51.375rem; // 822px
 
         input.form-input {
           width: 100%;
-          // Match default JFCL button height (1.375rem vertical padding, 1.125rem / 120% type, 0.0625rem border)
-          height: auto;
+          height: $search-control-height;
           box-sizing: border-box;
           background-color: $light;
           border: 0.0625rem solid $justfix-black;
           border-radius: 0.25rem;
-          padding: 1.375rem 1rem 1.375rem 3rem;
+          padding: calc(1.375rem - 5px) 1rem calc(1.375rem - 5px) 3rem;
           font-family: $body-font;
           font-size: 1.5rem;
           font-weight: 500;
@@ -256,13 +313,6 @@ $content-box-width: 51.375rem; // 822px
     }
 
     p {
-      // both body-large-mobile and body-large-desktop
-      font-size: 1.5rem; // 24px
-      font-style: normal;
-      font-weight: 500;
-      line-height: 120%; /* 1.8rem */
-      letter-spacing: 0.045rem;
-
       & + p {
         margin-top: 1.5rem;
       }
@@ -270,10 +320,12 @@ $content-box-width: 51.375rem; // 822px
       a {
         color: inherit;
         text-decoration: underline;
+        text-underline-position: from-font;
 
         &:hover,
         &:focus {
-          text-decoration: none;
+          color: $justfix-grey-600;
+          text-decoration: underline;
         }
       }
     }
@@ -291,7 +343,10 @@ $content-box-width: 51.375rem; // 822px
 
     li {
       &::marker {
-        font-weight: 600;
+        @include for-phone-only {
+          @include body_standard_desktop_degtext;
+          font-weight: 600;
+        }
       }
 
       & + li {
@@ -300,13 +355,15 @@ $content-box-width: 51.375rem; // 822px
     }
 
     .BuildingAlertsPage__list-title {
-      font-weight: 600;
+      @include for-phone-only {
+        @include body_standard_desktop_degtext;
+        font-weight: 600;
+      }
     }
 
     p {
       display: block;
       margin: 0.25rem 0 0;
-      font-weight: 500;
     }
   }
 
@@ -314,7 +371,7 @@ $content-box-width: 51.375rem; // 822px
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 4rem;
+    padding: 0 3rem;
     background-color: $justfix-white-200;
     border-top: 0.0625rem solid $justfix-black;
 
@@ -326,7 +383,7 @@ $content-box-width: 51.375rem; // 822px
   .BuildingAlertsPage__footer-content {
     width: 100%;
     max-width: $content-box-width;
-    font-size: 1.125rem;
+    font-size: 1.125rem; // 18px
 
     .LegalFooter.container {
       max-width: none;
@@ -335,10 +392,33 @@ $content-box-width: 51.375rem; // 822px
       padding: 0;
     }
 
+    .columns {
+      margin-left: 0;
+      margin-right: 0;
+
+      .column {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .Disclaimer,
+      .Links {
+        @include for-tablet-landscape-down {
+          flex: none;
+          width: 100%;
+        }
+      }
+    }
+
     .LegalFooter {
       font-family: $body-font;
+      font-size: 1.125rem; // 18px
       color: $justfix-black;
       background-color: $justfix-white-200;
+
+      p {
+        font-size: 1.125rem; // 18px
+      }
 
       .Links,
       .Disclaimer {
@@ -349,6 +429,13 @@ $content-box-width: 51.375rem; // 822px
 
         a {
           color: $justfix-black;
+          text-underline-position: from-font;
+
+          &:hover,
+          &:focus {
+            color: $justfix-grey-600;
+            text-decoration: underline !important;
+          }
         }
       }
 
@@ -364,6 +451,93 @@ $content-box-width: 51.375rem; // 822px
         @include for-tablet-landscape-up {
           border-top: none;
         }
+
+        @include for-tablet-landscape-down {
+          max-width: none;
+          width: calc(100% + 6rem);
+          margin-left: -3rem;
+          margin-right: -3rem;
+          padding-left: 3rem;
+          padding-right: 3rem;
+          text-align: center;
+
+          .hide-md {
+            display: none;
+          }
+        }
+
+        @include for-phone-only {
+          max-width: none;
+          width: calc(100% + 3rem);
+          margin-left: -1.5rem;
+          margin-right: -1.5rem;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        nav a {
+          @include body_standard_desktop_degtext;
+          color: $justfix-black;
+        }
+      }
+    }
+  }
+}
+
+.building-alerts-unavailable-modal {
+  display: flex;
+  flex-direction: column;
+  background-color: $justfix-white-100 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 40rem !important;
+  border: none !important;
+  color: $justfix-black;
+  font-family: $body-font;
+  transform: translate(-50%, -50%);
+
+  .modal__content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    margin-top: -1.5rem;
+
+    @include for-phone-only {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+  }
+
+  h3 {
+    @include jfcl-h3-desktop;
+    margin: 0 0 1.5rem;
+
+    @include for-phone-only {
+      @include jfcl-h3-mobile;
+    }
+  }
+
+  p {
+    @include body_standard_desktop_degtext;
+    margin: 0;
+
+    & + p {
+      margin-top: 1.5rem;
+    }
+  }
+
+  button.modal__close.jfcl-button {
+    margin: 1.5rem 1.5rem 0 auto !important;
+    color: $justfix-black;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    .jfcl-button__icon,
+    svg {
+      height: 2rem;
+      width: 2rem;
+
+      @include for-phone-only {
+        height: 1.5rem;
+        width: 1.5rem;
       }
     }
   }
