@@ -240,7 +240,7 @@
     nav a,
     nav button,
     button.btn.btn-link.dropdown-toggle {
-      @include body_standard_desktop_degtext;
+      @include jfcl-body-standard-desktop-degular-text;
       text-underline-position: from-font;
 
       &:hover,

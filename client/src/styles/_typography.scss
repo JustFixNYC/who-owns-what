@@ -159,7 +159,7 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
 // From @justfixnyc/component-library jfcl.scss (0.61.2+).
 // This repo is on 0.42.3, which does not ship that file.
-@mixin body_standard_desktop_degtext {
+@mixin jfcl-body-standard-desktop-degular-text {
   font-family: "Degular Text", Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -168,7 +168,7 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
   letter-spacing: 0;
 }
 
-@mixin body_large_desktop_degtext {
+@mixin jfcl-body-large-desktop-degular-text {
   font-family: "Degular Text", Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
