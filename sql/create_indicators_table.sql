@@ -138,23 +138,15 @@ hpd_comp AS (
     FROM email_dates, hpd_complaints_and_problems
     GROUP BY bbl
 ),
-hpd_comp_by_type AS (
+hpd_comp_by_type_long AS (
+  SELECT *
+  FROM (
     SELECT
-        bbl,
-        json_agg(
-            json_build_object(
-                'minorcategory', minorcategory,
-                'problemcode', problemcode,
-                'count', complaint_count
-            )
-            ORDER BY complaint_count DESC
-        ) AS hpd_comp__bldg_month_by_type
-    FROM (
-        SELECT
             hcp.bbl,
             hcp.minorcategory,
             hcp.problemcode,
-            count(*) AS complaint_count
+            count(*) AS complaint_count,
+            ROW_NUMBER() OVER (PARTITION BY bbl ORDER BY count(*) DESC) as rn
         FROM email_dates ed
         CROSS JOIN hpd_complaints_and_problems hcp
         WHERE hcp.receiveddate BETWEEN ed.email_date_bldg_month_start
@@ -164,7 +156,21 @@ hpd_comp_by_type AS (
             hcp.bbl,
             hcp.minorcategory,
             hcp.problemcode
-    ) AS complaint_counts
+  ) AS x
+  WHERE rn <= 3
+),
+hpd_comp_by_type AS (
+SELECT
+        bbl,
+        json_agg(
+            json_build_object(
+                'minorcategory', minorcategory,
+                'problemcode', problemcode,
+                'count', complaint_count
+            )
+            ORDER BY complaint_count DESC
+        ) AS hpd_comp__bldg_month_by_type
+    FROM hpd_comp_by_type_long
     GROUP BY bbl
 ),
 
