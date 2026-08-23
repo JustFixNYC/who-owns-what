@@ -285,7 +285,24 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
               <Trans>Who made this?</Trans>
             </h3>
             <Trans render="p">
-            This service is by <a href="https://www.justfix.org?utm_source=building-alerts" target="_blank" rel="noopener noreferrer">JustFix</a>, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to dignified housing. <a href="https://www.justfix.org/tools/?utm_source=building-alerts" target="_blank" rel="noopener noreferrer">See all our tools</a>.
+              This service is by{" "}
+              <a
+                href="https://www.justfix.org?utm_source=building-alerts"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                JustFix
+              </a>
+              , a nonprofit that builds free digital tools to help New Yorkers exercise their rights
+              to dignified housing.{" "}
+              <a
+                href="https://www.justfix.org/tools/?utm_source=building-alerts"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                See all our tools
+              </a>
+              .
             </Trans>
             <Trans render="p">
               Contact us at <a href="mailto:support@justfix.org">support@justfix.org</a>
@@ -310,13 +327,17 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
             <h3>
               <Trans>Alerts are not currently available for this address</Trans>
             </h3>
-            
-              <Trans render="p">
-              The address you entered appears to be for a NYCHA building, a building with fewer than three units, or a building that is not registered with the Department of Housing Preservation and Development (HPD).
-              </Trans>
-           
+
             <Trans render="p">
-            At this time, we cannot provide alerts for these buildings because the city either does not collect this information or does not make it publicly available.            </Trans>
+              The address you entered appears to be for a NYCHA building, a building with fewer than
+              three units, or a building that is not registered with the Department of Housing
+              Preservation and Development (HPD).
+            </Trans>
+
+            <Trans render="p">
+              At this time, we cannot provide alerts for these buildings because the city either
+              does not collect this information or does not make it publicly available.{" "}
+            </Trans>
             <Trans render="p">We apologize for the inconvenience.</Trans>
           </div>
         </Modal>
