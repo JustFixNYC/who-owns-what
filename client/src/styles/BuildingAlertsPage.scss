@@ -21,7 +21,7 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     @include jfcl-body-large-desktop-degular-text;
 
     @include for-phone-only {
-      @include jfcl-body-standard-desktop;
+      @include jfcl-body-standard-desktop-degular-text;
     }
 
     .jfcl-link {
@@ -261,10 +261,6 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     gap: 0.75rem;
     @include jfcl-body-standard-desktop-degular-text;
 
-    @include for-phone-only {
-      @include jfcl-body-standard-desktop;
-    }
-
     p,
     div,
     span,
@@ -277,9 +273,6 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     .jfcl-button__label,
     .link-sent {
       @include jfcl-body-standard-desktop-degular-text;
-      @include for-phone-only {
-        @include jfcl-body-standard-desktop;
-      }
     }
 
     @include for-phone-only {
@@ -377,11 +370,6 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     li {
       &::marker {
         font-weight: 600;
-
-        @include for-phone-only {
-          @include jfcl-body-standard-desktop;
-          font-weight: 600;
-        }
       }
 
       & + li {
@@ -391,7 +379,7 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
 
     .BuildingAlertsPage__list-title {
       @include for-phone-only {
-        @include jfcl-body-standard-desktop;
+        @include jfcl-body-standard-desktop-degular-text;
         font-weight: 600;
       }
     }
@@ -511,7 +499,7 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
         }
 
         nav a {
-          @include jfcl-body-standard-desktop;
+          @include jfcl-body-standard-desktop-degular-text;
           color: $justfix-black;
         }
       }
@@ -556,10 +544,6 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
   p {
     @include jfcl-body-standard-desktop-degular-text;
     margin: 0;
-
-    @include for-phone-only {
-      @include jfcl-body-standard-desktop;
-    }
 
     & + p {
       margin-top: 1.5rem;
