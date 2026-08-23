@@ -23,6 +23,21 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     @include for-phone-only {
       @include jfcl-body-standard-desktop;
     }
+
+    .jfcl-link {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      font-style: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      color: inherit;
+
+      svg:not(.jf-logo, .jf-logo-divider) {
+        height: 1em;
+        width: 1em;
+      }
+    }
   }
 
   a,
@@ -62,6 +77,12 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
     max-width: $content-box-width;
   }
 
+  .BuildingAlertsPage__section-content {
+    @include for-tablet-landscape-up {
+      padding-right: 12rem;
+    }
+  }
+
   .BuildingAlertsPage__hero {
     background-color: $justfix-blue-100;
 
@@ -91,11 +112,6 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
       }
 
       .jfcl-link {
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-        letter-spacing: inherit;
-        color: inherit;
         cursor: pointer;
         white-space: nowrap;
 
@@ -130,7 +146,7 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
       align-items: center;
       justify-content: center;
       font-family: $body-font;
-      font-size: 1.125rem;
+      font-size: 1.25rem;
       letter-spacing: 0.02rem;
 
       // Match gce-screener Get Started hover/pressed (overrides JFCL offset shadow)
@@ -514,6 +530,10 @@ $search-control-height: calc((1.375rem - 5px) * 2 + 1.8rem + 0.125rem);
   color: $justfix-black;
   font-family: $body-font;
   transform: translate(-50%, -50%);
+
+  @include for-phone-only {
+    max-width: calc(100vw - 2rem) !important;
+  }
 
   .modal__content {
     padding: 0 1.5rem 1.5rem 1.5rem;

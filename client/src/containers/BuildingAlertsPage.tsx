@@ -152,7 +152,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__hero">
           <div className="BuildingAlertsPage__hero-content">
             <h1>
-              <Trans>Track complaints, violations, and eviction filings in your building.</Trans>
+              <Trans>Track complaints, violations, and eviction filings in your building</Trans>
             </h1>
 
             <Trans render="p">
@@ -244,7 +244,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__section BuildingAlertsPage__section--bordered">
           <div className="BuildingAlertsPage__section-content">
             <h3>
-              <Trans>What you can do</Trans>
+              <Trans>What it's for</Trans>
             </h3>
             <Trans render="p">
               This service can help you learn if the housing problems you’re facing on your own are
@@ -256,13 +256,25 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
             </Trans>
             <Trans render="p">
               Remember, you have a right to a habitable home.{" "}
-              <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your right to
-              a habitable home.
+              <JFCLLink
+                href="https://www.metcouncilonhousing.org/help-answers/statutory-rights-of-residential-tenants-in-new-york/"
+                target="_blank"
+                rel="noopener noreferrer"
+                icon="external"
+              >
+                Learn more
+              </JFCLLink>
             </Trans>
             <Trans render="p">
-              You also have a right to organize with your neighbors to assert your rights.{" "}
-              <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your right to
-              organize.
+              You also have a right to organize with your neighbors and to exercise your rights.{" "}
+              <JFCLLink
+                href="https://www.metcouncilonhousing.org/help-answers/forming-a-tenants-association/"
+                target="_blank"
+                rel="noopener noreferrer"
+                icon="external"
+              >
+                Learn more
+              </JFCLLink>
             </Trans>
           </div>
         </div>
@@ -270,12 +282,10 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__section">
           <div className="BuildingAlertsPage__section-content">
             <h3>
-              <Trans>About JustFix</Trans>
+              <Trans>Who made this?</Trans>
             </h3>
             <Trans render="p">
-              Building Alerts is a free service created and maintained by JustFix, a nonprofit that
-              builds free digital tools to help New Yorkers exercise their rights to healthy,
-              affordable, and eviction-free housing.
+            This service is by <a href="https://www.justfix.org?utm_source=building-alerts" target="_blank" rel="noopener noreferrer">JustFix</a>, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to dignified housing. <a href="https://www.justfix.org/tools/?utm_source=building-alerts" target="_blank" rel="noopener noreferrer">See all our tools</a>.
             </Trans>
             <Trans render="p">
               Contact us at <a href="mailto:support@justfix.org">support@justfix.org</a>
@@ -298,19 +308,15 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         >
           <div className="modal__content">
             <h3>
-              <Trans>Building Alerts are not currently available for this address</Trans>
+              <Trans>Alerts are not currently available for this address</Trans>
             </h3>
-            <p>
-              <Trans>
-                The address you entered appears to be either a NYCHA building or a building with
-                fewer than three units.
+            
+              <Trans render="p">
+              The address you entered appears to be for a NYCHA building, a building with fewer than three units, or a building that is not registered with the Department of Housing Preservation and Development (HPD).
               </Trans>
-            </p>
+           
             <Trans render="p">
-              Unfortunately, we cannot provide alerts for these buildings because the city collects
-              and publishes information about them differently from other privately owned buildings
-              with three or more units.
-            </Trans>
+            At this time, we cannot provide alerts for these buildings because the city either does not collect this information or does not make it publicly available.            </Trans>
             <Trans render="p">We apologize for the inconvenience.</Trans>
           </div>
         </Modal>
