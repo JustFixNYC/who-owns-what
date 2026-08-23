@@ -147,4 +147,10 @@
       }
     }
   }
+
+  &.LoginPage--from-building-alerts {
+    div.page-container .standalone-container {
+      background-color: $justfix-blue-100; // #c6d8ff
+    }
+  }
 }

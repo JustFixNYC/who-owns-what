@@ -89,7 +89,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
     });
   };
 
-  const handleGetStarted = async () => {
+  const handleCTA = async () => {
     if (!selectedAddress?.bbl) {
       setLoadError(false);
       setNoAddressError(true);
@@ -180,7 +180,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
                 <Button
                   labelText={i18n._(t`Track Building`)}
                   loading={isLoadingRecord}
-                  onClick={handleGetStarted}
+                  onClick={handleCTA}
                 />
               </div>
 
