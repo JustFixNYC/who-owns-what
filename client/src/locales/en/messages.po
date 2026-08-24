@@ -271,7 +271,7 @@ msgstr "Address"
 msgid "Agent"
 msgstr "Agent"
 
-#: src/containers/BuildingAlertsPage.tsx:258
+#: src/containers/BuildingAlertsPage.tsx:267
 msgid "Alerts are not currently available for this address"
 msgstr "Alerts are not currently available for this address"
 
@@ -367,11 +367,11 @@ msgstr "Associated names/entities: {0}"
 #~ msgstr "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
 #: src/components/EmailAlertSignup.tsx:113
-#: src/containers/BuildingAlertsPage.tsx:287
+#: src/containers/BuildingAlertsPage.tsx:300
 msgid "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 msgstr "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
-#: src/containers/BuildingAlertsPage.tsx:265
+#: src/containers/BuildingAlertsPage.tsx:276
 msgid "At this time, we cannot provide alerts for these buildings because the city either does not collect this information or does not make it publicly available."
 msgstr "At this time, we cannot provide alerts for these buildings because the city either does not collect this information or does not make it publicly available."
 
@@ -646,7 +646,7 @@ msgstr "Complaints to 311"
 msgid "Contact support@justfix.org to delete your account or get help"
 msgstr "Contact support@justfix.org to delete your account or get help"
 
-#: src/containers/BuildingAlertsPage.tsx:243
+#: src/containers/BuildingAlertsPage.tsx:252
 msgid "Contact us at <0>support@justfix.org</0>"
 msgstr "Contact us at <0>support@justfix.org</0>"
 
@@ -1950,11 +1950,11 @@ msgstr "STAIRS"
 msgid "Sample Area Alert Email"
 msgstr "Sample Area Alert Email"
 
-#: src/containers/BuildingAlertsPage.tsx:274
+#: src/containers/BuildingAlertsPage.tsx:287
 msgid "Sample Building Alert Email"
 msgstr "Sample Building Alert Email"
 
-#: src/containers/BuildingAlertsPage.tsx:279
+#: src/containers/BuildingAlertsPage.tsx:292
 msgid "Sample of building alert email showing complaints, violations, and eviction filings"
 msgstr "Sample of building alert email showing complaints, violations, and eviction filings"
 
@@ -2291,7 +2291,7 @@ msgstr "The NYCHA office overseeing your borough. Some experts suggest reaching 
 #~ msgid "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
 #~ msgstr "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
 
-#: src/containers/BuildingAlertsPage.tsx:261
+#: src/containers/BuildingAlertsPage.tsx:270
 msgid "The address you entered appears to be for a NYCHA building, a building with fewer than three units, or a building that is not registered with the Department of Housing Preservation and Development (HPD)."
 msgstr "The address you entered appears to be for a NYCHA building, a building with fewer than three units, or a building that is not registered with the Department of Housing Preservation and Development (HPD)."
 
@@ -2779,7 +2779,7 @@ msgstr "WINDOWS"
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 
-#: src/containers/BuildingAlertsPage.tsx:267
+#: src/containers/BuildingAlertsPage.tsx:280
 msgid "We apologize for the inconvenience."
 msgstr "We apologize for the inconvenience."
 
@@ -3068,7 +3068,7 @@ msgid "You can use this information to connect with your neighbors and approach 
 msgstr "You can use this information to connect with your neighbors and approach your landlord or city agencies to push for repairs and accountability."
 
 #: src/components/EmailAlertSignup.tsx:112
-#: src/containers/BuildingAlertsPage.tsx:286
+#: src/containers/BuildingAlertsPage.tsx:299
 msgid "You have reached the maximum number of Building Alerts"
 msgstr "You have reached the maximum number of Building Alerts"
 
