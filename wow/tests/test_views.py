@@ -274,7 +274,7 @@ class TestFormatHpdCompMonthByType:
                     "count": 1,
                 },
                 "Window guards",
-            )
+            ),
         ],
     )
     def test_special_category_and_problem_formatting(self, complaint, expected):

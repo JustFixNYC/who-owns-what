@@ -240,7 +240,7 @@ def format_hpd_comp_type_label(minorcategory: str, problemcode: str) -> str:
     minor_key = minorcategory.upper()
     problem_key = problemcode.upper()
     minor = minorcategory.capitalize()
-    
+
     # calling these out because the problemcode is very long and/or redundant
     WINDOW_GUARD_CATEGORIES = {
         "WINDOW GUARD BROKEN/MISSING",
@@ -267,7 +267,7 @@ def format_hpd_comp_month_by_type(
     if isinstance(complaints_by_type, str):
         complaints_by_type = json.loads(complaints_by_type)
 
-    # failsafe in case the complaints_by_type is [] or None after json.loads 
+    # failsafe in case the complaints_by_type is [] or None after json.loads
     if not complaints_by_type:
         return None
 
@@ -287,6 +287,7 @@ def format_hpd_comp_month_by_type(
     if remaining > 0:
         return f"{summary}, +{remaining} more"
     return summary
+
 
 @api
 def signature_building(request):
