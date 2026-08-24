@@ -252,7 +252,7 @@ const SearchLink = () => {
 
   return (
     <LocaleNavLink exact to={searchRoute} key={1}>
-      <Trans>Search</Trans>
+      <Trans>Portfolio Search</Trans>
     </LocaleNavLink>
   );
 };
