@@ -1,4 +1,5 @@
 import csv
+import json
 from typing import Any, Dict, List
 from io import StringIO
 from django.urls import path
@@ -8,7 +9,7 @@ import pytest
 
 from wow.apiutil import api
 from project.urls import handler500  # noqa
-from wow.views import _fixup_addr_for_csv
+from wow.views import _fixup_addr_for_csv, format_hpd_comp_month_by_type
 
 
 @api
@@ -206,6 +207,80 @@ class TestFixupAddrForCsv:
             "recentcomplaintsbytype": "",
             "allcontacts": "",
         }
+
+
+SAMPLE_COMPLAINTS_BY_TYPE = [
+    {"minorcategory": "CEILING", "problemcode": "HOLE OR CRACKED", "count": 5},
+    {
+        "minorcategory": "WINDOW FRAME",
+        "problemcode": "LOOSE OR DEFECTIVE",
+        "count": 4,
+    },
+    {
+        "minorcategory": "RADIATOR",
+        "problemcode": "MISSING OR REMOVED",
+        "count": 3,
+    },
+]
+
+SAMPLE_COMPLAINTS_SUMMARY = (
+    "Ceiling (hole or cracked), Window frame (loose or defective), "
+    "Radiator (missing or removed), +72 more"
+)
+
+
+class TestFormatHpdCompMonthByType:
+    def test_formats_top_types_and_remaining_count(self):
+        assert (
+            format_hpd_comp_month_by_type(SAMPLE_COMPLAINTS_BY_TYPE, 84)
+            == SAMPLE_COMPLAINTS_SUMMARY
+        )
+
+    def test_parses_json_string_from_postgres(self):
+        assert (
+            format_hpd_comp_month_by_type(json.dumps(SAMPLE_COMPLAINTS_BY_TYPE), 84)
+            == SAMPLE_COMPLAINTS_SUMMARY
+        )
+
+    def test_returns_none_when_missing(self):
+        assert format_hpd_comp_month_by_type(None, 12) is None
+        assert format_hpd_comp_month_by_type([], 12) is None
+
+    def test_zero_remaining_omits_count(self):
+        assert format_hpd_comp_month_by_type(SAMPLE_COMPLAINTS_BY_TYPE, 12) == (
+            "Ceiling (hole or cracked), Window frame (loose or defective), "
+            "Radiator (missing or removed)"
+        )
+
+    @pytest.mark.parametrize(
+        "complaint, expected",
+        [
+            (
+                {"minorcategory": "WINDOWS", "problemcode": "OTHER", "count": 1},
+                "Windows",
+            ),
+            (
+                {
+                    "minorcategory": "WINDOW GUARD BROKEN/MISSING",
+                    "problemcode": "CHILD UNDER 11",
+                    "count": 1,
+                },
+                "Window guard broken/missing",
+            ),
+            (
+                {
+                    "minorcategory": "WINDOW GUARDS",
+                    "problemcode": "CHILD UNDER 11",
+                    "count": 1,
+                },
+                "Window guards",
+            )
+        ],
+    )
+    def test_special_category_and_problem_formatting(self, complaint, expected):
+        assert (
+            format_hpd_comp_month_by_type([complaint], complaint["count"]) == expected
+        )
 
 
 class TestServerError:
