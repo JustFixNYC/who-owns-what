@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-08-11 14:09\n"
+"PO-Revision-Date: 2026-08-24 00:39\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -228,7 +228,7 @@ msgstr "Acerca de"
 
 #: src/containers/BuildingAlertsPage.tsx:236
 #~ msgid "About JustFix"
-#~ msgstr "Acerca de JustFix"
+#~ msgstr "About JustFix"
 
 #~ msgid "About this site"
 #~ msgstr "About this site"
@@ -278,7 +278,7 @@ msgstr "Agente"
 
 #: src/containers/BuildingAlertsPage.tsx:267
 msgid "Alerts are not currently available for this address"
-msgstr ""
+msgstr "De momento no hay alertas disponibles para esta dirección"
 
 #: src/components/Subscribe.tsx:47
 msgid "All set! Thanks for subscribing!"
@@ -378,7 +378,7 @@ msgstr "En este momento solamente podemos admitir {subscriptionLimit} edificios 
 
 #: src/containers/BuildingAlertsPage.tsx:276
 msgid "At this time, we cannot provide alerts for these buildings because the city either does not collect this information or does not make it publicly available."
-msgstr ""
+msgstr "De momento, no podemos ofrecer alertas para estos edificios porque el ayuntamiento o bien no recopila esta información o bien no la pone a disposición del público."
 
 #: src/util/helpers.ts:13
 msgid "BELL/BUZZER/INTERCOM"
@@ -418,11 +418,11 @@ msgstr "Alertas por edificio"
 
 #: src/containers/BuildingAlertsPage.tsx:258
 #~ msgid "Building Alerts are not currently available for this address"
-#~ msgstr ""
+#~ msgstr "Building Alerts are not currently available for this address"
 
 #: src/containers/BuildingAlertsPage.tsx:238
 #~ msgid "Building Alerts is a free service created and maintained by JustFix, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to healthy, affordable, and eviction-free housing."
-#~ msgstr "Alertas por edificio es un servicio gratuito creado y gestionado por JustFix, una organización sin ánimo de lucro que desarrolla herramientas digitales gratuitas para ayudar a los neoyorquinos a ejercer su derecho a una vivienda saludable, asequible y sin riesgo de desahucio."
+#~ msgstr "Building Alerts is a free service created and maintained by JustFix, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to healthy, affordable, and eviction-free housing."
 
 #: src/components/IndicatorsDatasets.tsx:68
 msgid "Building Permit Applications"
@@ -1797,7 +1797,7 @@ msgstr "Cartera de propiedades"
 
 #: src/containers/App.tsx:133
 msgid "Portfolio Search"
-msgstr ""
+msgstr "Búsqueda en el catálogo"
 
 #: src/components/FeatureCalloutContent.ts:23
 msgid "Portfolio Table Redesign"
@@ -1844,11 +1844,11 @@ msgstr "El registro ha caducado:"
 
 #: src/containers/BuildingAlertsPage.tsx:220
 msgid "Remember, you have a right to a habitable home. <0>Learn more</0>"
-msgstr ""
+msgstr "Recuerda que tienes derecho a una vivienda habitable. <0>Más información</0>"
 
 #: src/containers/BuildingAlertsPage.tsx:220
 #~ msgid "Remember, you have a right to a habitable home. <0>Learn more</0> about your right to a habitable home."
-#~ msgstr "Recuerda que tienes derecho a una vivienda habitable. <0>Infórmate mejor en</0> sobre tu derecho a una vivienda habitable."
+#~ msgstr "Remember, you have a right to a habitable home. <0>Learn more</0> about your right to a habitable home."
 
 #: src/containers/AccountSettingsPage.tsx:27
 #: src/containers/AccountSettingsPage.tsx:37
@@ -2188,7 +2188,7 @@ msgstr "Lo sentimos, algo salió mal con el restablecimiento de la contraseña."
 
 #: src/containers/BuildingAlertsPage.tsx:162
 #~ msgid "Sorry, that address is not available for Building Alerts. Please try another address."
-#~ msgstr "Lo siento, esa dirección no está disponible para las Alertas por edificio. Intenta con otra dirección."
+#~ msgstr "Sorry, that address is not available for Building Alerts. Please try another address."
 
 #: src/containers/NotFoundPage.tsx:25
 msgid "Sorry, the page you are looking for doesn't seem to exist."
@@ -2294,11 +2294,11 @@ msgstr "La oficina de NYCHA que supervisa su distrito. Algunos expertos sugieren
 
 #: src/containers/BuildingAlertsPage.tsx:261
 #~ msgid "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
-#~ msgstr ""
+#~ msgstr "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
 
 #: src/containers/BuildingAlertsPage.tsx:270
 msgid "The address you entered appears to be for a NYCHA building, a building with fewer than three units, or a building that is not registered with the Department of Housing Preservation and Development (HPD)."
-msgstr ""
+msgstr "Parece que la dirección que has introducido corresponde a un edificio de la NYCHA, a un edificio con menos de tres viviendas o a un edificio que no está registrado en el Departamento de Conservación y Desarrollo de la Vivienda (HPD)."
 
 #: src/components/RentstabSummary.tsx:26
 msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
@@ -2482,15 +2482,15 @@ msgstr "Este servicio puede ayudarte a averiguar si los problemas de vivienda a 
 
 #: src/containers/BuildingAlertsPage.tsx:240
 msgid "This service is by <0>JustFix</0>, a nonprofit that builds free digital tools to help New Yorkers exercise their rights to dignified housing. <1>See all our tools</1>."
-msgstr ""
+msgstr "Este servicio lo ofrece <0>JustFix</0>, una organización sin ánimo de lucro que crea herramientas digitales gratuitas para ayudar a los neoyorquinos a ejercer su derecho a una vivienda digna. <1>Echa un vistazo a todas nuestras herramientas</1>."
 
 #: src/containers/BuildingAlertsPage.tsx:139
 msgid "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1/><2>See example</2>"
-msgstr ""
+msgstr "Este servicio es gratuito y confidencial. <0/>Las actualizaciones se envían cada semana a tu bandeja de entrada. <1/><2>Ver ejemplo</2>"
 
 #: src/containers/BuildingAlertsPage.tsx:139
 #~ msgid "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1>See example</1>"
-#~ msgstr "Este servicio es gratuito y confidencial. <0/>Las actualizaciones se envían cada semana a tu bandeja de entrada. <1>Mira un ejemplo</1>"
+#~ msgstr "This service is free and confidential. <0/>Updates are sent weekly to your inbox. <1>See example</1>"
 
 #~ msgid "This service is free and confidential. <0>Preview an alert</0>"
 #~ msgstr "This service is free and confidential. <0>Preview an alert</0>"
@@ -2553,11 +2553,11 @@ msgstr "Seguir edificio"
 
 #: src/containers/BuildingAlertsPage.tsx:136
 msgid "Track complaints, violations, and eviction filings in your building"
-msgstr ""
+msgstr "Lleva un control de las quejas, las infracciones y las demandas de desahucio en tu edificio"
 
 #: src/containers/BuildingAlertsPage.tsx:136
 #~ msgid "Track complaints, violations, and eviction filings in your building."
-#~ msgstr "Lleva un control de las quejas, las infracciones y las demandas de desahucio en tu edificio."
+#~ msgstr "Track complaints, violations, and eviction filings in your building."
 
 #~ msgid "Track new complaints, violations, and eviction filings in your building."
 #~ msgstr "Track new complaints, violations, and eviction filings in your building."
@@ -2580,7 +2580,7 @@ msgstr "No es posible solicitar la desestimación de infracciones del código"
 
 #: src/containers/BuildingAlertsPage.tsx:266
 #~ msgid "Unfortunately, we cannot provide alerts for these buildings because the city collects and publishes information about them differently from other privately owned buildings with three or more units."
-#~ msgstr ""
+#~ msgstr "Unfortunately, we cannot provide alerts for these buildings because the city collects and publishes information about them differently from other privately owned buildings with three or more units."
 
 #: src/components/BuildingStatsTable.tsx:72
 #: src/components/BuildingStatsTable.tsx:75
@@ -2786,7 +2786,7 @@ msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del
 
 #: src/containers/BuildingAlertsPage.tsx:280
 msgid "We apologize for the inconvenience."
-msgstr ""
+msgstr "Nos disculpamos por las molestias."
 
 #: src/components/DetailView.tsx:91
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
@@ -2862,11 +2862,11 @@ msgstr "¿Qué pasa si el arrendador no ha registrado el edificio?"
 
 #: src/containers/BuildingAlertsPage.tsx:210
 msgid "What it's for"
-msgstr ""
+msgstr "Para qué sirve"
 
 #: src/containers/BuildingAlertsPage.tsx:210
 #~ msgid "What you can do"
-#~ msgstr "Lo que puedes hacer"
+#~ msgstr "What you can do"
 
 #: src/containers/BuildingAlertsPage.tsx:172
 msgid "What you’ll get"
@@ -2915,7 +2915,7 @@ msgstr "Who Owns What es una herramienta gratis elaborada por JustFix para inves
 
 #: src/containers/BuildingAlertsPage.tsx:238
 msgid "Who made this?"
-msgstr ""
+msgstr "¿Quién ha hecho esto?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:20
@@ -2963,11 +2963,11 @@ msgstr "Sí"
 
 #: src/containers/BuildingAlertsPage.tsx:226
 msgid "You also have a right to organize with your neighbors and to exercise your rights. <0>Learn more</0>"
-msgstr ""
+msgstr "También tienes derecho a organizarte con tus vecinos y a ejercer tus derechos. <0>Más información</0>"
 
 #: src/containers/BuildingAlertsPage.tsx:225
 #~ msgid "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
-#~ msgstr "También tienes derecho a organizarte con tus vecinos para hacer valer tus derechos. <0>Infórmate mejor en</0> sobre tu derecho a organizarte."
+#~ msgstr "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
 
 #: src/components/Login.tsx:206
 #: src/containers/AccountSettingsPage.tsx:102
@@ -3349,3 +3349,4 @@ msgstr "{value, plural, one {Una queja del HPD emitida desde el 2012} other {# q
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una infracción del HPD emitida desde el 2012} other {# infracciones del HPD emitidas desde el 2012}}"
+
