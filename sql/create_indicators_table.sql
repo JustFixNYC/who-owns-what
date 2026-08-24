@@ -151,7 +151,6 @@ hpd_comp_by_type_long AS (
         CROSS JOIN hpd_complaints_and_problems hcp
         WHERE hcp.receiveddate BETWEEN ed.email_date_bldg_month_start
                                    AND ed.email_date_bldg_month_end
-          AND hcp.type <> 'NON EMERGENCY'
         GROUP BY
             hcp.bbl,
             hcp.minorcategory,
