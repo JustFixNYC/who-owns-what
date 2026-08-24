@@ -267,8 +267,8 @@ def format_hpd_comp_month_by_type(
     if isinstance(complaints_by_type, str):
         complaints_by_type = json.loads(complaints_by_type)
 
-    # failsafe in case the complaints_by_type is [] or None after json.loads
-    if not complaints_by_type:
+    # failsafe in case json.loads returned []/None, or a non-list JSON value
+    if not isinstance(complaints_by_type, list) or not complaints_by_type:
         return None
 
     labels = []
