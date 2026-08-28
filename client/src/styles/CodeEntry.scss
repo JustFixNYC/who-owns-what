@@ -1,0 +1,30 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.code-entry {
+  .code-entry-resend {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+
+    button {
+      color: $justfix-black;
+      text-decoration: underline;
+
+      &:disabled {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .code-entry-error {
+    color: $justfix-red;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+  }
+
+  .submit-button-group {
+    margin-top: 1.5rem;
+  }
+}

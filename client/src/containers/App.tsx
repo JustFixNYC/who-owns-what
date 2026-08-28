@@ -45,8 +45,6 @@ import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
 import { UserContext, UserContextProvider } from "components/UserContext";
 import AccountSettingsPage from "./AccountSettingsPage";
-import ResetPasswordPage from "./ResetPasswordPage";
-import ForgotPasswordPage from "./ForgotPasswordPage";
 import UnsubscribePage from "./UnsubscribePage";
 import LoginPage from "./LoginPage";
 import { JFLogo } from "components/JFLogo";
@@ -116,8 +114,16 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
 
-  const localizedRedirect = (pathname: string) => {
-    return <LocaleRedirect to={{ pathname: removeLocalePrefix(pathname) }} />;
+  const localizedRedirect = (pathname: string, search?: string) => {
+    return <LocaleRedirect to={{ pathname: removeLocalePrefix(pathname), search }} />;
+  };
+
+  const redirectForgotResetToLogin = (locationSearch: string) => {
+    const incoming = new URLSearchParams(locationSearch);
+    const outgoing = new URLSearchParams({ from: "password" });
+    const email = incoming.get("email");
+    if (email) outgoing.set("email", email);
+    return localizedRedirect(paths.account.login, `?${outgoing.toString()}`);
   };
 
   return (
@@ -223,8 +229,14 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           )
         }
       />
-      <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
-      <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
+      <Route
+        path={paths.account.forgotPassword}
+        render={({ location }) => redirectForgotResetToLogin(location.search)}
+      />
+      <Route
+        path={paths.account.resetPassword}
+        render={({ location }) => redirectForgotResetToLogin(location.search)}
+      />
       <Route path={paths.account.unsubscribe} component={UnsubscribePage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
