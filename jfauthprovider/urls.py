@@ -5,6 +5,20 @@ from . import views
 app_name = "jfauth"
 
 urlpatterns = [
+    path("login/start", views.login_start, name="login_start"),
+    path("login/send-code", views.login_send_code, name="login_send_code"),
+    path("verify-otp", views.verify_otp, name="verify_otp"),
+    path("verify-magic-link", views.verify_magic_link, name="verify_magic_link"),
+    path(
+        "email/change/send-code",
+        views.email_change_send_code,
+        name="email_change_send_code",
+    ),
+    path(
+        "email/change/verify-otp",
+        views.email_change_verify_otp,
+        name="email_change_verify_otp",
+    ),
     path("login", views.login, name="login"),
     path("logout", views.logout, name="logout"),
     path("update", views.update, name="update"),
