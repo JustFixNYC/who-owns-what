@@ -9,8 +9,24 @@ type UserOrError = {
   error?: string;
 };
 
+type StartLoginResult = {
+  user?: JustfixUser;
+  created?: boolean;
+  error?: string;
+};
+
 export type UserContextProps = {
   user?: JustfixUser;
+  startLogin: (email: string) => Promise<StartLoginResult | void>;
+  sendLoginCode: (
+    email: string,
+    options?: { userType?: string; phoneNumber?: string }
+  ) => Promise<{ error?: string } | void>;
+  verifyOtp: (
+    email: string,
+    code: string,
+    onSuccess?: (user: JustfixUser) => void
+  ) => Promise<UserOrError | void>;
   register: (
     username: string,
     password: string,
@@ -42,6 +58,16 @@ export type UserContextProps = {
 };
 
 const initialState: UserContextProps = {
+  startLogin: async (email: string) => {},
+  sendLoginCode: async (
+    email: string,
+    options?: { userType?: string; phoneNumber?: string }
+  ) => {},
+  verifyOtp: async (
+    email: string,
+    code: string,
+    onSuccess?: (user: JustfixUser) => void
+  ) => {},
   register: async (
     username: string,
     password: string,
@@ -97,6 +123,37 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     };
     asyncFetchUser();
   }, []);
+
+  const startLogin = useCallback(async (email: string) => {
+    const response = await AuthClient.startLogin(email);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { user: response.user, created: response.created };
+  }, []);
+
+  const sendLoginCode = useCallback(
+    async (email: string, options?: { userType?: string; phoneNumber?: string }) => {
+      const response = await AuthClient.sendLoginCode(email, options);
+      if (response.error) {
+        return { error: response.error };
+      }
+    },
+    []
+  );
+
+  const verifyOtp = useCallback(
+    async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {
+      const response = await AuthClient.verifyOtp(email, code);
+      if (response.error || !response.user) {
+        return { error: response.error || "Verification failed" };
+      }
+      const updatedUser = updateUserSubscriptions(response.user);
+      if (onSuccess && updatedUser) onSuccess(updatedUser);
+      return { user: updatedUser };
+    },
+    []
+  );
 
   const register = useCallback(
     async (
@@ -250,6 +307,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const providerValue = useMemo(
     () => ({
       user,
+      startLogin,
+      sendLoginCode,
+      verifyOtp,
       register,
       login,
       logout,
@@ -264,6 +324,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     }),
     [
       user,
+      startLogin,
+      sendLoginCode,
+      verifyOtp,
       register,
       login,
       logout,

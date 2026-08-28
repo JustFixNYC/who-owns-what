@@ -69,6 +69,106 @@ const fetchUser = async () => {
 const setUser = (user: JustfixUser) => (_user = user);
 const clearUser = () => (_user = undefined);
 
+type SendLoginCodeOptions = {
+  userType?: string;
+  phoneNumber?: string;
+};
+
+type StartLoginResponse = {
+  user?: JustfixUser;
+  created?: boolean;
+  error?: string;
+};
+
+/**
+ * Upsert-only login step: create or fetch account by email without sending OTP.
+ */
+const startLogin = async (email: string): Promise<StartLoginResponse> => {
+  return await postAuthRequest(`${BASE_URL}auth/login/start`, {
+    email: email.toLowerCase(),
+  });
+};
+
+/**
+ * Issue OTP and send login email with code + magic link.
+ * Requires a prior startLogin for the same email.
+ */
+const sendLoginCode = async (email: string, options?: SendLoginCodeOptions) => {
+  const params: { [key: string]: string } = {
+    email: email.toLowerCase(),
+  };
+  if (options?.userType) params.user_type = options.userType;
+  if (options?.phoneNumber) params.phone_number = options.phoneNumber;
+  return await postAuthRequest(`${BASE_URL}auth/login/send-code`, params);
+};
+
+/**
+ * Verify a login OTP code and establish a session (httponly cookies via proxy).
+ */
+const verifyOtp = async (email: string, code: string) => {
+  return await postLoginCredentials(`${BASE_URL}auth/verify-otp`, {
+    email: email.toLowerCase(),
+    code,
+  });
+};
+
+/**
+ * Validate a magic-link code and establish a session (httponly cookies via proxy).
+ */
+const verifyMagicLink = async (code: string, utmSource?: string) => {
+  const params: { [key: string]: string } = { code };
+  if (utmSource) params.utm_source = utmSource;
+
+  let result: VerifyEmailResponse = {
+    statusCode: VerifyStatusCode.Unknown,
+    statusText: "",
+  };
+
+  try {
+    const response = await postAuthRequest(`${BASE_URL}auth/verify-magic-link`, params);
+    if (response.user) {
+      result.statusCode = VerifyStatusCode.Success;
+      result.statusText = response.status_text || "";
+    } else if (response.status_code === VerifyStatusCode.AlreadyVerified) {
+      result.statusCode = VerifyStatusCode.AlreadyVerified;
+      result.statusText = response.status_text;
+    } else if (response.status_code === VerifyStatusCode.Expired) {
+      result.statusCode = VerifyStatusCode.Expired;
+      result.statusText = response.status_text;
+    } else if (response.error) {
+      result.statusCode = VerifyStatusCode.Failure;
+      result.error = response.error;
+    } else if (response.status_code) {
+      result.statusCode = response.status_code;
+      result.statusText = response.status_text;
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      result.error = e.message;
+    }
+  }
+  return result;
+};
+
+/**
+ * Authenticated proof of a new email: issue OTP + magic link to new_email.
+ */
+const sendEmailChangeCode = async (newEmail: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/change/send-code`, {
+    new_email: newEmail.toLowerCase(),
+  });
+};
+
+/**
+ * Authenticated OTP proof of new_email, then swap username / WowProfile.email.
+ */
+const verifyEmailChangeOtp = async (newEmail: string, code: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/change/verify-otp`, {
+    new_email: newEmail.toLowerCase(),
+    code,
+  });
+};
+
 /**
  * Authenticates a user with the given email and password.
  * Creates an account for this user if one does not already exist.
@@ -455,6 +555,12 @@ const Client = {
   user,
   fetchUser,
   setUser,
+  startLogin,
+  sendLoginCode,
+  verifyOtp,
+  verifyMagicLink,
+  sendEmailChangeCode,
+  verifyEmailChangeOtp,
   register,
   login,
   logout,
