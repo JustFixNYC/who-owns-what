@@ -46,7 +46,9 @@ export type UserContextProps = {
     streetname: string,
     zip: string,
     boro: string,
-    _user?: JustfixUser
+    _user?: JustfixUser,
+    housenumber_display?: string,
+    streetname_display?: string
   ) => void;
   unsubscribeBuilding: (bbl: string) => void;
   subscribeDistrict: (district: District, _user?: JustfixUser) => void;
@@ -59,15 +61,8 @@ export type UserContextProps = {
 
 const initialState: UserContextProps = {
   startLogin: async (email: string) => {},
-  sendLoginCode: async (
-    email: string,
-    options?: { userType?: string; phoneNumber?: string }
-  ) => {},
-  verifyOtp: async (
-    email: string,
-    code: string,
-    onSuccess?: (user: JustfixUser) => void
-  ) => {},
+  sendLoginCode: async (email: string, options?: { userType?: string; phoneNumber?: string }) => {},
+  verifyOtp: async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {},
   register: async (
     username: string,
     password: string,
@@ -83,7 +78,9 @@ const initialState: UserContextProps = {
     streetname: string,
     zip: string,
     boro: string,
-    _user?: JustfixUser
+    _user?: JustfixUser,
+    housenumber_display?: string,
+    streetname_display?: string
   ) => {},
   unsubscribeBuilding: (bbl: string) => {},
   subscribeDistrict: (district: District, _user?: JustfixUser) => {},
@@ -205,7 +202,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       streetname: string,
       zip: string,
       boro: string,
-      _user?: JustfixUser
+      _user?: JustfixUser,
+      housenumber_display?: string,
+      streetname_display?: string
     ) => {
       const currentUser = !!user?.email ? user : _user;
       if (currentUser) {
@@ -215,7 +214,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
             housenumber,
             streetname,
             zip,
-            boro
+            boro,
+            housenumber_display,
+            streetname_display
           );
           setUser({ ...currentUser, buildingSubscriptions: response["building_subscriptions"] });
         };
