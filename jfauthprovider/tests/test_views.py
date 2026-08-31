@@ -88,9 +88,7 @@ class TestVerifyOtpProxy:
 
     @patch("jfauthprovider.views.client_secret_request")
     def test_verify_otp_does_not_set_cookies_on_error(self, mock_request, client):
-        mock_request.return_value = make_auth_response(
-            400, {"error": "Invalid code"}
-        )
+        mock_request.return_value = make_auth_response(400, {"error": "Invalid code"})
 
         res = client.post(
             "/auth/verify-otp",
@@ -105,7 +103,9 @@ class TestVerifyOtpProxy:
 @pytest.mark.django_db
 class TestVerifyMagicLinkProxy:
     @patch("jfauthprovider.views.client_secret_request")
-    def test_verify_magic_link_forwards_origin_and_sets_cookies(self, mock_request, client):
+    def test_verify_magic_link_forwards_origin_and_sets_cookies(
+        self, mock_request, client
+    ):
         mock_request.return_value = make_auth_response(200, TOKEN_RESPONSE)
 
         res = client.post(
@@ -127,7 +127,9 @@ class TestVerifyMagicLinkProxy:
         )
 
     @patch("jfauthprovider.views.client_secret_request")
-    def test_verify_magic_link_does_not_set_cookies_on_error(self, mock_request, client):
+    def test_verify_magic_link_does_not_set_cookies_on_error(
+        self, mock_request, client
+    ):
         mock_request.return_value = make_auth_response(
             400, {"error": "Invalid or expired link"}
         )
