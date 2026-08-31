@@ -21,11 +21,24 @@ type BuildingSubscriptionFieldProps = withI18nProps & {
   housenumber: string;
   streetname: string;
   boro: string;
+  housenumber_display?: string;
+  streetname_display?: string;
   onRemoveClick: (bbl: string) => void;
 };
 
 const BuildingSubscriptionFieldWithoutI18n = (props: BuildingSubscriptionFieldProps) => {
-  const { bbl, housenumber, streetname, boro, onRemoveClick, i18n } = props;
+  const {
+    bbl,
+    housenumber,
+    streetname,
+    boro,
+    housenumber_display,
+    streetname_display,
+    onRemoveClick,
+    i18n,
+  } = props;
+  const displayHn = housenumber_display || housenumber;
+  const displaySn = streetname_display || streetname;
   return (
     <div className="subscription-field">
       <a
@@ -39,7 +52,7 @@ const BuildingSubscriptionFieldWithoutI18n = (props: BuildingSubscriptionFieldPr
         rel="noreferrer noopener"
       >
         {/* title case styling via css only works if address is lowercase */}
-        <span className="street-address">{`${housenumber} ${helpers.titleCase(streetname)},`}</span>
+        <span className="street-address">{`${displayHn} ${helpers.titleCase(displaySn)},`}</span>
         <span>{`${helpers.titleCase(boro)}, NY`}</span>
       </a>
       <Button
