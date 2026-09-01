@@ -90,26 +90,25 @@ const toJustfixUser = (raw: any): JustfixUser | undefined => {
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<JustfixUser>();
 
-  const updateUserSubscriptions = useCallback(
-    (_user: JustfixUser | undefined): JustfixUser | undefined => {
-      const normalized = toJustfixUser(_user);
-      if (!normalized) return;
-      const updatedUser = {
-        ...normalized,
-        buildingSubscriptions:
-          normalized.buildingSubscriptions?.map((s: any) => {
-            return { ...s };
-          }) || [],
-        districtSubscriptions:
-          normalized.districtSubscriptions?.map((s: any) => {
-            return { ...s };
-          }) || [],
-      };
-      setUser(updatedUser);
-      return updatedUser;
-    },
-    []
-  );
+  const updateUserSubscriptions = useCallback((_user: JustfixUser | undefined):
+    | JustfixUser
+    | undefined => {
+    const normalized = toJustfixUser(_user);
+    if (!normalized) return;
+    const updatedUser = {
+      ...normalized,
+      buildingSubscriptions:
+        normalized.buildingSubscriptions?.map((s: any) => {
+          return { ...s };
+        }) || [],
+      districtSubscriptions:
+        normalized.districtSubscriptions?.map((s: any) => {
+          return { ...s };
+        }) || [],
+    };
+    setUser(updatedUser);
+    return updatedUser;
+  }, []);
 
   useEffect(() => {
     const asyncFetchUser = async () => {
