@@ -67,8 +67,8 @@ msgid "311 Complaints Data"
 msgstr "311 Complaints Data"
 
 #: src/containers/VerifyEmailPage.tsx:87
-msgid "<0/><1>Success</1>"
-msgstr "<0/><1>Success</1>"
+#~ msgid "<0/><1>Success</1>"
+#~ msgstr "<0/><1>Success</1>"
 
 #: src/containers/VerifyEmailPage.tsx:87
 #~ msgid "<0/>Success"
@@ -142,6 +142,7 @@ msgstr "<0>Search an address</0> to add to your Building Alerts"
 
 #: src/components/Login.tsx:156
 #: src/containers/UnsubscribePage.tsx:109
+#: src/containers/VerifyEmailPage.tsx:91
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 msgstr "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
 
@@ -381,6 +382,7 @@ msgstr "BUILDING:"
 
 #: src/containers/ForgotPasswordPage.tsx:59
 #: src/containers/ResetPasswordPage.tsx:94
+#: src/containers/VerifyEmailPage.tsx:74
 msgid "Back to Log in"
 msgstr "Back to Log in"
 
@@ -581,8 +583,8 @@ msgid "Click the link we sent to your email to reset your password."
 msgstr "Click the link we sent to your email to reset your password."
 
 #: src/containers/VerifyEmailPage.tsx:73
-msgid "Click the link we sent to your email to start receiving emails."
-msgstr "Click the link we sent to your email to start receiving emails."
+#~ msgid "Click the link we sent to your email to start receiving emails."
+#~ msgstr "Click the link we sent to your email to start receiving emails."
 
 #: src/components/EmailAlertSignup.tsx:67
 #~ msgid "Click the link we sent to {0}. It may take a few minutes to arrive."
@@ -798,8 +800,8 @@ msgstr "Email address"
 #~ msgstr "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
 
 #: src/containers/VerifyEmailPage.tsx:91
-msgid "Email address verified"
-msgstr "Email address verified"
+#~ msgid "Email address verified"
+#~ msgstr "Email address verified"
 
 #: src/containers/AccountSettingsPage.tsx:99
 #: src/containers/App.tsx:148
@@ -1768,7 +1770,7 @@ msgstr "Please enter password."
 msgid "Please select an option."
 msgstr "Please select an option."
 
-#: src/containers/VerifyEmailPage.tsx:82
+#: src/containers/VerifyEmailPage.tsx:84
 msgid "Please try again later. If you’re still having issues, contact support@justfix.org."
 msgstr "Please try again later. If you’re still having issues, contact support@justfix.org."
 
@@ -2369,7 +2371,7 @@ msgstr "The registration for this property is missing details for owner name or 
 msgid "The same owner may have spelled their name several ways in official documents."
 msgstr "The same owner may have spelled their name several ways in official documents."
 
-#: src/containers/VerifyEmailPage.tsx:73
+#: src/containers/VerifyEmailPage.tsx:78
 msgid "The verification link that we sent you is no longer valid."
 msgstr "The verification link that we sent you is no longer valid."
 
@@ -2804,12 +2806,16 @@ msgid "We reorganized the contact details for each individual and corporate enti
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
 #: src/components/UserSettingField.tsx:119
-msgid "We send Building Alerts to this email."
-msgstr "We send Building Alerts to this email."
+#~ msgid "We send Building Alerts to this email."
+#~ msgstr "We send Building Alerts to this email."
 
 #: src/components/UserSettingField.tsx:119
 #~ msgid "We send Building Updates to this email."
 #~ msgstr "We send Building Updates to this email."
+
+#: src/components/UserSettingField.tsx:119
+msgid "We send alerts to this email."
+msgstr "We send alerts to this email."
 
 #: src/components/UserSettingField.tsx:107
 #~ msgid "We send data updates to this email."
@@ -2831,7 +2837,7 @@ msgstr "We sent your code to <0>{email}</0>"
 msgid "We’ll text you in a few months to ask how we can improve this free service."
 msgstr "We’ll text you in a few months to ask how we can improve this free service."
 
-#: src/containers/VerifyEmailPage.tsx:81
+#: src/containers/VerifyEmailPage.tsx:83
 msgid "We’re having trouble verifying your email at this time."
 msgstr "We’re having trouble verifying your email at this time."
 
@@ -2962,6 +2968,7 @@ msgstr "You also have a right to organize with your neighbors to assert your rig
 
 #: src/components/Login.tsx:151
 #: src/containers/AccountSettingsPage.tsx:102
+#: src/containers/VerifyEmailPage.tsx:90
 msgid "You are logged in"
 msgstr "You are logged in"
 
@@ -3052,8 +3059,8 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #~ msgstr "You can now close this window or <0>search for another building</0> to add."
 
 #: src/containers/VerifyEmailPage.tsx:95
-msgid "You can now close this window, <0>search for another building</0> to follow, or <1>select an area</1> to follow for alerts."
-msgstr "You can now close this window, <0>search for another building</0> to follow, or <1>select an area</1> to follow for alerts."
+#~ msgid "You can now close this window, <0>search for another building</0> to follow, or <1>select an area</1> to follow for alerts."
+#~ msgstr "You can now close this window, <0>search for another building</0> to follow, or <1>select an area</1> to follow for alerts."
 
 #: src/containers/VerifyEmailPage.tsx:65
 #~ msgid "You can now start receiving Building Updates"
@@ -3092,7 +3099,7 @@ msgstr "You have reached the maximum number of Building Alerts"
 msgid "Your email address is not yet verified. Click the link we sent to {email} start receiving email alerts."
 msgstr "Your email address is not yet verified. Click the link we sent to {email} start receiving email alerts."
 
-#: src/containers/VerifyEmailPage.tsx:101
+#: src/containers/VerifyEmailPage.tsx:99
 msgid "Your email is already verified"
 msgstr "Your email is already verified"
 
@@ -3265,7 +3272,6 @@ msgstr "{0, plural, one {unit} other {units}}"
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 #: src/containers/AccountSettingsPage.tsx:127
-#: src/containers/VerifyEmailPage.tsx:92
 msgid "{0}"
 msgstr "{0}"
 
