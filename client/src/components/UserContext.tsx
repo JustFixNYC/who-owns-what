@@ -59,15 +59,8 @@ export type UserContextProps = {
 
 const initialState: UserContextProps = {
   startLogin: async (email: string) => {},
-  sendLoginCode: async (
-    email: string,
-    options?: { userType?: string; phoneNumber?: string }
-  ) => {},
-  verifyOtp: async (
-    email: string,
-    code: string,
-    onSuccess?: (user: JustfixUser) => void
-  ) => {},
+  sendLoginCode: async (email: string, options?: { userType?: string; phoneNumber?: string }) => {},
+  verifyOtp: async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {},
   register: async (
     username: string,
     password: string,

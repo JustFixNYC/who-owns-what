@@ -353,27 +353,15 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   let submitButtonText = "";
   switch (step) {
     case Step.CheckEmail:
-      headerText = i18n._(t`Log in / Sign up`);
-      subHeaderText = (
-        <>
-          <Trans>
-            Use your account to get weekly email alerts on{" "}
-            {!!addr ? (
-              <>{formatAddr(addr, false)}.</>
-            ) : !!district ? (
-              <>the areas you select.</>
-            ) : (
-              <>the buildings you select.</>
-            )}
-          </Trans>
-          {!fromPasswordLink && (
-            <>
-              {" "}
-              <Trans>We no longer use passwords — enter your email for a code or link.</Trans>
-            </>
-          )}
-        </>
-      );
+      if (addr) {
+        headerText = formatAddr(addr, false);
+        subHeaderText = i18n._(t`Log in or sign up to get weekly email updates on this building.`);
+      } else {
+        headerText = i18n._(t`Log in / Sign up`);
+        subHeaderText = district
+          ? i18n._(t`Use your account to get weekly email alerts on the areas you select.`)
+          : i18n._(t`Use your account to get weekly email alerts on the buildings you select.`);
+      }
       onSubmit = onEmailSubmit;
       submitButtonText = i18n._(t`Submit`);
       break;
