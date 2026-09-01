@@ -12,14 +12,7 @@ import { useLocation } from "react-router-dom";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
-export const STANDALONE_PAGES = [
-  "forgot-password",
-  "login",
-  "verify-email",
-  "forgot-password",
-  "reset-password",
-  "unsubscribe",
-];
+export const STANDALONE_PAGES = ["login", "verify-email", "unsubscribe"];
 
 export const JustFixLogoLink = (props: { eventParams: any }) => {
   const { home } = createWhoOwnsWhatRoutePaths();

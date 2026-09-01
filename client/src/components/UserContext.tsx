@@ -28,18 +28,6 @@ export type UserContextProps = {
     onSuccess?: (user: JustfixUser) => void
   ) => Promise<UserOrError | void>;
   verifyMagicLink: (code: string, utmSource?: string) => Promise<VerifyMagicLinkResponse>;
-  register: (
-    username: string,
-    password: string,
-    userType: string,
-    phoneNumber?: string,
-    onSuccess?: (user: JustfixUser) => void
-  ) => Promise<UserOrError | void>;
-  login: (
-    username: string,
-    password: string,
-    onSuccess?: (user: JustfixUser) => void
-  ) => Promise<UserOrError | void>;
   logout: (fromPath: string) => void;
   subscribeBuilding: (
     bbl: string,
@@ -55,9 +43,6 @@ export type UserContextProps = {
   sendEmailChangeCode: (newEmail: string) => Promise<{ error?: string } | void>;
   verifyEmailChangeOtp: (newEmail: string, code: string) => Promise<UserOrError | void>;
   updateEmail: (newEmail: string) => void;
-  updatePassword: (currentPassword: string, newPassword: string) => void;
-  requestPasswordReset: (email: string) => void;
-  resetPassword: (token: string, newPassword: string) => void;
 };
 
 const initialState: UserContextProps = {
@@ -68,14 +53,6 @@ const initialState: UserContextProps = {
     statusCode: VerifyStatusCode.Unknown,
     statusText: "",
   }),
-  register: async (
-    username: string,
-    password: string,
-    userType: string,
-    phoneNumber?: string,
-    onSuccess?: (user: JustfixUser) => void
-  ) => {},
-  login: async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {},
   logout: (fromPath: string) => {},
   subscribeBuilding: (
     bbl: string,
@@ -91,9 +68,6 @@ const initialState: UserContextProps = {
   sendEmailChangeCode: async (newEmail: string) => {},
   verifyEmailChangeOtp: async (newEmail: string, code: string) => {},
   updateEmail: (newEmail: string) => {},
-  updatePassword: (currentPassword: string, newPassword: string) => {},
-  requestPasswordReset: (email: string) => {},
-  resetPassword: (token: string, newPassword: string) => {},
 };
 
 export const UserContext = createContext<UserContextProps>(initialState);
@@ -181,38 +155,6 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     }
     return response;
   }, []);
-
-  const register = useCallback(
-    async (
-      username: string,
-      password: string,
-      userType: string,
-      phoneNumber?: string,
-      onSuccess?: (user: JustfixUser) => void
-    ) => {
-      const response = await AuthClient.register(username, password, userType, phoneNumber);
-      if (response.error || !response.user) {
-        return { error: response.error_description };
-      }
-      const updatedUser = updateUserSubscriptions(response.user);
-      if (onSuccess && updatedUser) onSuccess(updatedUser);
-      return { user: updatedUser };
-    },
-    []
-  );
-
-  const login = useCallback(
-    async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
-      const response = await AuthClient.login(username, password);
-      if (response.error || !response.user) {
-        return { error: response.error };
-      }
-      const updatedUser = updateUserSubscriptions(response.user);
-      if (onSuccess && updatedUser) onSuccess(updatedUser);
-      return { user: updatedUser };
-    },
-    []
-  );
 
   const logout = useCallback(async (fromPath: string) => {
     const asyncLogout = async () => {
@@ -321,32 +263,6 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
-  const updatePassword = useCallback(
-    (currentPassword: string, newPassword: string) => {
-      if (user) {
-        const asyncUpdatePassword = async () => {
-          await AuthClient.updatePassword(currentPassword, newPassword);
-        };
-        asyncUpdatePassword();
-      }
-    },
-    [user]
-  );
-
-  const requestPasswordReset = useCallback((email: string) => {
-    const asyncRequestResetPassword = async () => {
-      await AuthClient.resetPasswordRequest(email);
-    };
-    asyncRequestResetPassword();
-  }, []);
-
-  const resetPassword = useCallback((token: string, newPassword: string) => {
-    const asyncResetPassword = async () => {
-      await AuthClient.resetPassword(token, newPassword);
-    };
-    asyncResetPassword();
-  }, []);
-
   const providerValue = useMemo(
     () => ({
       user,
@@ -354,8 +270,6 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       sendLoginCode,
       verifyOtp,
       verifyMagicLink,
-      register,
-      login,
       logout,
       subscribeBuilding,
       unsubscribeBuilding,
@@ -364,9 +278,6 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       sendEmailChangeCode,
       verifyEmailChangeOtp,
       updateEmail,
-      updatePassword,
-      requestPasswordReset,
-      resetPassword,
     }),
     [
       user,
@@ -374,8 +285,6 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       sendLoginCode,
       verifyOtp,
       verifyMagicLink,
-      register,
-      login,
       logout,
       subscribeBuilding,
       unsubscribeBuilding,
@@ -384,9 +293,6 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       sendEmailChangeCode,
       verifyEmailChangeOtp,
       updateEmail,
-      updatePassword,
-      requestPasswordReset,
-      resetPassword,
     ]
   );
 
