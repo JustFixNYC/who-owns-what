@@ -8,7 +8,7 @@ import "styles/AccountSettingsPage.css";
 import "styles/UserSetting.css";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
-import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
+import { EmailSettingField } from "components/UserSettingField";
 import { DistrictSubscription, JustfixUser } from "state-machine";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
@@ -169,15 +169,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                 onClick={() => userContext.logout(pathname)}
               />
             </div>
-            <EmailSettingField
-              currentValue={email}
-              onSubmit={(newEmail: string) => userContext.updateEmail(newEmail)}
-            />
-            <PasswordSettingField
-              onSubmit={(currentPassword: string, newPassword: string) =>
-                userContext.updatePassword(currentPassword, newPassword)
-              }
-            />
+            <EmailSettingField currentValue={email} />
           </div>
           <div className="settings-section">
             <Trans render="h2">Building Alerts</Trans>

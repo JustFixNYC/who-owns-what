@@ -8,7 +8,8 @@ import "styles/BuildingAlertsPage.css";
 
 import Page from "components/Page";
 import AddressSearch, { SearchAddress } from "components/AddressSearch";
-import { EmailVerificationPrompt } from "components/EmailAlertSignup";
+import { EmailVerificationPrompt, reloginToVerify } from "components/EmailAlertSignup";
+import { Alert } from "components/Alert";
 import { LocationIcon } from "components/Icons";
 import LegalFooter from "components/LegalFooter";
 import Modal from "components/Modal";
@@ -162,6 +163,20 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
                 See example
               </JFCLLink>
             </Trans>
+            {isLoggedIn && !user?.verified && (
+              <div className="BuildingAlertsPage__unverified-banner">
+                <Alert type="info" closeType="session" storageId="wow-unverified-relogin-banner">
+                  <Trans>Verify your email to receive updates and to add new buildings.</Trans>{" "}
+                  <button
+                    type="button"
+                    className="link-button"
+                    onClick={() => reloginToVerify(user?.email, i18n.language)}
+                  >
+                    <Trans>Log in</Trans>
+                  </button>
+                </Alert>
+              </div>
+            )}
             <div className="BuildingAlertsPage__search">
               <div className="BuildingAlertsPage__search-input-container">
                 <div className="BuildingAlertsPage__search-input">

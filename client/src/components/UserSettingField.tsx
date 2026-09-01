@@ -2,134 +2,56 @@ import React, { useContext, useState } from "react";
 
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
+import { I18n } from "@lingui/core";
 
 import "styles/EmailAlertSignup.css";
 import "styles/UserSettingField.css";
-import PasswordInput from "./PasswordInput";
 import { useInput } from "util/helpers";
 import { UserContext } from "./UserContext";
 import { JustfixUser } from "state-machine";
 import EmailInput from "./EmailInput";
 import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
-import SendNewLink from "./SendNewLink";
 import { Button, Icon } from "@justfixnyc/component-library";
+import { CodeEntry } from "./CodeEntry";
+import { reloginToVerify } from "./EmailAlertSignup";
+import { Nobr } from "./Nobr";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
-type PasswordSettingFieldProps = withI18nProps & {
-  onSubmit: (currentPassword: string, newPassword: string) => void;
+export const mapSettingAuthError = (error: string | undefined, i18n: I18n): string => {
+  switch (error) {
+    case "Invalid OTP.":
+      return i18n._(t`The code you entered is incorrect.`);
+    case "OTP has expired. Please request a new code.":
+      return i18n._(t`That code has expired. Request a new one.`);
+    case "Too many invalid attempts. Please request a new code.":
+      return i18n._(t`Too many attempts. Request a new code.`);
+    case "Too many requests":
+      return i18n._(t`Too many requests. Please try again later.`);
+    case "Email already in use":
+      return i18n._(t`That email is already used.`);
+    default:
+      return i18n._(t`Something went wrong. Please try again.`);
+  }
 };
-
-const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
-  const { i18n, onSubmit } = props;
-  const userContext = useContext(UserContext);
-  const user = userContext.user as JustfixUser;
-  const { email } = user;
-  const eventUserParams = { user_id: user.id, user_type: user.type };
-
-  const {
-    value: currentPassword,
-    error: currentPasswordError,
-    showError: showCurrentPasswordError,
-    setError: setCurrentPasswordError,
-    setShowError: setShowCurrentPasswordError,
-    onChange: onChangeCurrentPassword,
-  } = useInput("");
-  const {
-    value: newPassword,
-    error: newPasswordError,
-    showError: showNewPasswordError,
-    setError: setNewPasswordError,
-    setShowError: setShowNewPasswordError,
-    onChange: onChangeNewPassword,
-  } = useInput("");
-  const [invalidAuthError, setInvalidAuthError] = useState(false);
-
-  const handleSubmit = async () => {
-    setInvalidAuthError(false);
-    setShowCurrentPasswordError(false);
-    setShowNewPasswordError(false);
-
-    if (!currentPassword) {
-      setCurrentPasswordError(true);
-      setShowCurrentPasswordError(true);
-      throw new Error("Current password missing");
-    }
-
-    if (!newPassword || newPasswordError) {
-      setNewPasswordError(true);
-      setShowNewPasswordError(true);
-      throw new Error("New password format error");
-    }
-
-    // context doesn't update immediately so need to reurn user to check verified status
-    const resp = await userContext.login(email, currentPassword);
-
-    if (!!resp?.error) {
-      setInvalidAuthError(true);
-      throw new Error("Incorrect current password");
-    }
-
-    onSubmit(currentPassword, newPassword);
-
-    window.gtag("event", "account-update-password", { ...eventUserParams, branch: BRANCH_NAME });
-  };
-
-  return (
-    <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
-      {invalidAuthError && (
-        <Alert
-          className={`page-level-alert`}
-          variant="primary"
-          closeType="none"
-          role="status"
-          type="error"
-        >
-          <Icon icon="circleExclamation" />
-          {i18n._(t`The current password you entered is incorrect`)}
-        </Alert>
-      )}
-      <Trans render="label" className="user-setting-label">
-        Password
-      </Trans>
-      <PasswordInput
-        labelText={i18n._(t`Current password`)}
-        password={currentPassword}
-        error={currentPasswordError}
-        showError={showCurrentPasswordError}
-        setError={setCurrentPasswordError}
-        onChange={onChangeCurrentPassword}
-        id="old-password-input"
-      />
-      <PasswordInput
-        labelText={i18n._(t`New password`)}
-        showPasswordRules={true}
-        password={newPassword}
-        error={newPasswordError}
-        showError={showNewPasswordError}
-        setError={setNewPasswordError}
-        onChange={onChangeNewPassword}
-        id="new-password-input"
-      />
-    </UserSettingField>
-  );
-};
-
-export const PasswordSettingField = withI18n()(PasswordSettingFieldWithoutI18n);
 
 type EmailSettingFieldProps = withI18nProps & {
   currentValue: string;
-  onSubmit: (newEmail: string) => void;
 };
 
 const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
-  const { i18n, currentValue, onSubmit } = props;
+  const { i18n, currentValue } = props;
   const userContext = useContext(UserContext);
   const user = userContext.user as JustfixUser;
   const { email: oldEmail, verified } = user;
   const [isEmailResent, setIsEmailResent] = React.useState(false);
+  const [isResending, setIsResending] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
+  const [step, setStep] = useState<"field" | "code">("field");
+  const [pendingEmail, setPendingEmail] = useState("");
+  const [otpError, setOtpError] = useState("");
+  const [sendError, setSendError] = useState("");
   const {
     value: email,
     error: emailError,
@@ -144,6 +66,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const handleSubmit = async () => {
     setExistingUserError(false);
     setShowEmailError(false);
+    setSendError("");
 
     if (email === oldEmail) {
       return;
@@ -155,36 +78,113 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       throw new Error("Email format error");
     }
 
-    if (!!email && !emailError) {
-      const existingUser = await AuthClient.isEmailAlreadyUsed(email);
-      if (existingUser) {
-        setExistingUserError(true);
-        throw new Error("Existing user error");
-      }
+    const existingUser = await AuthClient.isEmailAlreadyUsed(email);
+    if (existingUser) {
+      setExistingUserError(true);
+      throw new Error("Existing user error");
     }
 
-    onSubmit(email);
+    const resp = await userContext.sendEmailChangeCode(email);
+    if (resp?.error) {
+      if (resp.error === "Email already in use") {
+        setExistingUserError(true);
+      } else {
+        setSendError(mapSettingAuthError(resp.error, i18n));
+      }
+      throw new Error(resp.error);
+    }
 
+    setPendingEmail(email);
+    setOtpError("");
+    setStep("code");
+  };
+
+  const handleVerifyOtp = async (code: string) => {
+    const resp = await userContext.verifyEmailChangeOtp(pendingEmail, code);
+    if (resp?.error) {
+      setOtpError(mapSettingAuthError(resp.error, i18n));
+      return;
+    }
     window.gtag("event", "account-update-email", { ...eventUserParams, branch: BRANCH_NAME });
+    setStep("field");
+  };
+
+  const handleResendCode = async () => {
+    setOtpError("");
+    const resp = await userContext.sendEmailChangeCode(pendingEmail);
+    if (resp?.error) {
+      setOtpError(mapSettingAuthError(resp.error, i18n));
+      throw new Error(resp.error);
+    }
+  };
+
+  const handleCalloutResend = async () => {
+    if (!oldEmail || isResending) return;
+    setIsResending(true);
+    const resp = await userContext.sendLoginCode(oldEmail);
+    const eventParams = { ...eventUserParams, from: "account settings" };
+    window.gtag("event", "email-verify-resend", { ...eventParams, branch: BRANCH_NAME });
+    setIsResending(false);
+    if (resp?.error) {
+      return;
+    }
+    setIsEmailResent(true);
   };
 
   const verifyCallout = !verified ? (
     <div className="jf-callout">
       <Trans render="p">
-        Your email address is not yet verified. Click the link we sent to {email} start receiving
-        email alerts.
+        Your email address is not yet verified. Enter the code or click the sign-in link we send to{" "}
+        {oldEmail} to start receiving email alerts.
       </Trans>
-      {!isEmailResent && <Trans render="p">Didn’t get the link?</Trans>}
-      <SendNewLink
-        setParentState={setIsEmailResent}
-        onClick={() => {
-          AuthClient.resendVerifyEmail();
-          const eventParams = { ...eventUserParams, from: "account settings" };
-          window.gtag("event", "email-verify-resend", { ...eventParams, branch: BRANCH_NAME });
-        }}
+      {isEmailResent ? (
+        <Trans render="p">
+          We sent a new code to <Nobr>{oldEmail}</Nobr>
+        </Trans>
+      ) : (
+        <>
+          <Trans render="p">Didn’t receive a code?</Trans>
+          <Button
+            variant="secondary"
+            size="small"
+            labelText={i18n._(t`Resend`)}
+            loading={isResending}
+            disabled={isResending}
+            onClick={handleCalloutResend}
+          />
+        </>
+      )}
+      <Button
+        variant="tertiary"
+        size="small"
+        labelText={i18n._(t`Log in`)}
+        onClick={() => reloginToVerify(oldEmail, i18n.language)}
       />
     </div>
   ) : undefined;
+
+  if (step === "code") {
+    return (
+      <div className="UserSetting email-change-code">
+        <CodeEntry
+          email={pendingEmail}
+          onVerify={handleVerifyOtp}
+          onResend={handleResendCode}
+          error={otpError}
+        />
+        <Button
+          type="button"
+          variant="tertiary"
+          size="small"
+          labelText={i18n._(t`Cancel`)}
+          onClick={() => {
+            setStep("field");
+            setOtpError("");
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <UserSettingField
@@ -203,6 +203,18 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
         >
           <Icon icon="circleExclamation" />
           {i18n._(t`That email is already used.`)}
+        </Alert>
+      )}
+      {!!sendError && (
+        <Alert
+          className={`page-level-alert`}
+          variant="primary"
+          closeType="none"
+          role="status"
+          type="error"
+        >
+          <Icon icon="circleExclamation" />
+          {sendError}
         </Alert>
       )}
       <Trans render="label" className="user-setting-label">

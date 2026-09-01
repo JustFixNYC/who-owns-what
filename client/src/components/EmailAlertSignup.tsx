@@ -16,21 +16,64 @@ import { Alert } from "./Alert";
 import Modal from "./Modal";
 import helpers from "util/helpers";
 import { AddressRecord } from "./APIDataTypes";
-import SendNewLink from "./SendNewLink";
 import { ToastAlert } from "./ToastAlert";
+import { Nobr } from "./Nobr";
 
 const DEFAULT_SUBSCRIPTION_LIMIT = 15;
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
-type EmailVerificationPromptProps = {
+export const buildVerifyReloginUrl = (email: string | undefined, language: string): string => {
+  const { account } = createWhoOwnsWhatRoutePaths();
+  const query = email ? `?email=${encodeURIComponent(email)}` : "";
+  return `/${language}${account.login}${query}`;
+};
+
+export const reloginToVerify = async (
+  email: string | undefined,
+  language: string
+): Promise<void> => {
+  await AuthClient.logout();
+  window.location.assign(buildVerifyReloginUrl(email, language));
+};
+
+type EmailVerificationPromptProps = withI18nProps & {
   email?: string;
   analyticsFrom: string;
   eventUserParams?: { user_id?: number | string; user_type?: string };
 };
 
-export const EmailVerificationPrompt = (props: EmailVerificationPromptProps) => {
-  const { email, analyticsFrom, eventUserParams } = props;
+const EmailVerificationPromptWithoutI18n = (props: EmailVerificationPromptProps) => {
+  const { email, analyticsFrom, eventUserParams, i18n } = props;
+  const userContext = useContext(UserContext);
   const [isEmailResent, setIsEmailResent] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [needsRelogin, setNeedsRelogin] = useState(false);
+
+  const handleResend = async () => {
+    if (!email || isResending) return;
+    setIsResending(true);
+    const resp = await userContext.sendLoginCode(email);
+    window.gtag("event", "email-verify-resend", {
+      ...eventUserParams,
+      from: analyticsFrom,
+      branch: BRANCH_NAME,
+    });
+    setIsResending(false);
+    if (resp?.error) {
+      setNeedsRelogin(true);
+      return;
+    }
+    setIsEmailResent(true);
+  };
+
+  const handleRelogin = () => {
+    window.gtag("event", "email-verify-relogin", {
+      ...eventUserParams,
+      from: analyticsFrom,
+      branch: BRANCH_NAME,
+    });
+    reloginToVerify(email, i18n.language);
+  };
 
   return (
     <div className="email-verification-prompt">
@@ -38,24 +81,43 @@ export const EmailVerificationPrompt = (props: EmailVerificationPromptProps) => 
         <Trans>Verify your email to receive updates and to add new buildings.</Trans>
       </Alert>
       <Trans render="div" className="card-description">
-        Click the link we sent to {email}. It may take a few minutes to arrive.
+        Enter the code or click the sign-in link we send to {email}. It may take a few minutes to
+        arrive.
       </Trans>
-      {!isEmailResent && <Trans render="div">Didn’t get the link?</Trans>}
-      <SendNewLink
-        setParentState={setIsEmailResent}
+      {isEmailResent ? (
+        <div role="status">
+          <Trans>
+            We sent a new code to <Nobr>{email}</Nobr>
+          </Trans>
+        </div>
+      ) : (
+        !needsRelogin && (
+          <>
+            <Trans render="div">Didn’t receive a code?</Trans>
+            <Button
+              variant="secondary"
+              size="small"
+              className="is-full-width"
+              labelText={i18n._(t`Resend`)}
+              loading={isResending}
+              disabled={isResending}
+              onClick={handleResend}
+            />
+          </>
+        )
+      )}
+      <Button
+        variant="tertiary"
+        size="small"
         className="is-full-width"
-        onClick={() => {
-          AuthClient.resendVerifyEmail();
-          window.gtag("event", "email-verify-resend", {
-            ...eventUserParams,
-            from: analyticsFrom,
-            branch: BRANCH_NAME,
-          });
-        }}
+        labelText={i18n._(t`Log in`)}
+        onClick={handleRelogin}
       />
     </div>
   );
 };
+
+export const EmailVerificationPrompt = withI18n()(EmailVerificationPromptWithoutI18n);
 
 /**
  * edge case: adding building as a result of successful login shows a flicker

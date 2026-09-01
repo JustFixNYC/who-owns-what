@@ -52,6 +52,8 @@ export type UserContextProps = {
   unsubscribeBuilding: (bbl: string) => void;
   subscribeDistrict: (district: District, _user?: JustfixUser) => void;
   unsubscribeDistrict: (subscription_id: string) => void;
+  sendEmailChangeCode: (newEmail: string) => Promise<{ error?: string } | void>;
+  verifyEmailChangeOtp: (newEmail: string, code: string) => Promise<UserOrError | void>;
   updateEmail: (newEmail: string) => void;
   updatePassword: (currentPassword: string, newPassword: string) => void;
   requestPasswordReset: (email: string) => void;
@@ -86,6 +88,8 @@ const initialState: UserContextProps = {
   unsubscribeBuilding: (bbl: string) => {},
   subscribeDistrict: (district: District, _user?: JustfixUser) => {},
   unsubscribeDistrict: (subscription_id: string) => {},
+  sendEmailChangeCode: async (newEmail: string) => {},
+  verifyEmailChangeOtp: async (newEmail: string, code: string) => {},
   updateEmail: (newEmail: string) => {},
   updatePassword: (currentPassword: string, newPassword: string) => {},
   requestPasswordReset: (email: string) => {},
@@ -97,16 +101,32 @@ export const UserContext = createContext<UserContextProps>(initialState);
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<JustfixUser>();
 
+  const toJustfixUser = (raw: any): JustfixUser | undefined => {
+    // `user === undefined` means fetch is still in flight (see LoginPage).
+    // Logged-out auth_check returns a user-shaped object with no email — keep it.
+    if (raw == null) return undefined;
+    return {
+      email: raw.email,
+      verified: !!raw.verified,
+      id: raw.id,
+      type: raw.type,
+      buildingSubscriptions: raw.buildingSubscriptions || raw.subscriptions || [],
+      districtSubscriptions: raw.districtSubscriptions || raw.district_subscriptions || [],
+      subscriptionLimit: raw.subscriptionLimit ?? raw.subscription_limit,
+    };
+  };
+
   const updateUserSubscriptions = (_user: JustfixUser | undefined): JustfixUser | undefined => {
-    if (!_user) return;
+    const normalized = toJustfixUser(_user);
+    if (!normalized) return;
     const updatedUser = {
-      ..._user,
+      ...normalized,
       buildingSubscriptions:
-        _user.buildingSubscriptions?.map((s: any) => {
+        normalized.buildingSubscriptions?.map((s: any) => {
           return { ...s };
         }) || [],
       districtSubscriptions:
-        _user.districtSubscriptions?.map((s: any) => {
+        normalized.districtSubscriptions?.map((s: any) => {
           return { ...s };
         }) || [],
     };
@@ -272,6 +292,22 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
+  const sendEmailChangeCode = useCallback(async (newEmail: string) => {
+    const response = await AuthClient.sendEmailChangeCode(newEmail);
+    if (response?.error) {
+      return { error: response.error };
+    }
+  }, []);
+
+  const verifyEmailChangeOtp = useCallback(async (newEmail: string, code: string) => {
+    const response = await AuthClient.verifyEmailChangeOtp(newEmail, code);
+    if (response?.error || !response?.user) {
+      return { error: response?.error || "Verification failed" };
+    }
+    const updatedUser = updateUserSubscriptions(response.user);
+    return { user: updatedUser };
+  }, []);
+
   const updateEmail = useCallback(
     (email: string) => {
       if (user) {
@@ -325,6 +361,8 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       unsubscribeBuilding,
       subscribeDistrict,
       unsubscribeDistrict,
+      sendEmailChangeCode,
+      verifyEmailChangeOtp,
       updateEmail,
       updatePassword,
       requestPasswordReset,
@@ -343,6 +381,8 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       unsubscribeBuilding,
       subscribeDistrict,
       unsubscribeDistrict,
+      sendEmailChangeCode,
+      verifyEmailChangeOtp,
       updateEmail,
       updatePassword,
       requestPasswordReset,

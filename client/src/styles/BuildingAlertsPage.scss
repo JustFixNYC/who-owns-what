@@ -74,6 +74,29 @@ $content-box-width: 51.375rem; // 822px
     }
   }
 
+  .BuildingAlertsPage__unverified-banner {
+    margin: 1.5rem 0 0;
+    max-width: 38rem;
+
+    .jf-alert,
+    .jf-alert__content,
+    button {
+      font-family: $body-font;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 135%;
+    }
+
+    button.link-button {
+      background: none;
+      border: none;
+      padding: 0;
+      text-decoration: underline;
+      cursor: pointer;
+      color: inherit;
+    }
+  }
+
   .BuildingAlertsPage__search {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
