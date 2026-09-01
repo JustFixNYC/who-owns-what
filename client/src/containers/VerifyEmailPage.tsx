@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import { useLocation } from "react-router-dom";
 
-import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
-import SendNewLink from "components/SendNewLink";
+import { VerifyStatusCode } from "../components/AuthClient";
+import { UserContext } from "components/UserContext";
 import StandalonePage from "components/StandalonePage";
 import { JFCLLocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
-import { BuildingSubscription, DistrictSubscription } from "state-machine";
-import { Icon } from "@justfixnyc/component-library";
 import "styles/VerifyEmailPage.css";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
@@ -17,44 +15,39 @@ const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search } = useLocation();
+  const userContext = useContext(UserContext);
   const [loading, setLoading] = useState(true);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAlreadyVerified, setIsAlreadyVerified] = useState(false);
   const [isExpired, setIsExpired] = useState(false);
-  const [isEmailResent, setIsEmailResent] = useState(false);
   const [unknownError, setUnknownError] = useState(false);
   const params = new URLSearchParams(search);
-  const token = params.get("u") || "";
-  const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
-
-  const [buildingSubs, setBuildingSubs] = useState<BuildingSubscription[]>();
-  const buildingSubsNumber = buildingSubs?.length;
-
-  const [districtSubs, setDistrictSubs] = useState<DistrictSubscription[]>();
-  const districtSubsNumber = districtSubs?.length;
+  // Keep /account/verify-email/?code=&u= as the public entry point; only `code` is posted.
+  const code = params.get("code") || "";
+  const utmSource = params.get("utm_source") || undefined;
+  const { home, account, areaAlerts } = createWhoOwnsWhatRoutePaths();
 
   useEffect(() => {
-    const asyncFetchSubscriptions = async () => {
-      const response = await AuthClient.emailUserSubscriptions(token);
-      setBuildingSubs(response["building_subscriptions"]);
-      setDistrictSubs(response["district_subscriptions"]);
-    };
-    asyncFetchSubscriptions();
-  }, [token]);
+    const verifyMagicLink = async () => {
+      if (!code) {
+        setUnknownError(true);
+        setLoading(false);
+        return;
+      }
 
-  useEffect(() => {
-    const asyncVerifyEmail = async () => {
-      return await AuthClient.verifyEmail();
-    };
-
-    asyncVerifyEmail().then((result) => {
+      const result = await userContext.verifyMagicLink(code, utmSource);
       switch (result.statusCode) {
         case VerifyStatusCode.Success:
-          setIsVerified(true);
-          window.gtag("event", "email-verify-success", { branch: BRANCH_NAME });
+          if (result.user) {
+            setIsLoggedIn(true);
+            window.gtag("event", "email-verify-success", { branch: BRANCH_NAME });
+            window.gtag("event", "login-success", { branch: BRANCH_NAME, from: "magic-link" });
+          } else {
+            setUnknownError(true);
+            window.gtag("event", "email-verify-error", { branch: BRANCH_NAME });
+          }
           break;
         case VerifyStatusCode.AlreadyVerified:
-          setIsVerified(true);
           setIsAlreadyVerified(true);
           window.gtag("event", "email-verify-already", { branch: BRANCH_NAME });
           break;
@@ -67,25 +60,24 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
           window.gtag("event", "email-verify-error", { branch: BRANCH_NAME });
       }
       setLoading(false);
-    });
+    };
+
+    verifyMagicLink();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const loginLink = () => (
+    <div className="standalone-footer">
+      <JFCLLocaleLink to={account.login}>
+        <Trans>Back to Log in</Trans>
+      </JFCLLocaleLink>
+    </div>
+  );
 
   const expiredLinkPage = () => (
     <div className="text-center">
-      {isEmailResent ? (
-        <Trans render="h1"> Click the link we sent to your email to start receiving emails.</Trans>
-      ) : (
-        <Trans render="h1">The verification link that we sent you is no longer valid.</Trans>
-      )}
-      <SendNewLink
-        setParentState={setIsEmailResent}
-        variant="primary"
-        size="large"
-        onClick={async () => {
-          setIsEmailResent(await AuthClient.resendVerifyEmail(token));
-          window.gtag("event", "email-verify-resend", { from: "verify page", branch: BRANCH_NAME });
-        }}
-      />
+      <Trans render="h1">The verification link that we sent you is no longer valid.</Trans>
+      {loginLink()}
     </div>
   );
 
@@ -96,44 +88,36 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
       <Trans render="h2">
         Please try again later. If you’re still having issues, contact support@justfix.org.
       </Trans>
+      {loginLink()}
     </>
   );
 
   const successPage = () => (
     <>
-      <Trans render="div" className="success-message">
-        <Icon icon="check" />
-        <span>Success</span>
-      </Trans>
-      <Trans render="h1">Email address verified</Trans>
-      {(!!districtSubsNumber || !!buildingSubsNumber) && (
-        <Trans render="h2">
-          {districtSubsNumber && buildingSubsNumber ? (
-            <>We will send your first Area Alert and Building Alert emails on Monday morning.</>
-          ) : districtSubsNumber ? (
-            <>We will send your first Area Alert email on Monday morning.</>
-          ) : (
-            <>We will send your first Building Alert email on Monday morning.</>
-          )}
-        </Trans>
-      )}
+      <Trans render="h1">You are logged in</Trans>
       <Trans render="h2">
-        You can now close this window,{" "}
-        <JFCLLocaleLink to={home}>search for another building</JFCLLocaleLink> to follow, or{" "}
-        <JFCLLocaleLink to={areaAlerts}>select an area</JFCLLocaleLink> to follow for alerts.
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
+        Alerts, <JFCLLocaleLink to={areaAlerts}>subscribe to Area Alerts</JFCLLocaleLink>, or visit
+        your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page to manage
+        subscriptions.
       </Trans>
     </>
   );
 
-  const alreadyVerifiedPage = () => <Trans render="h1">Your email is already verified</Trans>;
+  const alreadyVerifiedPage = () => (
+    <>
+      <Trans render="h1">Your email is already verified</Trans>
+      {loginLink()}
+    </>
+  );
 
   return (
     <StandalonePage title={i18n._(t`Verify your email address`)} id="VerifyEmailPage">
       {!loading &&
-        (isVerified
-          ? isAlreadyVerified
-            ? alreadyVerifiedPage()
-            : successPage()
+        (isLoggedIn
+          ? successPage()
+          : isAlreadyVerified
+          ? alreadyVerifiedPage()
           : isExpired
           ? expiredLinkPage()
           : unknownError && errorPage())}

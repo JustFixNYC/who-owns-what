@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import { JustfixUser } from "state-machine";
-import AuthClient from "./AuthClient";
+import AuthClient, { VerifyMagicLinkResponse, VerifyStatusCode } from "./AuthClient";
 import { authRequiredPaths } from "routes";
 import { District } from "./APIDataTypes";
 
@@ -27,6 +27,7 @@ export type UserContextProps = {
     code: string,
     onSuccess?: (user: JustfixUser) => void
   ) => Promise<UserOrError | void>;
+  verifyMagicLink: (code: string, utmSource?: string) => Promise<VerifyMagicLinkResponse>;
   register: (
     username: string,
     password: string,
@@ -61,6 +62,10 @@ const initialState: UserContextProps = {
   startLogin: async (email: string) => {},
   sendLoginCode: async (email: string, options?: { userType?: string; phoneNumber?: string }) => {},
   verifyOtp: async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {},
+  verifyMagicLink: async (code: string, utmSource?: string) => ({
+    statusCode: VerifyStatusCode.Unknown,
+    statusText: "",
+  }),
   register: async (
     username: string,
     password: string,
@@ -147,6 +152,15 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     },
     []
   );
+
+  const verifyMagicLink = useCallback(async (code: string, utmSource?: string) => {
+    const response = await AuthClient.verifyMagicLink(code, utmSource);
+    if (response.statusCode === VerifyStatusCode.Success && response.user) {
+      const updatedUser = updateUserSubscriptions(response.user);
+      return { ...response, user: updatedUser };
+    }
+    return response;
+  }, []);
 
   const register = useCallback(
     async (
@@ -303,6 +317,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       startLogin,
       sendLoginCode,
       verifyOtp,
+      verifyMagicLink,
       register,
       login,
       logout,
@@ -320,6 +335,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       startLogin,
       sendLoginCode,
       verifyOtp,
+      verifyMagicLink,
       register,
       login,
       logout,

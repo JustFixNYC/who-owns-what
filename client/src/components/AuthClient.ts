@@ -19,6 +19,10 @@ type VerifyEmailResponse = {
   error?: string;
 };
 
+export type VerifyMagicLinkResponse = VerifyEmailResponse & {
+  user?: JustfixUser;
+};
+
 export enum ResetStatusCode {
   Success = 200,
   Accepted = 202,
@@ -114,12 +118,17 @@ const verifyOtp = async (email: string, code: string) => {
 
 /**
  * Validate a magic-link code and establish a session (httponly cookies via proxy).
+ * Success requires a `user` in the body — legacy verify-only JSON (status 200, no user,
+ * no cookies) is not treated as a logged-in session.
  */
-const verifyMagicLink = async (code: string, utmSource?: string) => {
+const verifyMagicLink = async (
+  code: string,
+  utmSource?: string
+): Promise<VerifyMagicLinkResponse> => {
   const params: { [key: string]: string } = { code };
   if (utmSource) params.utm_source = utmSource;
 
-  let result: VerifyEmailResponse = {
+  let result: VerifyMagicLinkResponse = {
     statusCode: VerifyStatusCode.Unknown,
     statusText: "",
   };
@@ -129,6 +138,7 @@ const verifyMagicLink = async (code: string, utmSource?: string) => {
     if (response.user) {
       result.statusCode = VerifyStatusCode.Success;
       result.statusText = response.status_text || "";
+      result.user = response.user;
     } else if (response.status_code === VerifyStatusCode.AlreadyVerified) {
       result.statusCode = VerifyStatusCode.AlreadyVerified;
       result.statusText = response.status_text;
@@ -138,9 +148,10 @@ const verifyMagicLink = async (code: string, utmSource?: string) => {
     } else if (response.error) {
       result.statusCode = VerifyStatusCode.Failure;
       result.error = response.error;
-    } else if (response.status_code) {
-      result.statusCode = response.status_code;
-      result.statusText = response.status_text;
+    } else {
+      // Includes legacy `{ status_code: 200 }` verify-only JSON (no user, no session).
+      result.statusCode = VerifyStatusCode.Failure;
+      result.statusText = response.status_text || "";
     }
   } catch (e) {
     if (e instanceof Error) {
