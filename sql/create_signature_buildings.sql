@@ -281,20 +281,23 @@ CREATE TABLE signature_buildings AS (
 	), 
 	
 	rodents AS (
-		SELECT DISTINCT ON (bbl)
+		SELECT DISTINCT ON (bbl) 
 			bbl,
-			coalesce(approveddate, inspectiondate)::date AS last_rodent_date,
-			CASE WHEN 
-				result IN ('Rat Activity', 'Failed for Other R') THEN 'Failed'
+			inspectiondate::date AS last_rodent_date,
+			CASE
+				WHEN result IN ('Rat Activity', 'Failed for Other R') THEN 'Failed'
 				ELSE 'Passed'
 			END AS last_rodent_result
 		FROM dohmh_rodent_inspections
 		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
-	    WHERE sb.bbl IS NOT NULL
-			AND inspectiontype IN ('Initial', 'Compliance') 
+		WHERE
+			sb.bbl IS NOT NULL
+			AND inspectiontype IN ('Initial', 'Compliance')
 			AND result IS NOT NULL
-			AND coalesce(approveddate, inspectiondate) IS NOT NULL
-		ORDER BY bbl, coalesce(approveddate, inspectiondate) DESC
+			AND inspectiondate IS NOT NULL
+		ORDER BY
+			bbl,
+			inspectiondate DESC
 	),
 
 	dob_jobs_all AS (
