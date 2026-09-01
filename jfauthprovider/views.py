@@ -1,4 +1,3 @@
-import json
 import sys
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
@@ -100,23 +99,6 @@ def email_change_verify_otp(request):
 
 
 @api
-def login(request):
-    post_data = {
-        "grant_type": "password",
-        "username": request.POST.get("username"),
-        "password": request.POST.get("password"),
-    }
-
-    response = client_secret_request("user/login/", post_data)
-    if response.status_code == 200:
-        return set_response_cookies(response, response.json())
-    else:
-        return HttpResponse(
-            content=json.dumps(response.json()), status=response.status_code
-        )
-
-
-@api
 def logout(request):
     access_token = request.get_signed_cookie("access_token")
     refresh_token = request.get_signed_cookie("refresh_token")
@@ -156,28 +138,6 @@ def update(request):
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def register(request):
-    post_data = {
-        "grant_type": "password",
-        "username": request.POST.get("username"),
-        "password": request.POST.get("password"),
-        "user_type": request.POST.get("user_type"),
-        "phone_number": request.POST.get("phone_number"),
-        "origin": request.headers["Origin"],
-    }
-
-    response = client_secret_request("user/register/", post_data)
-    if response.status_code == 200:
-        return set_response_cookies(response, response.json())
-    else:
-        return HttpResponse(
-            content=response.content,
-            content_type="application/json",
-            status=response.status_code,
-        )
 
 
 @api
@@ -234,84 +194,6 @@ def resend_verification_with_token(request):
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def reset_password_request(request):
-    try:
-        post_data = {
-            "username": request.POST.get("username"),
-            "origin": request.headers["Origin"],
-        }
-        return auth_server_request(
-            "POST",
-            "user/password_reset/request/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except Exception:
-        print("failed")
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def reset_password_request_with_token(request):
-    try:
-        post_data = {
-            "token": request.GET.get("token"),
-            "origin": request.headers["Origin"],
-        }
-
-        return auth_server_request(
-            "POST",
-            "user/email/password_reset/request/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except KeyError:
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def password_reset_token_check(request):
-    try:
-        post_data = {
-            "token": request.GET.get("token"),
-        }
-        return auth_server_request(
-            "POST",
-            "user/email/password_reset/check/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except KeyError:
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def password_reset(request):
-    try:
-        post_data = {
-            "token": request.GET.get("token"),
-            "new_password": request.POST.get("new_password"),
-        }
-        return auth_server_request(
-            "POST",
-            "user/password_reset/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except KeyError:
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def password_change(request):
-    post_data = {
-        "current_password": request.POST.get("current_password"),
-        "new_password": request.POST.get("new_password"),
-    }
-    return authenticated_request("user/password_change/", request, post_data)
 
 
 @method_decorator(api, name="dispatch")
