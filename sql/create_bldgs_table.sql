@@ -112,7 +112,8 @@ select distinct on (registrations.bbl)
   case
     when coalesce(pluto.unitsres, 0) < 11 then NULL
     else coalesce(eviction_filings_since_2017, 0) 
-  end as evictionfilings
+  end as evictionfilings,
+  alt.alt_addrs
 from hpd_registrations_with_contacts as registrations
 left join hpd_reg_bldgs on (registrations.bbl = hpd_reg_bldgs.bbl)
 left join (
@@ -154,6 +155,23 @@ left join rentstab on (registrations.bbl = rentstab.ucbbl)
 left join complaints on (registrations.bbl = complaints.bbl)
 left join firstdeeds on (registrations.bbl = firstdeeds.bbl)
 left join oca_evictions_bldgs as oca on (registrations.bbl = oca.bbl)
+left join lateral (
+  select case
+    when count(*) = 0 then null
+    else array_agg(addr order by addr)
+  end as alt_addrs
+  from (
+    select distinct trim(pad.lhnd) || ' ' || trim(pad.stname) as addr
+    from pad_adr pad
+    where pad.bbl = registrations.bbl
+      and nullif(trim(pad.lhnd), '') is not null
+      and nullif(trim(pad.stname), '') is not null
+      and upper(trim(pad.lhnd) || ' ' || trim(pad.stname))
+          <> upper(registrations.housenumber || ' ' || registrations.streetname)
+    order by 1
+    limit 4
+  ) sub
+) alt on true
 where registrations.bbl is not null;
 
 drop table if exists wow_bldgs cascade;
