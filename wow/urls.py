@@ -1,8 +1,31 @@
 from django.urls import path
+from django.shortcuts import redirect
 
 from . import views
 
 app_name = "wow"
+
+
+def redirect_to_bbl(request):
+    """
+    Redirect address-based URLs to BBL-based URLs.
+    """
+    # Extract parameters from the request (e.g., city, street, number)
+    city = request.GET.get("city")
+    street = request.GET.get("street")
+    number = request.GET.get("number")
+
+    # Fetch the corresponding BBL from the database
+    bbl = call_db_func("get_bbl_from_address", [city, street, number])
+
+    if not bbl:
+        return JsonResponse({"error": "Address not found"}, status=404)
+
+    return redirect("wow:property_by_bbl", bbl=bbl)
+
+urlpatterns += [
+    path("address/<str:city>/<str:street>/<str:number>/", redirect_to_bbl),
+]
 
 urlpatterns = [
     path("address", views.address_query, name="address_query"),
