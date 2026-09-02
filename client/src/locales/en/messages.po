@@ -33,16 +33,16 @@ msgstr "#WhoOwnsWhat via @JustFixOrg"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" in English)"
 
-#: src/components/DetailView.tsx:219
+#: src/components/DetailView.tsx:243
 msgid "(as part of a group sale)"
 msgstr "(as part of a group sale)"
 
-#: src/components/DetailView.tsx:201
+#: src/components/DetailView.tsx:225
 #: src/containers/NotRegisteredPage.tsx:104
 msgid "(expired {formattedRegEndDate})"
 msgstr "(expired {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:204
+#: src/components/DetailView.tsx:228
 msgid "(expires {formattedRegEndDate})"
 msgstr "(expires {formattedRegEndDate})"
 
@@ -176,7 +176,7 @@ msgstr "<0>This property should be registered with HPD</0> because it has more t
 #~ msgid "<0>Violations:</0> Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 #~ msgstr "<0>Violations:</0> Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 
-#: src/components/DetailView.tsx:63
+#: src/components/DetailView.tsx:86
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 
@@ -199,6 +199,10 @@ msgstr "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <
 #: src/components/IndicatorsDatasets.tsx:100
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB Violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB Violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB Violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB Violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
+
+#: src/components/DetailView.tsx:62
+msgid "A building can be known by more than one street address. We show these addresses because city records may use different addresses to identify the same building. This helps you find all of the records associated with the property."
+msgstr "A building can be known by more than one street address. We show these addresses because city records may use different addresses to identify the same building. This helps you find all of the records associated with the property."
 
 #: src/components/FeatureCalloutContent.ts:19
 msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
@@ -291,6 +295,10 @@ msgstr "All the public info on your landlord"
 msgid "Already have an account?"
 msgstr "Already have an account?"
 
+#: src/components/DetailView.tsx:58
+msgid "Also known as"
+msgstr "Also known as"
+
 #: src/components/PortfolioTable.tsx:338
 msgid "Amount"
 msgstr "Amount"
@@ -379,7 +387,7 @@ msgstr "At this time, we cannot provide alerts for these buildings because the c
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "BELL/BUZZER/INTERCOM"
 
-#: src/components/DetailView.tsx:143
+#: src/components/DetailView.tsx:166
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
@@ -456,13 +464,13 @@ msgstr "Buildings without valid property registration are subject to the followi
 msgid "Built"
 msgstr "Built"
 
-#: src/components/DetailView.tsx:283
-#: src/components/DetailView.tsx:292
+#: src/components/DetailView.tsx:307
+#: src/components/DetailView.tsx:316
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
-#: src/components/DetailView.tsx:263
-#: src/components/DetailView.tsx:272
+#: src/components/DetailView.tsx:287
+#: src/components/DetailView.tsx:296
 msgid "Business Entities"
 msgstr "Business Entities"
 
@@ -609,7 +617,8 @@ msgid "Click the link we sent to {email}. It may take a few minutes to arrive."
 msgstr "Click the link we sent to {email}. It may take a few minutes to arrive."
 
 #: src/components/CloseButton.tsx:10
-#: src/components/DetailView.tsx:58
+#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:81
 #: src/components/FeatureCalloutWidget.tsx:61
 msgid "Close"
 msgstr "Close"
@@ -1114,7 +1123,7 @@ msgstr "Hide legend"
 msgid "How are the results calculated?"
 msgstr "How are the results calculated?"
 
-#: src/components/DetailView.tsx:87
+#: src/components/DetailView.tsx:110
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
@@ -1264,16 +1273,17 @@ msgstr "Last Sale"
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
-#: src/components/DetailView.tsx:196
+#: src/components/DetailView.tsx:220
 #: src/containers/NotRegisteredPage.tsx:99
 msgid "Last registered:"
 msgstr "Last registered:"
 
-#: src/components/DetailView.tsx:209
+#: src/components/DetailView.tsx:233
 msgid "Last sold:"
 msgstr "Last sold:"
 
-#: src/components/DetailView.tsx:58
+#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:81
 msgid "Learn more"
 msgstr "Learn more"
 
@@ -1489,7 +1499,7 @@ msgstr "Min must be less than {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "More Mobile Friendly"
 
-#: src/components/DetailView.tsx:153
+#: src/components/DetailView.tsx:177
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Most Common 311 Complaints, Last 3 Years"
 
@@ -1616,7 +1626,7 @@ msgstr "Non-ECB"
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
-#: src/components/DetailView.tsx:161
+#: src/components/DetailView.tsx:185
 msgid "None"
 msgstr "None"
 
@@ -1740,8 +1750,8 @@ msgstr "Password"
 msgid "Password reset successful"
 msgstr "Password reset successful"
 
-#: src/components/DetailView.tsx:303
-#: src/components/DetailView.tsx:313
+#: src/components/DetailView.tsx:327
+#: src/components/DetailView.tsx:337
 msgid "People"
 msgstr "People"
 
@@ -2051,7 +2061,7 @@ msgstr "Send new link"
 #~ msgid "Share this page with your neighbors"
 #~ msgstr "Share this page with your neighbors"
 
-#: src/components/DetailView.tsx:234
+#: src/components/DetailView.tsx:258
 #: src/components/EngagementPanel.tsx:11
 #: src/components/PropertiesSummary.tsx:91
 #: src/containers/NotRegisteredPage.tsx:19
@@ -2734,7 +2744,7 @@ msgstr "View on Google Maps"
 msgid "View portfolio"
 msgstr "View portfolio"
 
-#: src/components/DetailView.tsx:136
+#: src/components/DetailView.tsx:159
 msgid "View portfolio map"
 msgstr "View portfolio map"
 
@@ -2775,7 +2785,7 @@ msgstr "WINDOWS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:188
+#: src/components/DetailView.tsx:212
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 
@@ -2783,7 +2793,7 @@ msgstr "Warning: This building has an expired registration and was sold after th
 msgid "We apologize for the inconvenience."
 msgstr "We apologize for the inconvenience."
 
-#: src/components/DetailView.tsx:91
+#: src/components/DetailView.tsx:114
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 
@@ -2935,7 +2945,7 @@ msgstr "Who owns what"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 
-#: src/components/DetailView.tsx:168
+#: src/components/DetailView.tsx:192
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
@@ -3218,7 +3228,7 @@ msgstr "buildings"
 #~ msgid "districts"
 #~ msgstr "districts"
 
-#: src/components/DetailView.tsx:213
+#: src/components/DetailView.tsx:237
 msgid "for ${0}"
 msgstr "for ${0}"
 

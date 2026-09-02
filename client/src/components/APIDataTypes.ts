@@ -51,6 +51,8 @@ export type AddressRecord = {
   bin: string;
   boro: Borough;
   businessaddrs: string[] | null;
+  /** Up to 4 alternative street addresses from PAD, e.g. "123 MAIN ST". Null if none. */
+  alt_addrs?: string[] | null;
   corpnames: string[] | null;
   evictions: number | null;
   evictionfilings: number | null;
