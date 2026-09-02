@@ -38,16 +38,16 @@ msgstr "#QuiénEsElPropietario por @JustFixOrg"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
-#: src/components/DetailView.tsx:219
+#: src/components/DetailView.tsx:243
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
-#: src/components/DetailView.tsx:201
+#: src/components/DetailView.tsx:225
 #: src/containers/NotRegisteredPage.tsx:104
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducó {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:204
+#: src/components/DetailView.tsx:228
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
@@ -181,7 +181,7 @@ msgstr "<0>Esta propiedad debe estar registrada con en HPD</0> porque tiene más
 #~ msgid "<0>Violations:</0> Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 #~ msgstr "<0>Violations:</0> Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 
-#: src/components/DetailView.tsx:63
+#: src/components/DetailView.tsx:86
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "\"<0>Aunque el propietario legal de un edificio suele ser una empresa (generalmente una “LLC”), los nombres y las direcciones comerciales registrados en el HPD ofrecen una idea más clara de quién realmente controla el edificio.</0><1>Las personas enumeradas aquí como “Oficial principal” o “Propietario” normalmente tienen una conexión con la propiedad del edificio, mientras que los \"Administradores del lugar\" forman parte de la administración. Dicho eso, estos nombres son autoinformados por el propietario y entonces pueden ser engañosos.</1><2>Aprenda más acerca de registros en el HPD y cómo esta información impulsa esta herramienta en la <3>página “Acerca de”</3>.</2>"
 
@@ -204,6 +204,10 @@ msgstr "<0>Who Owns What</0> de JustFix.<1/>Lea nuestra <2>Política de privacid
 #: src/components/IndicatorsDatasets.tsx:100
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB Violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB Violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "Una infracción del DOB es una notificación de que una propiedad no cumple con la normativa aplicable, generalmente el código de construcción. Las infracciones del DOB suelen estar relacionadas con servicios que afectan a todo el edificio (como ascensores o calderas), con la integridad estructural de la propiedad o con construcciones ilegales. Los propietarios deben corregir todas las infracciones del DOB antes de poder presentar un Certificado de Ocupación (CO) nuevo o enmendado.<0/><1/><2>No-ECB</2>: infracción típica; no requiere audiencia judicial.<3/><4>ECB (Environment Control Board)</4>: infracción específica del Código de Construcción o de la Resolución de Zonificación de la Ciudad de Nueva York. Estas infracciones conllevan sanciones adicionales y requieren que el propietario asista a una <5>audiencia ante la OATH</5>. Se clasifican en tres categorías: Clase I (inmediatamente peligrosa), Clase II (grave) y Clase III (menor).<6/><7/>Obtenga más información sobre las infracciones del DOB en la <8>página oficial del DOB</8>."
+
+#: src/components/DetailView.tsx:62
+msgid "A building can be known by more than one street address. We show these addresses because city records may use different addresses to identify the same building. This helps you find all of the records associated with the property."
+msgstr ""
 
 #: src/components/FeatureCalloutContent.ts:19
 msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
@@ -296,6 +300,10 @@ msgstr "Toda la información pública sobre el arrendador de su edificio"
 msgid "Already have an account?"
 msgstr "¿Ya tiene una cuenta?"
 
+#: src/components/DetailView.tsx:58
+msgid "Also known as"
+msgstr ""
+
 #: src/components/PortfolioTable.tsx:338
 msgid "Amount"
 msgstr "Importe"
@@ -384,7 +392,7 @@ msgstr "De momento, no podemos ofrecer alertas para estos edificios porque el ay
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "TIMBRE/INTERCOMUNICADOR"
 
-#: src/components/DetailView.tsx:143
+#: src/components/DetailView.tsx:166
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
@@ -461,13 +469,13 @@ msgstr "Los edificios sin un registro de propiedad válido están sujetos a lo s
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:283
-#: src/components/DetailView.tsx:292
+#: src/components/DetailView.tsx:307
+#: src/components/DetailView.tsx:316
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:263
-#: src/components/DetailView.tsx:272
+#: src/components/DetailView.tsx:287
+#: src/components/DetailView.tsx:296
 msgid "Business Entities"
 msgstr "Entidades comerciales"
 
@@ -614,7 +622,8 @@ msgid "Click the link we sent to {email}. It may take a few minutes to arrive."
 msgstr "Haga clic en el enlace que le enviamos a {email}. Puede tardar unos minutos en llegar."
 
 #: src/components/CloseButton.tsx:10
-#: src/components/DetailView.tsx:58
+#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:81
 #: src/components/FeatureCalloutWidget.tsx:61
 msgid "Close"
 msgstr "Cerrar"
@@ -1119,7 +1128,7 @@ msgstr "Esconder leyenda"
 msgid "How are the results calculated?"
 msgstr "¿Cómo se calculan los resultados?"
 
-#: src/components/DetailView.tsx:87
+#: src/components/DetailView.tsx:110
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a esta cartera de propiedades?"
 
@@ -1269,16 +1278,17 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.tsx:196
+#: src/components/DetailView.tsx:220
 #: src/containers/NotRegisteredPage.tsx:99
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
-#: src/components/DetailView.tsx:209
+#: src/components/DetailView.tsx:233
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
-#: src/components/DetailView.tsx:58
+#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:81
 msgid "Learn more"
 msgstr "Obtenga más información"
 
@@ -1494,7 +1504,7 @@ msgstr "Mín debe ser menor que {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "Más útil para dispositivos móviles"
 
-#: src/components/DetailView.tsx:153
+#: src/components/DetailView.tsx:177
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes ante el 311 en los últimos 3 años"
 
@@ -1621,7 +1631,7 @@ msgstr "No relacionado con ECB"
 msgid "Non-Emergency"
 msgstr "No urgente"
 
-#: src/components/DetailView.tsx:161
+#: src/components/DetailView.tsx:185
 msgid "None"
 msgstr "Ninguna"
 
@@ -1745,8 +1755,8 @@ msgstr "Contraseña"
 msgid "Password reset successful"
 msgstr "Contraseña restablecida con éxito"
 
-#: src/components/DetailView.tsx:303
-#: src/components/DetailView.tsx:313
+#: src/components/DetailView.tsx:327
+#: src/components/DetailView.tsx:337
 msgid "People"
 msgstr "Personas"
 
@@ -2056,7 +2066,7 @@ msgstr "Enviar un nuevo enlace"
 #~ msgid "Share this page with your neighbors"
 #~ msgstr "Share this page with your neighbors"
 
-#: src/components/DetailView.tsx:234
+#: src/components/DetailView.tsx:258
 #: src/components/EngagementPanel.tsx:11
 #: src/components/PropertiesSummary.tsx:91
 #: src/containers/NotRegisteredPage.tsx:19
@@ -2739,7 +2749,7 @@ msgstr "Ver en Google Maps"
 msgid "View portfolio"
 msgstr "Ver cartera de propiedades"
 
-#: src/components/DetailView.tsx:136
+#: src/components/DetailView.tsx:159
 msgid "View portfolio map"
 msgstr "Ver mapa de la cartera de propiedades"
 
@@ -2780,7 +2790,7 @@ msgstr "VENTANAS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:188
+#: src/components/DetailView.tsx:212
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del vencimiento del registro. La información del arrendador que se incluye aquí puede estar desactualizada."
 
@@ -2788,7 +2798,7 @@ msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del
 msgid "We apologize for the inconvenience."
 msgstr "Nos disculpamos por las molestias."
 
-#: src/components/DetailView.tsx:91
+#: src/components/DetailView.tsx:114
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscó con una base de datos de más de 200 mil edificios para identificar a un arrendador o una cartera compañía de administración. Para obtener más información, consulte <0>nuestra metodología</0>."
 
@@ -2940,7 +2950,7 @@ msgstr "Who owns what"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "¿Quién es responsable por los problemas en su departamento y edificio? #WhoOwnsWhat le ayuda a investigar a los propietarios de propiedades en NYC usando datos públicos y abiertos. Una herramienta gratuita elaborada por @JustFixNYC que funciona en cualquier dispositivo que tenga internet. Busque su dirección aquí:"
 
-#: src/components/DetailView.tsx:168
+#: src/components/DetailView.tsx:192
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el arrendador de este edificio?"
 
@@ -3223,7 +3233,7 @@ msgstr "edificios"
 #~ msgid "districts"
 #~ msgstr "districts"
 
-#: src/components/DetailView.tsx:213
+#: src/components/DetailView.tsx:237
 msgid "for ${0}"
 msgstr "por ${0}"
 
@@ -3349,4 +3359,3 @@ msgstr "{value, plural, one {Una queja del HPD emitida desde el 2012} other {# q
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una infracción del HPD emitida desde el 2012} other {# infracciones del HPD emitidas desde el 2012}}"
-
