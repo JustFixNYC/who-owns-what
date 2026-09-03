@@ -99,9 +99,12 @@
         margin-top: 1.5rem;
       }
 
+      .standalone-footer {
+        text-align: left;
+      }
+      
       .standalone-footer,
       .login-footer,
-      .unsubscribe-footer,
       .address-page-link,
       .district-page-link {
         display: flex;
