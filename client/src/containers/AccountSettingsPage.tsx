@@ -43,7 +43,7 @@ const BuildingSubscriptionFieldWithoutI18n = (props: BuildingSubscriptionFieldPr
         <span>{`${helpers.titleCase(boro)}, NY`}</span>
       </a>
       <Button
-        type="submit"
+        type="button"
         variant="secondary"
         size="small"
         labelText={i18n._(t`Remove`)}
@@ -68,7 +68,7 @@ const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldPr
         {district.map((area, i) => helpers.formatTranslatedAreaLabel(area, i18n, false)).join(", ")}
       </span>
       <Button
-        type="submit"
+        type="button"
         variant="secondary"
         size="small"
         labelText={i18n._(t`Remove`)}
