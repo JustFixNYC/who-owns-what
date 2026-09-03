@@ -14,6 +14,7 @@ import UserTypeInput from "./UserTypeInput";
 import PhoneNumberInput from "./PhoneNumberInput";
 import { Alert } from "./Alert";
 import { CodeEntry } from "./CodeEntry";
+import { SendLoginCodeOptions } from "./AuthClient";
 import { JFCLLocaleLink } from "i18n";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord, District } from "./APIDataTypes";
@@ -132,9 +133,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     return withBoro ? `${addrWithoutBoro}, ${helpers.titleCase(addr.boro)}` : addrWithoutBoro;
   };
 
-  const subscribeOnSuccess = (user: JustfixUser) => {
-    !!addr &&
-      userContext.subscribeBuilding(
+  const subscribeOnSuccess = async (user: JustfixUser) => {
+    if (addr) {
+      await userContext.subscribeBuilding(
         addr.bbl,
         addr.housenumber,
         addr.streetname,
@@ -142,8 +143,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         addr.boro,
         user
       );
+    }
 
-    !!district && userContext.subscribeDistrict(district, user);
+    if (district) {
+      await userContext.subscribeDistrict(district, user);
+    }
   };
 
   const resetAlertErrorStates = () => {
@@ -159,9 +163,29 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const cleanedPhone = phoneNumber ? phoneNumber.replace(/\D/g, "").slice(0, 10) : undefined;
 
+  const sendCodeOptions = (): SendLoginCodeOptions | undefined => {
+    const options: SendLoginCodeOptions = {};
+    if (isNewUser) {
+      options.userType = userType;
+      options.phoneNumber = cleanedPhone;
+    }
+    if (addr) {
+      options.building = {
+        bbl: addr.bbl,
+        housenumber: addr.housenumber,
+        streetname: addr.streetname,
+        zip: addr.zip ?? "",
+        boro: addr.boro,
+      };
+    }
+    if (!options.userType && !options.phoneNumber && !options.building) {
+      return undefined;
+    }
+    return options;
+  };
+
   const sendCode = async () => {
-    const options = isNewUser ? { userType, phoneNumber: cleanedPhone } : undefined;
-    return userContext.sendLoginCode(email, options);
+    return userContext.sendLoginCode(email, sendCodeOptions());
   };
 
   const renderPageLevelAlert = (type: "error" | "success" | "info", message: string) => {
@@ -277,7 +301,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     setIsNewUser(false);
     window.gtag("event", "login-send-code", eventParams());
-    const sendResp = await userContext.sendLoginCode(email);
+    const sendResp = await userContext.sendLoginCode(email, sendCodeOptions());
     if (sendResp?.error) {
       setPageError(mapAuthError(sendResp.error, i18n));
       return;
@@ -295,10 +319,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     }
 
     window.gtag("event", "login-send-code", { ...eventParams(), from: "register" });
-    const sendResp = await userContext.sendLoginCode(email, {
-      userType,
-      phoneNumber: cleanedPhone,
-    });
+    const sendResp = await userContext.sendLoginCode(email, sendCodeOptions());
     if (sendResp?.error) {
       setPageError(mapAuthError(sendResp.error, i18n));
       return;

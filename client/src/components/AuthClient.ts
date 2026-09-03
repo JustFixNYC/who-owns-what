@@ -61,9 +61,18 @@ const fetchUser = async () => {
 const setUser = (user: JustfixUser) => (_user = user);
 const clearUser = () => (_user = undefined);
 
-type SendLoginCodeOptions = {
+export type PendingBuildingSubscription = {
+  bbl: string;
+  housenumber: string;
+  streetname: string;
+  zip: string;
+  boro: string;
+};
+
+export type SendLoginCodeOptions = {
   userType?: string;
   phoneNumber?: string;
+  building?: PendingBuildingSubscription;
 };
 
 type StartLoginResponse = {
@@ -91,6 +100,13 @@ const sendLoginCode = async (email: string, options?: SendLoginCodeOptions) => {
   };
   if (options?.userType) params.user_type = options.userType;
   if (options?.phoneNumber) params.phone_number = options.phoneNumber;
+  if (options?.building) {
+    params.bbl = options.building.bbl;
+    params.housenumber = options.building.housenumber;
+    params.streetname = options.building.streetname;
+    params.zip = options.building.zip;
+    params.boro = options.building.boro;
+  }
   return await postAuthRequest(`${BASE_URL}auth/login/send-code`, params);
 };
 

@@ -24,6 +24,28 @@ describe("EmailVerificationPrompt resend", () => {
       })
     );
   });
+
+  it("includes pending building fields from the building-alerts register path", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ otp: { status: "sent" } }));
+
+    await AuthClient.sendLoginCode("new@example.com", {
+      userType: "Tenant",
+      building: {
+        bbl: "3012380016",
+        housenumber: "654",
+        streetname: "Park Place",
+        zip: "11261",
+        boro: "Brooklyn",
+      },
+    });
+
+    expect(fetchMock.mock.calls[0][1]).toEqual(
+      expect.objectContaining({
+        method: "POST",
+        body: "email=new%40example.com&user_type=Tenant&bbl=3012380016&housenumber=654&streetname=Park%20Place&zip=11261&boro=Brooklyn",
+      })
+    );
+  });
 });
 
 describe("buildVerifyReloginUrl", () => {

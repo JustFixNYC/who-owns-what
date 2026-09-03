@@ -70,6 +70,39 @@ class TestLoginSendCodeProxy:
             },
         )
 
+    @patch("jfauthprovider.views.client_secret_request")
+    def test_login_send_code_forwards_building_fields(self, mock_request, client):
+        mock_request.return_value = make_auth_response(200, {"otp": "123456"})
+
+        res = client.post(
+            "/auth/login/send-code",
+            {
+                "email": "test@example.com",
+                "bbl": "3012380016",
+                "housenumber": "654",
+                "streetname": "Park Place",
+                "zip": "11261",
+                "boro": "Brooklyn",
+            },
+            HTTP_ORIGIN=ORIGIN,
+        )
+
+        assert res.status_code == 200
+        mock_request.assert_called_once_with(
+            "user/login/send-code/",
+            {
+                "email": "test@example.com",
+                "user_type": None,
+                "phone_number": None,
+                "origin": ORIGIN,
+                "bbl": "3012380016",
+                "housenumber": "654",
+                "streetname": "Park Place",
+                "zip": "11261",
+                "boro": "Brooklyn",
+            },
+        )
+
 
 @pytest.mark.django_db
 class TestVerifyOtpProxy:
@@ -80,11 +113,20 @@ class TestVerifyOtpProxy:
         res = client.post(
             "/auth/verify-otp",
             {"email": "test@example.com", "code": "123456"},
+            HTTP_ORIGIN=ORIGIN,
         )
 
         assert res.status_code == 200
         assert res.cookies["access_token"].value
         assert res.cookies["refresh_token"].value
+        mock_request.assert_called_once_with(
+            "user/verify-otp-token/",
+            {
+                "email": "test@example.com",
+                "code": "123456",
+                "origin": ORIGIN,
+            },
+        )
 
     @patch("jfauthprovider.views.client_secret_request")
     def test_verify_otp_does_not_set_cookies_on_error(self, mock_request, client):

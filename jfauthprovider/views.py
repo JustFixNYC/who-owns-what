@@ -37,6 +37,10 @@ def login_send_code(request):
         "phone_number": request.POST.get("phone_number"),
         "origin": request.headers["Origin"],
     }
+    for key in ("bbl", "housenumber", "streetname", "zip", "boro"):
+        value = request.POST.get(key)
+        if value:
+            post_data[key] = value
     response = client_secret_request("user/login/send-code/", post_data)
     return _forward_json_response(response)
 
@@ -47,6 +51,9 @@ def verify_otp(request):
         "email": request.POST.get("email"),
         "code": request.POST.get("code"),
     }
+    origin = request.headers.get("Origin")
+    if origin:
+        post_data["origin"] = origin
     response = client_secret_request("user/verify-otp-token/", post_data)
     if response.status_code == 200:
         return set_response_cookies(response, response.json())

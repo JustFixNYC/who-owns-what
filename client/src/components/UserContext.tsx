@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import { JustfixUser } from "state-machine";
-import AuthClient, { VerifyMagicLinkResponse, VerifyStatusCode } from "./AuthClient";
+import AuthClient, { SendLoginCodeOptions, VerifyMagicLinkResponse, VerifyStatusCode } from "./AuthClient";
 import { authRequiredPaths } from "routes";
 import { District } from "./APIDataTypes";
 
@@ -20,12 +20,12 @@ export type UserContextProps = {
   startLogin: (email: string) => Promise<StartLoginResult | void>;
   sendLoginCode: (
     email: string,
-    options?: { userType?: string; phoneNumber?: string }
+    options?: SendLoginCodeOptions
   ) => Promise<{ error?: string } | void>;
   verifyOtp: (
     email: string,
     code: string,
-    onSuccess?: (user: JustfixUser) => void
+    onSuccess?: (user: JustfixUser) => void | Promise<void>
   ) => Promise<UserOrError | void>;
   verifyMagicLink: (code: string, utmSource?: string) => Promise<VerifyMagicLinkResponse>;
   logout: (fromPath: string) => void;
@@ -36,7 +36,7 @@ export type UserContextProps = {
     zip: string,
     boro: string,
     _user?: JustfixUser
-  ) => void;
+  ) => Promise<void>;
   unsubscribeBuilding: (bbl: string) => void;
   subscribeDistrict: (district: District, _user?: JustfixUser) => void;
   unsubscribeDistrict: (subscription_id: string) => void;
@@ -47,14 +47,18 @@ export type UserContextProps = {
 
 const initialState: UserContextProps = {
   startLogin: async (email: string) => {},
-  sendLoginCode: async (email: string, options?: { userType?: string; phoneNumber?: string }) => {},
-  verifyOtp: async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {},
+  sendLoginCode: async (email: string, options?: SendLoginCodeOptions) => {},
+  verifyOtp: async (
+    email: string,
+    code: string,
+    onSuccess?: (user: JustfixUser) => void | Promise<void>
+  ) => {},
   verifyMagicLink: async (code: string, utmSource?: string) => ({
     statusCode: VerifyStatusCode.Unknown,
     statusText: "",
   }),
   logout: (fromPath: string) => {},
-  subscribeBuilding: (
+  subscribeBuilding: async (
     bbl: string,
     housenumber: string,
     streetname: string,
@@ -126,24 +130,25 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     return { user: response.user, created: response.created };
   }, []);
 
-  const sendLoginCode = useCallback(
-    async (email: string, options?: { userType?: string; phoneNumber?: string }) => {
-      const response = await AuthClient.sendLoginCode(email, options);
-      if (response.error) {
-        return { error: response.error };
-      }
-    },
-    []
-  );
+  const sendLoginCode = useCallback(async (email: string, options?: SendLoginCodeOptions) => {
+    const response = await AuthClient.sendLoginCode(email, options);
+    if (response.error) {
+      return { error: response.error };
+    }
+  }, []);
 
   const verifyOtp = useCallback(
-    async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {
+    async (
+      email: string,
+      code: string,
+      onSuccess?: (user: JustfixUser) => void | Promise<void>
+    ) => {
       const response = await AuthClient.verifyOtp(email, code);
       if (response.error || !response.user) {
         return { error: response.error || "Verification failed" };
       }
       const updatedUser = updateUserSubscriptions(response.user);
-      if (onSuccess && updatedUser) onSuccess(updatedUser);
+      if (onSuccess && updatedUser) await onSuccess(updatedUser);
       return { user: updatedUser };
     },
     [updateUserSubscriptions]
@@ -173,7 +178,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const subscribeBuilding = useCallback(
-    (
+    async (
       bbl: string,
       housenumber: string,
       streetname: string,
@@ -183,17 +188,14 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     ) => {
       const currentUser = !!user?.email ? user : _user;
       if (currentUser) {
-        const asyncSubscribe = async () => {
-          const response = await AuthClient.subscribeBuilding(
-            bbl,
-            housenumber,
-            streetname,
-            zip,
-            boro
-          );
-          setUser({ ...currentUser, buildingSubscriptions: response["building_subscriptions"] });
-        };
-        asyncSubscribe();
+        const response = await AuthClient.subscribeBuilding(
+          bbl,
+          housenumber,
+          streetname,
+          zip,
+          boro
+        );
+        setUser({ ...currentUser, buildingSubscriptions: response["building_subscriptions"] });
       }
     },
     [user]

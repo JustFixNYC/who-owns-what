@@ -135,7 +135,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
       return;
     }
 
-    subscribeBuilding(
+    await subscribeBuilding(
       addressRecord.bbl,
       addressRecord.housenumber,
       addressRecord.streetname,
