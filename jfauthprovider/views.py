@@ -35,8 +35,10 @@ def login_send_code(request):
         "email": request.POST.get("email"),
         "user_type": request.POST.get("user_type"),
         "phone_number": request.POST.get("phone_number"),
-        "origin": request.headers["Origin"],
     }
+    origin = request.headers.get("Origin")
+    if origin:
+        post_data["origin"] = origin
     for key in ("bbl", "housenumber", "streetname", "zip", "boro"):
         value = request.POST.get(key)
         if value:
@@ -65,8 +67,10 @@ def verify_magic_link(request):
     post_data = {
         "code": request.POST.get("code"),
         "utm_source": request.POST.get("utm_source"),
-        "origin": request.headers["Origin"],
     }
+    origin = request.headers.get("Origin")
+    if origin:
+        post_data["origin"] = origin
     response = client_secret_request("user/verify-magic-link/", post_data)
     if response.status_code == 200:
         return set_response_cookies(response, response.json())
@@ -78,8 +82,10 @@ def email_change_send_code(request):
     try:
         post_data = {
             "new_email": request.POST.get("new_email"),
-            "origin": request.headers["Origin"],
         }
+        origin = request.headers.get("Origin")
+        if origin:
+            post_data["origin"] = origin
         return authenticated_request(
             "user/email/change/send-code/",
             request,
