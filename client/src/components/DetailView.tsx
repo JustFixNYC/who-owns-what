@@ -100,6 +100,37 @@ const HpdContactCard: React.FC<{ contact: GroupedContact; onClick?: () => void }
   </I18n>
 );
 
+const AlsoKnownAsSection = ({ altAddrs }: { altAddrs: string[] }) => (
+  <I18n>
+    {({ i18n }) => (
+      <div className="DetailView__altAddrs">
+        <div className="DetailView__accordionHeader">
+          <b>
+            <Trans>Also known as</Trans>
+          </b>
+          <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
+            <br />
+            <p>
+              <Trans>
+                A building can be known by more than one street address. We show these addresses
+                because city records may use different addresses to identify the same building. This
+                helps you find all of the records associated with the property.
+              </Trans>
+            </p>
+          </Accordion>
+        </div>
+        <ul className="DetailView__altAddrs-list">
+          {altAddrs.map((addr, idx) => (
+            <li key={idx} className="DetailView__altAddrPill">
+              {Helpers.titleCase(addr)}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </I18n>
+);
+
 const LearnMoreAccordion = () => {
   const { pathname } = useLocation();
   const { about, legacy } = createWhoOwnsWhatRoutePaths();
@@ -227,6 +258,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         {Helpers.titleCase(detailAddr.streetname)},{" "}
                         {Helpers.titleCase(detailAddr.boro)}
                       </h4>
+                      {detailAddr.alt_addrs && detailAddr.alt_addrs.length > 0 && (
+                        <AlsoKnownAsSection altAddrs={detailAddr.alt_addrs} />
+                      )}
                     </div>
                     <div className="card-body">
                       <BuildingStatsTable
@@ -259,7 +293,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       </div>
                       {detailAddr.allcontacts && (
                         <div className="card-body-landlord">
-                          <div className="card-title-landlord">
+                          <div className="DetailView__accordionHeader">
                             <b>
                               <Trans>Who’s the landlord of this building?</Trans>
                             </b>
