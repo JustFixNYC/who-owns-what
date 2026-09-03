@@ -47,6 +47,8 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const { email: oldEmail, verified } = user;
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [isResending, setIsResending] = useState(false);
+  const [needsRelogin, setNeedsRelogin] = useState(false);
+  const [resendError, setResendError] = useState("");
   const [existingUserError, setExistingUserError] = useState(false);
   const [step, setStep] = useState<"field" | "code">("field");
   const [pendingEmail, setPendingEmail] = useState("");
@@ -132,14 +134,22 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const handleCalloutResend = async () => {
     if (!oldEmail || isResending) return;
     setIsResending(true);
-    const resp = await userContext.sendLoginCode(oldEmail);
-    const eventParams = { ...eventUserParams, from: "account settings" };
-    window.gtag("event", "email-verify-resend", { ...eventParams, branch: BRANCH_NAME });
-    setIsResending(false);
-    if (resp?.error) {
-      return;
+    setResendError("");
+    try {
+      const resp = await userContext.sendLoginCode(oldEmail);
+      const eventParams = { ...eventUserParams, from: "account settings" };
+      window.gtag("event", "email-verify-resend", { ...eventParams, branch: BRANCH_NAME });
+      if (resp?.error) {
+        setNeedsRelogin(true);
+        setResendError(mapSettingAuthError(resp.error, i18n));
+        return;
+      }
+      setIsEmailResent(true);
+    } catch {
+      setResendError(mapSettingAuthError(undefined, i18n));
+    } finally {
+      setIsResending(false);
     }
-    setIsEmailResent(true);
   };
 
   const verifyCallout = !verified ? (
@@ -153,19 +163,24 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
           We sent a new code to <Nobr>{oldEmail}</Nobr>
         </Trans>
       ) : (
-        <>
-          <Trans render="p">Didn’t receive a code?</Trans>
-          <Button
-            variant="secondary"
-            size="small"
-            labelText={i18n._(t`Resend`)}
-            loading={isResending}
-            disabled={isResending}
-            onClick={handleCalloutResend}
-          />
-        </>
+        !needsRelogin && (
+          <>
+            <Trans render="p">Didn’t receive a code?</Trans>
+            <Button
+              type="button"
+              variant="secondary"
+              size="small"
+              labelText={i18n._(t`Resend`)}
+              loading={isResending}
+              disabled={isResending}
+              onClick={handleCalloutResend}
+            />
+          </>
+        )
       )}
+      {!!resendError && <p role="alert">{resendError}</p>}
       <Button
+        type="button"
         variant="tertiary"
         size="small"
         labelText={i18n._(t`Log in`)}
@@ -183,9 +198,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
           onResend={handleResendCode}
           error={otpError}
           showHeading={false}
-          fieldLabel={
-            <label className="user-setting-label">{i18n._(t`Email address`)}</label>
-          }
+          fieldLabel={<label className="user-setting-label">{i18n._(t`Email address`)}</label>}
           actions={
             <Button
               type="button"
