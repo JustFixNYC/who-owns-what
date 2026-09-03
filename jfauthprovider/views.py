@@ -1,4 +1,3 @@
-import json
 import sys
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
@@ -15,21 +14,101 @@ sys.path.append("..")
 from wow.apiutil import api  # noqa: E402
 
 
-@api
-def login(request):
-    post_data = {
-        "grant_type": "password",
-        "username": request.POST.get("username"),
-        "password": request.POST.get("password"),
-    }
+def _forward_json_response(response):
+    return HttpResponse(
+        content=response.content,
+        content_type="application/json",
+        status=response.status_code,
+    )
 
-    response = client_secret_request("user/login/", post_data)
+
+@api
+def login_start(request):
+    post_data = {"email": request.POST.get("email")}
+    response = client_secret_request("user/login/start/", post_data)
+    return _forward_json_response(response)
+
+
+@api
+def login_send_code(request):
+    post_data = {
+        "email": request.POST.get("email"),
+        "user_type": request.POST.get("user_type"),
+        "phone_number": request.POST.get("phone_number"),
+    }
+    origin = request.headers.get("Origin")
+    if origin:
+        post_data["origin"] = origin
+    for key in ("bbl", "housenumber", "streetname", "zip", "boro"):
+        value = request.POST.get(key)
+        if value:
+            post_data[key] = value
+    response = client_secret_request("user/login/send-code/", post_data)
+    return _forward_json_response(response)
+
+
+@api
+def verify_otp(request):
+    post_data = {
+        "email": request.POST.get("email"),
+        "code": request.POST.get("code"),
+    }
+    origin = request.headers.get("Origin")
+    if origin:
+        post_data["origin"] = origin
+    response = client_secret_request("user/verify-otp-token/", post_data)
     if response.status_code == 200:
         return set_response_cookies(response, response.json())
-    else:
-        return HttpResponse(
-            content=json.dumps(response.json()), status=response.status_code
+    return _forward_json_response(response)
+
+
+@api
+def verify_magic_link(request):
+    post_data = {
+        "code": request.POST.get("code"),
+        "utm_source": request.POST.get("utm_source"),
+    }
+    origin = request.headers.get("Origin")
+    if origin:
+        post_data["origin"] = origin
+    response = client_secret_request("user/verify-magic-link/", post_data)
+    if response.status_code == 200:
+        return set_response_cookies(response, response.json())
+    return _forward_json_response(response)
+
+
+@api
+def email_change_send_code(request):
+    try:
+        post_data = {
+            "new_email": request.POST.get("new_email"),
+        }
+        origin = request.headers.get("Origin")
+        if origin:
+            post_data["origin"] = origin
+        return authenticated_request(
+            "user/email/change/send-code/",
+            request,
+            data=post_data,
         )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def email_change_verify_otp(request):
+    try:
+        post_data = {
+            "new_email": request.POST.get("new_email"),
+            "code": request.POST.get("code"),
+        }
+        return authenticated_request(
+            "user/email/change/verify-otp/",
+            request,
+            data=post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
 
 
 @api
@@ -72,26 +151,6 @@ def update(request):
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def register(request):
-    post_data = {
-        "grant_type": "password",
-        "username": request.POST.get("username"),
-        "password": request.POST.get("password"),
-        "user_type": request.POST.get("user_type"),
-        "phone_number": request.POST.get("phone_number"),
-        "origin": request.headers["Origin"],
-    }
-
-    response = client_secret_request("user/register/", post_data)
-    if response.status_code == 200:
-        return set_response_cookies(response, response.json())
-    else:
-        return HttpResponse(
-            content_type="application/json", status=response.status_code
-        )
 
 
 @api
@@ -148,84 +207,6 @@ def resend_verification_with_token(request):
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def reset_password_request(request):
-    try:
-        post_data = {
-            "username": request.POST.get("username"),
-            "origin": request.headers["Origin"],
-        }
-        return auth_server_request(
-            "POST",
-            "user/password_reset/request/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except Exception:
-        print("failed")
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def reset_password_request_with_token(request):
-    try:
-        post_data = {
-            "token": request.GET.get("token"),
-            "origin": request.headers["Origin"],
-        }
-
-        return auth_server_request(
-            "POST",
-            "user/email/password_reset/request/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except KeyError:
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def password_reset_token_check(request):
-    try:
-        post_data = {
-            "token": request.GET.get("token"),
-        }
-        return auth_server_request(
-            "POST",
-            "user/email/password_reset/check/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except KeyError:
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def password_reset(request):
-    try:
-        post_data = {
-            "token": request.GET.get("token"),
-            "new_password": request.POST.get("new_password"),
-        }
-        return auth_server_request(
-            "POST",
-            "user/password_reset/",
-            post_data,
-            {"Cookie": request.headers.get("Cookie")},
-        )
-    except KeyError:
-        return HttpResponse(content_type="application/json", status=401)
-
-
-@api
-def password_change(request):
-    post_data = {
-        "current_password": request.POST.get("current_password"),
-        "new_password": request.POST.get("new_password"),
-    }
-    return authenticated_request("user/password_change/", request, post_data)
 
 
 @method_decorator(api, name="dispatch")

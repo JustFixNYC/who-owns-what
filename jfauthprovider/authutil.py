@@ -1,11 +1,17 @@
 import json
+import logging
+import os
+
 from django.http import JsonResponse
 import requests
-import os
+
+logger = logging.getLogger(__name__)
 
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 AUTH_BASE_URL = os.environ.get("AUTH_BASE_URL") or ""
+
+AUTH_UNAVAILABLE = {"error": "Auth service unavailable"}
 
 
 def add_client_secret(data={}):
@@ -20,21 +26,47 @@ def add_client_secret(data={}):
     return post_data
 
 
+def _unavailable_response(auth_path, exc=None):
+    extra = {"auth_path": auth_path}
+    if exc is not None:
+        extra["error_type"] = type(exc).__name__
+    logger.exception(
+        "Auth provider request failed: %s",
+        auth_path,
+        extra=extra,
+    )
+    return JsonResponse(AUTH_UNAVAILABLE, status=502)
+
+
 def set_response_cookies(response, json_data):
+    access_token = json_data.get("access_token")
+    refresh_token = json_data.get("refresh_token")
+    expires_in = json_data.get("expires_in")
+    if not access_token or not refresh_token or expires_in is None:
+        logger.error(
+            "Auth token response missing cookie fields",
+            extra={
+                "has_access_token": bool(access_token),
+                "has_refresh_token": bool(refresh_token),
+                "has_expires_in": expires_in is not None,
+            },
+        )
+        return JsonResponse(AUTH_UNAVAILABLE, status=502)
+
     response_with_cookies = JsonResponse(json.loads(response.content))
     response_with_cookies.headers = response.headers
 
     response_with_cookies.set_signed_cookie(
         key="access_token",
-        value=json_data.get("access_token", None),
+        value=access_token,
         samesite="None",
-        max_age=json_data["expires_in"],
+        max_age=expires_in,
         secure=True,
         httponly=True,
     )
     response_with_cookies.set_signed_cookie(
         key="refresh_token",
-        value=json_data.get("refresh_token", None),
+        value=refresh_token,
         samesite="None",
         secure=True,
         httponly=True,
@@ -64,7 +96,14 @@ def auth_server_request(method, url, data={}, headers={}):
         json_response = JsonResponse(content, status=response.status_code)
         json_response.headers = response.headers
         return json_response
+    except requests.RequestException as e:
+        return _unavailable_response(url, e)
     except ValueError as e:
+        logger.exception(
+            "Auth provider returned invalid JSON: %s",
+            url,
+            extra={"auth_path": url},
+        )
         return JsonResponse({"msg": str(e)}, status=500)
 
 
@@ -75,6 +114,8 @@ def client_secret_request(url, data={}, headers={}):
             data=add_client_secret(data),
             headers=headers,
         )
+    except requests.RequestException as e:
+        return _unavailable_response(url, e)
     except ValueError as e:
         return JsonResponse({"msg": str(e)}, status=500)
 
@@ -119,6 +160,8 @@ def authenticated_request(url, request, data={}, method="POST"):
         return JsonResponse(
             json.loads(auth_response.content), status=auth_response.status_code
         )
+    except requests.RequestException as e:
+        return _unavailable_response(url, e)
     except ValueError:
         return JsonResponse({}, status=auth_response.status_code)
 

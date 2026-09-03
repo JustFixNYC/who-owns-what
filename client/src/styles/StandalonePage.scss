@@ -50,7 +50,8 @@
 
       h1,
       h2,
-      p {
+      p,
+      .code-entry-label {
         margin: 0;
         text-align: left;
         &,
@@ -64,46 +65,38 @@
       }
 
       h2,
-      p {
+      p,
+      .code-entry-label {
         &,
         a {
           font-size: 0.875rem;
         }
       }
 
-      h1 + h2 {
+      h1 + h2,
+      h1 + .code-entry-label {
         margin-top: 1rem;
       }
 
       .input-group,
-      .email-input-field + .password-input-field,
       .jfcl-button.jfcl-variant-primary {
         margin-top: 1.5rem;
       }
 
-      .send-new-link,
+      .code-entry.input-group {
+        margin-top: unset;
+      }
+
       .jfcl-button {
         width: 100%;
       }
 
-      // reset password link to forgot pw, should redesign..
       a.jfcl-button {
         text-decoration: none;
       }
 
-      .didnt-get-link {
-        margin-top: 1rem;
-      }
-
-      .send-new-link-container {
-        margin-top: 1.5rem;
-      }
-
       .standalone-footer,
-      .login-footer,
-      .unsubscribe-footer,
-      .address-page-link,
-      .district-page-link {
+      .login-footer {
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -123,18 +116,8 @@
         }
       }
 
-      .address-page-link,
-      .district-page-link {
+      .standalone-footer {
         text-align: left;
-        a {
-          color: $justfix-black;
-          svg {
-            rotate: 180deg;
-            margin-right: 10px;
-            height: 1em;
-            vertical-align: -0.125em;
-          }
-        }
       }
     }
 

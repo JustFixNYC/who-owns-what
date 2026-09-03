@@ -5,10 +5,22 @@ from . import views
 app_name = "jfauth"
 
 urlpatterns = [
-    path("login", views.login, name="login"),
+    path("login/start", views.login_start, name="login_start"),
+    path("login/send-code", views.login_send_code, name="login_send_code"),
+    path("verify-otp", views.verify_otp, name="verify_otp"),
+    path("verify-magic-link", views.verify_magic_link, name="verify_magic_link"),
+    path(
+        "email/change/send-code",
+        views.email_change_send_code,
+        name="email_change_send_code",
+    ),
+    path(
+        "email/change/verify-otp",
+        views.email_change_verify_otp,
+        name="email_change_verify_otp",
+    ),
     path("logout", views.logout, name="logout"),
     path("update", views.update, name="update"),
-    path("register", views.register, name="register"),
     path("auth_check", views.auth_check, name="auth_check"),
     path("account_exists/<str:email>", views.account_exists, name="account_exists"),
     path("verify_email", views.verify_email, name="verify_email"),
@@ -18,23 +30,6 @@ urlpatterns = [
         views.resend_verification_with_token,
         name="resend_verification_with_token",
     ),
-    path(
-        "reset_password_request",
-        views.reset_password_request,
-        name="reset_password_request",
-    ),
-    path(
-        "reset_password_request_with_token",
-        views.reset_password_request_with_token,
-        name="reset_password_request_with_token",
-    ),
-    path(
-        "reset_password/check",
-        views.password_reset_token_check,
-        name="password_reset_token_check",
-    ),
-    path("set_password", views.password_reset, name="password_reset"),
-    path("change_password", views.password_change, name="password_change"),
     path(
         "email/subscriptions",
         views.email_user_subscriptions,

@@ -19,16 +19,9 @@ type VerifyEmailResponse = {
   error?: string;
 };
 
-export enum ResetStatusCode {
-  Success = 200,
-  Accepted = 202,
-  Invalid = 400,
-  Expired = 410,
-  Unknown = 500,
-}
-
-type PasswordResetResponse = Omit<VerifyEmailResponse, "statusCode"> & {
-  statusCode: ResetStatusCode;
+export type VerifyMagicLinkResponse = VerifyEmailResponse & {
+  user?: JustfixUser;
+  networkError?: boolean;
 };
 
 let _user: JustfixUser | undefined;
@@ -69,36 +62,133 @@ const fetchUser = async () => {
 const setUser = (user: JustfixUser) => (_user = user);
 const clearUser = () => (_user = undefined);
 
-/**
- * Authenticates a user with the given email and password.
- * Creates an account for this user if one does not already exist.
- */
-const register = async (
-  username: string,
-  password: string,
-  userType: string,
-  phoneNumber?: string
-) => {
-  const json = await postAuthRequest(`${BASE_URL}auth/register`, {
-    username: username.toLowerCase(),
-    password,
-    user_type: userType,
-    ...(phoneNumber ? { phone_number: phoneNumber } : undefined),
-  });
-  fetchUser();
-  return json;
+export type PendingBuildingSubscription = {
+  bbl: string;
+  housenumber: string;
+  streetname: string;
+  zip: string;
+  boro: string;
+};
+
+export type SendLoginCodeOptions = {
+  userType?: string;
+  phoneNumber?: string;
+  building?: PendingBuildingSubscription;
+};
+
+type StartLoginResponse = {
+  created?: boolean;
+  error?: string;
 };
 
 /**
- * Authenticates a user, returning an access token, a refresh token,
- * and expiry time.
+ * Upsert-only login step: create or fetch account by email without sending OTP.
  */
-const login = async (username: string, password: string) => {
-  const json = await postLoginCredentials(`${BASE_URL}auth/login`, {
-    username: username.toLowerCase(),
-    password,
+const startLogin = async (email: string): Promise<StartLoginResponse> => {
+  return await postAuthRequest(`${BASE_URL}auth/login/start`, {
+    email: email.toLowerCase(),
   });
-  return json;
+};
+
+/**
+ * Issue OTP and send login email with code + magic link.
+ * Requires a prior startLogin for the same email.
+ */
+const sendLoginCode = async (email: string, options?: SendLoginCodeOptions) => {
+  const params: { [key: string]: string } = {
+    email: email.toLowerCase(),
+  };
+  if (options?.userType) params.user_type = options.userType;
+  if (options?.phoneNumber) params.phone_number = options.phoneNumber;
+  if (options?.building) {
+    params.bbl = options.building.bbl;
+    params.housenumber = options.building.housenumber;
+    params.streetname = options.building.streetname;
+    params.zip = options.building.zip;
+    params.boro = options.building.boro;
+  }
+  return await withOtpDeliveryError(
+    await postAuthRequest(`${BASE_URL}auth/login/send-code`, params)
+  );
+};
+
+/**
+ * Verify a login OTP code and establish a session (httponly cookies via proxy).
+ */
+const verifyOtp = async (email: string, code: string) => {
+  return await postLoginCredentials(`${BASE_URL}auth/verify-otp`, {
+    email: email.toLowerCase(),
+    code,
+  });
+};
+
+/**
+ * Validate a magic-link code and establish a session (httponly cookies via proxy).
+ * Success requires a `user` in the body — legacy verify-only JSON (status 200, no user,
+ * no cookies) is not treated as a logged-in session.
+ */
+const verifyMagicLink = async (
+  code: string,
+  utmSource?: string
+): Promise<VerifyMagicLinkResponse> => {
+  const params: { [key: string]: string } = { code };
+  if (utmSource) params.utm_source = utmSource;
+
+  let result: VerifyMagicLinkResponse = {
+    statusCode: VerifyStatusCode.Unknown,
+    statusText: "",
+  };
+
+  try {
+    const response = await postAuthRequest(`${BASE_URL}auth/verify-magic-link`, params);
+    if (response.user) {
+      result.statusCode = VerifyStatusCode.Success;
+      result.statusText = response.status_text || "";
+      result.user = response.user;
+    } else if (response.status_code === VerifyStatusCode.AlreadyVerified) {
+      result.statusCode = VerifyStatusCode.AlreadyVerified;
+      result.statusText = response.status_text;
+    } else if (response.status_code === VerifyStatusCode.Expired) {
+      result.statusCode = VerifyStatusCode.Expired;
+      result.statusText = response.status_text;
+    } else if (response.error) {
+      result.statusCode = VerifyStatusCode.Failure;
+      result.error = response.error;
+    } else {
+      // Includes legacy `{ status_code: 200 }` verify-only JSON (no user, no session).
+      result.statusCode = VerifyStatusCode.Failure;
+      result.statusText = response.status_text || "";
+    }
+  } catch (e) {
+    if (e instanceof NetworkError) {
+      result.error = e.message;
+      result.networkError = true;
+    } else if (e instanceof Error) {
+      result.error = e.message;
+    }
+  }
+  return result;
+};
+
+/**
+ * Authenticated proof of a new email: issue OTP + magic link to new_email.
+ */
+const sendEmailChangeCode = async (newEmail: string) => {
+  return await withOtpDeliveryError(
+    await postAuthRequest(`${BASE_URL}auth/email/change/send-code`, {
+      new_email: newEmail.toLowerCase(),
+    })
+  );
+};
+
+/**
+ * Authenticated OTP proof of new_email, then swap username / WowProfile.email.
+ */
+const verifyEmailChangeOtp = async (newEmail: string, code: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/change/verify-otp`, {
+    new_email: newEmail.toLowerCase(),
+    code,
+  });
 };
 
 /**
@@ -106,72 +196,6 @@ const login = async (username: string, password: string) => {
  */
 const logout = async () => {
   return await postAuthRequest(`${BASE_URL}auth/logout`);
-};
-
-/**
- * Sends request to send a password reset link to the user's email
- */
-const resetPasswordRequest = async (username?: string) => {
-  try {
-    if (username) {
-      await postAuthRequest(`${BASE_URL}auth/reset_password_request`, {
-        username: username.toLowerCase(),
-      });
-    } else {
-      const params = new URLSearchParams(window.location.search);
-      await postAuthRequest(
-        `${BASE_URL}auth/reset_password_request_with_token?token=${params.get("token")}`
-      );
-    }
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-/**
- * Sends an unauthenticated request to checks if the password reset token is valid
- */
-const resetPasswordCheck = async () => {
-  const params = new URLSearchParams(window.location.search);
-
-  let result: PasswordResetResponse = {
-    statusCode: ResetStatusCode.Unknown,
-    statusText: "",
-  };
-
-  try {
-    const response = await postAuthRequest(
-      `${BASE_URL}auth/reset_password/check?token=${params.get("token")}`
-    );
-    result.statusCode = response.status_code;
-    result.statusText = response.status_text;
-  } catch (e) {
-    if (e instanceof Error) {
-      result.error = e.message;
-    }
-  }
-  return result;
-};
-
-const resetPassword = async (token: string, newPassword: string) => {
-  let result: PasswordResetResponse = {
-    statusCode: ResetStatusCode.Unknown,
-    statusText: "",
-  };
-
-  try {
-    const response = await postAuthRequest(`${BASE_URL}auth/set_password?token=${token}`, {
-      new_password: newPassword,
-    });
-    result.statusCode = response.status_code;
-    result.statusText = response.status_text;
-  } catch (e) {
-    if (e instanceof Error) {
-      result.error = e.message;
-    }
-  }
-  return result;
 };
 
 /**
@@ -224,36 +248,10 @@ const verifyEmail = async () => {
 };
 
 /**
- * Sends request to resend the account verification link to the user's email
- */
-const resendVerifyEmail = async (token?: string) => {
-  try {
-    if (token) {
-      await postAuthRequest(`${BASE_URL}auth/resend_verification_with_token?u=${token}`);
-    } else {
-      await postAuthRequest(`${BASE_URL}auth/resend_verification`);
-    }
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-/**
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
   return await postAuthRequest(`${BASE_URL}auth/update`, { new_email: newEmail.toLowerCase() });
-};
-
-/**
- * Sends an authenticated request to change the user password
- */
-const updatePassword = async (currentPassword: string, newPassword: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/change_password`, {
-    current_password: currentPassword,
-    new_password: newPassword,
-  });
 };
 
 /**
@@ -373,6 +371,26 @@ const emailUserSubscriptions = async (token: string) => {
  * Wrapper function for authentication POST requests
  */
 
+const withOtpDeliveryError = (response: any) => {
+  if (response?.error) return response;
+  const status = response?.otp?.status;
+  if (status && status !== "sent") {
+    return {
+      ...response,
+      error: response.otp.message || "Email delivery failed",
+    };
+  }
+  return response;
+};
+
+const parseAuthResponse = async (result: Response) => {
+  try {
+    return await result.json();
+  } catch {
+    return { error: `Auth request failed (${result.status})` };
+  }
+};
+
 const postAuthRequest = async (
   url: string,
   params?: { [key: string]: string },
@@ -395,15 +413,7 @@ const postAuthRequest = async (
     credentials: "include",
   });
 
-  try {
-    if (result.ok) {
-      return await result.json();
-    } else {
-      return await result.json();
-    }
-  } catch {
-    return result;
-  }
+  return await parseAuthResponse(result);
 };
 
 /**
@@ -432,7 +442,7 @@ const postLoginCredentials = async (
     credentials: "include",
   });
 
-  return await result.json();
+  return await parseAuthResponse(result);
 };
 
 const friendlyFetch: typeof fetch = async (input, init) => {
@@ -455,16 +465,15 @@ const Client = {
   user,
   fetchUser,
   setUser,
-  register,
-  login,
+  startLogin,
+  sendLoginCode,
+  verifyOtp,
+  verifyMagicLink,
+  sendEmailChangeCode,
+  verifyEmailChangeOtp,
   logout,
   verifyEmail,
-  resendVerifyEmail,
   updateEmail,
-  updatePassword,
-  resetPasswordRequest,
-  resetPasswordCheck,
-  resetPassword,
   subscribeBuilding,
   unsubscribeBuilding,
   unsubscribeAllBuilding,

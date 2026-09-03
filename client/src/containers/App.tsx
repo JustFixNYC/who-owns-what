@@ -43,10 +43,9 @@ import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
+import Modal from "components/Modal";
 import { UserContext, UserContextProvider } from "components/UserContext";
 import AccountSettingsPage from "./AccountSettingsPage";
-import ResetPasswordPage from "./ResetPasswordPage";
-import ForgotPasswordPage from "./ForgotPasswordPage";
 import UnsubscribePage from "./UnsubscribePage";
 import LoginPage from "./LoginPage";
 import { JFLogo } from "components/JFLogo";
@@ -116,8 +115,16 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
 
-  const localizedRedirect = (pathname: string) => {
-    return <LocaleRedirect to={{ pathname: removeLocalePrefix(pathname) }} />;
+  const localizedRedirect = (pathname: string, search?: string) => {
+    return <LocaleRedirect to={{ pathname: removeLocalePrefix(pathname), search }} />;
+  };
+
+  const redirectForgotResetToLogin = (locationSearch: string) => {
+    const incoming = new URLSearchParams(locationSearch);
+    const outgoing = new URLSearchParams({ from: "password" });
+    const email = incoming.get("email");
+    if (email) outgoing.set("email", email);
+    return localizedRedirect(paths.account.login, `?${outgoing.toString()}`);
   };
 
   return (
@@ -223,8 +230,14 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           )
         }
       />
-      <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
-      <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
+      <Route
+        path={paths.account.forgotPassword}
+        render={({ location }) => redirectForgotResetToLogin(location.search)}
+      />
+      <Route
+        path={paths.account.resetPassword}
+        render={({ location }) => redirectForgotResetToLogin(location.search)}
+      />
       <Route path={paths.account.unsubscribe} component={UnsubscribePage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
@@ -384,6 +397,66 @@ const AppBody = () => {
   );
 };
 
+const OtpLoginBanner = withI18n()((props: withI18nProps) => {
+  const [isBannerOpen, setBannerVisibility] = useState(true);
+  const [isLearnMoreModalOpen, setLearnMoreModalOpen] = useState(false);
+  const { pathname } = useLocation();
+  const { i18n } = props;
+  const path = removeLocalePrefix(pathname);
+
+  if (path !== "/account/login" && path !== "/account/settings") {
+    return null;
+  }
+
+  return (
+    <>
+      <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
+        <div className="content">
+          <Trans render="p">
+            Starting September 3, Who Owns What will use a one-time passcode instead of a password
+            to log in.{" "}
+            <button
+              type="button"
+              onClick={() => setLearnMoreModalOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={isLearnMoreModalOpen}
+            >
+              Learn more
+            </button>
+          </Trans>
+        </div>
+        <button
+          className="close-button"
+          onClick={() => setBannerVisibility(false)}
+          aria-label={i18n._(t`Close`)}
+        >
+          ✕
+        </button>
+      </div>
+      <Modal
+        className="otp-login-modal"
+        showModal={isLearnMoreModalOpen}
+        onClose={() => setLearnMoreModalOpen(false)}
+      >
+        <h5 className="first-header">
+          <Trans>One time passcodes</Trans>
+        </h5>
+        <p>
+          <strong>
+            <Trans>You no longer need a password to log in to Who Owns What.</Trans>
+          </strong>
+        </p>
+        <p>
+          <Trans>
+            Instead, we’ll send a one-time passcode to the email address associated with your
+            account. Your account and saved information will stay the same.
+          </Trans>
+        </p>
+      </Modal>
+    </>
+  );
+});
+
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
   const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
@@ -426,6 +499,7 @@ const App = () => {
           <UserContextProvider>
             <div className="App">
               <Navbar />
+              <OtpLoginBanner />
               {deprecationModalEnabled && <DeprecationModal />}
               <AppBody />
               {surveyId && surveyCookie !== "2" && (

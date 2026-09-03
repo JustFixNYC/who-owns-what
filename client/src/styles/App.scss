@@ -80,6 +80,7 @@
     // Override default <p> styling:
     p {
       margin-bottom: 0;
+      font-size: 0.875rem;
     }
 
     a,
@@ -87,6 +88,11 @@
       color: $wowza-dark;
       text-decoration: underline;
       font-weight: 700;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline;
 
       &:hover,
       &:focus {
@@ -96,6 +102,18 @@
   }
 
   background-color: $wowza-warning;
+}
+
+.otp-login-modal {
+  @include for-tablet-landscape-up {
+    h5 {
+      font-size: 1.75rem; // 28px
+    }
+
+    p {
+      font-size: 1.125rem; // 18px
+    }
+  }
 }
 
 .App__header {

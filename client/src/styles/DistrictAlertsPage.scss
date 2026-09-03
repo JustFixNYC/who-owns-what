@@ -236,7 +236,7 @@ div.DistrictAlertsPage {
 
 // Override the default modal padding on mobile
 @include for-phone-only {
-  .ReactModal__Overlay--after-open .ReactModal__Content {
+  .ReactModal__Overlay--after-open .area-alerts-modal {
     padding: unset !important;
     width: 100% !important;
   }

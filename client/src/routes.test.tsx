@@ -1,4 +1,4 @@
-import { createAddressPageRoutes, isAddressPageRoute } from "routes";
+import { createAddressPageRoutes, isAddressPageRoute, isOtpLoginBannerPath } from "routes";
 
 describe("isAddressPageRoute()", () => {
   it("correctly identifies a regular address page", () => {
@@ -15,6 +15,19 @@ describe("isAddressPageRoute()", () => {
 
   it("handles cases where 'address' happens to be in the url somewhere", () => {
     expect(isAddressPageRoute("/en/find-my-address")).toBe(false);
+  });
+});
+
+describe("isOtpLoginBannerPath()", () => {
+  it("matches localized login and settings routes", () => {
+    expect(isOtpLoginBannerPath("/en/account/login")).toBe(true);
+    expect(isOtpLoginBannerPath("/es/account/settings")).toBe(true);
+  });
+
+  it("does not match other account or site routes", () => {
+    expect(isOtpLoginBannerPath("/en/account/verify-email")).toBe(false);
+    expect(isOtpLoginBannerPath("/en/account/unsubscribe")).toBe(false);
+    expect(isOtpLoginBannerPath("/en/")).toBe(false);
   });
 });
 

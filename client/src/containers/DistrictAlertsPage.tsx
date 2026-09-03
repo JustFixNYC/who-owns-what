@@ -70,13 +70,21 @@ export type AreaOption = {
 
 let areaTypeOptions: AreaTypeOption[] = districtTypes.options;
 
+export const buildDistrictLoginLocation = (language: string, district: AreaProperties[]) => {
+  const { account } = createWhoOwnsWhatRoutePaths();
+  return {
+    pathname: `/${language}${account.login}`,
+    state: { district },
+  };
+};
+
 const DistrictCreation = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const userContext = useContext(UserContext);
   const isLoggedIn = !!userContext?.user?.email;
 
   const history = useHistory();
-  const { account } = createWhoOwnsWhatRoutePaths(i18n.language);
+  const { account } = createWhoOwnsWhatRoutePaths();
 
   const defaultAreaType = areaTypeOptions.filter((area) => area.value === "zipcode")[0];
   const [areaType, setAreaType] = useState<AreaTypeOption>(defaultAreaType);
@@ -151,14 +159,13 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     const district = areaSelections.map((x) => x.properties);
 
     if (!isLoggedIn) {
-      const loginRoute = `/${i18n.language}${account.login}`;
-      history.push({ pathname: loginRoute, state: { district } });
+      history.push(buildDistrictLoginLocation(i18n.language, district));
       return;
     }
 
     await userContext.subscribeDistrict(district);
     const redirectTo = {
-      pathname: `/${account.settings}`,
+      pathname: `/${i18n.language}${account.settings}`,
       state: { justSubscribed: true },
     };
     history.push(redirectTo);

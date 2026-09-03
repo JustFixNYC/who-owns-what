@@ -1,76 +1,84 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { Button, Icon, Link as JFCLLink } from "@justfixnyc/component-library";
+import { I18n } from "@lingui/core";
+import { useHistory, useLocation } from "react-router-dom";
+import { Button } from "@justfixnyc/component-library";
 
 import "styles/_input.scss";
-import AuthClient from "./AuthClient";
 import { JustfixUser } from "state-machine";
 import { UserContext } from "./UserContext";
 import helpers, { useInput } from "util/helpers";
-import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import UserTypeInput from "./UserTypeInput";
 import PhoneNumberInput from "./PhoneNumberInput";
 import { Alert } from "./Alert";
-import SendNewLink from "./SendNewLink";
+import { CodeEntry } from "./CodeEntry";
+import { SendLoginCodeOptions } from "./AuthClient";
+import { NETWORK_AUTH_ERROR, reportUnexpectedAuthError } from "./auth-errors";
 import { JFCLLocaleLink } from "i18n";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord, District } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
-import { Nobr } from "./Nobr";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 enum Step {
   CheckEmail,
-  Login,
-  RegisterAccount,
   RegisterPhoneNumber,
   RegisterUserType,
-  VerifyEmail,
+  CodeEntry,
   LoginSuccess,
 }
+
+export const mapAuthError = (error: string | undefined, i18n: I18n): string => {
+  switch (error) {
+    case "Invalid OTP.":
+      return i18n._(t`The code you entered is incorrect.`);
+    case "OTP has expired. Please request a new code.":
+      return i18n._(t`That code has expired. Request a new one.`);
+    case "Too many invalid attempts. Please request a new code.":
+      return i18n._(t`Too many attempts. Request a new code.`);
+    case "Too many requests":
+      return i18n._(t`Too many requests. Please try again later.`);
+    case "Email delivery failed":
+      return i18n._(t`We couldn't send the email. Please try again.`);
+    case NETWORK_AUTH_ERROR:
+    case "Auth service unavailable":
+    default:
+      return i18n._(t`Something went wrong. Please try again.`);
+  }
+};
 
 const LoginWithoutI18n = (props: withI18nProps) => {
   const { i18n } = props;
 
   const userContext = useContext(UserContext);
-  const { user } = userContext;
-  const {
-    home,
-    account,
-    termsOfUse,
-    privacyPolicy,
-    areaAlerts,
-    buildingAlerts,
-  } = createWhoOwnsWhatRoutePaths();
+  const { home, account, termsOfUse, privacyPolicy, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
-  const { pathname, state: locationState } = useLocation();
+  const { pathname, search, state: locationState } = useLocation();
+  const loginParams = new URLSearchParams(search);
+  const fromPasswordLink = loginParams.get("from") === "password";
+
   const [addr, setAddr] = React.useState<AddressRecord>();
   const [district, setDistrict] = React.useState<District>();
   const [returnRoute, setReturnRoute] = React.useState<string>();
-  const [fromBuildingAlerts, setFromBuildingAlerts] = React.useState(false);
   // switch to regular state and clear location state since it otherwise persists after reloads
   useEffect(() => {
     setAddr(locationState?.addr);
     setDistrict(locationState?.district);
     setReturnRoute(locationState?.returnRoute);
-    setFromBuildingAlerts(!!locationState?.fromBuildingAlerts);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
   const [step, setStep] = useState(Step.CheckEmail);
   const isCheckEmailStep = step === Step.CheckEmail;
-  const isLoginStep = step === Step.Login;
-  const isRegisterAccountStep = step === Step.RegisterAccount;
   const isRegisterUserTypeStep = step === Step.RegisterUserType;
   const isRegisterPhoneNumberStep = step === Step.RegisterPhoneNumber;
-  const isVerifyEmailStep = step === Step.VerifyEmail;
+  const isCodeEntryStep = step === Step.CodeEntry;
   const isLoginSuccessStep = step === Step.LoginSuccess;
 
-  const [loginOrRegister, setLoginOrRegister] = useState("");
+  const [isNewUser, setIsNewUser] = useState(false);
 
   const {
     value: email,
@@ -79,15 +87,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     setError: setEmailError,
     setShowError: setShowEmailError,
     onChange: onChangeEmail,
-  } = useInput("");
-  const {
-    value: password,
-    error: passwordError,
-    showError: showPasswordError,
-    setError: setPasswordError,
-    setShowError: setShowPasswordError,
-    onChange: onChangePassword,
-  } = useInput("");
+  } = useInput(loginParams.get("email") || "");
   const {
     value: userType,
     error: userTypeError,
@@ -106,9 +106,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   } = useInput("");
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailResent, setIsEmailResent] = useState(false);
-  const [invalidAuthError, setInvalidAuthError] = useState(false);
-  const [existingUserError, setExistingUserError] = useState(false);
+  const [pageError, setPageError] = useState("");
+  const [otpError, setOtpError] = useState("");
 
   const eventParams = (user?: JustfixUser) => {
     const customParams = {
@@ -139,9 +138,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     return withBoro ? `${addrWithoutBoro}, ${helpers.titleCase(addr.boro)}` : addrWithoutBoro;
   };
 
-  const subscribeOnSuccess = (user: JustfixUser) => {
-    !!addr &&
-      userContext.subscribeBuilding(
+  const subscribeOnSuccess = async (user: JustfixUser) => {
+    if (addr) {
+      await userContext.subscribeBuilding(
         addr.bbl,
         addr.housenumber,
         addr.streetname,
@@ -149,32 +148,52 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         addr.boro,
         user
       );
+    }
 
-    !!district && userContext.subscribeDistrict(district, user);
+    if (district) {
+      await userContext.subscribeDistrict(district, user);
+    }
   };
 
   const resetAlertErrorStates = () => {
-    setInvalidAuthError(false);
-    setExistingUserError(false);
+    setPageError("");
+    setOtpError("");
   };
 
   const hideInputErrors = () => {
     setShowEmailError(false);
-    setShowPasswordError(false);
     setShowUserTypeError(false);
+    setShowPhoneNumberError(false);
   };
 
-  const toggleLoginSignup = (toStep: Step) => {
-    resetAlertErrorStates();
-    hideInputErrors();
-    setStep(toStep);
+  const cleanedPhone = phoneNumber ? phoneNumber.replace(/\D/g, "").slice(0, 10) : undefined;
+
+  const sendCodeOptions = (): SendLoginCodeOptions | undefined => {
+    const options: SendLoginCodeOptions = {};
+    if (isNewUser) {
+      options.userType = userType;
+      options.phoneNumber = cleanedPhone;
+    }
+    if (addr) {
+      options.building = {
+        bbl: addr.bbl,
+        housenumber: addr.housenumber,
+        streetname: addr.streetname,
+        zip: addr.zip ?? "",
+        boro: addr.boro,
+      };
+    }
+    if (!options.userType && !options.phoneNumber && !options.building) {
+      return undefined;
+    }
+    return options;
   };
 
-  const renderPageLevelAlert = (
-    type: "error" | "success" | "info",
-    message: string,
-    showLogin?: boolean
-  ) => {
+  const sendCode = async () => {
+    return userContext.sendLoginCode(email, sendCodeOptions());
+  };
+
+  const renderPageLevelAlert = (type: "error" | "success" | "info", message: string) => {
     return (
       <Alert
         className={`page-level-alert`}
@@ -184,33 +203,26 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         type={type}
       >
         {message}
-        {showLogin && (
-          <button className="button is-text ml-2" onClick={() => toggleLoginSignup(Step.Login)}>
-            <Trans>Log in</Trans>
-          </button>
-        )}
       </Alert>
     );
   };
 
   const renderAlert = () => {
-    let alertMessage = "";
-
-    switch (true) {
-      case invalidAuthError:
-        alertMessage = i18n._(t`The email and/or password you entered is incorrect.`);
-        return renderPageLevelAlert("error", alertMessage);
-      case existingUserError && isRegisterAccountStep:
-        alertMessage = i18n._(t`That email is already used.`);
-        // show login button in alert
-        return renderPageLevelAlert("error", alertMessage, true);
+    if (pageError) {
+      return renderPageLevelAlert("error", pageError);
+    }
+    if (fromPasswordLink && isCheckEmailStep) {
+      return renderPageLevelAlert(
+        "info",
+        i18n._(t`We no longer use passwords — enter your email for a code or link.`)
+      );
     }
   };
 
   const renderFooter = () => {
     return (
       <div className="login-footer">
-        {(isRegisterAccountStep || isRegisterPhoneNumberStep) && (
+        {isRegisterPhoneNumberStep && (
           <span className="privacy-links">
             <Trans>
               Your privacy is important to us. Read our{" "}
@@ -225,105 +237,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
             </Trans>
           </span>
         )}
-        {isLoginStep && (
-          <JFCLLocaleLink
-            to={`${account.forgotPassword}?email=${encodeURIComponent(email || "")}`}
-            className="forgot-password"
-          >
-            <Trans>Forgot your password?</Trans>
-          </JFCLLocaleLink>
-        )}
-        <div className="login-type-toggle">
-          {isRegisterAccountStep && (
-            <>
-              <Trans>Already have an account?</Trans>
-              <button
-                className="button is-text ml-2"
-                onClick={() => {
-                  window.gtag("event", "swap-register-login", { ...eventParams(), to: "login" });
-                  toggleLoginSignup(Step.Login);
-                }}
-              >
-                <Trans>Log in</Trans>
-              </button>
-            </>
-          )}
-          {isLoginStep && (
-            <>
-              <Trans>Don't have an account?</Trans>
-              <button
-                className="button is-text ml-2 pt-6"
-                onClick={() => {
-                  window.gtag("event", "swap-register-login", { ...eventParams(), to: "register" });
-                  toggleLoginSignup(Step.RegisterAccount);
-                }}
-              >
-                <Trans>Sign up</Trans>
-              </button>
-            </>
-          )}
-        </div>
       </div>
     );
   };
-
-  const renderResendVerifyEmail = () => (
-    <>
-      <div className="resend-email-container">
-        {!isEmailResent && (
-          <Trans render="p" className="didnt-get-link">
-            Didn’t get the link?
-          </Trans>
-        )}
-        <SendNewLink
-          setParentState={setIsEmailResent}
-          size="large"
-          onClick={() => {
-            AuthClient.resendVerifyEmail();
-            const from = `${eventParams().from} ${loginOrRegister}`;
-            window.gtag("event", "email-verify-resend", { ...eventParams(user), from });
-          }}
-        />
-      </div>
-      {!!addr && (
-        <div className="address-page-link">
-          <Link
-            to={{
-              pathname: fromBuildingAlerts
-                ? `/${i18n.language}${buildingAlerts}`
-                : getAddrReturnRoute(addr),
-              state: { justSubscribed: true, subscribedTo: "building" },
-            }}
-            component={JFCLLink}
-            onClick={() =>
-              window.gtag("event", "register-return-address", { ...eventParams(user) })
-            }
-          >
-            <Icon icon="arrowRight" />
-            {fromBuildingAlerts ? (
-              <Trans>Back to Building Alerts</Trans>
-            ) : (
-              <>Back to {formatAddr(addr)}</>
-            )}
-          </Link>
-        </div>
-      )}
-      {!!district && (
-        <div className="district-page-link">
-          <Link
-            to={{ pathname: areaAlerts, state: { justSubscribed: true } }}
-            component={JFCLLink}
-            onClick={() =>
-              window.gtag("event", "register-return-district", { ...eventParams(user) })
-            }
-          >
-            <Icon icon="arrowRight" />
-            Back to Area Alerts
-          </Link>
-        </div>
-      )}
-    </>
-  );
 
   const renderLoginSuccess = () => (
     <>
@@ -345,60 +261,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     </>
   );
 
-  const onEmailSubmit = async () => {
-    window.gtag("event", "register-login-email", eventParams());
-    if (!email || emailError) {
-      setEmailError(true);
-      setShowEmailError(true);
-      return;
-    }
-
-    const existingUser = await AuthClient.isEmailAlreadyUsed(email);
-    existingUser ? setStep(Step.Login) : setStep(Step.RegisterAccount);
-  };
-
-  const onLoginSubmit = async () => {
-    window.gtag("event", "login-password", eventParams());
-
-    resetAlertErrorStates();
-
-    if (!email || emailError) {
-      setEmailError(true);
-      setShowEmailError(true);
-      return;
-    }
-
-    if (!password) {
-      setPasswordError(true);
-      setShowPasswordError(true);
-      return;
-    }
-
-    // context doesn't update immediately so need to rerun user to check verified status
-    const resp = await userContext.login(email, password, subscribeOnSuccess);
-
-    if (!!resp?.error) {
-      setInvalidAuthError(true);
-      window.gtag("event", "login-password-invalid", eventParams());
-      return;
-    }
-
-    window.gtag("event", "login-success", eventParams(resp?.user));
+  const finishAuthenticatedSession = (user?: JustfixUser) => {
+    window.gtag("event", isNewUser ? "register-success" : "login-success", eventParams(user));
 
     if (!!addr || !!district) {
-      const subscribeEventParams = { ...eventParams(), from: "login" };
+      const subscribeEventParams = { ...eventParams(), from: isNewUser ? "register" : "login" };
       const eventName = `subscribe-${!!addr ? "building" : "district"}-via-register-login`;
       window.gtag("event", eventName, { ...subscribeEventParams });
-    }
 
-    if (!resp?.user?.verified) {
-      await AuthClient.resendVerifyEmail();
-      setLoginOrRegister("login");
-      setStep(Step.VerifyEmail);
-      return;
-    }
-
-    if (!!addr || !!district) {
       const redirectTo = {
         pathname: !!addr ? getAddrReturnRoute(addr) : `/${i18n.language}${account.settings}`,
         state: {
@@ -414,30 +284,36 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     setStep(Step.LoginSuccess);
   };
 
-  const onAccountSubmit = async () => {
-    window.gtag("event", "register-password", eventParams());
-
+  const onEmailSubmit = async () => {
+    window.gtag("event", "register-login-email", eventParams());
     if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);
       return;
     }
 
-    const existingUser = await AuthClient.isEmailAlreadyUsed(email);
-    if (existingUser) {
-      window.gtag("event", "register-existing-user-error", eventParams());
-      setExistingUserError(true);
+    const resp = await userContext.startLogin(email);
+    if (resp?.error) {
+      reportUnexpectedAuthError(resp.error);
+      setPageError(mapAuthError(resp.error, i18n));
       return;
     }
 
-    if (!password || passwordError) {
-      window.gtag("event", "register-password-error", eventParams());
-      setPasswordError(true);
-      setShowPasswordError(true);
+    if (resp?.created) {
+      setIsNewUser(true);
+      setStep(Step.RegisterPhoneNumber);
       return;
     }
 
-    setStep(Step.RegisterPhoneNumber);
+    setIsNewUser(false);
+    window.gtag("event", "login-send-code", eventParams());
+    const sendResp = await userContext.sendLoginCode(email, sendCodeOptions());
+    if (sendResp?.error) {
+      reportUnexpectedAuthError(sendResp.error);
+      setPageError(mapAuthError(sendResp.error, i18n));
+      return;
+    }
+    setStep(Step.CodeEntry);
   };
 
   const onUserTypeSubmit = async () => {
@@ -449,31 +325,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    const phoneCleaned = phoneNumber ? phoneNumber.replace(/\D/g, "").slice(0, 10) : undefined;
-
-    const resp = await userContext.register(
-      email,
-      password,
-      userType,
-      phoneCleaned,
-      subscribeOnSuccess
-    );
-
-    if (!!resp?.error) {
-      setInvalidAuthError(true);
-      setStep(Step.RegisterAccount);
+    window.gtag("event", "login-send-code", { ...eventParams(), from: "register" });
+    const sendResp = await userContext.sendLoginCode(email, sendCodeOptions());
+    if (sendResp?.error) {
+      reportUnexpectedAuthError(sendResp.error);
+      setPageError(mapAuthError(sendResp.error, i18n));
       return;
     }
-
-    window.gtag("event", "register-success", eventParams(resp?.user));
-
-    if (!!addr || !!district) {
-      const subscribeEventParams = { ...eventParams(), from: "register" };
-      const eventName = `subscribe-${!!addr ? "building" : "district"}-via-register-login`;
-      window.gtag("event", eventName, { ...subscribeEventParams });
-    }
-
-    setStep(Step.VerifyEmail);
+    setStep(Step.CodeEntry);
   };
 
   const onChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -490,8 +349,38 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    setLoginOrRegister("register");
     setStep(Step.RegisterUserType);
+  };
+
+  const onVerifyOtp = async (code: string) => {
+    window.gtag("event", "login-verify-otp", eventParams());
+    try {
+      const resp = await userContext.verifyOtp(email, code, subscribeOnSuccess);
+      if (resp?.error) {
+        reportUnexpectedAuthError(resp.error);
+        setOtpError(mapAuthError(resp.error, i18n));
+        window.gtag("event", "login-otp-invalid", eventParams());
+        return;
+      }
+      finishAuthenticatedSession(resp?.user);
+    } catch (err) {
+      reportUnexpectedAuthError(err);
+      setOtpError(mapAuthError(NETWORK_AUTH_ERROR, i18n));
+    }
+  };
+
+  const onResendCode = async () => {
+    window.gtag("event", "login-code-resend", {
+      ...eventParams(),
+      from: isNewUser ? "register" : "login",
+    });
+    setOtpError("");
+    const sendResp = await sendCode();
+    if (sendResp?.error) {
+      reportUnexpectedAuthError(sendResp.error);
+      setOtpError(mapAuthError(sendResp.error, i18n));
+      throw new Error(sendResp.error);
+    }
   };
 
   let stepProgress = "";
@@ -501,49 +390,20 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   let submitButtonText = "";
   switch (step) {
     case Step.CheckEmail:
-      headerText =
-        fromBuildingAlerts && addr ? (
-          <>
-            {formatAddr(addr, false)}.
-            <br />
-            {i18n._(t`Log in / Sign up to get your weekly email update`)}
-          </>
-        ) : (
-          i18n._(t`Log in / Sign up`)
-        );
-      subHeaderText = fromBuildingAlerts ? undefined : (
-        <Trans>
-          Use your account to get weekly email alerts on{" "}
-          {!!addr ? (
-            <>{formatAddr(addr, false)}.</>
-          ) : !!district ? (
-            <>the areas you select.</>
-          ) : (
-            <>the buildings you select.</>
-          )}
-        </Trans>
-      );
+      if (addr) {
+        headerText = formatAddr(addr, false);
+        subHeaderText = i18n._(t`Log in or sign up to get weekly email updates on this building.`);
+      } else {
+        headerText = i18n._(t`Log in / Sign up`);
+        subHeaderText = district
+          ? i18n._(t`Use your account to get weekly email alerts on the areas you select.`)
+          : i18n._(t`Use your account to get weekly email alerts on the buildings you select.`);
+      }
       onSubmit = onEmailSubmit;
       submitButtonText = i18n._(t`Submit`);
       break;
-    case Step.Login:
-      headerText = i18n._(t`Log in`);
-      subHeaderText = !!addr ? (
-        <Trans>Log in to add {formatAddr(addr, false)} to your Building Alerts</Trans>
-      ) : !!district ? (
-        <Trans>Log in to subscribe to Area Alerts</Trans>
-      ) : undefined;
-      onSubmit = onLoginSubmit;
-      submitButtonText = i18n._(t`Log in`);
-      break;
-    case Step.RegisterAccount:
-      stepProgress = i18n._(t`Step 1 of 3`);
-      headerText = i18n._(t`Sign up for Email Alerts`);
-      onSubmit = onAccountSubmit;
-      submitButtonText = i18n._(t`Next`);
-      break;
     case Step.RegisterPhoneNumber:
-      stepProgress = i18n._(t`Step 2 of 3`);
+      stepProgress = i18n._(t`Step 1 of 2`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(
         t`We’ll text you in a few months to ask how we can improve this free service.`
@@ -552,21 +412,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       submitButtonText = i18n._(t`Next`);
       break;
     case Step.RegisterUserType:
-      stepProgress = i18n._(t`Step 3 of 3`);
+      stepProgress = i18n._(t`Step 2 of 2`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(t`Which best describes you?`);
       onSubmit = onUserTypeSubmit;
       submitButtonText = i18n._(t`Sign up`);
-      break;
-    case Step.VerifyEmail:
-      headerText = i18n._(t`Check your email`);
-      subHeaderText = (
-        <Trans>
-          Click the link we sent to <Nobr>{email}</Nobr> to verify your email. It may take a few
-          minutes to arrive. If you can't find it, check your spam and promotions folders for an
-          email from <Nobr>no-reply@justfix.org</Nobr>.
-        </Trans>
-      );
       break;
   }
 
@@ -576,19 +426,25 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       {renderAlert()}
       {!!headerText && <h1>{headerText}</h1>}
       {!!subHeaderText && <h2>{subHeaderText}</h2>}
-      {!isVerifyEmailStep && !isLoginSuccessStep && (
+      {!isCodeEntryStep && !isLoginSuccessStep && (
         <form
           className="input-group"
           onSubmit={async (e) => {
             e.preventDefault();
             setIsLoading(true);
             resetAlertErrorStates();
-            await onSubmit();
-            // if OnSubmit redirects, state change below raises memory leak warning, but not a problem
-            setIsLoading(false);
+            hideInputErrors();
+            try {
+              await onSubmit();
+            } catch (err) {
+              reportUnexpectedAuthError(err);
+              setPageError(mapAuthError(NETWORK_AUTH_ERROR, i18n));
+            } finally {
+              setIsLoading(false);
+            }
           }}
         >
-          {(isCheckEmailStep || isLoginStep || isRegisterAccountStep) && (
+          {isCheckEmailStep && (
             <EmailInput
               email={email}
               onChange={onChangeEmail}
@@ -597,21 +453,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               showError={showEmailError}
               autoFocus={true}
               labelText={i18n._(t`Email address`)}
-            />
-          )}
-          {(isLoginStep || isRegisterAccountStep) && (
-            <PasswordInput
-              labelText={
-                isRegisterAccountStep ? i18n._(t`Create password`) : i18n._(t`Enter your password`)
-              }
-              password={password}
-              username={email}
-              error={passwordError}
-              showError={showPasswordError}
-              setError={setPasswordError}
-              onChange={onChangePassword}
-              showPasswordRules={isRegisterAccountStep}
-              autoFocus={!!email && !password}
             />
           )}
           {isRegisterUserTypeStep && (
@@ -644,9 +485,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           </div>
         </form>
       )}
-      {isVerifyEmailStep && renderResendVerifyEmail()}
+      {isCodeEntryStep && (
+        <CodeEntry email={email} onVerify={onVerifyOtp} onResend={onResendCode} error={otpError} />
+      )}
       {isLoginSuccessStep && renderLoginSuccess()}
-      {(isLoginStep || isRegisterAccountStep || isRegisterPhoneNumberStep) && renderFooter()}
+      {isRegisterPhoneNumberStep && renderFooter()}
     </div>
   );
 };

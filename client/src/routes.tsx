@@ -24,6 +24,11 @@ export const isAddressPageRoute = (pathname: string) => {
 export const isBuildingAlertsPath = (pathname: string) =>
   removeLocalePrefix(pathname).startsWith("/building-alerts");
 
+export const isOtpLoginBannerPath = (pathname: string) => {
+  const path = removeLocalePrefix(pathname);
+  return path === "/account/login" || path === "/account/settings";
+};
+
 export const removeIndicatorSuffix = (pathname: string) => pathname.replace(/\/:indicator.*/, "");
 
 export const createRouteForAddressPage = (
