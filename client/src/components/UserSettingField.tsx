@@ -171,16 +171,22 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
           onVerify={handleVerifyOtp}
           onResend={handleResendCode}
           error={otpError}
-        />
-        <Button
-          type="button"
-          variant="tertiary"
-          size="small"
-          labelText={i18n._(t`Cancel`)}
-          onClick={() => {
-            setStep("field");
-            setOtpError("");
-          }}
+          showHeading={false}
+          fieldLabel={
+            <label className="user-setting-label">{i18n._(t`Email address`)}</label>
+          }
+          actions={
+            <Button
+              type="button"
+              variant="tertiary"
+              size="small"
+              labelText={i18n._(t`Cancel`)}
+              onClick={() => {
+                setStep("field");
+                setOtpError("");
+              }}
+            />
+          }
         />
       </div>
     );
@@ -220,16 +226,18 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       <Trans render="label" className="user-setting-label">
         Email address
       </Trans>
-      <Trans render="p">We send alerts to this email.</Trans>
-      <EmailInput
-        email={email}
-        error={emailError}
-        showError={showEmailError}
-        setError={setEmailError}
-        onChange={onChangeEmail}
-        autoFocus
-        placeholder={i18n._(t`Enter new email address`)}
-      />
+      <div className="email-input-container">
+        <Trans render="p">We send alerts to this email.</Trans>
+        <EmailInput
+          email={email}
+          error={emailError}
+          showError={showEmailError}
+          setError={setEmailError}
+          onChange={onChangeEmail}
+          autoFocus
+          placeholder={i18n._(t`Enter new email address`)}
+        />
+      </div>
     </UserSettingField>
   );
 };
@@ -276,7 +284,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
         ) : (
           <>
             <label className="user-setting-label">{title}</label>
-            <div>
+            <div className="user-setting-preview">
               <span>{preview}</span>
               <Button
                 type="button"

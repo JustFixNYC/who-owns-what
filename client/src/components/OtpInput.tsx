@@ -20,7 +20,7 @@ export type OtpInputProps = {
   name: string;
   autoFocus?: boolean;
   "aria-describedby"?: string;
-  "aria-label": string;
+  "aria-label"?: string;
   className?: string;
 };
 
