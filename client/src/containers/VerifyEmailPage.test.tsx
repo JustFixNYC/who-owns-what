@@ -42,4 +42,11 @@ describe("VerifyEmailPage magic-link client", () => {
     expect(legacy.statusCode).not.toBe(VerifyStatusCode.Success);
     expect(legacy.user).toBeUndefined();
   });
+
+  it("flags fetch failures so the landing page can skip Rollbar for offline users", async () => {
+    fetchMock.mockRejectOnce(new TypeError("Failed to fetch"));
+    const result = await AuthClient.verifyMagicLink("abc");
+    expect(result.networkError).toBe(true);
+    expect(result.statusCode).toBe(VerifyStatusCode.Unknown);
+  });
 });

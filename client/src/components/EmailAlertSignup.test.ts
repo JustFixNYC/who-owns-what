@@ -25,6 +25,16 @@ describe("EmailVerificationPrompt resend", () => {
     );
   });
 
+  it("treats otp pending as a send error so the prompt does not look successful", async () => {
+    fetchMock.mockResponseOnce(
+      JSON.stringify({ otp: { status: "pending", message: "Email delivery failed" } })
+    );
+
+    const result = await AuthClient.sendLoginCode("tenant@example.com");
+
+    expect(result.error).toBe("Email delivery failed");
+  });
+
   it("includes pending building fields from the building-alerts register path", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ otp: { status: "sent" } }));
 

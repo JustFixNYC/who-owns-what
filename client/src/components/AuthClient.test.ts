@@ -63,4 +63,53 @@ describe("AuthClient.verifyMagicLink", () => {
     expect(result.statusCode).toBe(VerifyStatusCode.Expired);
     expect(result.user).toBeUndefined();
   });
+
+  it("marks fetch failures as networkError without treating them as login success", async () => {
+    fetchMock.mockRejectOnce(new TypeError("Failed to fetch"));
+
+    const result = await AuthClient.verifyMagicLink("signed-code");
+
+    expect(result.statusCode).toBe(VerifyStatusCode.Unknown);
+    expect(result.networkError).toBe(true);
+    expect(result.user).toBeUndefined();
+  });
+});
+
+const SEND_CODE_URL = `${process.env.REACT_APP_API_BASE_URL}/auth/login/send-code`;
+const START_URL = `${process.env.REACT_APP_API_BASE_URL}/auth/login/start`;
+const VERIFY_OTP_URL = `${process.env.REACT_APP_API_BASE_URL}/auth/verify-otp`;
+
+describe("AuthClient sendLoginCode and verifyOtp errors", () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+
+  it("treats otp.status pending as a delivery error", async () => {
+    fetchMock.mockResponseOnce(
+      JSON.stringify({ otp: { status: "pending", message: "Email delivery failed" } })
+    );
+
+    const result = await AuthClient.sendLoginCode("tenant@example.com");
+
+    expect(result.error).toBe("Email delivery failed");
+    expect(fetchMock.mock.calls[0][0]).toBe(SEND_CODE_URL);
+  });
+
+  it("returns a structured error when start-login is not JSON", async () => {
+    fetchMock.mockResponseOnce("<html>upstream 502</html>", { status: 502 });
+
+    const result = await AuthClient.startLogin("tenant@example.com");
+
+    expect(result.error).toMatch(/Auth request failed/);
+    expect(fetchMock.mock.calls[0][0]).toBe(START_URL);
+  });
+
+  it("returns a structured error when verify-otp is not JSON", async () => {
+    fetchMock.mockResponseOnce("Internal Server Error", { status: 500 });
+
+    const result = await AuthClient.verifyOtp("tenant@example.com", "123456");
+
+    expect(result.error).toMatch(/Auth request failed/);
+    expect(fetchMock.mock.calls[0][0]).toBe(VERIFY_OTP_URL);
+  });
 });

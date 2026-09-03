@@ -15,6 +15,7 @@ import { Alert } from "./Alert";
 import { Button, Icon } from "@justfixnyc/component-library";
 import { CodeEntry } from "./CodeEntry";
 import { reloginToVerify } from "./EmailAlertSignup";
+import { NETWORK_AUTH_ERROR, reportUnexpectedAuthError } from "./auth-errors";
 import { Nobr } from "./Nobr";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
@@ -31,6 +32,9 @@ export const mapSettingAuthError = (error: string | undefined, i18n: I18n): stri
       return i18n._(t`Too many requests. Please try again later.`);
     case "Email already in use":
       return i18n._(t`That email is already used.`);
+    case "Email delivery failed":
+      return i18n._(t`We couldn't send the email. Please try again.`);
+    case NETWORK_AUTH_ERROR:
     default:
       return i18n._(t`Something went wrong. Please try again.`);
   }
@@ -99,6 +103,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
 
     const resp = await userContext.sendEmailChangeCode(email);
     if (resp?.error) {
+      reportUnexpectedAuthError(resp.error);
       if (resp.error === "Email already in use") {
         setExistingUserError(true);
       } else {
@@ -115,6 +120,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const handleVerifyOtp = async (code: string) => {
     const resp = await userContext.verifyEmailChangeOtp(pendingEmail, code);
     if (resp?.error) {
+      reportUnexpectedAuthError(resp.error);
       setOtpError(mapSettingAuthError(resp.error, i18n));
       return;
     }
@@ -126,6 +132,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     setOtpError("");
     const resp = await userContext.sendEmailChangeCode(pendingEmail);
     if (resp?.error) {
+      reportUnexpectedAuthError(resp.error);
       setOtpError(mapSettingAuthError(resp.error, i18n));
       throw new Error(resp.error);
     }
@@ -140,12 +147,14 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       const eventParams = { ...eventUserParams, from: "account settings" };
       window.gtag("event", "email-verify-resend", { ...eventParams, branch: BRANCH_NAME });
       if (resp?.error) {
+        reportUnexpectedAuthError(resp.error);
         setNeedsRelogin(true);
         setResendError(mapSettingAuthError(resp.error, i18n));
         return;
       }
       setIsEmailResent(true);
-    } catch {
+    } catch (err) {
+      reportUnexpectedAuthError(err);
       setResendError(mapSettingAuthError(undefined, i18n));
     } finally {
       setIsResending(false);

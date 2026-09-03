@@ -21,6 +21,7 @@ type VerifyEmailResponse = {
 
 export type VerifyMagicLinkResponse = VerifyEmailResponse & {
   user?: JustfixUser;
+  networkError?: boolean;
 };
 
 let _user: JustfixUser | undefined;
@@ -106,7 +107,9 @@ const sendLoginCode = async (email: string, options?: SendLoginCodeOptions) => {
     params.zip = options.building.zip;
     params.boro = options.building.boro;
   }
-  return await postAuthRequest(`${BASE_URL}auth/login/send-code`, params);
+  return await withOtpDeliveryError(
+    await postAuthRequest(`${BASE_URL}auth/login/send-code`, params)
+  );
 };
 
 /**
@@ -157,7 +160,10 @@ const verifyMagicLink = async (
       result.statusText = response.status_text || "";
     }
   } catch (e) {
-    if (e instanceof Error) {
+    if (e instanceof NetworkError) {
+      result.error = e.message;
+      result.networkError = true;
+    } else if (e instanceof Error) {
       result.error = e.message;
     }
   }
@@ -168,9 +174,11 @@ const verifyMagicLink = async (
  * Authenticated proof of a new email: issue OTP + magic link to new_email.
  */
 const sendEmailChangeCode = async (newEmail: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/email/change/send-code`, {
-    new_email: newEmail.toLowerCase(),
-  });
+  return await withOtpDeliveryError(
+    await postAuthRequest(`${BASE_URL}auth/email/change/send-code`, {
+      new_email: newEmail.toLowerCase(),
+    })
+  );
 };
 
 /**
@@ -363,6 +371,26 @@ const emailUserSubscriptions = async (token: string) => {
  * Wrapper function for authentication POST requests
  */
 
+const withOtpDeliveryError = (response: any) => {
+  if (response?.error) return response;
+  const status = response?.otp?.status;
+  if (status && status !== "sent") {
+    return {
+      ...response,
+      error: response.otp.message || "Email delivery failed",
+    };
+  }
+  return response;
+};
+
+const parseAuthResponse = async (result: Response) => {
+  try {
+    return await result.json();
+  } catch {
+    return { error: `Auth request failed (${result.status})` };
+  }
+};
+
 const postAuthRequest = async (
   url: string,
   params?: { [key: string]: string },
@@ -385,15 +413,7 @@ const postAuthRequest = async (
     credentials: "include",
   });
 
-  try {
-    if (result.ok) {
-      return await result.json();
-    } else {
-      return await result.json();
-    }
-  } catch {
-    return result;
-  }
+  return await parseAuthResponse(result);
 };
 
 /**
@@ -422,7 +442,7 @@ const postLoginCredentials = async (
     credentials: "include",
   });
 
-  return await result.json();
+  return await parseAuthResponse(result);
 };
 
 const friendlyFetch: typeof fetch = async (input, init) => {

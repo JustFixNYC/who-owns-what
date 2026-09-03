@@ -18,6 +18,7 @@ import helpers from "util/helpers";
 import { AddressRecord } from "./APIDataTypes";
 import { ToastAlert } from "./ToastAlert";
 import { Nobr } from "./Nobr";
+import { reportUnexpectedAuthError } from "./auth-errors";
 
 const DEFAULT_SUBSCRIPTION_LIMIT = 15;
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
@@ -60,11 +61,13 @@ const EmailVerificationPromptWithoutI18n = (props: EmailVerificationPromptProps)
         branch: BRANCH_NAME,
       });
       if (resp?.error) {
+        reportUnexpectedAuthError(resp.error);
         setNeedsRelogin(true);
         return;
       }
       setIsEmailResent(true);
-    } catch {
+    } catch (err) {
+      reportUnexpectedAuthError(err);
       setNeedsRelogin(true);
     } finally {
       setIsResending(false);

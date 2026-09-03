@@ -4,6 +4,8 @@ import { Trans, t } from "@lingui/macro";
 import { useLocation } from "react-router-dom";
 
 import { VerifyStatusCode } from "../components/AuthClient";
+import { reportUnexpectedAuthError } from "../components/auth-errors";
+import { NetworkError, reportError } from "error-reporting";
 import { UserContext } from "components/UserContext";
 import StandalonePage from "components/StandalonePage";
 import { JFCLLocaleLink } from "i18n";
@@ -30,6 +32,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   useEffect(() => {
     const verifyMagicLink = async () => {
       if (!code) {
+        reportError("Magic link landing missing code");
         setUnknownError(true);
         setLoading(false);
         return;
@@ -45,6 +48,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
           } else {
             setUnknownError(true);
             window.gtag("event", "email-verify-error", { branch: BRANCH_NAME });
+            reportError("Magic link verify returned success without a user");
           }
           break;
         case VerifyStatusCode.AlreadyVerified:
@@ -58,6 +62,15 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         default:
           setUnknownError(true);
           window.gtag("event", "email-verify-error", { branch: BRANCH_NAME });
+          if (result.networkError) {
+            reportUnexpectedAuthError(new NetworkError(result.error || "network"));
+          } else {
+            reportError(
+              `Magic link verify failed (${result.statusCode}): ${
+                result.error || result.statusText || "unknown"
+              }`
+            );
+          }
       }
       setLoading(false);
     };
@@ -81,7 +94,6 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     </div>
   );
 
-  // TODO add error logging
   const errorPage = () => (
     <>
       <Trans render="h1">We’re having trouble verifying your email at this time.</Trans>

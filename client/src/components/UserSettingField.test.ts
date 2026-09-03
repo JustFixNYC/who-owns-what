@@ -42,6 +42,16 @@ describe("EmailSettingField email-change proof", () => {
       })
     );
   });
+
+  it("treats otp pending as a send error", async () => {
+    fetchMock.mockResponseOnce(
+      JSON.stringify({ otp: { status: "pending", message: "Email delivery failed" } })
+    );
+
+    const result = await AuthClient.sendEmailChangeCode("new@example.com");
+
+    expect(result.error).toBe("Email delivery failed");
+  });
 });
 
 describe("mapSettingAuthError", () => {
@@ -50,5 +60,8 @@ describe("mapSettingAuthError", () => {
   it("maps OTP and ownership errors to existing settings copy", () => {
     expect(mapSettingAuthError("Invalid OTP.", i18n)).toBe("The code you entered is incorrect.");
     expect(mapSettingAuthError("Email already in use", i18n)).toBe("That email is already used.");
+    expect(mapSettingAuthError("Email delivery failed", i18n)).toBe(
+      "We couldn't send the email. Please try again."
+    );
   });
 });

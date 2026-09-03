@@ -7,6 +7,8 @@ import AuthClient, {
 } from "./AuthClient";
 import { authRequiredPaths } from "routes";
 import { District } from "./APIDataTypes";
+import { NETWORK_AUTH_ERROR, reportUnexpectedAuthError } from "./auth-errors";
+import { NetworkError } from "error-reporting";
 
 type UserOrError = {
   user?: JustfixUser;
@@ -126,17 +128,33 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   }, [updateUserSubscriptions]);
 
   const startLogin = useCallback(async (email: string) => {
-    const response = await AuthClient.startLogin(email);
-    if (response.error) {
-      return { error: response.error };
+    try {
+      const response = await AuthClient.startLogin(email);
+      if (response.error) {
+        return { error: response.error };
+      }
+      return { created: response.created };
+    } catch (e) {
+      if (e instanceof NetworkError) {
+        return { error: NETWORK_AUTH_ERROR };
+      }
+      reportUnexpectedAuthError(e);
+      return { error: NETWORK_AUTH_ERROR };
     }
-    return { created: response.created };
   }, []);
 
   const sendLoginCode = useCallback(async (email: string, options?: SendLoginCodeOptions) => {
-    const response = await AuthClient.sendLoginCode(email, options);
-    if (response.error) {
-      return { error: response.error };
+    try {
+      const response = await AuthClient.sendLoginCode(email, options);
+      if (response.error) {
+        return { error: response.error };
+      }
+    } catch (e) {
+      if (e instanceof NetworkError) {
+        return { error: NETWORK_AUTH_ERROR };
+      }
+      reportUnexpectedAuthError(e);
+      return { error: NETWORK_AUTH_ERROR };
     }
   }, []);
 
@@ -146,13 +164,21 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       code: string,
       onSuccess?: (user: JustfixUser) => void | Promise<void>
     ) => {
-      const response = await AuthClient.verifyOtp(email, code);
-      if (response.error || !response.user) {
-        return { error: response.error || "Verification failed" };
+      try {
+        const response = await AuthClient.verifyOtp(email, code);
+        if (response.error || !response.user) {
+          return { error: response.error || "Verification failed" };
+        }
+        const updatedUser = updateUserSubscriptions(response.user);
+        if (onSuccess && updatedUser) await onSuccess(updatedUser);
+        return { user: updatedUser };
+      } catch (e) {
+        if (e instanceof NetworkError) {
+          return { error: NETWORK_AUTH_ERROR };
+        }
+        reportUnexpectedAuthError(e);
+        return { error: NETWORK_AUTH_ERROR };
       }
-      const updatedUser = updateUserSubscriptions(response.user);
-      if (onSuccess && updatedUser) await onSuccess(updatedUser);
-      return { user: updatedUser };
     },
     [updateUserSubscriptions]
   );
@@ -245,20 +271,36 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   );
 
   const sendEmailChangeCode = useCallback(async (newEmail: string) => {
-    const response = await AuthClient.sendEmailChangeCode(newEmail);
-    if (response?.error) {
-      return { error: response.error };
+    try {
+      const response = await AuthClient.sendEmailChangeCode(newEmail);
+      if (response?.error) {
+        return { error: response.error };
+      }
+    } catch (e) {
+      if (e instanceof NetworkError) {
+        return { error: NETWORK_AUTH_ERROR };
+      }
+      reportUnexpectedAuthError(e);
+      return { error: NETWORK_AUTH_ERROR };
     }
   }, []);
 
   const verifyEmailChangeOtp = useCallback(
     async (newEmail: string, code: string) => {
-      const response = await AuthClient.verifyEmailChangeOtp(newEmail, code);
-      if (response?.error || !response?.user) {
-        return { error: response?.error || "Verification failed" };
+      try {
+        const response = await AuthClient.verifyEmailChangeOtp(newEmail, code);
+        if (response?.error || !response?.user) {
+          return { error: response?.error || "Verification failed" };
+        }
+        const updatedUser = updateUserSubscriptions(response.user);
+        return { user: updatedUser };
+      } catch (e) {
+        if (e instanceof NetworkError) {
+          return { error: NETWORK_AUTH_ERROR };
+        }
+        reportUnexpectedAuthError(e);
+        return { error: NETWORK_AUTH_ERROR };
       }
-      const updatedUser = updateUserSubscriptions(response.user);
-      return { user: updatedUser };
     },
     [updateUserSubscriptions]
   );
