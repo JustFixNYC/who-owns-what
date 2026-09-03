@@ -25,8 +25,7 @@ export type CodeEntryProps = withI18nProps & {
 };
 
 const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
-  const { i18n, email, onVerify, onResend, error, showHeading = true, fieldLabel, actions } =
-    props;
+  const { i18n, email, onVerify, onResend, error, showHeading = true, fieldLabel, actions } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
   const [codeResent, setCodeResent] = useState(false);
@@ -40,8 +39,8 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
     setValue(sanitizeOtpValue(raw));
   }, []);
 
-  const handleSubmit = async (e?: React.FormEvent) => {
-    e?.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (busy || !isComplete) return;
     setIsSubmitting(true);
     try {
@@ -98,7 +97,6 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
           event.preventDefault();
           setSanitizedValue(event.clipboardData.getData("text"));
         }}
-        onComplete={() => handleSubmit()}
         aria-describedby={errorId}
         invalid={!!error && value.length > 0}
         disabled={busy}
