@@ -14,7 +14,6 @@ type UserOrError = {
 };
 
 type StartLoginResult = {
-  user?: JustfixUser;
   created?: boolean;
   error?: string;
 };
@@ -131,7 +130,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     if (response.error) {
       return { error: response.error };
     }
-    return { user: response.user, created: response.created };
+    return { created: response.created };
   }, []);
 
   const sendLoginCode = useCallback(async (email: string, options?: SendLoginCodeOptions) => {

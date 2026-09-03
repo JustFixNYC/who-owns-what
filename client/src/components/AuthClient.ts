@@ -76,7 +76,6 @@ export type SendLoginCodeOptions = {
 };
 
 type StartLoginResponse = {
-  user?: JustfixUser;
   created?: boolean;
   error?: string;
 };

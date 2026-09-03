@@ -27,9 +27,7 @@ def make_auth_response(status_code, json_data):
 class TestLoginStartProxy:
     @patch("jfauthprovider.views.client_secret_request")
     def test_login_start_does_not_set_cookies(self, mock_request, client):
-        mock_request.return_value = make_auth_response(
-            200, {"user": {"email": "test@example.com"}, "created": True}
-        )
+        mock_request.return_value = make_auth_response(200, {"created": True})
 
         res = client.post("/auth/login/start", {"email": "test@example.com"})
 
