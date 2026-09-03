@@ -145,7 +145,7 @@ msgstr "<0>Busque una dirección</0> para agregarla a sus alertas por edificio"
 #~ msgid "<0>Search for an address</0> to add to your Building Alerts"
 #~ msgstr "<0>Search for an address</0> to add to your Building Alerts"
 
-#: src/components/Login.tsx:156
+#: src/components/Login.tsx:179
 #: src/containers/UnsubscribePage.tsx:109
 #: src/containers/VerifyEmailPage.tsx:91
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
@@ -475,8 +475,8 @@ msgstr "CONSTRUCCIÓN"
 msgid "COOKING GAS"
 msgstr "GAS PARA COCINAR"
 
-#: src/components/UserSettingField.tsx:132
-#: src/components/UserSettingField.tsx:168
+#: src/components/UserSettingField.tsx:131
+#: src/components/UserSettingField.tsx:169
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -496,7 +496,7 @@ msgstr "Cambio en unidades con renta estabilizada"
 msgid "Check out the issues in this building"
 msgstr "Mire los problemas en este edificio"
 
-#: src/components/CodeEntry.tsx:61
+#: src/components/CodeEntry.tsx:63
 msgid "Check your email"
 msgstr "Revise su correo electrónico"
 
@@ -605,6 +605,7 @@ msgstr "\"Haga clic aquí para obtener más información.\""
 #: src/components/CloseButton.tsx:10
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:61
+#: src/containers/App.tsx:242
 msgid "Close"
 msgstr "Cerrar"
 
@@ -725,7 +726,7 @@ msgstr "Sitio Demo"
 #~ msgid "Didn’t get the link?"
 #~ msgstr "¿No recibió el enlace?"
 
-#: src/components/CodeEntry.tsx:75
+#: src/components/CodeEntry.tsx:79
 #: src/components/EmailAlertSignup.tsx:74
 #: src/components/UserSettingField.tsx:124
 msgid "Didn’t receive a code?"
@@ -786,7 +787,7 @@ msgstr "ASCENSOR"
 #~ msgid "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
 #~ msgstr "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
 
-#: src/components/UserSettingField.tsx:174
+#: src/components/UserSettingField.tsx:175
 msgid "Edit"
 msgstr "Editar"
 
@@ -794,9 +795,10 @@ msgstr "Editar"
 msgid "Email"
 msgstr "Correo"
 
-#: src/components/Login.tsx:306
-#: src/components/UserSettingField.tsx:138
-#: src/components/UserSettingField.tsx:147
+#: src/components/Login.tsx:326
+#: src/components/UserSettingField.tsx:131
+#: src/components/UserSettingField.tsx:137
+#: src/components/UserSettingField.tsx:146
 msgid "Email address"
 msgstr "Correo electrónico"
 
@@ -1332,7 +1334,7 @@ msgstr "Ubicación"
 msgid "Log in"
 msgstr "Iniciar sesión"
 
-#: src/components/Login.tsx:269
+#: src/components/Login.tsx:289
 msgid "Log in / Sign up"
 msgstr "Iniciar sesión / Registrarse"
 
@@ -1340,7 +1342,7 @@ msgstr "Iniciar sesión / Registrarse"
 msgid "Log in / sign up"
 msgstr "Iniciar sesión / Registrarse"
 
-#: src/components/Login.tsx:266
+#: src/components/Login.tsx:286
 msgid "Log in or sign up to get weekly email updates on this building."
 msgstr ""
 
@@ -1570,7 +1572,7 @@ msgstr "Nuevo enlace enviado"
 #~ msgstr "Contraseña nueva"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/Login.tsx:282
+#: src/components/Login.tsx:302
 msgid "Next"
 msgstr "Siguiente"
 
@@ -1749,7 +1751,7 @@ msgstr "Personas"
 msgid "Person/Entity"
 msgstr "Persona/Entidad"
 
-#: src/components/Login.tsx:308
+#: src/components/Login.tsx:328
 msgid "Phone number (optional)"
 msgstr "Número de teléfono (opcional)"
 
@@ -1883,7 +1885,7 @@ msgstr "Las unidades con renta estabilizada son declaradas por los propietarios 
 #~ msgid "Request new link"
 #~ msgstr "Solicitar un nuevo enlace"
 
-#: src/components/CodeEntry.tsx:77
+#: src/components/CodeEntry.tsx:81
 #: src/components/EmailAlertSignup.tsx:75
 #: src/components/UserSettingField.tsx:125
 msgid "Resend"
@@ -1955,7 +1957,7 @@ msgstr "Ejemplo de correo electrónico de una Alerta por edificio"
 msgid "Sample of building alert email showing complaints, violations, and eviction filings"
 msgstr "Ejemplo de un correo electrónico de alerta sobre el edificio en el que se muestran las quejas, las infracciones y las solicitudes de desahucio"
 
-#: src/components/UserSettingField.tsx:167
+#: src/components/UserSettingField.tsx:168
 msgid "Save"
 msgstr "Guardar"
 
@@ -2100,7 +2102,7 @@ msgstr "Mostrar {0} {1, plural, one {resultado} other {resultados}}"
 #~ msgid "Sign out"
 #~ msgstr "Sign out"
 
-#: src/components/Login.tsx:289
+#: src/components/Login.tsx:309
 #: src/components/Subscribe.tsx:81
 msgid "Sign up"
 msgstr "Regístrese"
@@ -2119,8 +2121,8 @@ msgstr "Regístrese"
 #~ msgid "Sign up for Data Updates on the buildings you choose:"
 #~ msgstr "Sign up for Data Updates on the buildings you choose:"
 
-#: src/components/Login.tsx:279
-#: src/components/Login.tsx:286
+#: src/components/Login.tsx:299
+#: src/components/Login.tsx:306
 msgid "Sign up for Email Alerts"
 msgstr "Suscríbase a las alertas por correo electrónico"
 
@@ -2202,6 +2204,10 @@ msgstr "Código fuente"
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
+#: src/containers/App.tsx:238
+msgid "Starting September 3, Who Owns What now uses one-time passcodes for a seamless login."
+msgstr ""
+
 #: src/components/PortfolioTable.tsx:576
 msgid "Starts {year}"
 msgstr "Comienza en {year}"
@@ -2214,7 +2220,7 @@ msgstr "Distrito de la Asamblea estatal"
 msgid "State Senate District"
 msgstr "Distrito del Senado estatal"
 
-#: src/components/Login.tsx:278
+#: src/components/Login.tsx:298
 msgid "Step 1 of 2"
 msgstr ""
 
@@ -2222,7 +2228,7 @@ msgstr ""
 #~ msgid "Step 1 of 3"
 #~ msgstr "Paso 1 de 3"
 
-#: src/components/Login.tsx:285
+#: src/components/Login.tsx:305
 msgid "Step 2 of 2"
 msgstr ""
 
@@ -2234,7 +2240,7 @@ msgstr ""
 #~ msgid "Step 3 of 3"
 #~ msgstr "Paso 3 de 3"
 
-#: src/components/Login.tsx:275
+#: src/components/Login.tsx:295
 msgid "Submit"
 msgstr "Enviar"
 
@@ -2293,7 +2299,7 @@ msgid "That code has expired. Request a new one."
 msgstr ""
 
 #: src/components/UserSettingField.tsx:36
-#: src/components/UserSettingField.tsx:141
+#: src/components/UserSettingField.tsx:140
 msgid "That email is already used."
 msgstr "El correo electrónico ya está en uso."
 
@@ -2626,11 +2632,11 @@ msgstr "Utilice la tecla \"Tab\". para navegar. Pulse la tecla \"Intro.\" para s
 msgid "Use this free tool from JustFix to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix para buscar su edificio e investigar a los arrendadores. Utilizamos el mapeo de propietarios de propiedades para identificar la cartera de propiedades de un arrendador y proporcionar información para indicar posibles casos de acoso y desplazamiento de inquilinos."
 
-#: src/components/Login.tsx:271
+#: src/components/Login.tsx:291
 msgid "Use your account to get weekly email alerts on the areas you select."
 msgstr ""
 
-#: src/components/Login.tsx:272
+#: src/components/Login.tsx:292
 msgid "Use your account to get weekly email alerts on the buildings you select."
 msgstr ""
 
@@ -2668,10 +2674,10 @@ msgid "VENTILATORS"
 msgstr "VENTILADORES"
 
 #: src/components/CodeEntry.tsx:73
-msgid "Verification code"
-msgstr ""
+#~ msgid "Verification code"
+#~ msgstr ""
 
-#: src/components/CodeEntry.tsx:84
+#: src/components/CodeEntry.tsx:88
 msgid "Verify"
 msgstr ""
 
@@ -2805,11 +2811,11 @@ msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscó con una base de datos de más de 200 mil edificios para identificar a un arrendador o una cartera compañía de administración. Para obtener más información, consulte <0>nuestra metodología</0>."
 
-#: src/components/Login.tsx:152
+#: src/components/Login.tsx:175
 msgid "We have added Area Alerts to your weekly emails. Visit your <0>email settings</0> to manage Area Alerts."
 msgstr "Hemos añadido Alertas por zona a sus correos electrónicos semanales. Visite la página de <0>Configuración de correo electrónico</0> para administrar sus Alertas por zona."
 
-#: src/components/Login.tsx:130
+#: src/components/Login.tsx:153
 msgid "We no longer use passwords — enter your email for a code or link."
 msgstr ""
 
@@ -2841,7 +2847,7 @@ msgstr ""
 #~ msgid "We send data updates to this email."
 #~ msgstr "We send data updates to this email."
 
-#: src/components/CodeEntry.tsx:64
+#: src/components/CodeEntry.tsx:67
 #: src/components/EmailAlertSignup.tsx:70
 msgid "We sent a new code to <0>{email}</0>"
 msgstr ""
@@ -2854,11 +2860,11 @@ msgstr ""
 #~ msgid "We sent a reset link to {email}. Please check your inbox and spam."
 #~ msgstr "Hemos enviado un enlace de restablecimiento a {email}. Por favor, compruebe su bandeja de entrada y spam."
 
-#: src/components/CodeEntry.tsx:66
+#: src/components/CodeEntry.tsx:69
 msgid "We sent your code to <0>{email}</0>"
 msgstr ""
 
-#: src/components/Login.tsx:280
+#: src/components/Login.tsx:300
 msgid "We’ll text you in a few months to ask how we can improve this free service."
 msgstr "Le enviaremos un mensaje de texto en unos meses para preguntarle cómo podemos mejorar este servicio gratuito."
 
@@ -2919,7 +2925,7 @@ msgstr "¿Cuál es la diferencia entre un arrendador, un propietario y un oficia
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte de la misma cartera."
 
-#: src/components/Login.tsx:287
+#: src/components/Login.tsx:307
 msgid "Which best describes you?"
 msgstr "¿Cuál de estas opciones lo describe mejor a usted?"
 
@@ -2991,7 +2997,7 @@ msgstr "Sí"
 msgid "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
 msgstr "También tienes derecho a organizarte con tus vecinos para hacer valer tus derechos. <0>Infórmate mejor en</0> sobre tu derecho a organizarte."
 
-#: src/components/Login.tsx:151
+#: src/components/Login.tsx:174
 #: src/containers/AccountSettingsPage.tsx:102
 #: src/containers/VerifyEmailPage.tsx:90
 msgid "You are logged in"
@@ -3152,7 +3158,7 @@ msgstr "Este correo electrónico ya está verificado"
 #~ msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 #~ msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 
-#: src/components/Login.tsx:136
+#: src/components/Login.tsx:159
 msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
 msgstr "Su privacidad es importante a nosotros. Lea nuestra <0>Política de privacidad</0> y <1>Términos de uso</1>."
 

@@ -396,6 +396,34 @@ const AppBody = () => {
   );
 };
 
+const OtpLoginBanner = withI18n()((props: withI18nProps) => {
+  const [isBannerOpen, setBannerVisibility] = useState(true);
+  const { pathname } = useLocation();
+  const { i18n } = props;
+  const path = removeLocalePrefix(pathname);
+
+  if (path !== "/account/login" && path !== "/account/settings") {
+    return null;
+  }
+
+  return (
+    <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
+      <div className="content">
+        <Trans render="p">
+          Starting September 3, Who Owns What now uses one-time passcodes for a seamless login.
+        </Trans>
+      </div>
+      <button
+        className="close-button"
+        onClick={() => setBannerVisibility(false)}
+        aria-label={i18n._(t`Close`)}
+      >
+        ✕
+      </button>
+    </div>
+  );
+});
+
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
   const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
@@ -437,6 +465,7 @@ const App = () => {
           )}
           <UserContextProvider>
             <div className="App">
+              <OtpLoginBanner />
               <Navbar />
               {deprecationModalEnabled && <DeprecationModal />}
               <AppBody />
