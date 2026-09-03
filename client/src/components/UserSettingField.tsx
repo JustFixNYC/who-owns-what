@@ -56,12 +56,23 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     value: email,
     error: emailError,
     showError: showEmailError,
+    setValue: setEmail,
     setError: setEmailError,
     setShowError: setShowEmailError,
     onChange: onChangeEmail,
   } = useInput(oldEmail);
 
   const eventUserParams = { user_id: user.id, user_type: user.type };
+
+  const resetEmailField = () => {
+    setEmail(oldEmail);
+    setEmailError(false);
+    setShowEmailError(false);
+    setExistingUserError(false);
+    setSendError("");
+    setPendingEmail("");
+    setOtpError("");
+  };
 
   const handleSubmit = async () => {
     setExistingUserError(false);
@@ -182,8 +193,8 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
               size="small"
               labelText={i18n._(t`Cancel`)}
               onClick={() => {
+                resetEmailField();
                 setStep("field");
-                setOtpError("");
               }}
             />
           }
@@ -197,6 +208,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       title={i18n._(t`Email address`)}
       preview={currentValue}
       onSubmit={handleSubmit}
+      onCancel={resetEmailField}
       verifyCallout={verifyCallout}
     >
       {existingUserError && (
@@ -248,12 +260,13 @@ type UserSettingFieldProps = withI18nProps & {
   title: string;
   preview: string;
   onSubmit: () => Promise<void>;
+  onCancel?: () => void;
   children: React.ReactNode;
   verifyCallout?: React.ReactNode;
 };
 
 const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
-  const { title, preview, onSubmit, children, verifyCallout, i18n } = props;
+  const { title, preview, onSubmit, onCancel, children, verifyCallout, i18n } = props;
   const [editing, setEditing] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -277,7 +290,10 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
                 variant="tertiary"
                 size="small"
                 labelText={i18n._(t`Cancel`)}
-                onClick={() => setEditing(false)}
+                onClick={() => {
+                  onCancel?.();
+                  setEditing(false);
+                }}
               />
             </div>
           </>
