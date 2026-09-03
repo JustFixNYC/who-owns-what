@@ -130,6 +130,43 @@
       }
     }
 
+    .DetailView__accordionHeader {
+      @include for-tablet-portrait-up {
+        b {
+          // Avoid collision with "Learn More" button on small desktops:
+          display: block;
+          max-width: 75%;
+        }
+      }
+      border-bottom: 1px solid $gray-dark;
+
+      details.accordion {
+        padding: 0;
+
+        div {
+          margin: 0;
+          padding: 0 0.5rem;
+        }
+        summary {
+          width: fit-content;
+          float: right;
+          // Move summary text up by one standard line height:
+          margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
+          padding: 0;
+          font-style: italic;
+
+          // Do not show expandable "Learn More" button on IE11
+          // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
+          @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+            display: none;
+          }
+        }
+        .icon {
+          display: none;
+        }
+      }
+    }
+
     .card-header {
       padding-bottom: 0.94rem;
       @include for-phone-only {
@@ -151,46 +188,12 @@
         }
       }
 
-      .DetailView__altAddrs-header {
-        border-bottom: 1px solid $gray-dark;
-
-        details.accordion {
-          padding: 0;
-
-          div {
-            margin: 0;
-          }
-          summary {
-            width: fit-content;
-            float: right;
-            // Move summary text up by one standard line height:
-            margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
-            padding: 0;
-            font-style: italic;
-
-            // Do not show expandable "Learn More" button on IE11
-            // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
-            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-              display: none;
-            }
-          }
-          .icon {
-            display: none;
-          }
-        }
-      }
-
-      .DetailView__altAddrs-description {
-        margin: 0 0 12px;
-      }
-
       .DetailView__altAddrs-list {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin-top: 12px;
+        margin: 0.63rem 0 0;
         list-style: none;
-        margin-left: 0;
         padding: 0;
       }
 
@@ -305,43 +308,9 @@
       .landlord-contact-info:not(:last-child) {
         margin-bottom: 1.13rem;
       }
-      .card-title-landlord {
-        @include for-tablet-portrait-up {
-          b {
-            // Avoid collision with "Learn More" button on small desktops:
-            display: block;
-            max-width: 75%;
-          }
-        }
-        border-bottom: 1px solid $gray-dark;
-        details.accordion {
-          padding: 0;
-
-          @include for-phone-only() {
-            display: none;
-          }
-
-          div {
-            margin: 0;
-            padding: 0 0.5rem;
-          }
-          summary {
-            width: fit-content;
-            float: right;
-            // Move summary text up by one standard line height:
-            margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
-            padding: 0;
-            font-style: italic;
-
-            // Do not show expandable "Learn More" button on IE11
-            // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
-            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-              display: none;
-            }
-          }
-          .icon {
-            display: none;
-          }
+      .DetailView__accordionHeader details.accordion {
+        @include for-phone-only() {
+          display: none;
         }
       }
 

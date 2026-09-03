@@ -104,12 +104,13 @@ const AlsoKnownAsSection = ({ altAddrs }: { altAddrs: string[] }) => (
   <I18n>
     {({ i18n }) => (
       <div className="DetailView__altAddrs">
-        <div className="DetailView__altAddrs-header">
+        <div className="DetailView__accordionHeader">
           <b>
             <Trans>Also known as</Trans>
           </b>
           <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
-            <p className="DetailView__altAddrs-description">
+            <br />
+            <p>
               <Trans>
                 A building can be known by more than one street address. We show these addresses
                 because city records may use different addresses to identify the same building. This
@@ -292,7 +293,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       </div>
                       {detailAddr.allcontacts && (
                         <div className="card-body-landlord">
-                          <div className="card-title-landlord">
+                          <div className="DetailView__accordionHeader">
                             <b>
                               <Trans>Who’s the landlord of this building?</Trans>
                             </b>
