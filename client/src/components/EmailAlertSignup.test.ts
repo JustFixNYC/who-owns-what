@@ -42,7 +42,8 @@ describe("EmailVerificationPrompt resend", () => {
     expect(fetchMock.mock.calls[0][1]).toEqual(
       expect.objectContaining({
         method: "POST",
-        body: "email=new%40example.com&user_type=Tenant&bbl=3012380016&housenumber=654&streetname=Park%20Place&zip=11261&boro=Brooklyn",
+        body:
+          "email=new%40example.com&user_type=Tenant&bbl=3012380016&housenumber=654&streetname=Park%20Place&zip=11261&boro=Brooklyn",
       })
     );
   });

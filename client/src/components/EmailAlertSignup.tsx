@@ -52,18 +52,23 @@ const EmailVerificationPromptWithoutI18n = (props: EmailVerificationPromptProps)
   const handleResend = async () => {
     if (!email || isResending) return;
     setIsResending(true);
-    const resp = await userContext.sendLoginCode(email);
-    window.gtag("event", "email-verify-resend", {
-      ...eventUserParams,
-      from: analyticsFrom,
-      branch: BRANCH_NAME,
-    });
-    setIsResending(false);
-    if (resp?.error) {
+    try {
+      const resp = await userContext.sendLoginCode(email);
+      window.gtag("event", "email-verify-resend", {
+        ...eventUserParams,
+        from: analyticsFrom,
+        branch: BRANCH_NAME,
+      });
+      if (resp?.error) {
+        setNeedsRelogin(true);
+        return;
+      }
+      setIsEmailResent(true);
+    } catch {
       setNeedsRelogin(true);
-      return;
+    } finally {
+      setIsResending(false);
     }
-    setIsEmailResent(true);
   };
 
   const handleRelogin = () => {
