@@ -1,6 +1,10 @@
 import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import { JustfixUser } from "state-machine";
-import AuthClient, { SendLoginCodeOptions, VerifyMagicLinkResponse, VerifyStatusCode } from "./AuthClient";
+import AuthClient, {
+  SendLoginCodeOptions,
+  VerifyMagicLinkResponse,
+  VerifyStatusCode,
+} from "./AuthClient";
 import { authRequiredPaths } from "routes";
 import { District } from "./APIDataTypes";
 
