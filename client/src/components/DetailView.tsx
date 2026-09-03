@@ -105,9 +105,9 @@ const AlsoKnownAsSection = ({ altAddrs }: { altAddrs: string[] }) => (
     {({ i18n }) => (
       <div className="DetailView__altAddrs">
         <div className="DetailView__altAddrs-header">
-          <span className="DetailView__altAddrs-title">
+          <b>
             <Trans>Also known as</Trans>
-          </span>
+          </b>
           <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
             <p className="DetailView__altAddrs-description">
               <Trans>

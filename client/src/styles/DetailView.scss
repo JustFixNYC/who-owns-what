@@ -156,32 +156,32 @@
 
         details.accordion {
           padding: 0;
+
+          div {
+            margin: 0;
+          }
           summary {
             width: fit-content;
             float: right;
+            // Move summary text up by one standard line height:
             margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
             padding: 0;
-            font-size: 0.75rem;
+            font-style: italic;
+
+            // Do not show expandable "Learn More" button on IE11
+            // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+              display: none;
+            }
           }
           .icon {
             display: none;
           }
-          div {
-            margin: 0;
-          }
-        }
-      }
-
-      .DetailView__altAddrs-title {
-        font-weight: 600;
-        font-size: 14px;
-        @include for-phone-only {
-          font-size: 12px;
         }
       }
 
       .DetailView__altAddrs-description {
-        margin: 0.25rem 0 0.5rem;
+        margin: 0 0 12px;
       }
 
       .DetailView__altAddrs-list {
