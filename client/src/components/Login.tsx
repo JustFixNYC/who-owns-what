@@ -374,6 +374,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   let submitButtonText = "";
   switch (step) {
     case Step.CheckEmail:
+
       if (addr) {
         headerText = formatAddr(addr, false);
         subHeaderText = i18n._(t`Log in or sign up to get weekly email updates on this building.`);

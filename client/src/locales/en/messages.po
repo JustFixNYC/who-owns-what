@@ -272,6 +272,10 @@ msgstr "Address"
 msgid "Agent"
 msgstr "Agent"
 
+#: src/containers/BuildingAlertsPage.tsx:267
+msgid "Alerts are not currently available for this address"
+msgstr "Alerts are not currently available for this address"
+
 #: src/components/Subscribe.tsx:47
 msgid "All set! Thanks for subscribing!"
 msgstr "All set! Thanks for subscribing!"
@@ -367,6 +371,10 @@ msgstr "Associated names/entities: {0}"
 #: src/containers/BuildingAlertsPage.tsx:282
 msgid "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 msgstr "At this time we can only support {subscriptionLimit} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
+
+#: src/containers/BuildingAlertsPage.tsx:276
+msgid "At this time, we cannot provide alerts for these buildings because the city either does not collect this information or does not make it publicly available."
+msgstr "At this time, we cannot provide alerts for these buildings because the city either does not collect this information or does not make it publicly available."
 
 #: src/util/helpers.ts:13
 msgid "BELL/BUZZER/INTERCOM"
@@ -1337,7 +1345,11 @@ msgstr "Log in"
 msgid "Log in / Sign up"
 msgstr "Log in / Sign up"
 
-#: src/containers/LoginPage.tsx:23
+#: src/components/Login.tsx:343
+msgid "Log in / Sign up to get your weekly email update"
+msgstr "Log in / Sign up to get your weekly email update"
+
+#: src/containers/LoginPage.tsx:29
 msgid "Log in / sign up"
 msgstr "Log in / sign up"
 
@@ -1793,6 +1805,10 @@ msgstr "Please try again later. If you’re still having issues, contact support
 #: src/containers/AddressPage.tsx:151
 msgid "Portfolio"
 msgstr "Portfolio"
+
+#: src/containers/App.tsx:133
+msgid "Portfolio Search"
+msgstr "Portfolio Search"
 
 #: src/components/FeatureCalloutContent.ts:23
 msgid "Portfolio Table Redesign"
@@ -2314,6 +2330,14 @@ msgstr "That email is already used."
 msgid "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
 msgstr "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
 
+#: src/containers/BuildingAlertsPage.tsx:261
+#~ msgid "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
+#~ msgstr "The address you entered appears to be either a NYCHA building or a building with fewer than three units."
+
+#: src/containers/BuildingAlertsPage.tsx:270
+msgid "The address you entered appears to be for a NYCHA building, a building with fewer than three units, or a building that is not registered with the Department of Housing Preservation and Development (HPD)."
+msgstr "The address you entered appears to be for a NYCHA building, a building with fewer than three units, or a building that is not registered with the Department of Housing Preservation and Development (HPD)."
+
 #: src/components/RentstabSummary.tsx:26
 msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
 msgstr "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
@@ -2595,6 +2619,10 @@ msgstr "Unable to initiate a court action for nonpayment of rent."
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
 
+#: src/containers/BuildingAlertsPage.tsx:266
+#~ msgid "Unfortunately, we cannot provide alerts for these buildings because the city collects and publishes information about them differently from other privately owned buildings with three or more units."
+#~ msgstr "Unfortunately, we cannot provide alerts for these buildings because the city collects and publishes information about them differently from other privately owned buildings with three or more units."
+
 #: src/components/BuildingStatsTable.tsx:72
 #: src/components/BuildingStatsTable.tsx:75
 #: src/components/PortfolioTable.tsx:138
@@ -2814,6 +2842,10 @@ msgstr "WINDOWS"
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 
+#: src/containers/BuildingAlertsPage.tsx:280
+msgid "We apologize for the inconvenience."
+msgstr "We apologize for the inconvenience."
+
 #: src/components/DetailView.tsx:91
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
@@ -2955,6 +2987,10 @@ msgstr "Who Owns What is a free tool built by JustFix to research property owner
 #: src/components/PortfolioFilters.tsx:144
 #~ msgid "Who are they?"
 #~ msgstr "Who are they?"
+
+#: src/containers/BuildingAlertsPage.tsx:238
+msgid "Who made this?"
+msgstr "Who made this?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:20
