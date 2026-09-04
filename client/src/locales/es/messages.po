@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-09-04 04:29\n"
+"PO-Revision-Date: 2026-09-04 23:56\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -875,7 +875,7 @@ msgstr ""
 #: src/containers/BuildingAlertsPage.tsx:131
 #: src/containers/BuildingAlertsPage.tsx:162
 msgid "Enter your address"
-msgstr "Introduzca su direccion"
+msgstr "Introduzca su dirección"
 
 #: src/components/Login.tsx:248
 #: src/components/Login.tsx:287
