@@ -43,6 +43,7 @@ import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
+import Modal from "components/Modal";
 import { UserContext, UserContextProvider } from "components/UserContext";
 import AccountSettingsPage from "./AccountSettingsPage";
 import UnsubscribePage from "./UnsubscribePage";
@@ -264,7 +265,7 @@ const SearchLink = () => {
 
   return (
     <LocaleNavLink exact to={searchRoute} key={1}>
-      <Trans>Search</Trans>
+      <Trans>Portfolio Search</Trans>
     </LocaleNavLink>
   );
 };
@@ -396,6 +397,66 @@ const AppBody = () => {
   );
 };
 
+const OtpLoginBanner = withI18n()((props: withI18nProps) => {
+  const [isBannerOpen, setBannerVisibility] = useState(true);
+  const [isLearnMoreModalOpen, setLearnMoreModalOpen] = useState(false);
+  const { pathname } = useLocation();
+  const { i18n } = props;
+  const path = removeLocalePrefix(pathname);
+
+  if (path !== "/account/login" && path !== "/account/settings") {
+    return null;
+  }
+
+  return (
+    <>
+      <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
+        <div className="content">
+          <Trans render="p">
+            Starting September 3, Who Owns What will use a one-time passcode instead of a password
+            to log in.{" "}
+            <button
+              type="button"
+              onClick={() => setLearnMoreModalOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={isLearnMoreModalOpen}
+            >
+              Learn more
+            </button>
+          </Trans>
+        </div>
+        <button
+          className="close-button"
+          onClick={() => setBannerVisibility(false)}
+          aria-label={i18n._(t`Close`)}
+        >
+          ✕
+        </button>
+      </div>
+      <Modal
+        className="otp-login-modal"
+        showModal={isLearnMoreModalOpen}
+        onClose={() => setLearnMoreModalOpen(false)}
+      >
+        <h5 className="first-header">
+          <Trans>One time passcodes</Trans>
+        </h5>
+        <p>
+          <strong>
+            <Trans>You no longer need a password to log in to Who Owns What.</Trans>
+          </strong>
+        </p>
+        <p>
+          <Trans>
+            Instead, we’ll send a one-time passcode to the email address associated with your
+            account. Your account and saved information will stay the same.
+          </Trans>
+        </p>
+      </Modal>
+    </>
+  );
+});
+
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
   const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
@@ -438,6 +499,7 @@ const App = () => {
           <UserContextProvider>
             <div className="App">
               <Navbar />
+              <OtpLoginBanner />
               {deprecationModalEnabled && <DeprecationModal />}
               <AppBody />
               {surveyId && surveyCookie !== "2" && (

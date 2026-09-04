@@ -7,3 +7,8 @@
     align-items: center;
   }
 }
+
+// Same OTP cell geometry as Login (StandalonePage content width is 21rem).
+.UserSetting.email-change-code .otp-input {
+  max-width: 21rem;
+}

@@ -2,6 +2,8 @@ version: 2.0
 
 jobs:
   test:
+    # Default Docker medium is 2 CPU / 4GB, which OOMs during CRA build + Jest.
+    resource_class: large
     working_directory: ~/who-owns-what
     docker:
       - image: justfixnyc/wow-ci:latest
@@ -69,7 +71,8 @@ jobs:
             # any other non-production code typechecked.
             yarn typecheck
 
-            yarn test
+            # Limit Jest workers so jsdom tests stay within the job's memory.
+            yarn test --maxWorkers=2
       - store_artifacts:
           path: test-reports
           destination: test-reports

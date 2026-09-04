@@ -9,6 +9,7 @@ import { Nobr } from "./Nobr";
 import "styles/CodeEntry.css";
 
 export const OTP_LENGTH = 6;
+const OTP_INPUT_ID = "code-entry-otp";
 
 export const sanitizeOtpValue = (raw: string, length: number = OTP_LENGTH): string =>
   raw.replace(/\D/g, "").slice(0, length);
@@ -18,10 +19,13 @@ export type CodeEntryProps = withI18nProps & {
   onVerify: (code: string) => Promise<void> | void;
   onResend: () => Promise<void> | void;
   error?: string;
+  showHeading?: boolean;
+  fieldLabel?: React.ReactNode;
+  actions?: React.ReactNode;
 };
 
 const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
-  const { i18n, email, onVerify, onResend, error } = props;
+  const { i18n, email, onVerify, onResend, error, showHeading = true, fieldLabel, actions } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
   const [codeResent, setCodeResent] = useState(false);
@@ -35,8 +39,8 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
     setValue(sanitizeOtpValue(raw));
   }, []);
 
-  const handleSubmit = async (e?: React.FormEvent) => {
-    e?.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (busy || !isComplete) return;
     setIsSubmitting(true);
     try {
@@ -63,22 +67,27 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
 
   return (
     <form className="code-entry input-group" onSubmit={handleSubmit}>
-      <h1>
-        <Trans>Check your email</Trans>
-      </h1>
-      <h2 role="status" aria-live="polite">
-        {codeResent ? (
-          <Trans>
-            We sent a new code to <Nobr>{email}</Nobr>
-          </Trans>
-        ) : (
-          <Trans>
-            We sent your code to <Nobr>{email}</Nobr>
-          </Trans>
-        )}
-      </h2>
+      {fieldLabel}
+      {showHeading && (
+        <h1>
+          <Trans>Check your email</Trans>
+        </h1>
+      )}
+      <label htmlFor={OTP_INPUT_ID} className="code-entry-label">
+        <span role="status" aria-live="polite">
+          {codeResent ? (
+            <Trans>
+              We sent a new code to <Nobr>{email}</Nobr>
+            </Trans>
+          ) : (
+            <Trans>
+              We sent your code to <Nobr>{email}</Nobr>
+            </Trans>
+          )}
+        </span>
+      </label>
       <OtpInput
-        id="login-otp"
+        id={OTP_INPUT_ID}
         name="code"
         value={value}
         autoFocus
@@ -88,8 +97,6 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
           event.preventDefault();
           setSanitizedValue(event.clipboardData.getData("text"));
         }}
-        onComplete={() => handleSubmit()}
-        aria-label={i18n._(t`Verification code`)}
         aria-describedby={errorId}
         invalid={!!error && value.length > 0}
         disabled={busy}
@@ -105,15 +112,16 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
           {error}
         </p>
       )}
-      <div className="submit-button-group">
+      <div className={actions ? "submit-button-group user-setting-actions" : "submit-button-group"}>
         <Button
           type="submit"
           variant="primary"
-          size="large"
+          size="small"
           labelText={i18n._(t`Verify`)}
           loading={isSubmitting}
           disabled={!isComplete || busy}
         />
+        {actions}
       </div>
     </form>
   );

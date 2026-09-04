@@ -2,6 +2,12 @@
 @import "_typography.scss";
 
 .code-entry {
+  .code-entry-label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
   .code-entry-resend {
     font-size: 0.875rem;
     font-weight: 500;
@@ -22,9 +28,5 @@
     font-size: 0.8125rem;
     font-weight: 500;
     margin: 0 0 1rem;
-  }
-
-  .submit-button-group {
-    margin-top: 1.5rem;
   }
 }

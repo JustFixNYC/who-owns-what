@@ -1,8 +1,9 @@
 import ast
 import csv
+import json
 import logging
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional, Union
 from django.http import HttpResponse, JsonResponse
 
 from .dbutil import call_db_func, exec_db_query
@@ -209,8 +210,10 @@ def email_alerts_building(request):
     current month, or when the last week spans the start of a new month it
     covers the complete prior month. For each BBL the following indicator are included:
      - bbl
-     - hpd_viol__week, hpd_viol__month - HPD complaints (0 or greater)
-     - hpd_comp__week, hpd_comp__month - HPD violations (0 or greater)
+     - hpd_comp__week, hpd_comp__month - HPD complaints (0 or greater)
+     - hpd_comp__month_by_type - Top 3 HPD complaint types for the month as a
+       sentence-cased summary, with remaining complaint count as "+N more"
+     - hpd_viol__week, hpd_viol__month - HPD violations (0 or greater)
      - dob_comp__week, dob_comp__month - DOB complaints (0 or greater)
      - dob_ecb_viol__week, dob_ecb_viol__month - DOB violations (0 or greater)
      - evictions_filed__week, evictions_filed__month - Eviction filings
@@ -225,7 +228,65 @@ def email_alerts_building(request):
     bbls = get_validated_form_data(PaddedBBLListForm, request.GET)
     query_sql = SQL_DIR / "alerts_building.sql"
     result = exec_db_query(query_sql, bbls)
+    for row in result:
+        row["hpd_comp__month_by_type"] = format_hpd_comp_month_by_type(
+            row.get("hpd_comp__month_by_type"),
+            row.get("hpd_comp__month"),
+        )
     return JsonResponse({"result": list(result)})
+
+
+def format_hpd_comp_type_label(minorcategory: str, problemcode: str) -> str:
+    minor_key = minorcategory.upper()
+    problem_key = problemcode.upper()
+    minor = minorcategory.capitalize()
+
+    # calling these out because the problemcode is very long and/or redundant
+    WINDOW_GUARD_CATEGORIES = {
+        "WINDOW GUARD BROKEN/MISSING",
+        "WINDOW GUARDS",
+    }
+
+    if problem_key == "OTHER" or minor_key in WINDOW_GUARD_CATEGORIES:
+        return minor
+    return f"{minor} ({problemcode.lower()})"
+
+
+def format_hpd_comp_month_by_type(
+    complaints_by_type: Union[None, str, List[Dict[str, Any]]],
+    hpd_comp_month: Optional[int],
+) -> Optional[str]:
+    """
+    Turn the top three HPD complaint types from the current month into a
+    single sentence-cased summary, with any remaining complaints counted at
+    the end
+    """
+    if not complaints_by_type:
+        return None
+
+    if isinstance(complaints_by_type, str):
+        complaints_by_type = json.loads(complaints_by_type)
+
+    # failsafe in case json.loads returned []/None, or a non-list JSON value
+    if not isinstance(complaints_by_type, list) or not complaints_by_type:
+        return None
+
+    labels = []
+    listed_count = 0
+    for complaint in complaints_by_type:
+        labels.append(
+            format_hpd_comp_type_label(
+                complaint.get("minorcategory") or "",
+                complaint.get("problemcode") or "",
+            )
+        )
+        listed_count += complaint.get("count") or 0
+
+    remaining = (hpd_comp_month or 0) - listed_count
+    summary = ", ".join(labels)
+    if remaining > 0:
+        return f"{summary}, +{remaining} more"
+    return summary
 
 
 @api

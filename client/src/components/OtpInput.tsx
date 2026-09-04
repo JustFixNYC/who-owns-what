@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { useEffect, useRef } from "react";
 import type { ChangeEvent, ClipboardEvent, KeyboardEvent, Ref } from "react";
 
 import "styles/OtpInput.css";
@@ -13,14 +12,13 @@ export type OtpInputProps = {
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   onPaste?: (event: ClipboardEvent<HTMLInputElement>) => void;
   inputRef?: Ref<HTMLInputElement>;
-  onComplete?: (value: string) => void;
   disabled?: boolean;
   invalid?: boolean;
   id: string;
   name: string;
   autoFocus?: boolean;
   "aria-describedby"?: string;
-  "aria-label": string;
+  "aria-label"?: string;
   className?: string;
 };
 
@@ -34,7 +32,6 @@ export function OtpInput({
   onKeyDown,
   onPaste,
   inputRef,
-  onComplete,
   disabled = false,
   invalid = false,
   id,
@@ -44,15 +41,6 @@ export function OtpInput({
   "aria-label": ariaLabel,
   className,
 }: OtpInputProps) {
-  const previousLengthRef = useRef(value.length);
-
-  useEffect(() => {
-    if (onComplete && value.length === length && previousLengthRef.current < length) {
-      onComplete(value);
-    }
-    previousLengthRef.current = value.length;
-  }, [length, onComplete, value]);
-
   return (
     <div
       className={classNames("otp-input", className, {

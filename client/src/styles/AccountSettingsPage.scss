@@ -7,40 +7,6 @@
     padding-top: 1.5rem;
   }
 
-  .login-subscribe-alert-container {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    top: 0;
-    left: 0;
-    width: 100%;
-
-    .login-subscribe-alert {
-      position: relative;
-
-      transform: translateY(-100%);
-      &-enter {
-        transform: translateY(-100%);
-      }
-      &-enter-active {
-        transform: translatey(215%);
-        transition: transform 500ms ease-in-out;
-      }
-      &-enter-done {
-        transform: translateY(215%);
-      }
-      &-exit {
-        transform: translateY(215%);
-      }
-      &-exit-active {
-        transform: translateY(-100%);
-        transition: transform 500ms ease-in-out;
-      }
-    }
-  }
-
   h1 {
     font-size: 1.5rem;
     font-weight: 400;
@@ -100,14 +66,6 @@
     display: flex;
     flex-direction: column;
 
-    .page-level-alert {
-      margin-bottom: 1.625rem;
-      svg {
-        margin-right: 0.5rem;
-        vertical-align: bottom;
-      }
-    }
-
     .user-setting-label {
       font-size: 0.875rem;
       font-weight: 600;
@@ -117,17 +75,26 @@
       margin-bottom: 1rem !important;
     }
 
+    .page-level-alert {
+      margin-bottom: 1.625rem;
+      svg {
+        margin-right: 0.5rem;
+        vertical-align: bottom;
+      }
+    }
+
     p {
       margin-bottom: 0.375rem;
     }
 
-    .email-input-field,
-    .password-input-field {
+    .email-input-container {
       display: flex;
       flex-direction: column;
-      &:has(#new-password-input) {
-        margin-top: 1.25rem;
-      }
+    }
+
+    .email-input-field {
+      display: flex;
+      flex-direction: row;
     }
 
     .jf-callout {
@@ -140,8 +107,9 @@
     }
   }
 
-  form > div {
+  .user-setting-preview {
     display: flex;
+    align-items: center;
 
     span {
       flex: 1;
@@ -155,7 +123,6 @@
   .user-setting-actions {
     display: flex;
     justify-content: left;
-    align-items: center;
     margin-top: 1rem;
     column-gap: 1rem;
 

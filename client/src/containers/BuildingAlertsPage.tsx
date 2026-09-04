@@ -8,7 +8,8 @@ import "styles/BuildingAlertsPage.css";
 
 import Page from "components/Page";
 import AddressSearch, { SearchAddress } from "components/AddressSearch";
-import { EmailVerificationPrompt } from "components/EmailAlertSignup";
+import { EmailVerificationPrompt, reloginToVerify } from "components/EmailAlertSignup";
+import { Alert } from "components/Alert";
 import { LocationIcon } from "components/Icons";
 import LegalFooter from "components/LegalFooter";
 import Modal from "components/Modal";
@@ -97,7 +98,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
     });
   };
 
-  const handleGetStarted = async () => {
+  const handleCTA = async () => {
     if (!selectedAddress?.bbl) {
       setLoadError(false);
       setNoAddressError(true);
@@ -144,7 +145,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
 
     const displayHn = selectedAddress.housenumber ?? "";
     const displaySn = selectedAddress.streetname;
-    subscribeBuilding(
+    await subscribeBuilding(
       addressRecord.bbl,
       addressRecord.housenumber,
       addressRecord.streetname,
@@ -165,16 +166,31 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__hero">
           <div className="BuildingAlertsPage__hero-content">
             <h1>
-              <Trans>Track complaints, violations, and eviction filings in your building.</Trans>
+              <Trans>Track complaints, violations, and eviction filings in your building</Trans>
             </h1>
 
             <Trans render="p">
               This service is free and confidential. <br />
               Updates are sent weekly to your inbox.{" "}
+              <br className="BuildingAlertsPage__mobile-break" />
               <JFCLLink onClick={() => setShowPreviewModal(true)} className="link-button">
                 See example
               </JFCLLink>
             </Trans>
+            {isLoggedIn && !user?.verified && (
+              <div className="BuildingAlertsPage__unverified-banner">
+                <Alert type="info" closeType="session" storageId="wow-unverified-relogin-banner">
+                  <Trans>Verify your email to receive updates and to add new buildings.</Trans>{" "}
+                  <button
+                    type="button"
+                    className="link-button"
+                    onClick={() => reloginToVerify(user?.email, i18n.language)}
+                  >
+                    <Trans>Log in</Trans>
+                  </button>
+                </Alert>
+              </div>
+            )}
             <div className="BuildingAlertsPage__search">
               <div className="BuildingAlertsPage__search-input-container">
                 <div className="BuildingAlertsPage__search-input">
@@ -192,7 +208,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
                 <Button
                   labelText={i18n._(t`Track Building`)}
                   loading={isLoadingRecord}
-                  onClick={handleGetStarted}
+                  onClick={handleCTA}
                 />
               </div>
 
@@ -206,21 +222,11 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
                 </div>
               )}
             </div>
-            {loadError ? (
+            {noAddressError && (
               <div className="BuildingAlertsPage__error">
                 <Icon icon="circleExclamation" />
-                <Trans>
-                  Sorry, that address is not available for Building Alerts. Please try another
-                  address.
-                </Trans>
+                <Trans>Please enter an address</Trans>
               </div>
-            ) : (
-              noAddressError && (
-                <div className="BuildingAlertsPage__error">
-                  <Icon icon="circleExclamation" />
-                  <Trans>Please enter an address</Trans>
-                </div>
-              )
             )}
           </div>
         </div>
@@ -266,7 +272,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__section BuildingAlertsPage__section--bordered">
           <div className="BuildingAlertsPage__section-content">
             <h3>
-              <Trans>What you can do</Trans>
+              <Trans>What it's for</Trans>
             </h3>
             <Trans render="p">
               This service can help you learn if the housing problems you’re facing on your own are
@@ -278,13 +284,25 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
             </Trans>
             <Trans render="p">
               Remember, you have a right to a habitable home.{" "}
-              <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your right to
-              a habitable home.
+              <JFCLLink
+                href="https://www.metcouncilonhousing.org/help-answers/statutory-rights-of-residential-tenants-in-new-york/"
+                target="_blank"
+                rel="noopener noreferrer"
+                icon="external"
+              >
+                Learn more
+              </JFCLLink>
             </Trans>
             <Trans render="p">
-              You also have a right to organize with your neighbors to assert your rights.{" "}
-              <a href="https://www.justfix.org/building-alerts/">Learn more</a> about your right to
-              organize.
+              You also have a right to organize with your neighbors and to exercise your rights.{" "}
+              <JFCLLink
+                href="https://www.metcouncilonhousing.org/help-answers/forming-a-tenants-association/"
+                target="_blank"
+                rel="noopener noreferrer"
+                icon="external"
+              >
+                Learn more
+              </JFCLLink>
             </Trans>
           </div>
         </div>
@@ -292,12 +310,27 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
         <div className="BuildingAlertsPage__section">
           <div className="BuildingAlertsPage__section-content">
             <h3>
-              <Trans>About JustFix</Trans>
+              <Trans>Who made this?</Trans>
             </h3>
             <Trans render="p">
-              Building Alerts is a free service created and maintained by JustFix, a nonprofit that
-              builds free digital tools to help New Yorkers exercise their rights to healthy,
-              affordable, and eviction-free housing.
+              This service is by{" "}
+              <a
+                href="https://www.justfix.org?utm_source=building-alerts"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                JustFix
+              </a>
+              , a nonprofit that builds free digital tools to help New Yorkers exercise their rights
+              to dignified housing.{" "}
+              <a
+                href="https://www.justfix.org/tools/?utm_source=building-alerts"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                See all our tools
+              </a>
+              .
             </Trans>
             <Trans render="p">
               Contact us at <a href="mailto:support@justfix.org">support@justfix.org</a>
@@ -307,9 +340,35 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
 
         <div className="BuildingAlertsPage__footer">
           <div className="BuildingAlertsPage__footer-content">
-            <LegalFooter />
+            <LegalFooter hideMethodology />
           </div>
         </div>
+
+        <Modal
+          showModal={loadError}
+          width={40}
+          onClose={() => setLoadError(false)}
+          className="building-alerts-unavailable-modal"
+          newStyle={true}
+        >
+          <div className="modal__content">
+            <h3>
+              <Trans>Alerts are not currently available for this address</Trans>
+            </h3>
+
+            <Trans render="p">
+              The address you entered appears to be for a NYCHA building, a building with fewer than
+              three units, or a building that is not registered with the Department of Housing
+              Preservation and Development (HPD).
+            </Trans>
+
+            <Trans render="p">
+              At this time, we cannot provide alerts for these buildings because the city either
+              does not collect this information or does not make it publicly available.{" "}
+            </Trans>
+            <Trans render="p">We apologize for the inconvenience.</Trans>
+          </div>
+        </Modal>
 
         <Modal
           showModal={showPreviewModal}
@@ -323,13 +382,19 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
               <Trans>Sample Building Alert Email</Trans>
             </h3>
             <figure>
-              <img
-                src="/building-alert-example-email.png"
-                alt={i18n._(
-                  t`Sample of building alert email showing complaints, violations, and eviction filings`
-                )}
-                className="email-sample-image"
-              />
+              <picture>
+                <source
+                  media="(min-width: 600px)"
+                  srcSet="/building-alert-example-email-desktop.png"
+                />
+                <img
+                  src="/building-alert-example-email-mobile.png"
+                  alt={i18n._(
+                    t`Sample of building alert email showing complaints, violations, and eviction filings`
+                  )}
+                  className="email-sample-image"
+                />
+              </picture>
             </figure>
           </div>
         </Modal>

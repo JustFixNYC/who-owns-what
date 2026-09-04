@@ -62,6 +62,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     bin: "3031404",
     corpnames: ["654 PARK PLACE LLC"],
     businessaddrs: ["12 SPENCER STREET 4 11205"],
+    alt_addrs: ["21 KANE PL", "1867 ATLANTIC AVE", "18 COLUMBUS PL"],
     ownernames: [
       { title: "HeadOfficer", value: "MOSES GUTMAN" },
       { title: "Agent", value: "NATHAN SCHWARCZ" },
@@ -141,6 +142,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     bin: "3046748",
     corpnames: ["378 LEWIS LLC"],
     businessaddrs: ["12 SPENCER STREET 4 11205"],
+    alt_addrs: null,
     ownernames: [
       { title: "HeadOfficer", value: "ALEX ENGELMAN" },
       { title: "Officer", value: "MOSES GUTMAN" },

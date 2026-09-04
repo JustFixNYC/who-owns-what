@@ -4,6 +4,7 @@ SELECT
     hpd_viol_all__bldg_month AS hpd_viol__month,
     hpd_comp__week,
     hpd_comp__bldg_month AS hpd_comp__month,
+    hpd_comp__bldg_month_by_type AS hpd_comp__month_by_type,
     dob_ecb_viol__week,
     dob_ecb_viol__bldg_month AS dob_ecb_viol__month,
     dob_comp__week,

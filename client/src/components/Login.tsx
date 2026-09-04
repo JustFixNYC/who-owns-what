@@ -14,6 +14,8 @@ import UserTypeInput from "./UserTypeInput";
 import PhoneNumberInput from "./PhoneNumberInput";
 import { Alert } from "./Alert";
 import { CodeEntry } from "./CodeEntry";
+import { SendLoginCodeOptions } from "./AuthClient";
+import { NETWORK_AUTH_ERROR, reportUnexpectedAuthError } from "./auth-errors";
 import { JFCLLocaleLink } from "i18n";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord, District } from "./APIDataTypes";
@@ -29,7 +31,7 @@ enum Step {
   LoginSuccess,
 }
 
-const mapAuthError = (error: string | undefined, i18n: I18n): string => {
+export const mapAuthError = (error: string | undefined, i18n: I18n): string => {
   switch (error) {
     case "Invalid OTP.":
       return i18n._(t`The code you entered is incorrect.`);
@@ -39,6 +41,10 @@ const mapAuthError = (error: string | undefined, i18n: I18n): string => {
       return i18n._(t`Too many attempts. Request a new code.`);
     case "Too many requests":
       return i18n._(t`Too many requests. Please try again later.`);
+    case "Email delivery failed":
+      return i18n._(t`We couldn't send the email. Please try again.`);
+    case NETWORK_AUTH_ERROR:
+    case "Auth service unavailable":
     default:
       return i18n._(t`Something went wrong. Please try again.`);
   }
@@ -149,9 +155,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     return formatAddr(addr, withBoro);
   };
 
-  const subscribeOnSuccess = (user: JustfixUser) => {
-    !!addr &&
-      userContext.subscribeBuilding(
+  const subscribeOnSuccess = async (user: JustfixUser) => {
+    if (addr) {
+      await userContext.subscribeBuilding(
         addr.bbl,
         addr.housenumber,
         addr.streetname,
@@ -161,8 +167,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         fromBuildingAlerts ? housenumberDisplay : undefined,
         fromBuildingAlerts ? streetnameDisplay : undefined
       );
+    }
 
-    !!district && userContext.subscribeDistrict(district, user);
+    if (district) {
+      await userContext.subscribeDistrict(district, user);
+    }
   };
 
   const resetAlertErrorStates = () => {
@@ -178,9 +187,29 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const cleanedPhone = phoneNumber ? phoneNumber.replace(/\D/g, "").slice(0, 10) : undefined;
 
+  const sendCodeOptions = (): SendLoginCodeOptions | undefined => {
+    const options: SendLoginCodeOptions = {};
+    if (isNewUser) {
+      options.userType = userType;
+      options.phoneNumber = cleanedPhone;
+    }
+    if (addr) {
+      options.building = {
+        bbl: addr.bbl,
+        housenumber: addr.housenumber,
+        streetname: addr.streetname,
+        zip: addr.zip ?? "",
+        boro: addr.boro,
+      };
+    }
+    if (!options.userType && !options.phoneNumber && !options.building) {
+      return undefined;
+    }
+    return options;
+  };
+
   const sendCode = async () => {
-    const options = isNewUser ? { userType, phoneNumber: cleanedPhone } : undefined;
-    return userContext.sendLoginCode(email, options);
+    return userContext.sendLoginCode(email, sendCodeOptions());
   };
 
   const renderPageLevelAlert = (type: "error" | "success" | "info", message: string) => {
@@ -284,6 +313,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     const resp = await userContext.startLogin(email);
     if (resp?.error) {
+      reportUnexpectedAuthError(resp.error);
       setPageError(mapAuthError(resp.error, i18n));
       return;
     }
@@ -296,8 +326,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     setIsNewUser(false);
     window.gtag("event", "login-send-code", eventParams());
-    const sendResp = await userContext.sendLoginCode(email);
+    const sendResp = await userContext.sendLoginCode(email, sendCodeOptions());
     if (sendResp?.error) {
+      reportUnexpectedAuthError(sendResp.error);
       setPageError(mapAuthError(sendResp.error, i18n));
       return;
     }
@@ -314,11 +345,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     }
 
     window.gtag("event", "login-send-code", { ...eventParams(), from: "register" });
-    const sendResp = await userContext.sendLoginCode(email, {
-      userType,
-      phoneNumber: cleanedPhone,
-    });
+    const sendResp = await userContext.sendLoginCode(email, sendCodeOptions());
     if (sendResp?.error) {
+      reportUnexpectedAuthError(sendResp.error);
       setPageError(mapAuthError(sendResp.error, i18n));
       return;
     }
@@ -344,13 +373,19 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const onVerifyOtp = async (code: string) => {
     window.gtag("event", "login-verify-otp", eventParams());
-    const resp = await userContext.verifyOtp(email, code, subscribeOnSuccess);
-    if (resp?.error) {
-      setOtpError(mapAuthError(resp.error, i18n));
-      window.gtag("event", "login-otp-invalid", eventParams());
-      return;
+    try {
+      const resp = await userContext.verifyOtp(email, code, subscribeOnSuccess);
+      if (resp?.error) {
+        reportUnexpectedAuthError(resp.error);
+        setOtpError(mapAuthError(resp.error, i18n));
+        window.gtag("event", "login-otp-invalid", eventParams());
+        return;
+      }
+      finishAuthenticatedSession(resp?.user);
+    } catch (err) {
+      reportUnexpectedAuthError(err);
+      setOtpError(mapAuthError(NETWORK_AUTH_ERROR, i18n));
     }
-    finishAuthenticatedSession(resp?.user);
   };
 
   const onResendCode = async () => {
@@ -361,7 +396,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     setOtpError("");
     const sendResp = await sendCode();
     if (sendResp?.error) {
+      reportUnexpectedAuthError(sendResp.error);
       setOtpError(mapAuthError(sendResp.error, i18n));
+      throw new Error(sendResp.error);
     }
   };
 
@@ -372,27 +409,15 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   let submitButtonText = "";
   switch (step) {
     case Step.CheckEmail:
-      headerText = i18n._(t`Log in / Sign up`);
-      subHeaderText = (
-        <>
-          <Trans>
-            Use your account to get weekly email alerts on{" "}
-            {!!addr ? (
-              <>{formatDisplayAddr(addr, false)}.</>
-            ) : !!district ? (
-              <>the areas you select.</>
-            ) : (
-              <>the buildings you select.</>
-            )}
-          </Trans>
-          {!fromPasswordLink && (
-            <>
-              {" "}
-              <Trans>We no longer use passwords — enter your email for a code or link.</Trans>
-            </>
-          )}
-        </>
-      );
+      if (addr) {
+        headerText = formatDisplayAddr(addr, false);
+        subHeaderText = i18n._(t`Log in or sign up to get weekly email updates on this building.`);
+      } else {
+        headerText = i18n._(t`Log in / Sign up`);
+        subHeaderText = district
+          ? i18n._(t`Use your account to get weekly email alerts on the areas you select.`)
+          : i18n._(t`Use your account to get weekly email alerts on the buildings you select.`);
+      }
       onSubmit = onEmailSubmit;
       submitButtonText = i18n._(t`Submit`);
       break;
@@ -428,9 +453,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
             setIsLoading(true);
             resetAlertErrorStates();
             hideInputErrors();
-            await onSubmit();
-            // if OnSubmit redirects, state change below raises memory leak warning, but not a problem
-            setIsLoading(false);
+            try {
+              await onSubmit();
+            } catch (err) {
+              reportUnexpectedAuthError(err);
+              setPageError(mapAuthError(NETWORK_AUTH_ERROR, i18n));
+            } finally {
+              setIsLoading(false);
+            }
           }}
         >
           {isCheckEmailStep && (

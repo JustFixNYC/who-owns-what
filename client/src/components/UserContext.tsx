@@ -1,8 +1,14 @@
 import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import { JustfixUser } from "state-machine";
-import AuthClient from "./AuthClient";
+import AuthClient, {
+  SendLoginCodeOptions,
+  VerifyMagicLinkResponse,
+  VerifyStatusCode,
+} from "./AuthClient";
 import { authRequiredPaths } from "routes";
 import { District } from "./APIDataTypes";
+import { NETWORK_AUTH_ERROR, reportUnexpectedAuthError } from "./auth-errors";
+import { NetworkError } from "error-reporting";
 
 type UserOrError = {
   user?: JustfixUser;
@@ -10,7 +16,6 @@ type UserOrError = {
 };
 
 type StartLoginResult = {
-  user?: JustfixUser;
   created?: boolean;
   error?: string;
 };
@@ -20,25 +25,14 @@ export type UserContextProps = {
   startLogin: (email: string) => Promise<StartLoginResult | void>;
   sendLoginCode: (
     email: string,
-    options?: { userType?: string; phoneNumber?: string }
+    options?: SendLoginCodeOptions
   ) => Promise<{ error?: string } | void>;
   verifyOtp: (
     email: string,
     code: string,
-    onSuccess?: (user: JustfixUser) => void
+    onSuccess?: (user: JustfixUser) => void | Promise<void>
   ) => Promise<UserOrError | void>;
-  register: (
-    username: string,
-    password: string,
-    userType: string,
-    phoneNumber?: string,
-    onSuccess?: (user: JustfixUser) => void
-  ) => Promise<UserOrError | void>;
-  login: (
-    username: string,
-    password: string,
-    onSuccess?: (user: JustfixUser) => void
-  ) => Promise<UserOrError | void>;
+  verifyMagicLink: (code: string, utmSource?: string) => Promise<VerifyMagicLinkResponse>;
   logout: (fromPath: string) => void;
   subscribeBuilding: (
     bbl: string,
@@ -49,30 +43,29 @@ export type UserContextProps = {
     _user?: JustfixUser,
     housenumber_display?: string,
     streetname_display?: string
-  ) => void;
+  ) => Promise<void>;
   unsubscribeBuilding: (bbl: string) => void;
   subscribeDistrict: (district: District, _user?: JustfixUser) => void;
   unsubscribeDistrict: (subscription_id: string) => void;
+  sendEmailChangeCode: (newEmail: string) => Promise<{ error?: string } | void>;
+  verifyEmailChangeOtp: (newEmail: string, code: string) => Promise<UserOrError | void>;
   updateEmail: (newEmail: string) => void;
-  updatePassword: (currentPassword: string, newPassword: string) => void;
-  requestPasswordReset: (email: string) => void;
-  resetPassword: (token: string, newPassword: string) => void;
 };
 
 const initialState: UserContextProps = {
   startLogin: async (email: string) => {},
-  sendLoginCode: async (email: string, options?: { userType?: string; phoneNumber?: string }) => {},
-  verifyOtp: async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {},
-  register: async (
-    username: string,
-    password: string,
-    userType: string,
-    phoneNumber?: string,
-    onSuccess?: (user: JustfixUser) => void
+  sendLoginCode: async (email: string, options?: SendLoginCodeOptions) => {},
+  verifyOtp: async (
+    email: string,
+    code: string,
+    onSuccess?: (user: JustfixUser) => void | Promise<void>
   ) => {},
-  login: async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {},
+  verifyMagicLink: async (code: string, utmSource?: string) => ({
+    statusCode: VerifyStatusCode.Unknown,
+    statusText: "",
+  }),
   logout: (fromPath: string) => {},
-  subscribeBuilding: (
+  subscribeBuilding: async (
     bbl: string,
     housenumber: string,
     streetname: string,
@@ -85,33 +78,50 @@ const initialState: UserContextProps = {
   unsubscribeBuilding: (bbl: string) => {},
   subscribeDistrict: (district: District, _user?: JustfixUser) => {},
   unsubscribeDistrict: (subscription_id: string) => {},
+  sendEmailChangeCode: async (newEmail: string) => {},
+  verifyEmailChangeOtp: async (newEmail: string, code: string) => {},
   updateEmail: (newEmail: string) => {},
-  updatePassword: (currentPassword: string, newPassword: string) => {},
-  requestPasswordReset: (email: string) => {},
-  resetPassword: (token: string, newPassword: string) => {},
 };
 
 export const UserContext = createContext<UserContextProps>(initialState);
 
+const toJustfixUser = (raw: any): JustfixUser | undefined => {
+  // `user === undefined` means fetch is still in flight (see LoginPage).
+  // Logged-out auth_check returns a user-shaped object with no email — keep it.
+  if (raw == null) return undefined;
+  return {
+    email: raw.email,
+    verified: !!raw.verified,
+    id: raw.id,
+    type: raw.type,
+    buildingSubscriptions: raw.buildingSubscriptions || raw.subscriptions || [],
+    districtSubscriptions: raw.districtSubscriptions || raw.district_subscriptions || [],
+    subscriptionLimit: raw.subscriptionLimit ?? raw.subscription_limit,
+  };
+};
+
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<JustfixUser>();
 
-  const updateUserSubscriptions = (_user: JustfixUser | undefined): JustfixUser | undefined => {
-    if (!_user) return;
+  const updateUserSubscriptions = useCallback((_user: JustfixUser | undefined):
+    | JustfixUser
+    | undefined => {
+    const normalized = toJustfixUser(_user);
+    if (!normalized) return;
     const updatedUser = {
-      ..._user,
+      ...normalized,
       buildingSubscriptions:
-        _user.buildingSubscriptions?.map((s: any) => {
+        normalized.buildingSubscriptions?.map((s: any) => {
           return { ...s };
         }) || [],
       districtSubscriptions:
-        _user.districtSubscriptions?.map((s: any) => {
+        normalized.districtSubscriptions?.map((s: any) => {
           return { ...s };
         }) || [],
     };
     setUser(updatedUser);
     return updatedUser;
-  };
+  }, []);
 
   useEffect(() => {
     const asyncFetchUser = async () => {
@@ -119,69 +129,74 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       updateUserSubscriptions(_user);
     };
     asyncFetchUser();
-  }, []);
+  }, [updateUserSubscriptions]);
 
   const startLogin = useCallback(async (email: string) => {
-    const response = await AuthClient.startLogin(email);
-    if (response.error) {
-      return { error: response.error };
+    try {
+      const response = await AuthClient.startLogin(email);
+      if (response.error) {
+        return { error: response.error };
+      }
+      return { created: response.created };
+    } catch (e) {
+      if (e instanceof NetworkError) {
+        return { error: NETWORK_AUTH_ERROR };
+      }
+      reportUnexpectedAuthError(e);
+      return { error: NETWORK_AUTH_ERROR };
     }
-    return { user: response.user, created: response.created };
   }, []);
 
-  const sendLoginCode = useCallback(
-    async (email: string, options?: { userType?: string; phoneNumber?: string }) => {
+  const sendLoginCode = useCallback(async (email: string, options?: SendLoginCodeOptions) => {
+    try {
       const response = await AuthClient.sendLoginCode(email, options);
       if (response.error) {
         return { error: response.error };
       }
-    },
-    []
-  );
+    } catch (e) {
+      if (e instanceof NetworkError) {
+        return { error: NETWORK_AUTH_ERROR };
+      }
+      reportUnexpectedAuthError(e);
+      return { error: NETWORK_AUTH_ERROR };
+    }
+  }, []);
 
   const verifyOtp = useCallback(
-    async (email: string, code: string, onSuccess?: (user: JustfixUser) => void) => {
-      const response = await AuthClient.verifyOtp(email, code);
-      if (response.error || !response.user) {
-        return { error: response.error || "Verification failed" };
-      }
-      const updatedUser = updateUserSubscriptions(response.user);
-      if (onSuccess && updatedUser) onSuccess(updatedUser);
-      return { user: updatedUser };
-    },
-    []
-  );
-
-  const register = useCallback(
     async (
-      username: string,
-      password: string,
-      userType: string,
-      phoneNumber?: string,
-      onSuccess?: (user: JustfixUser) => void
+      email: string,
+      code: string,
+      onSuccess?: (user: JustfixUser) => void | Promise<void>
     ) => {
-      const response = await AuthClient.register(username, password, userType, phoneNumber);
-      if (response.error || !response.user) {
-        return { error: response.error_description };
+      try {
+        const response = await AuthClient.verifyOtp(email, code);
+        if (response.error || !response.user) {
+          return { error: response.error || "Verification failed" };
+        }
+        const updatedUser = updateUserSubscriptions(response.user);
+        if (onSuccess && updatedUser) await onSuccess(updatedUser);
+        return { user: updatedUser };
+      } catch (e) {
+        if (e instanceof NetworkError) {
+          return { error: NETWORK_AUTH_ERROR };
+        }
+        reportUnexpectedAuthError(e);
+        return { error: NETWORK_AUTH_ERROR };
       }
-      const updatedUser = updateUserSubscriptions(response.user);
-      if (onSuccess && updatedUser) onSuccess(updatedUser);
-      return { user: updatedUser };
     },
-    []
+    [updateUserSubscriptions]
   );
 
-  const login = useCallback(
-    async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
-      const response = await AuthClient.login(username, password);
-      if (response.error || !response.user) {
-        return { error: response.error };
+  const verifyMagicLink = useCallback(
+    async (code: string, utmSource?: string) => {
+      const response = await AuthClient.verifyMagicLink(code, utmSource);
+      if (response.statusCode === VerifyStatusCode.Success && response.user) {
+        const updatedUser = updateUserSubscriptions(response.user);
+        return { ...response, user: updatedUser };
       }
-      const updatedUser = updateUserSubscriptions(response.user);
-      if (onSuccess && updatedUser) onSuccess(updatedUser);
-      return { user: updatedUser };
+      return response;
     },
-    []
+    [updateUserSubscriptions]
   );
 
   const logout = useCallback(async (fromPath: string) => {
@@ -196,7 +211,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const subscribeBuilding = useCallback(
-    (
+    async (
       bbl: string,
       housenumber: string,
       streetname: string,
@@ -208,19 +223,16 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     ) => {
       const currentUser = !!user?.email ? user : _user;
       if (currentUser) {
-        const asyncSubscribe = async () => {
-          const response = await AuthClient.subscribeBuilding(
-            bbl,
-            housenumber,
-            streetname,
-            zip,
-            boro,
-            housenumber_display,
-            streetname_display
-          );
-          setUser({ ...currentUser, buildingSubscriptions: response["building_subscriptions"] });
-        };
-        asyncSubscribe();
+        const response = await AuthClient.subscribeBuilding(
+          bbl,
+          housenumber,
+          streetname,
+          zip,
+          boro,
+          housenumber_display,
+          streetname_display
+        );
+        setUser({ ...currentUser, buildingSubscriptions: response["building_subscriptions"] });
       }
     },
     [user]
@@ -266,6 +278,41 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
+  const sendEmailChangeCode = useCallback(async (newEmail: string) => {
+    try {
+      const response = await AuthClient.sendEmailChangeCode(newEmail);
+      if (response?.error) {
+        return { error: response.error };
+      }
+    } catch (e) {
+      if (e instanceof NetworkError) {
+        return { error: NETWORK_AUTH_ERROR };
+      }
+      reportUnexpectedAuthError(e);
+      return { error: NETWORK_AUTH_ERROR };
+    }
+  }, []);
+
+  const verifyEmailChangeOtp = useCallback(
+    async (newEmail: string, code: string) => {
+      try {
+        const response = await AuthClient.verifyEmailChangeOtp(newEmail, code);
+        if (response?.error || !response?.user) {
+          return { error: response?.error || "Verification failed" };
+        }
+        const updatedUser = updateUserSubscriptions(response.user);
+        return { user: updatedUser };
+      } catch (e) {
+        if (e instanceof NetworkError) {
+          return { error: NETWORK_AUTH_ERROR };
+        }
+        reportUnexpectedAuthError(e);
+        return { error: NETWORK_AUTH_ERROR };
+      }
+    },
+    [updateUserSubscriptions]
+  );
+
   const updateEmail = useCallback(
     (email: string) => {
       if (user) {
@@ -279,66 +326,36 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
-  const updatePassword = useCallback(
-    (currentPassword: string, newPassword: string) => {
-      if (user) {
-        const asyncUpdatePassword = async () => {
-          await AuthClient.updatePassword(currentPassword, newPassword);
-        };
-        asyncUpdatePassword();
-      }
-    },
-    [user]
-  );
-
-  const requestPasswordReset = useCallback((email: string) => {
-    const asyncRequestResetPassword = async () => {
-      await AuthClient.resetPasswordRequest(email);
-    };
-    asyncRequestResetPassword();
-  }, []);
-
-  const resetPassword = useCallback((token: string, newPassword: string) => {
-    const asyncResetPassword = async () => {
-      await AuthClient.resetPassword(token, newPassword);
-    };
-    asyncResetPassword();
-  }, []);
-
   const providerValue = useMemo(
     () => ({
       user,
       startLogin,
       sendLoginCode,
       verifyOtp,
-      register,
-      login,
+      verifyMagicLink,
       logout,
       subscribeBuilding,
       unsubscribeBuilding,
       subscribeDistrict,
       unsubscribeDistrict,
+      sendEmailChangeCode,
+      verifyEmailChangeOtp,
       updateEmail,
-      updatePassword,
-      requestPasswordReset,
-      resetPassword,
     }),
     [
       user,
       startLogin,
       sendLoginCode,
       verifyOtp,
-      register,
-      login,
+      verifyMagicLink,
       logout,
       subscribeBuilding,
       unsubscribeBuilding,
       subscribeDistrict,
       unsubscribeDistrict,
+      sendEmailChangeCode,
+      verifyEmailChangeOtp,
       updateEmail,
-      updatePassword,
-      requestPasswordReset,
-      resetPassword,
     ]
   );
 

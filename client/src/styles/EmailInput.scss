@@ -12,15 +12,11 @@
       font-weight: bold;
       text-align: left;
     }
-
-    a {
-      color: $justfix-black;
-      font-size: 0.8125rem;
-    }
   }
 
   .email-input {
     display: flex;
+    flex: stretch;
 
     input {
       flex: 1;
