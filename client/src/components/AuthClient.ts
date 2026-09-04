@@ -262,15 +262,19 @@ const subscribeBuilding = async (
   housenumber: string,
   streetname: string,
   zip: string,
-  boro: string
+  boro: string,
+  housenumber_display?: string,
+  streetname_display?: string
 ) => {
-  const post_data = {
+  const post_data: { [key: string]: string } = {
     bbl,
     housenumber,
     streetname,
     zip,
     boro,
   };
+  if (housenumber_display !== undefined) post_data.housenumber_display = housenumber_display;
+  if (streetname_display !== undefined) post_data.streetname_display = streetname_display;
   return await postAuthRequest(`${BASE_URL}auth/subscribe/building`, post_data);
 };
 

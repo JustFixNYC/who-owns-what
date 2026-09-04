@@ -219,6 +219,8 @@ class SubscribeBuildingView(View):
                 "streetname": request.POST.get("streetname"),
                 "zip": request.POST.get("zip"),
                 "boro": request.POST.get("boro"),
+                "housenumber_display": request.POST.get("housenumber_display"),
+                "streetname_display": request.POST.get("streetname_display"),
                 "origin": request.headers["Origin"],
             }
             return authenticated_request(

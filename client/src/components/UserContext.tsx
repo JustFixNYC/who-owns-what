@@ -40,7 +40,9 @@ export type UserContextProps = {
     streetname: string,
     zip: string,
     boro: string,
-    _user?: JustfixUser
+    _user?: JustfixUser,
+    housenumber_display?: string,
+    streetname_display?: string
   ) => Promise<void>;
   unsubscribeBuilding: (bbl: string) => void;
   subscribeDistrict: (district: District, _user?: JustfixUser) => void;
@@ -69,7 +71,9 @@ const initialState: UserContextProps = {
     streetname: string,
     zip: string,
     boro: string,
-    _user?: JustfixUser
+    _user?: JustfixUser,
+    housenumber_display?: string,
+    streetname_display?: string
   ) => {},
   unsubscribeBuilding: (bbl: string) => {},
   subscribeDistrict: (district: District, _user?: JustfixUser) => {},
@@ -213,7 +217,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       streetname: string,
       zip: string,
       boro: string,
-      _user?: JustfixUser
+      _user?: JustfixUser,
+      housenumber_display?: string,
+      streetname_display?: string
     ) => {
       const currentUser = !!user?.email ? user : _user;
       if (currentUser) {
@@ -222,7 +228,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
           housenumber,
           streetname,
           zip,
-          boro
+          boro,
+          housenumber_display,
+          streetname_display
         );
         setUser({ ...currentUser, buildingSubscriptions: response["building_subscriptions"] });
       }

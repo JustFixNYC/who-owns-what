@@ -63,11 +63,17 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const [addr, setAddr] = React.useState<AddressRecord>();
   const [district, setDistrict] = React.useState<District>();
   const [returnRoute, setReturnRoute] = React.useState<string>();
+  const [fromBuildingAlerts, setFromBuildingAlerts] = React.useState(false);
+  const [housenumberDisplay, setHousenumberDisplay] = React.useState<string>();
+  const [streetnameDisplay, setStreetnameDisplay] = React.useState<string>();
   // switch to regular state and clear location state since it otherwise persists after reloads
   useEffect(() => {
     setAddr(locationState?.addr);
     setDistrict(locationState?.district);
     setReturnRoute(locationState?.returnRoute);
+    setFromBuildingAlerts(!!locationState?.fromBuildingAlerts);
+    setHousenumberDisplay(locationState?.housenumber_display);
+    setStreetnameDisplay(locationState?.streetname_display);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
@@ -138,6 +144,17 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     return withBoro ? `${addrWithoutBoro}, ${helpers.titleCase(addr.boro)}` : addrWithoutBoro;
   };
 
+  const formatDisplayAddr = (addr: AddressRecord, withBoro = true) => {
+    if (!addr) return;
+    if (fromBuildingAlerts && streetnameDisplay) {
+      const hn = housenumberDisplay ?? "";
+      const prefix = hn ? `${hn} ` : "";
+      const addrWithoutBoro = `${prefix}${helpers.titleCase(streetnameDisplay)}`;
+      return withBoro ? `${addrWithoutBoro}, ${helpers.titleCase(addr.boro)}` : addrWithoutBoro;
+    }
+    return formatAddr(addr, withBoro);
+  };
+
   const subscribeOnSuccess = async (user: JustfixUser) => {
     if (addr) {
       await userContext.subscribeBuilding(
@@ -146,7 +163,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         addr.streetname,
         addr.zip ?? "",
         addr.boro,
-        user
+        user,
+        fromBuildingAlerts ? housenumberDisplay : undefined,
+        fromBuildingAlerts ? streetnameDisplay : undefined
       );
     }
 
@@ -391,7 +410,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   switch (step) {
     case Step.CheckEmail:
       if (addr) {
-        headerText = formatAddr(addr, false);
+        headerText = formatDisplayAddr(addr, false);
         subHeaderText = i18n._(t`Log in or sign up to get weekly email updates on this building.`);
       } else {
         headerText = i18n._(t`Log in / Sign up`);

@@ -108,6 +108,8 @@ export type BuildingSubscription = {
   streetname: string;
   zip: string;
   boro: string;
+  housenumber_display?: string;
+  streetname_display?: string;
 };
 
 export type DistrictSubscription = {

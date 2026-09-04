@@ -77,9 +77,17 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
     window.gtag("event", "register-login-via-building-alert");
     const loginRoute = `/${i18n.language}${account.login}`;
     const settingsRoute = `/${i18n.language}${account.settings}`;
+    const displayHn = selectedAddress?.housenumber ?? "";
+    const displaySn = selectedAddress?.streetname;
     history.push({
       pathname: loginRoute,
-      state: { addr, returnRoute: settingsRoute, fromBuildingAlerts: true },
+      state: {
+        addr,
+        returnRoute: settingsRoute,
+        fromBuildingAlerts: true,
+        housenumber_display: displayHn,
+        streetname_display: displaySn,
+      },
     });
   };
 
@@ -135,12 +143,17 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
       return;
     }
 
+    const displayHn = selectedAddress.housenumber ?? "";
+    const displaySn = selectedAddress.streetname;
     await subscribeBuilding(
       addressRecord.bbl,
       addressRecord.housenumber,
       addressRecord.streetname,
       addressRecord.zip ?? "",
-      addressRecord.boro
+      addressRecord.boro,
+      undefined,
+      displayHn,
+      displaySn
     );
     redirectToSettings();
   };
