@@ -1,0 +1,92 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+// Shared newStyle modal shell (used with Modal newStyle={true} on alerts pages)
+.alerts-modal {
+  display: flex;
+  flex-direction: column;
+  background-color: $justfix-white-100 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  border: none !important;
+  color: $justfix-black;
+  font-family: $body-font;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+
+  .modal__content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    margin-top: -1.5rem;
+
+    @include for-phone-only {
+      margin-top: 0;
+    }
+  }
+
+  button.modal__close.jfcl-button {
+    margin: 1.5rem 1.5rem 0 auto !important;
+    color: $justfix-black;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    @include for-phone-only {
+      margin: 0 0 0 auto !important;
+      padding: 1.5rem 1.5rem 0 0;
+    }
+
+    .jfcl-button__icon,
+    svg {
+      height: 2rem;
+      width: 2rem;
+
+      @include for-phone-only {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+  }
+
+  &--preview {
+    max-width: 720px !important;
+
+    h3 {
+      color: $justfix-black;
+      margin-bottom: 2rem;
+      @include jfcl-h3-desktop;
+      @include for-phone-only {
+        @include jfcl-h3-mobile;
+      }
+    }
+
+    figure {
+      margin: unset !important;
+      box-shadow: 0 1.25rem 3.125rem 0 rgba(36, 35, 35, 0.25);
+      img {
+        width: 100% !important;
+      }
+    }
+  }
+
+  &--unavailable {
+    max-width: 40rem !important;
+
+    h3 {
+      @include jfcl-h3-desktop;
+      margin: 0 0 1.5rem;
+
+      @include for-phone-only {
+        @include jfcl-h3-mobile;
+      }
+    }
+
+    p {
+      @include jfcl-body-standard-desktop-degular-text;
+      margin: 0;
+
+      & + p {
+        margin-top: 1.5rem;
+      }
+    }
+  }
+}

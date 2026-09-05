@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_alerts_modal.scss";
 
 .ReactModal__Overlay--after-open {
   z-index: 120;
@@ -46,6 +47,15 @@
           margin: 0;
         }
       }
+    }
+  }
+
+  @include for-phone-only() {
+    .alerts-modal {
+      padding: unset !important;
+      width: calc(100% - 2rem) !important;
+      max-width: none !important;
+      box-sizing: border-box;
     }
   }
 }

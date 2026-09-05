@@ -256,7 +256,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         showModal={showEmailModal}
         width={40}
         onClose={() => setShowEmailModal(false)}
-        className="area-alerts-modal"
+        className="alerts-modal alerts-modal--preview"
         newStyle={true}
       >
         <div className="modal__content">

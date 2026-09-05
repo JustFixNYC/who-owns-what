@@ -348,7 +348,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
           showModal={loadError}
           width={40}
           onClose={() => setLoadError(false)}
-          className="building-alerts-unavailable-modal"
+          className="alerts-modal alerts-modal--unavailable"
           newStyle={true}
         >
           <div className="modal__content">
@@ -374,7 +374,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
           showModal={showPreviewModal}
           width={40}
           onClose={() => setShowPreviewModal(false)}
-          className="area-alerts-modal"
+          className="alerts-modal alerts-modal--preview"
           newStyle={true}
         >
           <div className="modal__content">
