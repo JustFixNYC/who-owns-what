@@ -202,7 +202,10 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         boro: addr.boro,
       };
     }
-    if (!options.userType && !options.phoneNumber && !options.building) {
+    if (district) {
+      options.district = district;
+    }
+    if (!options.userType && !options.phoneNumber && !options.building && !options.district) {
       return undefined;
     }
     return options;

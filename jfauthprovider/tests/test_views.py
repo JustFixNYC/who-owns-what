@@ -103,6 +103,41 @@ class TestLoginSendCodeProxy:
         )
 
     @patch("jfauthprovider.views.client_secret_request")
+    def test_login_send_code_forwards_district(self, mock_request, client):
+        mock_request.return_value = make_auth_response(200, {"otp": "123456"})
+        district_json = json.dumps(
+            [
+                {
+                    "areaLabel": "11201",
+                    "areaValue": "11201",
+                    "typeLabel": "Zip Code",
+                    "typeValue": "zipcode",
+                }
+            ]
+        )
+
+        res = client.post(
+            "/auth/login/send-code",
+            {
+                "email": "test@example.com",
+                "district": district_json,
+            },
+            HTTP_ORIGIN=ORIGIN,
+        )
+
+        assert res.status_code == 200
+        mock_request.assert_called_once_with(
+            "user/login/send-code/",
+            {
+                "email": "test@example.com",
+                "user_type": None,
+                "phone_number": None,
+                "origin": ORIGIN,
+                "district": district_json,
+            },
+        )
+
+    @patch("jfauthprovider.views.client_secret_request")
     def test_login_send_code_without_origin_does_not_500(self, mock_request, client):
         mock_request.return_value = make_auth_response(200, {"otp": {"status": "sent"}})
 

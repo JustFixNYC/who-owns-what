@@ -57,6 +57,27 @@ describe("EmailVerificationPrompt resend", () => {
       })
     );
   });
+
+  it("includes stringified district from the area-alerts login path", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ otp: { status: "sent" } }));
+    const district = [
+      {
+        areaLabel: "11201",
+        areaValue: "11201",
+        typeLabel: "Zip Code",
+        typeValue: "zipcode",
+      },
+    ];
+
+    await AuthClient.sendLoginCode("tenant@example.com", { district });
+
+    expect(fetchMock.mock.calls[0][1]).toEqual(
+      expect.objectContaining({
+        method: "POST",
+        body: `email=tenant%40example.com&district=${encodeURIComponent(JSON.stringify(district))}`,
+      })
+    );
+  });
 });
 
 describe("buildVerifyReloginUrl", () => {
