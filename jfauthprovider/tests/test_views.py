@@ -35,9 +35,7 @@ class TestLoginStartProxy:
         assert res.status_code == 200
         assert "access_token" not in res.cookies
         assert "refresh_token" not in res.cookies
-        mock_request.assert_called_once_with(
-            "user/login/start/", {"email": "test@example.com"}
-        )
+        mock_request.assert_called_once_with("user/login/start/", {"email": "test@example.com"})
 
 
 @pytest.mark.django_db
@@ -105,7 +103,16 @@ class TestLoginSendCodeProxy:
     @patch("jfauthprovider.views.client_secret_request")
     def test_login_send_code_forwards_district(self, mock_request, client):
         mock_request.return_value = make_auth_response(200, {"otp": "123456"})
-        district_json = '[{"areaLabel":"11201","areaValue":"11201","typeLabel":"Zip Code","typeValue":"zipcode"}]'
+        district_json = json.dumps(
+            [
+                {
+                    "areaLabel": "11201",
+                    "areaValue": "11201",
+                    "typeLabel": "Zip Code",
+                    "typeValue": "zipcode",
+                }
+            ]
+        )
 
         res = client.post(
             "/auth/login/send-code",
@@ -207,9 +214,7 @@ class TestVerifyOtpProxy:
     def test_verify_otp_malformed_token_payload_returns_502(
         self, mock_request, mock_logger, client
     ):
-        mock_request.return_value = make_auth_response(
-            200, {"access_token": "test-access-token"}
-        )
+        mock_request.return_value = make_auth_response(200, {"access_token": "test-access-token"})
 
         res = client.post(
             "/auth/verify-otp",
@@ -224,9 +229,7 @@ class TestVerifyOtpProxy:
 
     @patch("jfauthprovider.authutil.logger")
     @patch("jfauthprovider.authutil.requests.post")
-    def test_verify_otp_upstream_timeout_returns_502(
-        self, mock_post, mock_logger, client
-    ):
+    def test_verify_otp_upstream_timeout_returns_502(self, mock_post, mock_logger, client):
         mock_post.side_effect = requests.Timeout("auth provider timeout")
 
         res = client.post(
@@ -243,9 +246,7 @@ class TestVerifyOtpProxy:
 @pytest.mark.django_db
 class TestVerifyMagicLinkProxy:
     @patch("jfauthprovider.views.client_secret_request")
-    def test_verify_magic_link_forwards_origin_and_sets_cookies(
-        self, mock_request, client
-    ):
+    def test_verify_magic_link_forwards_origin_and_sets_cookies(self, mock_request, client):
         mock_request.return_value = make_auth_response(200, TOKEN_RESPONSE)
 
         res = client.post(
@@ -267,12 +268,8 @@ class TestVerifyMagicLinkProxy:
         )
 
     @patch("jfauthprovider.views.client_secret_request")
-    def test_verify_magic_link_does_not_set_cookies_on_error(
-        self, mock_request, client
-    ):
-        mock_request.return_value = make_auth_response(
-            400, {"error": "Invalid or expired link"}
-        )
+    def test_verify_magic_link_does_not_set_cookies_on_error(self, mock_request, client):
+        mock_request.return_value = make_auth_response(400, {"error": "Invalid or expired link"})
 
         res = client.post(
             "/auth/verify-magic-link",
@@ -324,12 +321,8 @@ class TestEmailChangeProxy:
         }
 
     @patch("jfauthprovider.views.authenticated_request")
-    def test_email_change_send_code_without_origin_does_not_401(
-        self, mock_request, client
-    ):
-        mock_request.return_value = JsonResponse(
-            {"otp": {"status": "sent"}}, status=200
-        )
+    def test_email_change_send_code_without_origin_does_not_401(self, mock_request, client):
+        mock_request.return_value = JsonResponse({"otp": {"status": "sent"}}, status=200)
 
         res = client.post(
             "/auth/email/change/send-code",
@@ -343,9 +336,7 @@ class TestEmailChangeProxy:
 
     @patch("jfauthprovider.views.authenticated_request")
     def test_email_change_verify_otp_is_reachable(self, mock_request, client):
-        mock_request.return_value = JsonResponse(
-            {"user": {"email": "new@example.com"}}, status=200
-        )
+        mock_request.return_value = JsonResponse({"user": {"email": "new@example.com"}}, status=200)
 
         res = client.post(
             "/auth/email/change/verify-otp",
