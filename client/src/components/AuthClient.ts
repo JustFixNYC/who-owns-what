@@ -68,6 +68,8 @@ export type PendingBuildingSubscription = {
   streetname: string;
   zip: string;
   boro: string;
+  housenumber_display?: string;
+  streetname_display?: string;
 };
 
 export type SendLoginCodeOptions = {
@@ -107,6 +109,12 @@ const sendLoginCode = async (email: string, options?: SendLoginCodeOptions) => {
     params.streetname = options.building.streetname;
     params.zip = options.building.zip;
     params.boro = options.building.boro;
+    if (options.building.housenumber_display !== undefined) {
+      params.housenumber_display = options.building.housenumber_display;
+    }
+    if (options.building.streetname_display !== undefined) {
+      params.streetname_display = options.building.streetname_display;
+    }
   }
   if (options?.district) {
     params.district = JSON.stringify(options.district);
