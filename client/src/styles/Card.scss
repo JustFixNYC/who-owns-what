@@ -60,8 +60,14 @@
   .jfcl-button {
     &.is-full-width {
       width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+
+      @include for-phone-only() {
+        width: 100% !important;
+      }
     }
-    &.jfcl-variant-primary {
+    &.jfcl-variant-primary:not(.is-full-width) {
       @include for-phone-only() {
         width: -webkit-fill-available !important;
       }

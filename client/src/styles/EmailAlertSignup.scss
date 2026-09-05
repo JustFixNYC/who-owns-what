@@ -9,9 +9,13 @@
     flex-direction: column;
     text-align: left;
     gap: 1rem;
+    min-width: 0;
 
-    .jfcl-button {
-      align-self: center;
+    .jfcl-button.is-full-width {
+      align-self: stretch;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
 
       .jfcl-button__label {
         align-items: center;
