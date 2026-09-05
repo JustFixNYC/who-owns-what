@@ -58,6 +58,31 @@ describe("EmailVerificationPrompt resend", () => {
     );
   });
 
+  it("includes building display fields when present on send-code", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ otp: { status: "sent" } }));
+
+    await AuthClient.sendLoginCode("new@example.com", {
+      userType: "Tenant",
+      building: {
+        bbl: "3016780054",
+        housenumber: "196",
+        streetname: "Ralph Avenue",
+        zip: "11261",
+        boro: "Brooklyn",
+        housenumber_display: "196A",
+        streetname_display: "RALPH AVENUE",
+      },
+    });
+
+    expect(fetchMock.mock.calls[0][1]).toEqual(
+      expect.objectContaining({
+        method: "POST",
+        body:
+          "email=new%40example.com&user_type=Tenant&bbl=3016780054&housenumber=196&streetname=Ralph%20Avenue&zip=11261&boro=Brooklyn&housenumber_display=196A&streetname_display=RALPH%20AVENUE",
+      })
+    );
+  });
+
   it("includes stringified district from the area-alerts login path", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ otp: { status: "sent" } }));
     const district = [

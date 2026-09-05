@@ -103,6 +103,45 @@ class TestLoginSendCodeProxy:
         )
 
     @patch("jfauthprovider.views.client_secret_request")
+    def test_login_send_code_forwards_building_display_fields(
+        self, mock_request, client
+    ):
+        mock_request.return_value = make_auth_response(200, {"otp": "123456"})
+
+        res = client.post(
+            "/auth/login/send-code",
+            {
+                "email": "test@example.com",
+                "bbl": "3016780054",
+                "housenumber": "196",
+                "streetname": "Ralph Avenue",
+                "zip": "11261",
+                "boro": "Brooklyn",
+                "housenumber_display": "196A",
+                "streetname_display": "RALPH AVENUE",
+            },
+            HTTP_ORIGIN=ORIGIN,
+        )
+
+        assert res.status_code == 200
+        mock_request.assert_called_once_with(
+            "user/login/send-code/",
+            {
+                "email": "test@example.com",
+                "user_type": None,
+                "phone_number": None,
+                "origin": ORIGIN,
+                "bbl": "3016780054",
+                "housenumber": "196",
+                "streetname": "Ralph Avenue",
+                "zip": "11261",
+                "boro": "Brooklyn",
+                "housenumber_display": "196A",
+                "streetname_display": "RALPH AVENUE",
+            },
+        )
+
+    @patch("jfauthprovider.views.client_secret_request")
     def test_login_send_code_forwards_district(self, mock_request, client):
         mock_request.return_value = make_auth_response(200, {"otp": "123456"})
         district_json = json.dumps(

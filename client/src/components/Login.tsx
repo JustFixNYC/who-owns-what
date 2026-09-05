@@ -155,25 +155,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     return formatAddr(addr, withBoro);
   };
 
-  const subscribeOnSuccess = async (user: JustfixUser) => {
-    if (addr) {
-      await userContext.subscribeBuilding(
-        addr.bbl,
-        addr.housenumber,
-        addr.streetname,
-        addr.zip ?? "",
-        addr.boro,
-        user,
-        fromBuildingAlerts ? housenumberDisplay : undefined,
-        fromBuildingAlerts ? streetnameDisplay : undefined
-      );
-    }
-
-    if (district) {
-      await userContext.subscribeDistrict(district, user);
-    }
-  };
-
   const resetAlertErrorStates = () => {
     setPageError("");
     setOtpError("");
@@ -200,6 +181,12 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         streetname: addr.streetname,
         zip: addr.zip ?? "",
         boro: addr.boro,
+        ...(fromBuildingAlerts && housenumberDisplay !== undefined
+          ? { housenumber_display: housenumberDisplay }
+          : {}),
+        ...(fromBuildingAlerts && streetnameDisplay !== undefined
+          ? { streetname_display: streetnameDisplay }
+          : {}),
       };
     }
     if (district) {
@@ -377,7 +364,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const onVerifyOtp = async (code: string) => {
     window.gtag("event", "login-verify-otp", eventParams());
     try {
-      const resp = await userContext.verifyOtp(email, code, subscribeOnSuccess);
+      const resp = await userContext.verifyOtp(email, code);
       if (resp?.error) {
         reportUnexpectedAuthError(resp.error);
         setOtpError(mapAuthError(resp.error, i18n));

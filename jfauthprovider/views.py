@@ -39,7 +39,16 @@ def login_send_code(request):
     origin = request.headers.get("Origin")
     if origin:
         post_data["origin"] = origin
-    for key in ("bbl", "housenumber", "streetname", "zip", "boro", "district"):
+    for key in (
+        "bbl",
+        "housenumber",
+        "streetname",
+        "zip",
+        "boro",
+        "housenumber_display",
+        "streetname_display",
+        "district",
+    ):
         value = request.POST.get(key)
         if value:
             post_data[key] = value
