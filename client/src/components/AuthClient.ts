@@ -74,6 +74,7 @@ export type SendLoginCodeOptions = {
   userType?: string;
   phoneNumber?: string;
   building?: PendingBuildingSubscription;
+  district?: District;
 };
 
 type StartLoginResponse = {
@@ -106,6 +107,9 @@ const sendLoginCode = async (email: string, options?: SendLoginCodeOptions) => {
     params.streetname = options.building.streetname;
     params.zip = options.building.zip;
     params.boro = options.building.boro;
+  }
+  if (options?.district) {
+    params.district = JSON.stringify(options.district);
   }
   return await withOtpDeliveryError(
     await postAuthRequest(`${BASE_URL}auth/login/send-code`, params)
