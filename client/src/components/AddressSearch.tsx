@@ -45,6 +45,8 @@ export interface AddressSearchProps {
   labelClass: string;
   placeholder?: string;
   onInputChange?: (value: string) => void;
+  /** Called when the GeoSearch autocomplete API fails (e.g. 503). Not a form submission. */
+  onSearchError?: (error: any) => void;
 }
 
 type State = {
@@ -100,7 +102,8 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
     };
     this.requester = new GeoSearchRequester({
       onError: (e) => {
-        this.props.onFormSubmit(makeEmptySearchAddress(), e);
+        this.setState({ isLoading: false, results: [] });
+        this.props.onSearchError?.(e);
       },
       onResults: (results) => {
         this.setState({

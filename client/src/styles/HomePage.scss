@@ -133,6 +133,21 @@
     }
   }
 
+  .HomePage__error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $justfix-red;
+
+    svg {
+      height: 1.125rem;
+      color: $justfix-orange;
+    }
+  }
+
   .HomePage__samples {
     margin: 0 auto 30px auto;
 

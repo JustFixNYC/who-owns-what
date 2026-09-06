@@ -15,6 +15,7 @@ import { parseLocaleFromPath } from "i18n";
 import { useHistory, useLocation } from "react-router-dom";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { logAmplitudeEvent } from "components/Amplitude";
+import { Icon } from "@justfixnyc/component-library";
 import JFCLLinkInternal from "components/JFCLLinkInternal";
 
 type HomePageProps = {
@@ -25,19 +26,15 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   const { pathname } = useLocation();
   const locale = parseLocaleFromPath(pathname) || undefined;
 
-  const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
+  const handleFormSubmit = (searchAddress: SearchAddress) => {
     logAmplitudeEvent("searchByAddress");
     window.gtag("event", "search", { bbl: searchAddress.bbl });
 
-    if (error) {
-      window.gtag("event", "search-error");
-    } else {
-      const addressPage = createRouteForAddressPage(
-        { ...searchAddress, locale },
-        !useNewPortfolioMethod
-      );
-      history.push(addressPage);
-    }
+    const addressPage = createRouteForAddressPage(
+      { ...searchAddress, locale },
+      !useNewPortfolioMethod
+    );
+    history.push(addressPage);
   };
 
   /**
@@ -77,6 +74,23 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
 
   type SearchType = "address" | "landlord";
   const [searchType, setSearchType] = useState("address" as SearchType);
+  const [searchUnavailable, setSearchUnavailable] = useState(false);
+
+  const handleSearchError = () => {
+    window.gtag("event", "search-error");
+    setSearchUnavailable(true);
+  };
+
+  const handleInputChange = () => {
+    setSearchUnavailable(false);
+  };
+
+  const searchUnavailableError = searchUnavailable && (
+    <div className="HomePage__error">
+      <Icon icon="circleExclamation" />
+      <Trans>Address search is temporarily unavailable. Please try again.</Trans>
+    </div>
+  );
 
   return (
     <Page>
@@ -115,8 +129,11 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                   labelText={labelText}
                   labelClass="text-assistive"
                   onFormSubmit={handleFormSubmit}
+                  onSearchError={handleSearchError}
+                  onInputChange={handleInputChange}
                 />
               )}
+              {searchUnavailableError}
               <br />
             </div>
           ) : (
@@ -126,7 +143,10 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                 labelText={labelText}
                 labelClass="text-assistive"
                 onFormSubmit={handleFormSubmit}
+                onSearchError={handleSearchError}
+                onInputChange={handleInputChange}
               />
+              {searchUnavailableError}
             </div>
           )}
 
