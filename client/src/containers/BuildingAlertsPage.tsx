@@ -38,6 +38,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
   const [selectedAddress, setSelectedAddress] = useState<SearchAddress>();
   const [isLoadingRecord, setIsLoadingRecord] = useState(false);
   const [loadError, setLoadError] = useState(false);
+  const [searchUnavailable, setSearchUnavailable] = useState(false);
   const [noAddressError, setNoAddressError] = useState(false);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
@@ -64,6 +65,12 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
   const clearErrors = () => {
     setLoadError(false);
     setNoAddressError(false);
+    setSearchUnavailable(false);
+  };
+
+  const handleSearchError = (_error: any) => {
+    window.gtag("event", "building-alert-search-error");
+    setSearchUnavailable(true);
   };
 
   const handleInputChange = (value: string) => {
@@ -203,6 +210,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
                     placeholder={i18n._(t`Enter your address`)}
                     onFormSubmit={handleAddressSelected}
                     onInputChange={handleInputChange}
+                    onSearchError={handleSearchError}
                   />
                 </div>
                 <Button
@@ -226,6 +234,12 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
               <div className="BuildingAlertsPage__error">
                 <Icon icon="circleExclamation" />
                 <Trans>Please enter an address</Trans>
+              </div>
+            )}
+            {searchUnavailable && (
+              <div className="BuildingAlertsPage__error">
+                <Icon icon="circleExclamation" />
+                <Trans>Address search is temporarily unavailable. Please try again.</Trans>
               </div>
             )}
           </div>
