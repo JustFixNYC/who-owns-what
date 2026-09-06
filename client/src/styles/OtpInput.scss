@@ -8,7 +8,7 @@
   &__cells {
     display: grid;
     gap: 0.75rem;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--otp-length, 6), minmax(0, 1fr));
     pointer-events: none;
   }
 
@@ -23,7 +23,21 @@
     font-size: 1.5rem;
     height: 44px;
     justify-content: center;
+    position: relative;
     width: 100%;
+
+    &--active {
+      outline: 0.13rem solid $justfix-black;
+      z-index: 1;
+    }
+  }
+
+  &__caret {
+    animation: otp-caret-blink 1s step-end infinite;
+    background: $justfix-black;
+    height: 1.25rem;
+    position: absolute;
+    width: 1px;
   }
 
   &__field {
@@ -74,5 +88,15 @@
 
   &--disabled &__cell {
     opacity: 0.6;
+  }
+}
+
+@keyframes otp-caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }

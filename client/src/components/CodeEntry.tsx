@@ -1,18 +1,14 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Button } from "@justfixnyc/component-library";
 
-import { OtpInput } from "./OtpInput";
+import { OtpInput, OTP_LENGTH } from "./OtpInput";
 import { Nobr } from "./Nobr";
 
 import "styles/CodeEntry.css";
 
-export const OTP_LENGTH = 6;
 const OTP_INPUT_ID = "code-entry-otp";
-
-export const sanitizeOtpValue = (raw: string, length: number = OTP_LENGTH): string =>
-  raw.replace(/\D/g, "").slice(0, length);
 
 export type CodeEntryProps = withI18nProps & {
   email: string;
@@ -34,10 +30,6 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
 
   const isComplete = value.length === OTP_LENGTH;
   const busy = isSubmitting || isResending;
-
-  const setSanitizedValue = useCallback((raw: string) => {
-    setValue(sanitizeOtpValue(raw));
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,13 +82,9 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
         id={OTP_INPUT_ID}
         name="code"
         value={value}
+        onChange={setValue}
         autoFocus
         inputRef={inputRef}
-        onChange={(event) => setSanitizedValue(event.target.value)}
-        onPaste={(event) => {
-          event.preventDefault();
-          setSanitizedValue(event.clipboardData.getData("text"));
-        }}
         aria-describedby={errorId}
         invalid={!!error && value.length > 0}
         disabled={busy}
