@@ -39,12 +39,20 @@
     bottom: 0;
     left: 0;
     margin: 0;
+    outline: none;
     padding: 0;
     position: absolute;
     user-select: text;
     width: 100%;
+    -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: default;
     -webkit-user-select: text;
+
+    &:focus,
+    &:focus-visible {
+      box-shadow: none;
+      outline: none;
+    }
 
     &::selection {
       background: transparent;
@@ -58,6 +66,10 @@
       -webkit-text-fill-color: transparent;
       transition: background-color 5000s ease-in-out 0s;
     }
+  }
+
+  &:focus-within:not(&--invalid):not(&--disabled) &__cell {
+    border-color: $justfix-blue;
   }
 
   &--invalid &__cell {
