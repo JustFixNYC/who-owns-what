@@ -100,36 +100,48 @@ const toJustfixUser = (raw: any): JustfixUser | undefined => {
   };
 };
 
+const mapFetchedUser = (fetched: any): JustfixUser | undefined => {
+  const normalized = toJustfixUser(fetched);
+  if (!normalized) return;
+  return {
+    ...normalized,
+    buildingSubscriptions: (normalized.buildingSubscriptions || []).map((s: any) => ({ ...s })),
+    districtSubscriptions: (normalized.districtSubscriptions || []).map((s: any) => ({ ...s })),
+  };
+};
+
+/**
+ * Merge the mount-time auth_check into context without clobbering a session
+ * established while that request was in flight (magic-link landing in a
+ * fresh browser verifies in parallel with auth_check).
+ */
+export const applyAuthCheckUser = (
+  current: JustfixUser | undefined,
+  fetched: any
+): JustfixUser | undefined => {
+  if (current?.email) return current;
+  return mapFetchedUser(fetched);
+};
+
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<JustfixUser>();
 
   const updateUserSubscriptions = useCallback((_user: JustfixUser | undefined):
     | JustfixUser
     | undefined => {
-    const normalized = toJustfixUser(_user);
-    if (!normalized) return;
-    const updatedUser = {
-      ...normalized,
-      buildingSubscriptions:
-        normalized.buildingSubscriptions?.map((s: any) => {
-          return { ...s };
-        }) || [],
-      districtSubscriptions:
-        normalized.districtSubscriptions?.map((s: any) => {
-          return { ...s };
-        }) || [],
-    };
+    const updatedUser = mapFetchedUser(_user);
+    if (!updatedUser) return;
     setUser(updatedUser);
     return updatedUser;
   }, []);
 
   useEffect(() => {
     const asyncFetchUser = async () => {
-      const _user = await AuthClient.fetchUser();
-      updateUserSubscriptions(_user);
+      const fetched = await AuthClient.fetchUser();
+      setUser((current) => applyAuthCheckUser(current, fetched));
     };
     asyncFetchUser();
-  }, [updateUserSubscriptions]);
+  }, []);
 
   const startLogin = useCallback(async (email: string) => {
     try {
