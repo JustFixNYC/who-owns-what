@@ -68,10 +68,6 @@
     }
   }
 
-  &:focus-within:not(&--invalid):not(&--disabled) &__cell {
-    border-color: $justfix-blue;
-  }
-
   &--invalid &__cell {
     border-color: $justfix-red;
   }
