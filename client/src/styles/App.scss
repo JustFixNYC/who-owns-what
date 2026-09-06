@@ -334,6 +334,13 @@ div.Page {
     width: min(calc(100vw - 2.5rem), 37.5rem);
     max-width: 37.5rem;
     margin: 2.5rem auto;
+    box-sizing: border-box;
+
+    @include for-phone-only() {
+      width: auto;
+      max-width: none;
+      margin: 2.5rem 1rem;
+    }
 
     form {
       display: flex;
