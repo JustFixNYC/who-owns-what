@@ -27,8 +27,11 @@
   }
 
   &__field {
+    background: transparent;
     border: 0;
     box-sizing: border-box;
+    caret-color: transparent;
+    color: transparent;
     cursor: text;
     height: 100%;
     top: 0;
@@ -36,10 +39,33 @@
     bottom: 0;
     left: 0;
     margin: 0;
-    opacity: 0;
+    outline: none;
     padding: 0;
     position: absolute;
+    user-select: text;
     width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: default;
+    -webkit-user-select: text;
+
+    &:focus,
+    &:focus-visible {
+      box-shadow: none;
+      outline: none;
+    }
+
+    &::selection {
+      background: transparent;
+      color: transparent;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px transparent inset;
+      -webkit-text-fill-color: transparent;
+      transition: background-color 5000s ease-in-out 0s;
+    }
   }
 
   &--invalid &__cell {
