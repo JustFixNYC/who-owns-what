@@ -1,8 +1,13 @@
 @import "_vars.scss";
+@import "_typography.scss";
 
 .user-type-container {
   display: flex;
   flex-direction: column;
+
+  .jfcl-radio-button__label {
+    @include wow-body-standard;
+  }
 
   .jfcl-radio-button__checkmark {
     background-color: white;
@@ -21,6 +26,8 @@
   input[type="text"] {
     margin-left: 1.75rem;
     max-width: stretch;
+    font-size: 1rem; // below 16px zooms on mobile
+    @include wow-body-standard;
   }
 
   #input-field-error {

@@ -4,7 +4,7 @@
   .code-entry-label {
     display: block;
     font-weight: 500;
-    font-size: 1.125rem;
+    font-size: 0.875rem;
     margin-bottom: 0.625rem; // 10px
   }
 
@@ -13,9 +13,9 @@
   }
 
   .code-entry-resend {
-    font-size: 1.125rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    margin: 0 0.5rem 1rem;
+    margin: 0;
     align-self: center;
 
     button {
@@ -30,9 +30,10 @@
 
   .code-entry-error {
     color: $justfix-red;
-    font-size: 1.125rem;
+    font-size: 0.8125rem;
     font-weight: 500;
     margin-top: 0.5rem;
+    margin-bottom: 0;
     align-self: center;
   }
 
