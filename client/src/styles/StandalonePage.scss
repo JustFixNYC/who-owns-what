@@ -34,7 +34,7 @@
       margin: 2rem 0;
 
       width: 464px;
-      padding: 3rem 4rem;
+      padding: 2rem 4rem;
       @include for-phone-only() {
         width: 100%;
         padding: 1.5rem;
@@ -118,6 +118,33 @@
 
       .standalone-footer {
         text-align: left;
+      }
+
+      .Login--with-map {
+        margin: -3rem -4rem 0;
+
+        .login-map {
+          background-color: $justfix-grey-50;
+        }
+
+        .login-map__img {
+          display: block;
+          width: 100%;
+          height: 12.5rem; // 200px
+          object-fit: cover;
+        }
+
+        .login-body {
+          padding: 2rem 3rem 0;
+        }
+
+        @include for-phone-only() {
+          margin: -1.5rem -1.5rem 0;
+
+          .login-body {
+            padding: 1.5rem 1.5rem 0;
+          }
+        }
       }
     }
 
