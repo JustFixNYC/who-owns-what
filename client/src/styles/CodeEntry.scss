@@ -1,17 +1,22 @@
 @import "_vars.scss";
-@import "_typography.scss";
 
 .code-entry {
   .code-entry-label {
     display: block;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 1.125rem;
+    margin-bottom: 0.625rem; // 10px
+  }
+
+  .code-entry-email {
+    font-weight: 600;
   }
 
   .code-entry-resend {
-    font-size: 0.875rem;
+    font-size: 1.125rem;
     font-weight: 500;
-    margin: 0 0 1rem;
+    margin: 0 0.5rem 1rem;
+    align-self: center;
 
     button {
       color: $justfix-black;
@@ -25,8 +30,13 @@
 
   .code-entry-error {
     color: $justfix-red;
-    font-size: 0.8125rem;
+    font-size: 1.125rem;
     font-weight: 500;
-    margin: 0 0 1rem;
+    margin-top: 0.5rem;
+    align-self: center;
+  }
+
+  .submit-button-group {
+    margin-top: 0.5rem;
   }
 }

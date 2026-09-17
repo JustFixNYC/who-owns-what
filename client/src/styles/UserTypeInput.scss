@@ -1,27 +1,26 @@
 @import "_vars.scss";
-@import "_typography.scss";
 
 .user-type-container {
   display: flex;
   flex-direction: column;
 
-  .jfcl-radio-button__label {
-    @include wow-body-standard;
-  }
-
   .jfcl-radio-button__checkmark {
     background-color: white;
   }
 
+  .jfcl-radio-button:last-child {
+    margin-bottom: 0;
+  }
+
   .jfcl-text-input {
+    margin: 0.5rem 0 0;
     label {
       display: none;
     }
   }
   input[type="text"] {
-    margin: 0 1.75rem 0 1.75rem;
-    font-size: 1rem; // below 16px zooms on mobile
-    @include wow-body-standard;
+    margin-left: 1.75rem;
+    max-width: stretch;
   }
 
   #input-field-error {

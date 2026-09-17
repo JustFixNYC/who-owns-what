@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_typography.scss";
 
 .StandalonePage {
   div.page-container {
@@ -32,6 +33,7 @@
       flex-direction: column;
       background-color: $justfix-white-200;
       margin: 2rem 0;
+      font-family: $body-font;
 
       width: 464px;
       padding: 2rem 4rem;
@@ -48,34 +50,67 @@
         margin-bottom: 1.5rem;
       }
 
+      // Nested form labels, JFCL controls, and alerts set Inconsolata themselves.
+      .jfcl-button,
+      .jfcl-button__label,
+      .jfcl-link,
+      .jf-alert,
+      .jfcl-radio-button__label,
+      input,
+      button,
+      label,
+      a {
+        font-family: inherit;
+      }
+
+      h1,
+      h2,
+      p:not(.code-entry-resend):not(.code-entry-error) {
+        margin: 0;
+      }
+
       h1,
       h2,
       p,
       .code-entry-label {
-        margin: 0;
         text-align: left;
-        &,
-        a {
-          font-weight: 500;
-        }
       }
 
       h1 {
-        font-size: 1.5rem;
+        font-size: 2rem; // 32px
+        font-weight: 600;
+        line-height: 100%;
       }
 
       h2,
       p,
-      .code-entry-label {
-        &,
-        a {
-          font-size: 0.875rem;
-        }
+      .code-entry-label,
+      label,
+      input,
+      .jfcl-button,
+      .step-progress {
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 120%;
+      }
+
+      h2 a,
+      p a,
+      .code-entry-label a {
+        font-size: inherit;
+        font-weight: inherit;
+      }
+
+      label,
+      input,
+      .jfcl-button,
+      .step-progress {
+        letter-spacing: 0.54px;
       }
 
       h1 + h2,
       h1 + .code-entry-label {
-        margin-top: 1rem;
+        margin-top: 0.75rem;
       }
 
       .input-group,
