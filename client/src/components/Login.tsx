@@ -417,7 +417,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       submitButtonText = i18n._(t`Submit`);
       break;
     case Step.RegisterPhoneNumber:
-      stepProgress = i18n._(t`Step 1 of 2`);
+      stepProgress = i18n._(t`Step 1 of 3`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(
         t`We’ll text you in a few months to ask how we can improve this free service.`
@@ -426,11 +426,16 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       submitButtonText = i18n._(t`Next`);
       break;
     case Step.RegisterUserType:
-      stepProgress = i18n._(t`Step 2 of 2`);
+      stepProgress = i18n._(t`Step 2 of 3`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(t`Which best describes you?`);
       onSubmit = onUserTypeSubmit;
       submitButtonText = i18n._(t`Sign up`);
+      break;
+    case Step.CodeEntry:
+      if (isNewUser) {
+        stepProgress = i18n._(t`Step 3 of 3`);
+      }
       break;
   }
 
