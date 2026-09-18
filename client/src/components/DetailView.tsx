@@ -109,7 +109,6 @@ const AlsoKnownAsSection = ({ altAddrs }: { altAddrs: string[] }) => (
             <Trans>Also known as</Trans>
           </b>
           <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
-            <br />
             <p>
               <Trans>
                 A building can be known by more than one street address. We show these addresses
@@ -145,7 +144,6 @@ const LearnMoreAccordion = () => {
             window.gtag("event", "who-is-landlord-accordian");
           }}
         >
-          <br />
           <Trans>
             <p>
               While the legal owner of a building is often a company (usually called an “LLC”),
