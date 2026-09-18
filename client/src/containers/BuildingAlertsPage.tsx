@@ -299,7 +299,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
             <Trans render="p">
               Remember, you have a right to a habitable home.{" "}
               <JFCLLink
-                href="https://www.metcouncilonhousing.org/help-answers/statutory-rights-of-residential-tenants-in-new-york/"
+                href="https://www.metcouncilonhousing.org/help-answers/getting-repairs-done/"
                 target="_blank"
                 rel="noopener noreferrer"
                 icon="external"

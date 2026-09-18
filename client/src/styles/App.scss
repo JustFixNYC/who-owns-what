@@ -50,6 +50,9 @@
   padding: 0.31rem 0.94rem;
   color: $wowza-dark;
   position: relative;
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
 
   .close-button {
     color: $wowza-dark;
