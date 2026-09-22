@@ -166,13 +166,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     setShowPhoneNumberError(false);
   };
 
-  const cleanedPhone = phoneNumber ? phoneNumber.replace(/\D/g, "").slice(0, 10) : undefined;
-
   const sendCodeOptions = (): SendLoginCodeOptions | undefined => {
     const options: SendLoginCodeOptions = {};
     if (isNewUser) {
       options.userType = userType;
-      options.phoneNumber = cleanedPhone;
+      const digits = phoneNumber ? helpers.cleanPhoneDigits(phoneNumber) : "";
+      if (digits && helpers.isValidUSPhoneNumber(digits)) {
+        options.phoneNumber = digits;
+      }
     }
     if (addr) {
       options.building = {
@@ -352,6 +353,13 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const onPhoneNumberSubmit = async () => {
     window.gtag("event", "register-phone-number", eventParams());
+
+    const digits = helpers.cleanPhoneDigits(phoneNumber);
+    if (digits.length > 0 && !helpers.isValidUSPhoneNumber(digits)) {
+      setPhoneNumberError(true);
+      setShowPhoneNumberError(true);
+      return;
+    }
 
     if (phoneNumberError) {
       setShowPhoneNumberError(true);

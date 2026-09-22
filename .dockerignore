@@ -3,3 +3,5 @@ client/node_modules/
 nycdb/
 .mypy_cache/
 venv/
+.env
+.env.production

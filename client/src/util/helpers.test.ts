@@ -256,3 +256,22 @@ describe("formatHpdContactAddress(), ()", () => {
     });
   });
 });
+
+describe("isValidUSPhoneNumber()", () => {
+  it("accepts empty input as optional", () => {
+    expect(helpers.isValidUSPhoneNumber("")).toBe(true);
+  });
+
+  it("accepts valid 10-digit numbers", () => {
+    expect(helpers.isValidUSPhoneNumber("5551234567")).toBe(true);
+  });
+
+  it("rejects too-short numbers", () => {
+    expect(helpers.isValidUSPhoneNumber("555123456")).toBe(false);
+  });
+
+  it("rejects invalid leading area-code digits", () => {
+    expect(helpers.isValidUSPhoneNumber("0001234567")).toBe(false);
+    expect(helpers.isValidUSPhoneNumber("1234567890")).toBe(false);
+  });
+});
