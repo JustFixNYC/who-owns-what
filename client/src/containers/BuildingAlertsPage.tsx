@@ -299,7 +299,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
             <Trans render="p">
               Remember, you have a right to a habitable home.{" "}
               <JFCLLink
-                href="https://www.metcouncilonhousing.org/help-answers/statutory-rights-of-residential-tenants-in-new-york/"
+                href="https://www.nyc.gov/site/mayorspeu/programs/tenant-rights.page"
                 target="_blank"
                 rel="noopener noreferrer"
                 icon="external"
@@ -310,7 +310,7 @@ const BuildingAlertsPage = withI18n()((props: withI18nProps) => {
             <Trans render="p">
               You also have a right to organize with your neighbors and to exercise your rights.{" "}
               <JFCLLink
-                href="https://www.metcouncilonhousing.org/help-answers/forming-a-tenants-association/"
+                href="https://www.nyc.gov/assets/tenantprotection/downloads/pdf/MOPT-Right-to-Organize-Letter.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 icon="external"

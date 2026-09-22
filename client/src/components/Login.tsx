@@ -4,6 +4,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { I18n } from "@lingui/core";
 import { useHistory, useLocation } from "react-router-dom";
 import { Button } from "@justfixnyc/component-library";
+import classNames from "classnames";
 
 import "styles/_input.scss";
 import { JustfixUser } from "state-machine";
@@ -20,6 +21,7 @@ import { JFCLLocaleLink } from "i18n";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord, District } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
+import { getLoginMapImageUrl, LOGIN_MAP_HEIGHT, LOGIN_MAP_WIDTH } from "./LoginMap";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -392,6 +394,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     }
   };
 
+  const mapImageUrl =
+    addr?.lat != null && addr?.lng != null ? getLoginMapImageUrl(addr.lng, addr.lat) : undefined;
+
   let stepProgress = "";
   let headerText: any;
   let subHeaderText: any;
@@ -412,7 +417,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       submitButtonText = i18n._(t`Submit`);
       break;
     case Step.RegisterPhoneNumber:
-      stepProgress = i18n._(t`Step 1 of 2`);
+      stepProgress = i18n._(t`Step 1 of 3`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(
         t`We’ll text you in a few months to ask how we can improve this free service.`
@@ -421,84 +426,107 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       submitButtonText = i18n._(t`Next`);
       break;
     case Step.RegisterUserType:
-      stepProgress = i18n._(t`Step 2 of 2`);
+      stepProgress = i18n._(t`Step 2 of 3`);
       headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(t`Which best describes you?`);
       onSubmit = onUserTypeSubmit;
       submitButtonText = i18n._(t`Sign up`);
       break;
+    case Step.CodeEntry:
+      if (isNewUser) {
+        stepProgress = i18n._(t`Step 3 of 3`);
+      }
+      break;
   }
 
   return (
-    <div className="Login">
-      {stepProgress && <span className="step-progress">{stepProgress}</span>}
-      {renderAlert()}
-      {!!headerText && <h1>{headerText}</h1>}
-      {!!subHeaderText && <h2>{subHeaderText}</h2>}
-      {!isCodeEntryStep && !isLoginSuccessStep && (
-        <form
-          className="input-group"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            setIsLoading(true);
-            resetAlertErrorStates();
-            hideInputErrors();
-            try {
-              await onSubmit();
-            } catch (err) {
-              reportUnexpectedAuthError(err);
-              setPageError(mapAuthError(NETWORK_AUTH_ERROR, i18n));
-            } finally {
-              setIsLoading(false);
-            }
-          }}
-        >
-          {isCheckEmailStep && (
-            <EmailInput
-              email={email}
-              onChange={onChangeEmail}
-              error={emailError}
-              setError={setEmailError}
-              showError={showEmailError}
-              autoFocus={true}
-              labelText={i18n._(t`Email address`)}
-            />
-          )}
-          {isRegisterUserTypeStep && (
-            <UserTypeInput
-              setUserType={setUserType}
-              error={userTypeError}
-              showError={showUserTypeError}
-              setError={setUserTypeError}
-            />
-          )}
-          {isRegisterPhoneNumberStep && (
-            <PhoneNumberInput
-              phone={phoneNumber}
-              onChange={onChangePhoneNumber}
-              error={phoneNumberError}
-              setError={setPhoneNumberError}
-              showError={showPhoneNumberError}
-              autoFocus={true}
-              labelText={i18n._(t`Phone number (optional)`)}
-            />
-          )}
-          <div className="submit-button-group">
-            <Button
-              type="submit"
-              variant="primary"
-              size="large"
-              labelText={submitButtonText}
-              loading={isLoading}
-            />
-          </div>
-        </form>
+    <div className={classNames("Login", { "Login--with-map": !!mapImageUrl })}>
+      {mapImageUrl && (
+        <div className="login-map">
+          <img
+            className="login-map__img"
+            src={mapImageUrl}
+            alt={i18n._(t`Map showing location of this building.`)}
+            width={LOGIN_MAP_WIDTH}
+            height={LOGIN_MAP_HEIGHT}
+          />
+        </div>
       )}
-      {isCodeEntryStep && (
-        <CodeEntry email={email} onVerify={onVerifyOtp} onResend={onResendCode} error={otpError} />
-      )}
-      {isLoginSuccessStep && renderLoginSuccess()}
-      {isRegisterPhoneNumberStep && renderFooter()}
+      <div className="login-body">
+        {stepProgress && <span className="step-progress">{stepProgress}</span>}
+        {renderAlert()}
+        {!!headerText && <h1>{headerText}</h1>}
+        {!!subHeaderText && <h2>{subHeaderText}</h2>}
+        {!isCodeEntryStep && !isLoginSuccessStep && (
+          <form
+            className="input-group"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              setIsLoading(true);
+              resetAlertErrorStates();
+              hideInputErrors();
+              try {
+                await onSubmit();
+              } catch (err) {
+                reportUnexpectedAuthError(err);
+                setPageError(mapAuthError(NETWORK_AUTH_ERROR, i18n));
+              } finally {
+                setIsLoading(false);
+              }
+            }}
+          >
+            {isCheckEmailStep && (
+              <EmailInput
+                email={email}
+                onChange={onChangeEmail}
+                error={emailError}
+                setError={setEmailError}
+                showError={showEmailError}
+                autoFocus={true}
+                labelText={i18n._(t`Email address`)}
+              />
+            )}
+            {isRegisterUserTypeStep && (
+              <UserTypeInput
+                setUserType={setUserType}
+                error={userTypeError}
+                showError={showUserTypeError}
+                setError={setUserTypeError}
+              />
+            )}
+            {isRegisterPhoneNumberStep && (
+              <PhoneNumberInput
+                phone={phoneNumber}
+                onChange={onChangePhoneNumber}
+                error={phoneNumberError}
+                setError={setPhoneNumberError}
+                showError={showPhoneNumberError}
+                autoFocus={true}
+                labelText={i18n._(t`Phone number (optional)`)}
+              />
+            )}
+            <div className="submit-button-group">
+              <Button
+                type="submit"
+                variant="primary"
+                size="large"
+                labelText={submitButtonText}
+                loading={isLoading}
+              />
+            </div>
+          </form>
+        )}
+        {isCodeEntryStep && (
+          <CodeEntry
+            email={email}
+            onVerify={onVerifyOtp}
+            onResend={onResendCode}
+            error={otpError}
+          />
+        )}
+        {isLoginSuccessStep && renderLoginSuccess()}
+        {isRegisterPhoneNumberStep && renderFooter()}
+      </div>
     </div>
   );
 };

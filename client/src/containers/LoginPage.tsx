@@ -3,6 +3,7 @@ import { t } from "@lingui/macro";
 
 import StandalonePage from "components/StandalonePage";
 import Login from "components/Login";
+import { LoginBanner } from "components/LoginBanner";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import classNames from "classnames";
@@ -39,6 +40,7 @@ const LoginPage = withI18n()((props: withI18nProps) => {
       className={classNames("LoginPage", {
         "LoginPage--from-building-alerts": fromBuildingAlerts,
       })}
+      banner={<LoginBanner />}
     >
       <Login />
     </StandalonePage>
