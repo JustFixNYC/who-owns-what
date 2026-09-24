@@ -4,6 +4,7 @@ venv/
 .venv/
 env/*
 /.env
+.env.production
 client/src/**/*.css
 dist
 scripts/*

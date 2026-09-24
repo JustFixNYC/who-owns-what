@@ -293,6 +293,18 @@ const helpers = {
     return this.capitalize(date.toLocaleDateString(locale || defaultLocale, options));
   },
 
+  cleanPhoneDigits(value: string): string {
+    return value.replace(/\D/g, "").slice(0, 10);
+  },
+
+  /** 10-digit US phone; matches auth-provider validate_phone_number rules. */
+  isValidUSPhoneNumber(digits: string): boolean {
+    if (!digits) return true; // optional field
+    if (digits.length !== 10 || !/^\d+$/.test(digits)) return false;
+    if (digits[0] === "0" || digits[0] === "1") return false;
+    return true;
+  },
+
   // Copied from gce-screener
   formatPhoneNumber(value: string): string {
     // remove all non-digit characters

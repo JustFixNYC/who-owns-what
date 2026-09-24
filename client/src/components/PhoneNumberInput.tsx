@@ -7,6 +7,7 @@ import "styles/PhoneNumberInput.css";
 import "styles/_input.scss";
 import classNames from "classnames";
 import { Icon } from "@justfixnyc/component-library";
+import helpers from "util/helpers";
 
 interface PhoneNumberInputProps extends React.ComponentPropsWithoutRef<"input"> {
   i18n: I18n;
@@ -23,13 +24,8 @@ const PhoneNumberInputWithoutI18n = forwardRef<HTMLInputElement, PhoneNumberInpu
   ({ i18n, i18nHash, phone, error, setError, showError, onChange, labelText, ...props }, ref) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       onChange(e);
-      const VALID_PHONE_NUMBER_LENGTH = 10;
-      const cleaned = e.target.value.replace(/\D/g, "");
-      if (cleaned.length > 0 && cleaned.length !== VALID_PHONE_NUMBER_LENGTH) {
-        setError(true);
-      } else {
-        setError(false);
-      }
+      const cleaned = helpers.cleanPhoneDigits(e.target.value);
+      setError(cleaned.length > 0 && !helpers.isValidUSPhoneNumber(cleaned));
     };
 
     return (
