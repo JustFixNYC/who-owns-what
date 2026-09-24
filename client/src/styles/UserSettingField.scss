@@ -9,6 +9,22 @@
 }
 
 // Same OTP cell geometry as Login (StandalonePage content width is 21rem).
-.UserSetting.email-change-code .otp-input {
-  max-width: 21rem;
+.UserSetting.email-change-code {
+  .otp-input {
+    max-width: 21rem;
+    margin: 1rem 0 1.625rem;
+  }
+
+  .code-entry-resend,
+  .code-entry-error {
+    align-self: normal;
+  }
+
+  .code-entry-error {
+    font-size: 0.875rem;
+  }
+
+  .submit-button-group.user-setting-actions {
+    margin-top: 1rem;
+  }
 }

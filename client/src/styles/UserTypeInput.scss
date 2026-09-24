@@ -13,13 +13,19 @@
     background-color: white;
   }
 
+  .jfcl-radio-button:last-child {
+    margin-bottom: 0;
+  }
+
   .jfcl-text-input {
+    margin: 0.5rem 0 0;
     label {
       display: none;
     }
   }
   input[type="text"] {
-    margin: 0 1.75rem 0 1.75rem;
+    margin-left: 1.75rem;
+    max-width: stretch;
     font-size: 1rem; // below 16px zooms on mobile
     @include wow-body-standard;
   }

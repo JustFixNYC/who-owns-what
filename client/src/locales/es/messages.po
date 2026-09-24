@@ -38,16 +38,16 @@ msgstr "#QuiénEsElPropietario por @JustFixOrg"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
-#: src/components/DetailView.tsx:244
+#: src/components/DetailView.tsx:242
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
-#: src/components/DetailView.tsx:226
+#: src/components/DetailView.tsx:224
 #: src/containers/NotRegisteredPage.tsx:104
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducó {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:229
+#: src/components/DetailView.tsx:227
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
@@ -145,7 +145,7 @@ msgstr "<0>Busque una dirección</0> para agregarla a sus alertas por edificio"
 #~ msgid "<0>Search for an address</0> to add to your Building Alerts"
 #~ msgstr "<0>Search for an address</0> to add to your Building Alerts"
 
-#: src/components/Login.tsx:195
+#: src/components/Login.tsx:197
 #: src/containers/UnsubscribePage.tsx:109
 #: src/containers/VerifyEmailPage.tsx:100
 msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to Area Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
@@ -182,7 +182,7 @@ msgstr "<0>Esta propiedad debe estar registrada con en HPD</0> porque tiene más
 #~ msgid "<0>Violations:</0> Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 #~ msgstr "<0>Violations:</0> Violations are documented by city inspectors when they find that a building or landlord has not complied with the law."
 
-#: src/components/DetailView.tsx:87
+#: src/components/DetailView.tsx:85
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "\"<0>Aunque el propietario legal de un edificio suele ser una empresa (generalmente una “LLC”), los nombres y las direcciones comerciales registrados en el HPD ofrecen una idea más clara de quién realmente controla el edificio.</0><1>Las personas enumeradas aquí como “Oficial principal” o “Propietario” normalmente tienen una conexión con la propiedad del edificio, mientras que los \"Administradores del lugar\" forman parte de la administración. Dicho eso, estos nombres son autoinformados por el propietario y entonces pueden ser engañosos.</1><2>Aprenda más acerca de registros en el HPD y cómo esta información impulsa esta herramienta en la <3>página “Acerca de”</3>.</2>"
 
@@ -206,7 +206,7 @@ msgstr "<0>Who Owns What</0> de JustFix.<1/>Lea nuestra <2>Política de privacid
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB Violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB Violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "Una infracción del DOB es una notificación de que una propiedad no cumple con la normativa aplicable, generalmente el código de construcción. Las infracciones del DOB suelen estar relacionadas con servicios que afectan a todo el edificio (como ascensores o calderas), con la integridad estructural de la propiedad o con construcciones ilegales. Los propietarios deben corregir todas las infracciones del DOB antes de poder presentar un Certificado de Ocupación (CO) nuevo o enmendado.<0/><1/><2>No-ECB</2>: infracción típica; no requiere audiencia judicial.<3/><4>ECB (Environment Control Board)</4>: infracción específica del Código de Construcción o de la Resolución de Zonificación de la Ciudad de Nueva York. Estas infracciones conllevan sanciones adicionales y requieren que el propietario asista a una <5>audiencia ante la OATH</5>. Se clasifican en tres categorías: Clase I (inmediatamente peligrosa), Clase II (grave) y Clase III (menor).<6/><7/>Obtenga más información sobre las infracciones del DOB en la <8>página oficial del DOB</8>."
 
-#: src/components/DetailView.tsx:63
+#: src/components/DetailView.tsx:62
 msgid "A building can be known by more than one street address. We show these addresses because city records may use different addresses to identify the same building. This helps you find all of the records associated with the property."
 msgstr "Un edificio puede tener más de una dirección. Mostramos estas direcciones porque en los registros municipales se pueden utilizar diferentes direcciones para identificar el mismo edificio. Esto te ayuda a encontrar todos los registros relacionados con la propiedad."
 
@@ -398,7 +398,7 @@ msgstr "De momento, no podemos ofrecer alertas para estos edificios porque el ay
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "TIMBRE/INTERCOMUNICADOR"
 
-#: src/components/DetailView.tsx:167
+#: src/components/DetailView.tsx:165
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
@@ -470,13 +470,13 @@ msgstr "Los edificios sin un registro de propiedad válido están sujetos a lo s
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:308
-#: src/components/DetailView.tsx:317
+#: src/components/DetailView.tsx:306
+#: src/components/DetailView.tsx:315
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:288
-#: src/components/DetailView.tsx:297
+#: src/components/DetailView.tsx:286
+#: src/components/DetailView.tsx:295
 msgid "Business Entities"
 msgstr "Entidades comerciales"
 
@@ -515,9 +515,9 @@ msgstr "Cambio en unidades con renta estabilizada"
 
 #: src/components/DetailView.tsx:27
 msgid "Check out the issues in this building"
-msgstr "Mire los problemas en este edificio"
+msgstr "Mire los problemas en este edificio<<<<<<< HEAD"
 
-#: src/components/CodeEntry.tsx:58
+#: src/components/CodeEntry.tsx:57
 msgid "Check your email"
 msgstr "Revise su correo electrónico"
 
@@ -625,9 +625,9 @@ msgstr "\"Haga clic aquí para obtener más información.\""
 
 #: src/components/CloseButton.tsx:10
 #: src/components/DetailView.tsx:60
-#: src/components/DetailView.tsx:82
+#: src/components/DetailView.tsx:81
 #: src/components/FeatureCalloutWidget.tsx:61
-#: src/containers/App.tsx:249
+#: src/components/LoginBanner.tsx:20
 msgid "Close"
 msgstr "Cerrar"
 
@@ -746,9 +746,9 @@ msgstr "Sitio Demo"
 #: src/components/EmailAlertSignup.tsx:30
 #: src/components/UserSettingField.tsx:104
 #~ msgid "Didn’t get the link?"
-#~ msgstr "Didn’t get the link?"
+#~ msgstr "Didn’t get the link?<<<<<<< HEAD"
 
-#: src/components/CodeEntry.tsx:71
+#: src/components/CodeEntry.tsx:70
 #: src/components/EmailAlertSignup.tsx:84
 #: src/components/UserSettingField.tsx:154
 msgid "Didn’t receive a code?"
@@ -815,9 +815,9 @@ msgstr "Editar"
 
 #: src/components/SocialShare.tsx:19
 msgid "Email"
-msgstr "Correo"
+msgstr "Correo<<<<<<< HEAD"
 
-#: src/components/Login.tsx:367
+#: src/components/Login.tsx:379
 #: src/components/UserSettingField.tsx:162
 #: src/components/UserSettingField.tsx:168
 #: src/components/UserSettingField.tsx:177
@@ -1139,7 +1139,7 @@ msgstr "Esconder leyenda"
 msgid "How are the results calculated?"
 msgstr "¿Cómo se calculan los resultados?"
 
-#: src/components/DetailView.tsx:111
+#: src/components/DetailView.tsx:109
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a esta cartera de propiedades?"
 
@@ -1224,7 +1224,7 @@ msgstr "No elegible para certificar infracciones"
 msgid "Information"
 msgstr "Información"
 
-#: src/containers/App.tsx:263
+#: src/components/LoginBanner.tsx:34
 msgid "Instead, we’ll send a one-time passcode to the email address associated with your account. Your account and saved information will stay the same."
 msgstr "En su lugar, te enviaremos un código de acceso único a la dirección de correo electrónico asociada a tu cuenta. Tu cuenta y la información guardada seguirán siendo las mismas."
 
@@ -1293,17 +1293,17 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.tsx:221
+#: src/components/DetailView.tsx:219
 #: src/containers/NotRegisteredPage.tsx:99
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
-#: src/components/DetailView.tsx:234
+#: src/components/DetailView.tsx:232
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
 #: src/components/DetailView.tsx:60
-#: src/components/DetailView.tsx:82
+#: src/components/DetailView.tsx:81
 msgid "Learn more"
 msgstr "Obtenga más información"
 
@@ -1359,9 +1359,9 @@ msgstr "Ubicación"
 #: src/containers/App.tsx:157
 #: src/containers/BuildingAlertsPage.tsx:169
 msgid "Log in"
-msgstr "Iniciar sesión"
+msgstr "Iniciar sesión<<<<<<< HEAD"
 
-#: src/components/Login.tsx:323
+#: src/components/Login.tsx:326
 msgid "Log in / Sign up"
 msgstr "Iniciar sesión / Registrarse"
 
@@ -1369,11 +1369,11 @@ msgstr "Iniciar sesión / Registrarse"
 #~ msgid "Log in / Sign up to get your weekly email update"
 #~ msgstr "Log in / Sign up to get your weekly email update"
 
-#: src/containers/LoginPage.tsx:29
+#: src/containers/LoginPage.tsx:30
 msgid "Log in / sign up"
-msgstr "Iniciar sesión / Registrarse"
+msgstr "Iniciar sesión / Registrarse<<<<<<< HEAD"
 
-#: src/components/Login.tsx:320
+#: src/components/Login.tsx:323
 msgid "Log in or sign up to get weekly email updates on this building."
 msgstr "Inicia sesión o regístrate para recibir actualizaciones semanales por correo electrónico sobre este edificio."
 
@@ -1477,6 +1477,10 @@ msgstr "Mapa"
 #~ msgid "Map of {0}"
 #~ msgstr "Map of {0}"
 
+#: src/components/Login.tsx:356
+msgid "Map showing location of this building."
+msgstr ""
+
 #: src/components/MinMaxSelect.tsx:205
 msgid "Max must be greater than 0"
 msgstr "Máx debe ser mayor que 0"
@@ -1522,7 +1526,7 @@ msgstr "Mín debe ser menor que {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "Más útil para dispositivos móviles"
 
-#: src/components/DetailView.tsx:178
+#: src/components/DetailView.tsx:176
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes ante el 311 en los últimos 3 años"
 
@@ -1603,7 +1607,7 @@ msgstr "Nuevo enlace enviado"
 #~ msgstr "New password"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/Login.tsx:336
+#: src/components/Login.tsx:339
 msgid "Next"
 msgstr "Siguiente"
 
@@ -1648,7 +1652,7 @@ msgstr "No relacionado con ECB"
 msgid "Non-Emergency"
 msgstr "No urgente"
 
-#: src/components/DetailView.tsx:186
+#: src/components/DetailView.tsx:184
 msgid "None"
 msgstr "Ninguna"
 
@@ -1686,7 +1690,7 @@ msgstr "Oficial"
 #~ msgid "Once your email has been verified, you’ll be signed up for Data Updates."
 #~ msgstr "Once your email has been verified, you’ll be signed up for Data Updates."
 
-#: src/containers/App.tsx:255
+#: src/components/LoginBanner.tsx:26
 msgid "One time passcodes"
 msgstr "Códigos de acceso de un solo uso"
 
@@ -1776,17 +1780,17 @@ msgstr "Página"
 #~ msgid "Password reset successful"
 #~ msgstr "Password reset successful"
 
-#: src/components/DetailView.tsx:328
-#: src/components/DetailView.tsx:338
+#: src/components/DetailView.tsx:326
+#: src/components/DetailView.tsx:336
 msgid "People"
 msgstr "Personas"
 
 #: src/components/PortfolioFilters.tsx:135
 #: src/components/PortfolioTable.tsx:193
 msgid "Person/Entity"
-msgstr "Persona/Entidad"
+msgstr "Persona/Entidad<<<<<<< HEAD"
 
-#: src/components/Login.tsx:369
+#: src/components/Login.tsx:381
 msgid "Phone number (optional)"
 msgstr "Número de teléfono (opcional)"
 
@@ -1926,9 +1930,9 @@ msgstr "Las unidades con renta estabilizada son declaradas por los propietarios 
 
 #: src/containers/ResetPasswordPage.tsx:79
 #~ msgid "Request new link"
-#~ msgstr "Request new link"
+#~ msgstr "Request new link<<<<<<< HEAD"
 
-#: src/components/CodeEntry.tsx:73
+#: src/components/CodeEntry.tsx:72
 #: src/components/EmailAlertSignup.tsx:85
 #: src/components/UserSettingField.tsx:155
 msgid "Resend"
@@ -2093,7 +2097,7 @@ msgstr "Enviar un nuevo enlace"
 #~ msgid "Share this page with your neighbors"
 #~ msgstr "Share this page with your neighbors"
 
-#: src/components/DetailView.tsx:259
+#: src/components/DetailView.tsx:257
 #: src/components/EngagementPanel.tsx:11
 #: src/components/PropertiesSummary.tsx:91
 #: src/containers/NotRegisteredPage.tsx:19
@@ -2142,9 +2146,9 @@ msgstr "Mostrar {0} {1, plural, one {resultado} other {resultados}}"
 
 #: src/containers/App.tsx:112
 #~ msgid "Sign out"
-#~ msgstr "Sign out"
+#~ msgstr "Sign out<<<<<<< HEAD"
 
-#: src/components/Login.tsx:343
+#: src/components/Login.tsx:346
 #: src/components/Subscribe.tsx:81
 msgid "Sign up"
 msgstr "Regístrese"
@@ -2161,10 +2165,10 @@ msgstr "Regístrese"
 
 #: src/containers/AccountSettingsPage.tsx:48
 #~ msgid "Sign up for Data Updates on the buildings you choose:"
-#~ msgstr "Sign up for Data Updates on the buildings you choose:"
+#~ msgstr "Sign up for Data Updates on the buildings you choose:<<<<<<< HEAD"
 
-#: src/components/Login.tsx:333
-#: src/components/Login.tsx:340
+#: src/components/Login.tsx:336
+#: src/components/Login.tsx:343
 msgid "Sign up for Email Alerts"
 msgstr "Suscríbase a las alertas por correo electrónico"
 
@@ -2213,7 +2217,7 @@ msgstr "Vendido"
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Sin embargo, algunas grandes corporaciones son un poco más complejas y pueden compartir personal y participación financiera con otras empresas relacionadas, que en Who Owns What aparecerán agrupadas en una cartera de propiedades."
 
-#: src/components/Login.tsx:51
+#: src/components/Login.tsx:53
 #: src/components/UserSettingField.tsx:42
 msgid "Something went wrong. Please try again."
 msgstr "Ha habido un error. Inténtalo de nuevo, por favor."
@@ -2250,7 +2254,7 @@ msgstr "Código fuente"
 #~ msgid "Starting September 3, Who Owns What now uses one-time passcodes for a seamless login."
 #~ msgstr "Starting September 3, Who Owns What now uses one-time passcodes for a seamless login."
 
-#: src/containers/App.tsx:241
+#: src/components/LoginBanner.tsx:12
 msgid "Starting September 3, Who Owns What will use a one-time passcode instead of a password to log in. <0>Learn more</0>"
 msgstr "A partir del 3 de septiembre, «Who Owns What» usará un código de acceso único en lugar de una contraseña para iniciar sesión. <0>Más información</0>"
 
@@ -2264,29 +2268,29 @@ msgstr "Distrito de la Asamblea estatal"
 
 #: src/util/helpers.ts:66
 msgid "State Senate District"
-msgstr "Distrito del Senado estatal"
+msgstr "Distrito del Senado estatal<<<<<<< HEAD"
+
+#: src/components/Login.tsx:324
+#~ msgid "Step 1 of 2"
+#~ msgstr "Paso 1 de 2>>>>>>> master"
+
+#: src/components/Login.tsx:335
+msgid "Step 1 of 3"
+msgstr "Step 1 of 3<<<<<<< HEAD"
+
+#: src/components/Login.tsx:331
+#~ msgid "Step 2 of 2"
+#~ msgstr "Paso 2 de 2>>>>>>> master"
+
+#: src/components/Login.tsx:342
+msgid "Step 2 of 3"
+msgstr "Step 2 of 3"
+
+#: src/components/Login.tsx:350
+msgid "Step 3 of 3"
+msgstr "Step 3 of 3<<<<<<< HEAD"
 
 #: src/components/Login.tsx:332
-msgid "Step 1 of 2"
-msgstr "Paso 1 de 2"
-
-#: src/components/Login.tsx:354
-#~ msgid "Step 1 of 3"
-#~ msgstr "Step 1 of 3"
-
-#: src/components/Login.tsx:339
-msgid "Step 2 of 2"
-msgstr "Paso 2 de 2"
-
-#: src/components/Login.tsx:360
-#~ msgid "Step 2 of 3"
-#~ msgstr "Step 2 of 3"
-
-#: src/components/Login.tsx:367
-#~ msgid "Step 3 of 3"
-#~ msgstr "Step 3 of 3"
-
-#: src/components/Login.tsx:329
 msgid "Submit"
 msgstr "Enviar"
 
@@ -2339,7 +2343,7 @@ msgstr "Los inquilinos han reportado un total de <0>{totalhpdcomplaints}</0> {to
 msgid "Terms of use"
 msgstr "Términos de uso"
 
-#: src/components/Login.tsx:41
+#: src/components/Login.tsx:43
 #: src/components/UserSettingField.tsx:31
 msgid "That code has expired. Request a new one."
 msgstr "Ese código ha caducado. Pide uno nuevo."
@@ -2389,7 +2393,7 @@ msgstr "Nombrado por el Defensor Público de la Ciudad de Nueva York como el <0>
 #~ msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 #~ msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
-#: src/components/Login.tsx:39
+#: src/components/Login.tsx:41
 #: src/components/UserSettingField.tsx:29
 msgid "The code you entered is incorrect."
 msgstr "El código que has introducido es incorrecto."
@@ -2598,12 +2602,12 @@ msgstr "Para eliminar un código postal, barrio, distrito o sector censal de sus
 msgid "To start: select an area here or on the map."
 msgstr "Para empezar: seleccione una zona aquí o en el mapa."
 
-#: src/components/Login.tsx:43
+#: src/components/Login.tsx:45
 #: src/components/UserSettingField.tsx:33
 msgid "Too many attempts. Request a new code."
 msgstr "Demasiados intentos. Pide un nuevo código."
 
-#: src/components/Login.tsx:45
+#: src/components/Login.tsx:47
 #: src/components/UserSettingField.tsx:35
 msgid "Too many requests. Please try again later."
 msgstr "Demasiadas solicitudes. Inténtalo de nuevo más tarde."
@@ -2700,13 +2704,13 @@ msgstr "Utilice la tecla \"Tab\". para navegar. Pulse la tecla \"Intro.\" para s
 
 #: src/components/Page.tsx:9
 msgid "Use this free tool from JustFix to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
-msgstr "Utilice esta herramienta gratuita de JustFix para buscar su edificio e investigar a los arrendadores. Utilizamos el mapeo de propietarios de propiedades para identificar la cartera de propiedades de un arrendador y proporcionar información para indicar posibles casos de acoso y desplazamiento de inquilinos."
+msgstr "Utilice esta herramienta gratuita de JustFix para buscar su edificio e investigar a los arrendadores. Utilizamos el mapeo de propietarios de propiedades para identificar la cartera de propiedades de un arrendador y proporcionar información para indicar posibles casos de acoso y desplazamiento de inquilinos.<<<<<<< HEAD"
 
-#: src/components/Login.tsx:325
+#: src/components/Login.tsx:328
 msgid "Use your account to get weekly email alerts on the areas you select."
 msgstr "Usa tu cuenta para recibir alertas semanales por correo electrónico sobre las áreas que elijas."
 
-#: src/components/Login.tsx:326
+#: src/components/Login.tsx:329
 msgid "Use your account to get weekly email alerts on the buildings you select."
 msgstr "Usa tu cuenta para recibir alertas semanales por correo electrónico sobre los edificios que elijas."
 
@@ -2745,9 +2749,9 @@ msgstr "VENTILADORES"
 
 #: src/components/CodeEntry.tsx:73
 #~ msgid "Verification code"
-#~ msgstr "Verification code"
+#~ msgstr "Verification code<<<<<<< HEAD"
 
-#: src/components/CodeEntry.tsx:80
+#: src/components/CodeEntry.tsx:79
 msgid "Verify"
 msgstr "Comprueba"
 
@@ -2832,7 +2836,7 @@ msgstr "Ver en Google Maps"
 msgid "View portfolio"
 msgstr "Ver cartera de propiedades"
 
-#: src/components/DetailView.tsx:160
+#: src/components/DetailView.tsx:158
 msgid "View portfolio map"
 msgstr "Ver mapa de la cartera de propiedades"
 
@@ -2873,7 +2877,7 @@ msgstr "VENTANAS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:213
+#: src/components/DetailView.tsx:211
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del vencimiento del registro. La información del arrendador que se incluye aquí puede estar desactualizada."
 
@@ -2881,20 +2885,20 @@ msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del
 msgid "We apologize for the inconvenience."
 msgstr "Nos disculpamos por las molestias."
 
-#: src/components/DetailView.tsx:115
+#: src/components/DetailView.tsx:113
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscó con una base de datos de más de 200 mil edificios para identificar a un arrendador o una cartera compañía de administración. Para obtener más información, consulte <0>nuestra metodología</0>."
 
-#: src/components/Login.tsx:47
+#: src/components/Login.tsx:49
 #: src/components/UserSettingField.tsx:39
 msgid "We couldn't send the email. Please try again."
 msgstr "No hemos podido enviar el correo. Inténtalo de nuevo."
 
-#: src/components/Login.tsx:191
+#: src/components/Login.tsx:193
 msgid "We have added Area Alerts to your weekly emails. Visit your <0>email settings</0> to manage Area Alerts."
 msgstr "Hemos añadido Alertas por zona a sus correos electrónicos semanales. Visite la página de <0>Configuración de correo electrónico</0> para administrar sus Alertas por zona."
 
-#: src/components/Login.tsx:169
+#: src/components/Login.tsx:171
 msgid "We no longer use passwords — enter your email for a code or link."
 msgstr "Ya no usamos contraseñas: introduce tu correo para recibir un código o un enlace."
 
@@ -2924,9 +2928,9 @@ msgstr "Te mandamos alertas a este correo."
 
 #: src/components/UserSettingField.tsx:107
 #~ msgid "We send data updates to this email."
-#~ msgstr "We send data updates to this email."
+#~ msgstr "We send data updates to this email.<<<<<<< HEAD"
 
-#: src/components/CodeEntry.tsx:62
+#: src/components/CodeEntry.tsx:61
 #: src/components/EmailAlertSignup.tsx:80
 msgid "We sent a new code to <0>{email}</0>"
 msgstr "Te hemos enviado un nuevo código a <0>{email}</0>"
@@ -2937,13 +2941,13 @@ msgstr "Te hemos enviado un nuevo código a <0>{oldEmail}</0>"
 
 #: src/containers/ForgotPasswordPage.tsx:63
 #~ msgid "We sent a reset link to {email}. Please check your inbox and spam."
-#~ msgstr "We sent a reset link to {email}. Please check your inbox and spam."
+#~ msgstr "We sent a reset link to {email}. Please check your inbox and spam.<<<<<<< HEAD"
 
-#: src/components/CodeEntry.tsx:64
+#: src/components/CodeEntry.tsx:63
 msgid "We sent your code to <0>{email}</0>"
 msgstr "Te hemos enviado tu código a <0>{email}</0>"
 
-#: src/components/Login.tsx:334
+#: src/components/Login.tsx:337
 msgid "We’ll text you in a few months to ask how we can improve this free service."
 msgstr "Le enviaremos un mensaje de texto en unos meses para preguntarle cómo podemos mejorar este servicio gratuito."
 
@@ -3006,9 +3010,9 @@ msgstr "¿Cuál es la diferencia entre un arrendador, un propietario y un oficia
 
 #: src/components/PortfolioAlerts.tsx:45
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
-msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte de la misma cartera."
+msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte de la misma cartera.<<<<<<< HEAD"
 
-#: src/components/Login.tsx:341
+#: src/components/Login.tsx:344
 msgid "Which best describes you?"
 msgstr "¿Cuál de estas opciones lo describe mejor a usted?"
 
@@ -3059,7 +3063,7 @@ msgstr "Who owns what"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "¿Quién es responsable por los problemas en su departamento y edificio? #WhoOwnsWhat le ayuda a investigar a los propietarios de propiedades en NYC usando datos públicos y abiertos. Una herramienta gratuita elaborada por @JustFixNYC que funciona en cualquier dispositivo que tenga internet. Busque su dirección aquí:"
 
-#: src/components/DetailView.tsx:193
+#: src/components/DetailView.tsx:191
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el arrendador de este edificio?"
 
@@ -3088,7 +3092,7 @@ msgstr "También tienes derecho a organizarte con tus vecinos y a ejercer tus de
 #~ msgid "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
 #~ msgstr "You also have a right to organize with your neighbors to assert your rights. <0>Learn more</0> about your right to organize."
 
-#: src/components/Login.tsx:190
+#: src/components/Login.tsx:192
 #: src/containers/AccountSettingsPage.tsx:104
 #: src/containers/VerifyEmailPage.tsx:99
 msgid "You are logged in"
@@ -3205,7 +3209,7 @@ msgstr "Ha alcanzado el número máximo de Alertas por Edificios"
 #~ msgid "You have reached the maximum number of building updates"
 #~ msgstr "You have reached the maximum number of building updates"
 
-#: src/containers/App.tsx:259
+#: src/components/LoginBanner.tsx:30
 msgid "You no longer need a password to log in to Who Owns What."
 msgstr "Ya no necesitas una contraseña para iniciar sesión en Who Owns What."
 
@@ -3253,7 +3257,7 @@ msgstr "Este correo electrónico ya está verificado"
 #~ msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 #~ msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 
-#: src/components/Login.tsx:175
+#: src/components/Login.tsx:177
 msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
 msgstr "Su privacidad es importante a nosotros. Lea nuestra <0>Política de privacidad</0> y <1>Términos de uso</1>."
 
@@ -3351,7 +3355,7 @@ msgstr "edificios"
 #~ msgid "districts"
 #~ msgstr "districts"
 
-#: src/components/DetailView.tsx:238
+#: src/components/DetailView.tsx:236
 msgid "for ${0}"
 msgstr "por ${0}"
 

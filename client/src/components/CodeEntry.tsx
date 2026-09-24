@@ -4,7 +4,6 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { Button } from "@justfixnyc/component-library";
 
 import { OtpInput, OTP_LENGTH } from "./OtpInput";
-import { Nobr } from "./Nobr";
 
 import "styles/CodeEntry.css";
 
@@ -69,11 +68,11 @@ const CodeEntryWithoutI18n = (props: CodeEntryProps) => {
         <span role="status" aria-live="polite">
           {codeResent ? (
             <Trans>
-              We sent a new code to <Nobr>{email}</Nobr>
+              We sent a new code to <span className="code-entry-email">{email}</span>
             </Trans>
           ) : (
             <Trans>
-              We sent your code to <Nobr>{email}</Nobr>
+              We sent your code to <span className="code-entry-email">{email}</span>
             </Trans>
           )}
         </span>
