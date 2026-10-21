@@ -3,9 +3,9 @@ export type LatLng = [number, number];
 export type BoundingBox = [LatLng, LatLng];
 
 const mapping = {
-  // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
+  // Missing coordinates are represented as NaN; infinite values are unmappable too.
   latLngIsNull(latlng: LatLng): boolean {
-    return latlng.filter(isNaN).length > 0;
+    return latlng.some((coordinate) => !Number.isFinite(coordinate));
   },
 
   getBoundingBox(latlngs: LatLng[], defaultBox: BoundingBox): BoundingBox {
