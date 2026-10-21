@@ -2,7 +2,8 @@ import React, { useCallback, useState } from "react";
 import Select, {
   components,
   Props,
-  ContainerProps,
+  ValueContainerProps,
+  MultiValueProps,
   GroupBase,
   MultiValueRemoveProps,
   OptionProps,
@@ -13,9 +14,6 @@ import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import classnames from "classnames";
 import { Button, Icon } from "@justfixnyc/component-library";
-
-// Example of separating out selected values
-// https://github.com/JedWatson/react-select/discussions/4850
 
 export type Option = {
   value: string;
@@ -33,7 +31,6 @@ interface CustomMultiselectProps {
 }
 
 interface CustomSelectProps {
-  removeValue: (removed: any) => void;
   onApply: (selectedList: any) => void;
   setSelections: (x: any) => void;
   previewSelectedNum: number;
@@ -100,13 +97,6 @@ function MultiSelect<
     [onInputChange]
   );
 
-  // Passing custom prop to make accessible to child compnents via selectProps
-  const removeValue = useCallback(
-    // @ts-ignore (value isn't recognizing the available properties of Option type)
-    (removed) => setSelections(selections.filter((v) => v.value !== removed.value)),
-    [selections]
-  );
-
   const handleApply = () => {
     // @ts-ignore (value isn't recognizing the available properties of Option type)
     const selectedValues: string[] = selections.map((v) => (v.value || v.label).toString());
@@ -137,7 +127,6 @@ function MultiSelect<
             inputValue={inputValue}
             onInputChange={handleInputChange}
             placeholder={i18n._(t`Search`) + `... (${options!.length})`}
-            controlShouldRenderValue={false}
             hideSelectedOptions={false}
             openMenuOnFocus={true}
             closeMenuOnSelect={false}
@@ -149,12 +138,16 @@ function MultiSelect<
               IndicatorSeparator: () => null,
               IndicatorsContainer: () => null,
               ClearIndicator: () => null,
-              SelectContainer: SelectContainer,
+              ValueContainer: CustomValueContainer,
+              MultiValueRemove: CustomMultiValueRemove,
               Option: CustomOption,
               Input: CustomInput,
             }}
+            classNames={{
+              multiValue: ({ isFocused }) =>
+                classnames({ "multiselect__multi-value--is-focused": isFocused }),
+            }}
             // Custom props passed through SelectProps to composable components
-            removeValue={removeValue}
             onApply={onApply}
             setSelections={setSelections}
             showAllSelections={showAllSelections}
@@ -181,89 +174,11 @@ function MultiSelect<
   );
 }
 
-function SelectedValuesContainer<
+function CustomValueContainer<
   Option,
   IsMulti extends boolean = true,
   GroupType extends GroupBase<Option> = GroupBase<Option>
->({ isDisabled, getValue, ...props }: ContainerProps<Option, IsMulti, GroupType>) {
-  const {
-    getOptionValue,
-    removeValue,
-    classNamePrefix,
-    showAllSelections,
-    setShowAllSelections,
-    previewSelectedNum,
-  } = props.selectProps as Props<Option, IsMulti, GroupType> & CustomSelectProps;
-
-  const getKey = (opt: Option, index: number) =>
-    `${getOptionValue ? getOptionValue(opt) : "option"}-${index}`;
-
-  const toMultiValue = (opt: Option, index: number) => {
-    return (
-      <components.MultiValue
-        getValue={getValue}
-        {...props}
-        components={{
-          Container: components.MultiValueContainer,
-          Label: components.MultiValueLabel,
-          Remove: CustomMultiValueRemove,
-        }}
-        isDisabled={isDisabled}
-        key={getKey(opt, index)}
-        index={index}
-        removeProps={{
-          onClick: () => removeValue(opt),
-          onTouchEnd: () => removeValue(opt),
-          onMouseDown: (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          },
-        }}
-        data={opt}
-      >
-        {/* @ts-ignore (value isn't recognizing the available properties of Option type) */}
-        {opt.label}
-      </components.MultiValue>
-    );
-  };
-
-  const numSelections = getValue().length;
-
-  return (
-    <I18n>
-      {({ i18n }) => (
-        <div className={`${classNamePrefix}__selected-value-container`}>
-          {getValue()
-            .map(toMultiValue)
-            .filter((_value, i) => showAllSelections || i < previewSelectedNum)}
-          {!showAllSelections && numSelections > previewSelectedNum && (
-            <button
-              className={`${classNamePrefix}__show-more-button`}
-              aria-label={i18n._(t`Show all ${numSelections} selections`)}
-              onClick={() => setShowAllSelections((prev: boolean) => !prev)}
-            >
-              +{numSelections - previewSelectedNum}
-            </button>
-          )}
-        </div>
-      )}
-    </I18n>
-  );
-}
-
-function SelectContainer<
-  Option,
-  IsMulti extends boolean = true,
-  GroupType extends GroupBase<Option> = GroupBase<Option>
->({
-  children,
-  className,
-  innerProps,
-  isFocused,
-  ...commonProps
-}: ContainerProps<Option, IsMulti, GroupType>) {
-  const selectContainerProps = { ...commonProps };
-  const { getValue } = commonProps;
+>({ children, ...props }: ValueContainerProps<Option, IsMulti, GroupType>) {
   const {
     classNamePrefix,
     onApply,
@@ -271,47 +186,77 @@ function SelectContainer<
     previewSelectedNum,
     showAllSelections,
     setShowAllSelections,
-  } = commonProps.selectProps as Props<Option, IsMulti, GroupType> & CustomSelectProps;
+  } = props.selectProps as Props<Option, IsMulti, GroupType> & CustomSelectProps;
+
+  // Keep the native values so focus, removal, and accessibility stay in sync.
+  // react-select renders its values (or placeholder) followed by the input.
+  const values = React.Children.toArray(children);
+  const input = values.pop();
+  const hasFocusedValue = values.some(
+    (value) =>
+      React.isValidElement<MultiValueProps<Option, IsMulti, GroupType>>(value) &&
+      value.props.isFocused
+  );
+  const showValues = showAllSelections || hasFocusedValue;
+  const numSelections = props.getValue().length;
 
   return (
-    <components.SelectContainer
-      className={className}
-      innerProps={innerProps}
-      isFocused={isFocused}
-      {...selectContainerProps}
-    >
-      {/* @ts-ignore (wants extra props defined like above, but since were an extra level nested it's unclear what they should be) */}
-      <SelectedValuesContainer {...commonProps} />
-
+    <>
       <I18n>
         {({ i18n }) => (
-          <div className={`${classNamePrefix}__selected-value-control-container`}>
-            {showAllSelections && getValue().length > previewSelectedNum && (
-              <button
-                className={`${classNamePrefix}__show-less-button button is-text`}
-                onClick={() => setShowAllSelections((prev: boolean) => !prev)}
-                aria-label={i18n._(t`Show only ${previewSelectedNum} selections`)}
-              >
-                <Trans>Show less</Trans>
-              </button>
-            )}
-            {getValue().length > 0 && (
-              <button
-                className={`${classNamePrefix}__clear-value-button button is-text`}
-                aria-label={i18n._(t`Clear all selections`)}
-                onClick={() => {
-                  setSelections([]);
-                  onApply([]);
-                }}
-              >
-                <Trans>Clear selections</Trans>
-              </button>
-            )}
-          </div>
+          <>
+            <div
+              className={`${classNamePrefix}__selected-value-container`}
+              onMouseDown={(event) => event.stopPropagation()}
+              onTouchEnd={(event) => event.stopPropagation()}
+            >
+              {props.hasValue &&
+                values.filter((_value, index) => showValues || index < previewSelectedNum)}
+              {!showValues && numSelections > previewSelectedNum && (
+                <button
+                  className={`${classNamePrefix}__show-more-button`}
+                  aria-label={i18n._(t`Show all ${numSelections} selections`)}
+                  onClick={() => setShowAllSelections(true)}
+                >
+                  +{numSelections - previewSelectedNum}
+                </button>
+              )}
+            </div>
+            <div
+              className={`${classNamePrefix}__selected-value-control-container`}
+              onMouseDown={(event) => event.stopPropagation()}
+              onTouchEnd={(event) => event.stopPropagation()}
+            >
+              {showAllSelections && numSelections > previewSelectedNum && (
+                <button
+                  className={`${classNamePrefix}__show-less-button button is-text`}
+                  onClick={() => setShowAllSelections(false)}
+                  aria-label={i18n._(t`Show only ${previewSelectedNum} selections`)}
+                >
+                  <Trans>Show less</Trans>
+                </button>
+              )}
+              {numSelections > 0 && (
+                <button
+                  className={`${classNamePrefix}__clear-value-button button is-text`}
+                  aria-label={i18n._(t`Clear all selections`)}
+                  onClick={() => {
+                    setSelections([]);
+                    onApply([]);
+                  }}
+                >
+                  <Trans>Clear selections</Trans>
+                </button>
+              )}
+            </div>
+          </>
         )}
       </I18n>
-      {children}
-    </components.SelectContainer>
+      <components.ValueContainer {...props}>
+        {!props.hasValue && values}
+        {input}
+      </components.ValueContainer>
+    </>
   );
 }
 
@@ -337,6 +282,11 @@ function CustomInput<
     <>
       <components.Input
         {...props}
+        placeholder={
+          props.hasValue && typeof props.selectProps.placeholder === "string"
+            ? props.selectProps.placeholder
+            : undefined
+        }
         aria-autocomplete="none"
         autoComplete="off"
         aria-describedby={id}
