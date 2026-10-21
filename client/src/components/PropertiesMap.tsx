@@ -268,17 +268,19 @@ class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
 
     // cycle through addrs, adding them to the set and categorizing them
     this.filterAddresses(assocAddrs, searchAddr).forEach((addr, i) => {
-      const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
+      const pos: LatLng = [addr.lng ?? NaN, addr.lat ?? NaN];
 
-      if (!MapHelpers.latLngIsNull(pos)) {
-        addrsPos.add(pos);
+      // Buildings without coordinates still belong in the portfolio, but must
+      // not become map features or contribute to the map's bounds.
+      if (MapHelpers.latLngIsNull(pos)) return;
 
-        // presuming that nextProps.userAddr is in sync with nextProps.addrs
-        if (Helpers.addrsAreEqual(addr, searchAddr)) {
-          addr.mapType = "search";
-        } else {
-          addr.mapType = "base";
-        }
+      addrsPos.add(pos);
+
+      // presuming that nextProps.userAddr is in sync with nextProps.addrs
+      if (Helpers.addrsAreEqual(addr, searchAddr)) {
+        addr.mapType = "search";
+      } else {
+        addr.mapType = "base";
       }
 
       // push a new Feature for the map
@@ -365,10 +367,12 @@ class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
 
   render() {
     const { useNewPortfolioMethod } = this.props.state.context;
-    const { detailAddr } = this.getPortfolioData();
+    const { detailAddr, assocAddrs } = this.getPortfolioData();
     const { locale, logPortfolioAnalytics } = this.props;
     const isMobile = Browser.isMobile();
     const { selectedAddr } = this.state;
+    const detailPos: LatLng = [detailAddr.lng ?? NaN, detailAddr.lat ?? NaN];
+    const selectedPos: LatLng = [selectedAddr?.lng ?? NaN, selectedAddr?.lat ?? NaN];
 
     return (
       <div
@@ -415,7 +419,7 @@ class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
                   <BigPortfolioAlert
                     closeType="session"
                     storageId="map-big-portfolio-alert"
-                    portfolioSize={this.state.addrsPoints.length}
+                    portfolioSize={assocAddrs.length}
                   />
                 </>
               )}
@@ -446,12 +450,12 @@ class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
                   we need to lookup the property pe of this feature from the main addrs array
                   this affects the color of the marker while still outlining it as "selected"
                   */}
-              {this.isOnOverview() && detailAddr.lng && detailAddr.lat && (
+              {this.isOnOverview() && !MapHelpers.latLngIsNull(detailPos) && (
                 <Feature
                   properties={{
                     mapType: this.getMapTypeForAddr(detailAddr),
                   }}
-                  coordinates={[detailAddr.lng, detailAddr.lat]}
+                  coordinates={detailPos}
                 />
               )}
             </Layer>
@@ -460,12 +464,12 @@ class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
               type="circle"
               paint={this.filtersAreActive() ? DYNAMIC_SELECTED_PAINT : DYNAMIC_DETAIL_PAINT}
             >
-              {!this.isOnOverview() && !!selectedAddr && selectedAddr.lng && selectedAddr.lat && (
+              {!this.isOnOverview() && !!selectedAddr && !MapHelpers.latLngIsNull(selectedPos) && (
                 <Feature
                   properties={{
                     mapType: this.getMapTypeForAddr(selectedAddr),
                   }}
-                  coordinates={[selectedAddr.lng, selectedAddr.lat]}
+                  coordinates={selectedPos}
                 />
               )}
             </Layer>

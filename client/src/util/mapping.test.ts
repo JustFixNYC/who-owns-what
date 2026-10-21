@@ -4,7 +4,10 @@ test("latLngIsNull() works", () => {
   expect(mapping.latLngIsNull([NaN, 1])).toBe(true);
   expect(mapping.latLngIsNull([1, NaN])).toBe(true);
   expect(mapping.latLngIsNull([NaN, NaN])).toBe(true);
+  expect(mapping.latLngIsNull([Infinity, 1])).toBe(true);
+  expect(mapping.latLngIsNull([1, -Infinity])).toBe(true);
   expect(mapping.latLngIsNull([1, 2])).toBe(false);
+  expect(mapping.latLngIsNull([0, 0])).toBe(false);
 });
 
 test("getBoundingBox() calculates bounding box", () => {
