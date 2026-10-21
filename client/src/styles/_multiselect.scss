@@ -18,6 +18,7 @@
   gap: 0.75rem;
 
   .multiselect__selected-value-container {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 0.37rem;
@@ -36,6 +37,10 @@
 
     .multiselect__multi-value {
       background-color: $justfix-black;
+      &.multiselect__multi-value--is-focused {
+        outline: 2px solid $justfix-blue;
+        outline-offset: 2px;
+      }
       .multiselect__multi-value__label,
       .multiselect__multi-value__remove {
         color: $justfix-grey-50;
@@ -49,6 +54,7 @@
 
       .multiselect__multi-value__remove {
         padding: 0;
+        background-color: inherit;
         &:hover {
           background-color: inherit;
         }
@@ -66,6 +72,7 @@
     }
   }
   .multiselect__selected-value-control-container {
+    width: 100%;
     display: flex;
     .button.is-text {
       color: $justfix-grey-700;
@@ -114,9 +121,7 @@
           box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        &::placeholder,
-        &::-moz-placeholder,
-        &::-webkit-input-placeholder {
+        .multiselect__input::placeholder {
           color: $justfix-grey-600;
           text-transform: uppercase;
         }
